@@ -1,5 +1,7 @@
 import java.util.Random;
 
+import Item.Item;
+
 public class Level {
 	
 	private String[][] floorSeen;

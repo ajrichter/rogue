@@ -1,4 +1,7 @@
 import java.util.LinkedList;
+
+import Item.Item;
+
 import java.util.HashMap;
 
 public class Inventory {

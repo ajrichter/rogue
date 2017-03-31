@@ -34,6 +34,15 @@ public class Controller extends JFrame implements KeyListener {
 	public void keyPressed (KeyEvent e) {
 		int key = e.getKeyCode();
 		
+		
+		if (key == KeyEvent.VK_SLASH) {
+	        //Tells what the next character you type is
+	    }
+		
+		if (key == KeyEvent.VK_SLASH) {
+	        //Tells what the next character you type is
+	    }
+		
 	    if (key == KeyEvent.VK_H) {
 	    	int[] left = {-1,0};
 	    	System.out.println("left");
@@ -56,6 +65,40 @@ public class Controller extends JFrame implements KeyListener {
 	        int[] down = {0,-1};
 	        System.out.println("down");
 	        game.move(down);
+	    }
+	    
+	    if (key == KeyEvent.VK_Y) {
+	        //Moves diagonally up and left
+	    }
+	    
+	    if (key == KeyEvent.VK_U) {
+	        //Moves diagonally up and right
+	    }
+	    
+	    if (key == KeyEvent.VK_B) {
+	        //Moves diagonally down and left
+	    }
+	    
+	    if (key == KeyEvent.VK_N) {
+	        //Moves diagonally down and right
+	    }
+	    
+	    if (key == KeyEvent.VK_T) {
+	        //Throws an object in the next specified direction
+	    }
+	    
+	    if (key == KeyEvent.VK_F) {
+	        //Fights until someone dies
+	    	//Given a direction, fight the enemy in that direction
+	    }
+	    
+	    if (key == KeyEvent.VK_M) {
+	        //Move onto something without picking it up
+	    	//must be given a direction after and only moves one step without picking it up
+	    }
+	    
+	    if (key == KeyEvent.VK_Z) {
+	        //uses a wand or stave, but must be pointed in a direction
 	    }
 	    
 	}
