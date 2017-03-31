@@ -67,22 +67,6 @@ public class Controller extends JFrame implements KeyListener {
 	        game.move(down);
 	    }
 	    
-	    if (key == KeyEvent.VK_Y) {
-	        //Moves diagonally up and left
-	    }
-	    
-	    if (key == KeyEvent.VK_U) {
-	        //Moves diagonally up and right
-	    }
-	    
-	    if (key == KeyEvent.VK_B) {
-	        //Moves diagonally down and left
-	    }
-	    
-	    if (key == KeyEvent.VK_N) {
-	        //Moves diagonally down and right
-	    }
-	    
 	    if (key == KeyEvent.VK_T) {
 	        //Throws an object in the next specified direction
 	    }
