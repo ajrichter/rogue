@@ -1,11 +1,21 @@
 package Item;
 
+import java.util.HashMap;
+/**
+ * 
+ * @author Harry
+ *
+ */
+
 public class Item {
 	protected int armorProtection = 0;
 	protected int strength = 0;
 	protected int damage = 0;
 	protected String carnation; //Cursed, blessed, or normal
-	
+	protected String message;
+	protected String weaponName;
+	protected String boardName;
+	protected HashMap <String, String> item;
 	private static String name; //name of item
 	private static String typeItem; //armor,equipment,ring,food,
 
@@ -15,14 +25,18 @@ public class Item {
 		Item.setTypeItem(typeItem);
 	}
 	
-	public String toString(){
-		return typeItem + " is a " + name;
+
+	public void addItem(Item i) {
+		item = new HashMap <String, String>();
+		item.put(i.getName(), i.typeItem());
 	}
 	
-	//returns name of the item
-	protected String showName(){
-		return getName();
+	public String getItem(String key) 
+	{
+		return item.get(key);
 	}
+	
+	
 	
 	//takes up time to use items
 	protected void wasteTime(){
@@ -38,14 +52,23 @@ public class Item {
 		return typeItem;
 	}
 
+
+	
+
+	
 	public static void setTypeItem(String typeItem) {
 		Item.typeItem = typeItem;
 	}
 
-	public static String getName() {
+	public String getName() {
 		return name;
 	}
 
+	public String toString() {
+		return boardName;
+	}
+	
+	
 	public static void setName(String name) {
 		Item.name = name;
 	}

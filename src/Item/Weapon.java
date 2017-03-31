@@ -1,72 +1,69 @@
 package Item;
 
 public class Weapon extends Item {
-		public Weapon(String name, String typeItem) {
-			super(name, typeItem);
+	DiceRollerItem dice = new DiceRollerItem();
+	
+	private String name;
+	private String typeItem;
+	public Weapon (String name, String typeItem) { 
+		super(name, typeItem);
+		
+		this.boardName= ")";
+		this.name = name;
+		this.typeItem = typeItem;
+	}
 
-		}
-		
-		
-		
-		
-		
-		public void getDamageFromWeapon(String name)
+	
+	public void getDamageFromWeapon()
 		{
-			
-			
-			
-			/** The weapon damage are temporary values! **/
 			if (name.equalsIgnoreCase("Mace"))
 			{
-				damage = 1;
+				
+				damage = dice.rollDie(4) + dice.rollDie(4); //2d4 damage 
 			}
 			else if (name.equalsIgnoreCase("Long Sword"))
 			{
-				damage = 4;
+				damage = dice.rollDie(10); //1d10 damage
 			}
 			else if (name.equalsIgnoreCase("Short Bow"))
 			{
-				damage = 8;
+				damage = 1; //1d1 damage 
 			}
 			else if (name.equalsIgnoreCase("Arrow"))
 			{
-				damage = 16;
+				damage = 1; //1d1 damage
 			}
 			else if (name.equalsIgnoreCase("Dagger"))
 			{
-				damage = 32;
+				damage = dice.rollDie(6); //1d6 damage  
 			}
 			else if (name.equalsIgnoreCase("Rock"))
 			{
-				damage = 5000000;
+				damage = dice.rollDie(2); 
 			}
 			else if (name.equalsIgnoreCase("Two-Handed Sword"))
 			{
-				damage = 5000000;
+				damage = dice.rollDie(6) + dice.rollDie(6) + dice.rollDie(6); 
 			}
 			else if (name.equalsIgnoreCase("Sling"))
 			{
-				damage = 5000000;
+				damage = 0;
 			}
 			else if (name.equalsIgnoreCase("Dart"))
 			{
-				damage = 5000000;
+				damage = 1; 
 			}
 			else if (name.equalsIgnoreCase("Crossbow"))
 			{
-				damage = 5000000;
+				damage = 1;
 			}
 			else if (name.equalsIgnoreCase("Crossbow bolt"))
 			{
-				damage = 5000000;
+				damage = dice.rollDie(2);
 			}
 			else if (name.equalsIgnoreCase("Spear"))
 			{
-				
-			}
-			else
-			{
-				damage = 0;
+				damage = dice.rollDie(8);
 			}
 	
 		}	
@@ -75,13 +72,10 @@ public class Weapon extends Item {
 			return damage;
 		}
 		
-		
-		
+	
 		
 		
 	}
-
-
 
 
 

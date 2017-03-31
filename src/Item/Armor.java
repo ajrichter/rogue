@@ -1,6 +1,13 @@
 package Item;
 
 public class Armor extends Item {
+	/**
+	 * 
+	 * @param name
+	 * @param typeItem
+	 */
+	
+	
 	public Armor(String name, String typeItem) {
 		super(name, typeItem);
 		

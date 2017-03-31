@@ -1,45 +1,33 @@
 package Item;
-
 public class Wand extends Item {
 		public Wand(String name, String typeItem) {
 			super(name, typeItem);
 
 		}
-		//Wands from game:
-		//Light
-		//Drain
-		//Missle
-		//Hit
-		//Haste
-		//Elect
-		//
-		
-		
-		
-		/** Temporary values **/
+
 		public void getEffectFromRings(String name)
 		{
-			if (name.equalsIgnoreCase("Magic Wand"))
+			if (name.equalsIgnoreCase("Light"))
 			{
 				
 			}
-			else if (name.equalsIgnoreCase("Stick from the woods"))
+			else if (name.equalsIgnoreCase("Drain"))
 			{
 				
 			}
-			else if (name.equalsIgnoreCase("Potter's Wand"))
+			else if (name.equalsIgnoreCase("Missle"))
 			{
 				
 			}
-			else if (name.equalsIgnoreCase("Voldemort's Wand"))
+			else if (name.equalsIgnoreCase("Hit"))
 			{
 				
 			}
-			else if (name.equalsIgnoreCase("Wizard's Wand"))
+			else if (name.equalsIgnoreCase("Haste"))
 			{
 			
 			}
-			else if (name.equalsIgnoreCase("Fake Wand"))
+			else if (name.equalsIgnoreCase("Elect"))
 			{
 				
 			}

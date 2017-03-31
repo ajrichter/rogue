@@ -1,65 +1,108 @@
 package Item;
-
 public class Scrolls extends Item {
-	
+	private String name;
+	private String typeItem;
 	public Scrolls(String name, String typeItem) {
 		super(name, typeItem);
-
+		this.boardName = "?";
+		this.name = name; 
+		this.typeItem = typeItem;
 	}
-	/** Here are the actual scrolls from the game: **/
-	//Confuse
-	//Light
-	//Armor
-	//Hold
-	//Sleep
-	//Create
-	//Ident
-	//Map
-	//GFIND
-	//TELEP - Teleport
-	//ENCH 
-	//Scare
-	//Remove
-	//Aggr
-	//NOP
-	//Genocide
-	
-	
-	/**Values like Barrelene are only temporary values. **/
-	public void getEffectsFromScrolls(String name)
+
+	public void getEffectsFromScrolls(String name, Weapon weapon)
 	{
-		if (name.equalsIgnoreCase("Barrelene"))
+		if (name.equalsIgnoreCase("Confuse"))
 		{
-			strength = -10;
-			damage = 10;
+	
+			
 		}
-		else if (name.equalsIgnoreCase("Basketane"))
+		else if (name.equalsIgnoreCase("Light"))
 		{
-			strength = 20;
-			armorProtection = -5;
+
 		}
-		else if (name.equalsIgnoreCase("Cubane"))
+		else if (name.equalsIgnoreCase("Armor"))
 		{
 			
 			
 		}
-		else if (name.equalsIgnoreCase("Olympiadane"))
+		else if (name.equalsIgnoreCase("Hold"))
 		{
 	
 		}
-		else if (name.equalsIgnoreCase("Penguinone"))
+		else if (name.equalsIgnoreCase("Sleep"))
 		{
 			
 		}
-		else if (name.equalsIgnoreCase("Sulflower"))
+		else if (name.equalsIgnoreCase("Create"))
 		{
 		
+		}
+		else if (name.equalsIgnoreCase("Ident"))
+		{
+		
+		}
+		else if (name.equalsIgnoreCase("Map"))
+		{
+			
+		}
+		else if (name.equalsIgnoreCase("GFIND"))
+		{
+			
+		}
+		else if (name.equalsIgnoreCase("Teleport"))
+		{
+			
+
+		}
+		else if (name.equalsIgnoreCase("Ench"))
+		{
+			
+			if (weapon == null)
+			{
+			message = "You feel a strange sense of loss.";
+			}
+			else
+			{
+			message = "Your " + weapon.weaponName + " glows blue for a moment";
+			}
+		}
+		else if (name.equalsIgnoreCase("Scare"))
+		{
+			message = "You hear maniacal laughter in the distance.";
+		}
+		else if (name.equalsIgnoreCase("Remove"))
+		{
+			message = "You feel as if somebody is watching over you.";
+		}
+		else if (name.equalsIgnoreCase("Agr"))
+		{
+			message = "You hear a high pitched humming noise.";
+		}
+		else if (name.equalsIgnoreCase("NOP"))
+		{
+			message = "This scroll seems to be blank";
+		}
+		else if (name.equalsIgnoreCase("Genocide"))
+		{
+			message = "You have been granted the boon of genocide";	
+		}
+		else
+		{
+			message = "What a puzzling scroll!";
 		}
 		
 	}	
+
+	public String getMessage()
+	{
+		return message;
+	}
+	
+	
+	
+	
 	
 }
-
 
 
 
