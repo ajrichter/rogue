@@ -1,6 +1,6 @@
+package Item;
 
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -8,16 +8,16 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
-import Item.Item;
+
 
 public class mainForTestingItem {
 	
 	private boolean hasAmulet=false;
-	private Player play; 
-	private Level level;
-	private static RougeView view;
+	private PlayerForItem play; 
+	private ItemLevel level;
+	private static RougeViewItem view;
 	private String[] lines = new String[10];
-	
+	private static Item [] items;
 	public void climbStairs() {
 		if(hasAmulet==true) {
 			
@@ -50,10 +50,11 @@ public class mainForTestingItem {
 	
 	public void move(int[] direction) {
 			//picking up item
-			if(level.isItem(this.play, direction)!=null){
+			Item currentItem = level.isItem(this.play, direction);
+			if(currentItem !=null){
 				level.pickUp(this.play, direction);
 				view.updateBoard(level.getSeenFloor());
-				view.updateNaration(play.getName()+ " has found the Amulet of Yendor and won the game!!!");
+				view.updateNaration(play.getName()+ " aquired the " + currentItem.getName() + " " + currentItem.getTypeItem());		
 			}
 			//moves to new space
 			level.moveUnit(this.play,direction);
@@ -84,9 +85,15 @@ public class mainForTestingItem {
 		game.saveGame(dyingnoises); 
 		
 		//creates needed instances
-		game.play = new Player();
-		game.view= new RougeView();
-		game.level= new Level(game.play);
+		game.play = new PlayerForItem();
+		game.view= new RougeViewItem();
+		Weapon w = new Weapon("Two-Handed Sword", "Weapon");
+		Scrolls s = new Scrolls("Scare", "Scroll");
+		game.items = new Item [] {w, s};
+	
+		game.level= new ItemLevel(game.play, game.items);
+	
+		
 		
 		//makes a board
 		view.updateBoard(game.level.getSeenFloor());

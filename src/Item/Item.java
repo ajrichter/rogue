@@ -15,26 +15,19 @@ public class Item {
 	protected String message;
 	protected String weaponName;
 	protected String boardName;
-	protected HashMap <String, String> item;
-	private static String name; //name of item
-	private static String typeItem; //armor,equipment,ring,food,
-
+	protected String name; //name of item
+	protected String typeItem; //armor,equipment,ring,food,
+	protected int itemNumber; //id for item
 		
-	public Item(String name, String typeItem){
-		Item.setName(name);
-		Item.setTypeItem(typeItem);
+	public Item(String name1, String typeItem1){
+		name = name1; 
+		typeItem = typeItem1;
 	}
 	
+	public String toString() {
+		return boardName;
+	}
 
-	public void addItem(Item i) {
-		item = new HashMap <String, String>();
-		item.put(i.getName(), i.typeItem());
-	}
-	
-	public String getItem(String key) 
-	{
-		return item.get(key);
-	}
 	
 	
 	
@@ -48,28 +41,26 @@ public class Item {
 		return getTypeItem();
 	}
 
-	public static String getTypeItem() {
+	public String getTypeItem() {
 		return typeItem;
 	}
 
 
 	
 
-	
-	public static void setTypeItem(String typeItem) {
-		Item.typeItem = typeItem;
-	}
 
 	public String getName() {
 		return name;
 	}
 
-	public String toString() {
-		return boardName;
+	public int getItemNumber() {
+		return itemNumber;
 	}
 	
 	
-	public static void setName(String name) {
-		Item.name = name;
-	}
+//	public String getBoardName() {
+//		return boardName;
+//	}
+//	
+
 }

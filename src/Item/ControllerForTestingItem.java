@@ -1,3 +1,4 @@
+package Item;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -5,11 +6,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
+
 public class ControllerForTestingItem extends JFrame implements KeyListener {
 	
     private JLabel label;
     private mainForTestingItem game;
-    private RougeView view;
+    private RougeViewItem view;
     
     public ControllerForTestingItem(String s) {
         super(s);
@@ -23,7 +26,7 @@ public class ControllerForTestingItem extends JFrame implements KeyListener {
 
     }
     
-    public void sendInfo(mainForTestingItem play, RougeView view){
+    public void sendInfo(mainForTestingItem play, RougeViewItem view){
     	this.game=play;
     	this.view=view;
     }
