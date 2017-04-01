@@ -89,7 +89,9 @@ public class mainForTestingItem {
 		game.view= new RougeViewItem();
 		Weapon w = new Weapon("Two-Handed Sword", "Weapon");
 		Scrolls s = new Scrolls("Scare", "Scroll");
-		game.items = new Item [] {w, s};
+		Potions p = new Potions("Restore", "Potions");
+		
+		game.items = new Item [] {w, s, p};
 	
 		game.level= new ItemLevel(game.play, game.items);
 	

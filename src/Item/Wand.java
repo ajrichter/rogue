@@ -1,8 +1,11 @@
 package Item;
 public class Wand extends Item {
-		public Wand(String name, String typeItem) {
-			super(name, typeItem);
-
+	private String name;
+	private String typeItem;
+	public Wand(String name1, String typeItem1) {
+			super(name1, typeItem1);
+			name = name1;
+			typeItem = typeItem1;
 		}
 
 		public void getEffectFromRings(String name)

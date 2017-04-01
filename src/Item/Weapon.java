@@ -2,7 +2,6 @@ package Item;
 
 public class Weapon extends Item {
 	DiceRollerItem dice = new DiceRollerItem();
-	private int itemNumber = 0;
 	private String name;
 	private String typeItem;
 	public Weapon (String name, String typeItem) { 

@@ -49,25 +49,21 @@ public class ControllerForTestingItem extends JFrame implements KeyListener {
 		
 	    if (key == KeyEvent.VK_H) {
 	    	int[] left = {-1,0};
-	    	System.out.println("left");
 	    	game.move(left);
 	    }         
 	
 	    if (key == KeyEvent.VK_L) {
 	        int[] right = {1,0};
-	        System.out.println("right");
 	        game.move(right);
 	    }
 	
 	    if (key == KeyEvent.VK_J) {
 	        int[] up = {0,1};
-	        System.out.println("up");
 	        game.move(up);
 	    }
 	
 	    if (key == KeyEvent.VK_K) {
 	        int[] down = {0,-1};
-	        System.out.println("down");
 	        game.move(down);
 	    }
 	    

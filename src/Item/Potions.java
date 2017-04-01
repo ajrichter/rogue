@@ -1,12 +1,19 @@
 package Item;
 public class Potions extends Item {
 		private int damage = 0;
-		public Potions(String name, String typeItem) {
-			super(name, typeItem);
-
+		private String name; 
+		private String typeItem;
+		
+		
+		public Potions(String name1, String typeItem1) {
+			super(name1, typeItem1);
+			this.name = name1;
+			this.typeItem = typeItem1;
+			this.boardName = "!";
+			
 		}
 		
-		/** The potions from the game **/
+	
 		public void getEffectFromPotionColors(String name)
 		{
 			if (name.equalsIgnoreCase("Confuse"))
