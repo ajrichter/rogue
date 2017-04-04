@@ -1,8 +1,12 @@
+/*
+	TODO:
+	Move
+	isDead
+	How are stats used?
+*/
 public class Unit {
 	//  representation on the board
 	protected String val;
-	// This might be the same as val?
-	protected String boardName;
 	// Statistics for the Unit
 	protected int level;
 	protected int strength;
@@ -15,39 +19,36 @@ public class Unit {
 	Defines stats and health for the Unit.
 */
 	public Unit() {
-		hp = 100;
-		armor = 1;
-		level = 1;
-		strength = 1;
-		val = "N";
-		dead = false;
+		this(1, 1,"N");
 	}
-/*
-	Creates a Unit with specified armor, strength
-	and with a value to represent it on the board.
-*/
+
+	// Creates a Unit with values
 	public Unit(int a, int s, String k) {
 		val = k;
-		hp = 100;
+		hp = 10;
+		maxHP = 10;
 		level = 1;
 		armor = a;
 		strength = s;
 		dead = false;
 	}
 
-	// This gives the
+	// Returns the Unit's character representation
 	public String toString(){
-		return boardName;
-	}
-
-	// Returns the unit's value
-	public String getVal(){
 		return val;
 	}
 
-	//returns armor value
+	// Returns the armor value.
 	public int getArmor(){
 		return this.armor;
+	}
+
+	// Lowers a Unit's HP from a fight.
+	public void takeDamage(int damage){
+		this.hp-=damage;
+		if(this.hp<=0){
+			isDead=true;
+		}
 	}
 
 	//returns hit value and damage
@@ -62,14 +63,7 @@ public class Unit {
 		return attack;
 	}
 
-
-	public void takeDamage(int damage){
-		this.hp-=damage;
-		if(this.hp<=0){
-			isDead=true;
-		}
-	}
-
+	// this is not needed since movement occurs in Level or GamePlay
 	public void move(int[] dir) {
 		// if level.validMove(dir)
 		// then makeMove
@@ -78,6 +72,10 @@ public class Unit {
 		//Call level.move(Player, Direction)?
 	}
 
+	/* Returns true if alive
+		False if dead.
+		isDead is changes after each fight.
+	*/
 	public boolean isDead() {
 		return isDead;
 	}
