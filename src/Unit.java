@@ -1,44 +1,51 @@
 public class Unit {
-
+	//  representation on the board
+	protected String val;
+	// This might be the same as val?
+	protected String boardName;
+	// Statistics for the Unit
 	protected int level;
 	protected int strength;
 	protected int hp;
 	protected int maxHP;
 	protected int armor;
-	public boolean isDead=false;
-	protected String name;
-	protected String boardName;
+	public boolean dead;
 
 /*
-	Defines a Units stats and health
-	HP is 100.
-	Stats and level start at 1.
+	Defines a Units stats and health.
 */
 	public Unit() {
 		hp = 100;
 		armor = 1;
 		level = 1;
 		strength = 1;
-		name = "";
+		val = "N";
+		dead = false;
 	}
-
-	public Unit(int a, int s) {
+/*
+	Creates a Unit with specified armor, strength
+	and with a value to represent it.
+*/
+	public Unit(int a, int s, String k) {
+		val = k;
 		hp = 100;
 		level = 1;
 		armor = a;
 		strength = s;
-		name = "";
+		dead = false;
 	}
 
+	// This gives the
 	public String toString(){
-		return boardName;1
+		return boardName;
 	}
 
-	public String getName(){
-		return name;
+	// Returns the unit's value
+	public String getVal(){
+		return val;
 	}
 
-	//returns armor
+	//returns armor value
 	public int getArmor(){
 		return this.armor;
 	}
@@ -72,8 +79,6 @@ public class Unit {
 	}
 
 	public boolean isDead() {
-		// TODO write the code and maybe add in an attribute
-
-		return false;
+		return isDead;
 	}
 }
