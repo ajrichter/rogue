@@ -12,7 +12,7 @@ public class Unit {
 	public boolean dead;
 
 /*
-	Defines a Units stats and health.
+	Defines stats and health for the Unit.
 */
 	public Unit() {
 		hp = 100;
@@ -24,7 +24,7 @@ public class Unit {
 	}
 /*
 	Creates a Unit with specified armor, strength
-	and with a value to represent it.
+	and with a value to represent it on the board.
 */
 	public Unit(int a, int s, String k) {
 		val = k;

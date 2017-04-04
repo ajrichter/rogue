@@ -36,13 +36,13 @@ public class Player extends Unit{
 
 	/*
 		Returns an int representing the direction
-		the unit will move.
+		the unit is attempting to move.
 		8  1  2
 		7 @ 3
 		6  5  4
 	*/
 	public int move(){
-
+		
 	}
 
 
