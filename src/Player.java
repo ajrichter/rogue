@@ -1,4 +1,4 @@
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /*
 	Has timers for different things
@@ -10,14 +10,9 @@ import java.util.Random;
 public class Player extends Unit{
 	private boolean hasA;
 	private boolean hasW;
-	private int gold;
-	private int xp;
-	private int nexp;
-	private int steps;
+	private int gold, xp, nexp, steps, hunger;
 
-	//Hunger
 	//private Inventory inventory;
-	//curRings
 
 	public Player(){
 		this("John Dooley");
@@ -34,29 +29,33 @@ public class Player extends Unit{
 		this.armor=3;
 		this.nexp = 20;
 		this.steps = 0;
-
-
-		// unnecessary just genrate a random #
-		DiceRoller d6= new DiceRoller();
-		// return rand.nextInt(sides)+1;
-		// maybe a method in here. But not a class!
-
-		//random
-		this.strength= d6.rollDie(6)+d6.rollDie(6)+d6.rollDie(6);
-		this.maxHP= d6.rollDie(6)+ d6.rollDie(6)+d6.rollDie(6)+d6.rollDie(6);
+		this.hunger = 150;
+		this.strength = ThreadLocalRandom.current().nextInt(5, 20 + 1);
+		this.maxHP = ThreadLocalRandom.current().nextInt(10, 30 + 1);
 		this.hp=this.maxHP;
+		/*
+			Proper way of generating random numbers.
+			public int nextInt(int origin, int bound)
+			Returns a pseudorandom int value between the specified origin (inclusive)
+			and the specified bound (exclusive).
+			int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+		*/
 	}
 
 	public String[] playerStats(){
 		String[] temp= new String[2];
-		temp[0]= "Level: " + this.level + " Hits: " +this.hp+ " ("+this.maxHP+") "+ " Str: "+this.strength+ " (" + this.strength + ") Armor: "+ this.armor+ " Gold: "+ gold + " Exp: " + this.exp;
+		temp[0]= "Level: " + this.level + " Hits: " +this.hp+ " ("+this.maxHP+") "+
+		" Str: "+this.strength+ " (" + this.strength + ") Armor: "+ this.armor+
+		 " Gold: "+ gold + " Exp: " + this.exp;
 		return temp;
 	}
 
 	/*
-		Stats decrease
-		Check Hunger
+		Regenerate HP
 		Check LevelUp
+		Check Hunger
+
+		Stats decrease
 	*/
 	public int move(){
 		steps++;
@@ -68,18 +67,22 @@ public class Player extends Unit{
 
 		if(xp == nexp)
 			levelUp();
+
+		hunger--;
+		chkHu();
 	}
 
-	/*
-		LevelUps increase
-	*/
 	public void levelUp() {
 		nexp = nexp * 2;
 		level++;
 	}
 
-	public void checkHunger() {
-		// TODO
+	public void chkHu() {
+		if(hunger <= 50)
+			System.out.println("You should probably stop by the Gizmo.");
+		else if(hunger <= 25)
+			System.out.println("You are starving!");
+		else if(hunger <= 0)
+			System.out.println("You have fainted.");
 	}
-
 }

@@ -15,21 +15,9 @@ public class Unit {
 	protected int armor;
 	public boolean dead;
 
-/*
-	Defines stats and health for the Unit.
-*/
+	// All done in Subclasses
+	// Clearly not dead as it has just been constructed!
 	public Unit() {
-		this(1, 1,"N");
-	}
-
-	// Creates a Unit with values
-	public Unit(int a, int s, String k) {
-		val = k;
-		hp = 10;
-		maxHP = 10;
-		level = 1;
-		armor = a;
-		strength = s;
 		dead = false;
 	}
 
@@ -61,15 +49,6 @@ public class Unit {
 			attack[1]=0;
 		}
 		return attack;
-	}
-
-	// this is not needed since movement occurs in Level or GamePlay
-	public void move(int[] dir) {
-		// if level.validMove(dir)
-		// then makeMove
-
-		// TODO figure out this direction thing
-		//Call level.move(Player, Direction)?
 	}
 
 	/* Returns true if alive
