@@ -4,7 +4,8 @@ Myra Doubet, Harry Carpenter, Ink Chinavinijkul, and Andrew Richter
 
 Week | Tasks
 ------------ | -------------
-1/2 | Took stock of existing code: Currently works for 1 non-randomly generated Square Level
+1 | Reviewed Design Document
+2 | Took stock of existing code: Plays 1 non-randomly generated 24x80 Level
 3 | Began major work on polishing 4 major sections: Level/MVC/Unit/Item
 4 | Brought pieces together
 
