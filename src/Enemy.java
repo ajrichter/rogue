@@ -4,7 +4,7 @@ import Item.Item;
 	Create the different enemies
 	Start with a list  of 5 or so?
 	addMakeEnemy() Method which randomly generates an Enemy
-	
+
 */
 
 public class Enemy extends Unit{
@@ -18,7 +18,7 @@ public class Enemy extends Unit{
 
 	public Enemy() {
 		//values for prototype
-		this.boardName="E";
+		this.val="E";
 		this.name="Slime";
 		this.armor=10;
 		this.hp=20;
