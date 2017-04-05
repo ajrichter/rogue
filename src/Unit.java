@@ -7,6 +7,7 @@
 public class Unit {
 	//  representation on the board
 	protected String val;
+	protected String name;
 	// Statistics for the Unit
 	protected int level;
 	protected int strength;
@@ -26,9 +27,13 @@ public class Unit {
 		return val;
 	}
 
+	public String getName(){
+		return name;
+	}
+
 	// Returns the armor value.
 	public int getArmor(){
-		return this.armor;
+		return armor;
 	}
 
 	// Lowers a Unit's HP from a fight.
@@ -51,10 +56,6 @@ public class Unit {
 		return attack;
 	}
 
-	/* Returns true if alive
-		False if dead.
-		isDead is changes after each fight.
-	*/
 	public boolean isDead() {
 		return isDead;
 	}
