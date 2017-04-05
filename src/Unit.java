@@ -40,7 +40,7 @@ public class Unit {
 	public void takeDamage(int damage){
 		this.hp-=damage;
 		if(this.hp<=0){
-			isDead=true;
+			dead=true;
 		}
 	}
 
