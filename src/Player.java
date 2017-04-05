@@ -1,5 +1,3 @@
-import java.util.concurrent.ThreadLocalRandom;
-
 /*
 	Has timers for different things
 	Health goes up with each Move
@@ -30,16 +28,9 @@ public class Player extends Unit{
 		this.nexp = 20;
 		this.steps = 0;
 		this.hunger = 150;
-		this.strength = ThreadLocalRandom.current().nextInt(5, 20 + 1);
-		this.maxHP = ThreadLocalRandom.current().nextInt(10, 30 + 1);
-		this.hp=this.maxHP;
-		/*
-			Proper way of generating random numbers.
-			public int nextInt(int origin, int bound)
-			Returns a pseudorandom int value between the specified origin (inclusive)
-			and the specified bound (exclusive).
-			int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
-		*/
+		DiceRoller d= new DiceRoller();
+		this.strength = d.roll(3, 6);
+		this.maxHP = this.hp = d.roll(4, 6);
 	}
 
 	public String[] playerStats(){
