@@ -57,6 +57,6 @@ public class Unit {
 	}
 
 	public boolean isDead() {
-		return isDead;
+		return dead;
 	}
 }
