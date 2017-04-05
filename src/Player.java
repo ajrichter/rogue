@@ -46,7 +46,7 @@ public class Player extends Unit{
 		String[] temp= new String[2];
 		temp[0]= "Level: " + this.level + " Hits: " +this.hp+ " ("+this.maxHP+") "+
 		" Str: "+this.strength+ " (" + this.strength + ") Armor: "+ this.armor+
-		 " Gold: "+ gold + " Exp: " + this.exp;
+		 " Gold: "+ gold + " Exp: " + this.xp;
 		return temp;
 	}
 
@@ -57,7 +57,7 @@ public class Player extends Unit{
 
 		Stats decrease
 	*/
-	public int move(){
+	public void move(){
 		steps++;
 		if(steps >= 10) {
 			steps = 0;
