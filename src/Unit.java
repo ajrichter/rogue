@@ -14,7 +14,7 @@ public class Unit {
 	protected int hp;
 	protected int maxHP;
 	protected int armor;
-	public boolean dead;
+	protected boolean dead;
 
 	// All done in Subclasses
 	// Clearly not dead as it has just been constructed!
