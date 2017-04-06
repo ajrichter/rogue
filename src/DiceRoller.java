@@ -15,7 +15,7 @@ public class DiceRoller {
 
 	public int roll(int numD, int numS) {
 		int sum = 0;
-		for(int i = 0;i < numD; i++){
+		for(int i = 0; i < numD; i++){
 			sum += rollDie(numS);
 		}
 		return sum;

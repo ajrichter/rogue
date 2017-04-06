@@ -4,17 +4,14 @@ import Item.Item;
 	Create the different enemies
 	Start with 5 enemies.
 	addMakeEnemy() Method which randomly generates an Enemy
-
 */
 
 public class Enemy extends Unit{
 
 	//special ability
 	//boolean[] flags
-	private int armorClass;
 	private double treasureChance;
-	private int expGained;
-	private int dmg;
+	private int trs, expGained,  dmg;
 
 	public Enemy() {
 		//values for prototype
@@ -23,31 +20,62 @@ public class Enemy extends Unit{
 		this.armor=10;
 		this.hp=20;
 	}
+
 	/*
-Aquator	0	M	20	5d8	2	0d0/0d0		Rusts armor
-Bat	0	F	1	1d8	3	1d2		Flies randomly
-Centaur	15		17	4d8	4	1d2/1d5/1d5
-Dragon	100	M	5000	10d8	-1	1d8/1d8/3d10		Ranged 6d6 flame attack
-Emu	0	M	2	1d8	7	1d2
+		Prioritize certain monsters by level.
+		Initializes a Monster for Enemy.
 	*/
 	private void genMon(){
-
-		switch (month) {
+		DiceRoller d= new DiceRoller();
+		switch (d.roll(1, 5)) {
 		   case 1: this.val = "A"
 		   			this.name = "Aquator";
-					
+					this.xp = 20;
+					this.hp = d.roll(5,8);
+					this.dmg = 0;
+					this.trs = 0;
 					break;
-		   case 2:  monthString = "February";
+			case 2: this.val = "B"
+				   	this.name = "Bat";
+					this.xp = 1;
+					this.hp = d.roll(1,8);
+					this.dmg = d.roll(1,2);
+					this.trs = 0;
 					break;
-		   case 3:  monthString = "March";
+			case 3: this.val = "C"
+					this.name = "Centaur";
+					this.xp = 17;
+					this.hp = d.roll(4,8);
+					this.dmg = d.roll(1,2) + d.roll(2,5);
+					this.trs = 15;
 					break;
-		   case 4:  monthString = "April";
+			case 4: this.val = "D"
+					this.name = "Dragon";
+					this.xp = 5000;
+					this.hp = d.roll(10,8);
+					this.dmg = d.roll(2,8) + d.roll(3,10);
+					this.trs = 100;
 					break;
-		   case 5:  monthString = "May";
+			case 5: this.val = "E"
+					this.name = "Emu";
+					this.xp = 2;
+					this.hp = d.roll(1,8);
+					this.dmg = d.roll(1,2);
+					this.trs = 0;
 					break;
-		   default: monthString = "Invalid month";
-					break;
-	   }
+		    default: this.val = "F"
+				    this.name = "Venus Flytrap";
+				    this.xp = 80;
+				    this.hp = d.roll(8,8);
+				    this.dmg = d.roll(1,2);
+				    this.trs = 0;
+				    break;
+		}
+	}
+	
+	// Treasure returned when the enemy dies
+	public int dropT(){
+		return this.trs;
 	}
 
 	// decides to drop an item and returns a random item
@@ -56,5 +84,4 @@ Emu	0	M	2	1d8	7	1d2
 		Item i= new Item("Amulet of Yendor",null);
 		return i;
 	}
-
 }
