@@ -54,7 +54,28 @@ public class mainForTestingItem {
 			if(currentItem !=null){
 				level.pickUp(this.play, direction);
 				view.updateBoard(level.getSeenFloor());
-				view.updateNaration(play.getName()+ " aquired the " + currentItem.getName() + " " + currentItem.getTypeItem());		
+					
+				if (currentItem.getTypeItem().equalsIgnoreCase("Weapon"))
+				{
+					view.updateNaration(play.getName()+ " aquired the " + currentItem.getName() + " " + currentItem.getTypeItem() + ". It has " + currentItem.getDamageFromW() + " damage.");		
+				}
+				else if (currentItem.getTypeItem().equalsIgnoreCase("Armor"))
+				{
+					view.updateNaration(play.getName()+ " aquired the " + currentItem.getName() + " " + currentItem.getTypeItem() + ". It has " + currentItem.getProtectionFromArmor() + " protection.");
+				}
+				else if (currentItem.getTypeItem().equalsIgnoreCase("Food"))
+				{
+					view.updateNaration(play.getName()+ " aquired " + currentItem.getName() + " " + currentItem.getTypeItem() + ". It has " + currentItem.getStrengthFromFood() + " strength.");
+				}
+				else if (currentItem.getTypeItem().equalsIgnoreCase("Scroll"))
+				{
+					view.updateNaration(play.getName()+ " aquired " + currentItem.getName() + " " + currentItem.getTypeItem() + ". Resulting message:" + currentItem.getScrollMessage());
+				}
+				
+				
+				
+				
+				
 			}
 			//moves to new space
 			level.moveUnit(this.play,direction);
@@ -90,11 +111,13 @@ public class mainForTestingItem {
 		Weapon w = new Weapon("Two-Handed Sword", "Weapon");
 		Scrolls s = new Scrolls("Scare", "Scroll");
 		Potions p = new Potions("Restore", "Potions");
+		Armor a = new Armor("Plate mail", "Armor");
+		Food f = new Food("Trump Steaks", "Food");
 		
-		game.items = new Item [] {w, s, p};
+		game.items = new Item [] {w, s, p, a, f};
 	
 		game.level= new ItemLevel(game.play, game.items);
-	
+		
 		
 		
 		//makes a board

@@ -57,10 +57,29 @@ public class Item {
 		return itemNumber;
 	}
 	
+	public int getDamageFromW() {
+		Weapon w = new Weapon(name, typeItem);
+		w.getDamageFromWeapon(w);
+		return w.getDamage();
+	}
 	
-//	public String getBoardName() {
-//		return boardName;
-//	}
-//	
+	public int getProtectionFromArmor() {
+		Armor a = new Armor(name, typeItem);
+		a.getArmorProtection(a);
+		return a.getArmorProtection();
+	}
+	
+	public int getStrengthFromFood() {
+		Food f = new Food(name, typeItem);
+		f.getStrengthFromFood(f);
+		return f.getFoodStrength();
+	}
+	
+	public String getScrollMessage() {
+		Scrolls s = new Scrolls(name, typeItem);
+		s.getEffectsFromScrolls();
+		return s.getMessage();
+	}
+
 
 }

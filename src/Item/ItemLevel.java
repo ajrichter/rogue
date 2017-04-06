@@ -19,9 +19,15 @@ public class ItemLevel {
 		int [] loc = new int [] {4, 5};
 		int [] loc2 = new int [] {5,4};
 		int [] loc3 = new int [] {6,4};
+		int [] loc4 = new int [] {9, 4};
+		int [] loc5 = new int [] {7, 7};
+		
+		
 		addItem(items[0], loc);
 		addItem(items[1], loc2);
 		addItem(items[2], loc3);
+		addItem(items[3], loc4);
+		addItem(items[4], loc5);
 		addUnit(player);
 	}
 

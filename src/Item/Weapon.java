@@ -2,8 +2,7 @@ package Item;
 
 public class Weapon extends Item {
 	DiceRollerItem dice = new DiceRollerItem();
-	private String name;
-	private String typeItem;
+
 	public Weapon (String name, String typeItem) { 
 		super(name, typeItem);
 		
@@ -13,54 +12,54 @@ public class Weapon extends Item {
 	}
 
 	
-	public void getDamageFromWeapon()
+	public void getDamageFromWeapon(Item w)
 		{
-			if (name.equalsIgnoreCase("Mace"))
+			if (w.name.equalsIgnoreCase("Mace"))
 			{
 				
 				damage = dice.rollDie(4) + dice.rollDie(4); //2d4 damage 
 			}
-			else if (name.equalsIgnoreCase("Long Sword"))
+			else if (w.name.equalsIgnoreCase("Long Sword"))
 			{
-				damage = dice.rollDie(10); //1d10 damage
+				damage = dice.rollDie(10); //1d10 damagvar=0;e
 			}
-			else if (name.equalsIgnoreCase("Short Bow"))
+			else if (w.name.equalsIgnoreCase("Short Bow"))
 			{
 				damage = 1; //1d1 damage 
 			}
-			else if (name.equalsIgnoreCase("Arrow"))
+			else if (w.name.equalsIgnoreCase("Arrow"))
 			{
 				damage = 1; //1d1 damage
 			}
-			else if (name.equalsIgnoreCase("Dagger"))
+			else if (w.name.equalsIgnoreCase("Dagger"))
 			{
 				damage = dice.rollDie(6); //1d6 damage  
 			}
-			else if (name.equalsIgnoreCase("Rock"))
+			else if (w.name.equalsIgnoreCase("Rock"))
 			{
 				damage = dice.rollDie(2); 
 			}
-			else if (name.equalsIgnoreCase("Two-Handed Sword"))
+			else if (w.name.equalsIgnoreCase("Two-Handed Sword"))
 			{
 				damage = dice.rollDie(6) + dice.rollDie(6) + dice.rollDie(6); 
 			}
-			else if (name.equalsIgnoreCase("Sling"))
+			else if (w.name.equalsIgnoreCase("Sling"))
 			{
 				damage = 0;
 			}
-			else if (name.equalsIgnoreCase("Dart"))
+			else if (w.name.equalsIgnoreCase("Dart"))
 			{
 				damage = 1; 
 			}
-			else if (name.equalsIgnoreCase("Crossbow"))
+			else if (w.name.equalsIgnoreCase("Crossbow"))
 			{
 				damage = 1;
 			}
-			else if (name.equalsIgnoreCase("Crossbow bolt"))
+			else if (w.name.equalsIgnoreCase("Crossbow bolt"))
 			{
 				damage = dice.rollDie(2);
 			}
-			else if (name.equalsIgnoreCase("Spear"))
+			else if (w.name.equalsIgnoreCase("Spear"))
 			{
 				damage = dice.rollDie(8);
 			}
