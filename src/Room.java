@@ -4,7 +4,8 @@ public class Room {
 	private int maxHeight;
 	private int maxWidth;
 	private String[][] room;
-	boolean isDark;
+	private int test;
+	private boolean isDark;
 	
 	public Room() {
 		this.maxHeight = 8;
