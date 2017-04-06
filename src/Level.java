@@ -12,8 +12,8 @@ public class Level {
 	public Level(Unit player){
 		makeLevel();
 		
-		floorUnits= new Unit[20][20];
-		floorItems= new Item[20][20];
+		floorUnits= new Unit[24][80];
+		floorItems= new Item[24][80];
 		
 		Enemy e= new Enemy();
 		addUnit(player);
@@ -28,7 +28,9 @@ public class Level {
 	//test comment
 	//another test comment
 	public void makeLevel(){
-		
+		this.floorSeen = new String[24][80];
+		//should probably call makeroom()
+		/*
 		this.floorSeen= new String[20][20];
 		for(int i=0; i<20;i++){
 			for(int k=0; k<20;k++){
@@ -41,10 +43,24 @@ public class Level {
 				}
 			}
 		}
+		*/
 	}
 	
 	//makes one room
 	private void makeRoom(){
+		//you would probably want this to make an object
+		//there are DARK and LIT room
+		//seems like the max size of a room is 7x25 (let's make upper limit 8x26
+		
+		Random rand = new Random();
+		int heightRand = rand.nextInt(6) + 1;
+		int widthRand = rand.nextInt(24) + 1;
+		for(int i = 0; i < heightRand; i++) {
+			for(int j = 0; j < widthRand; j++) {
+				if(i == 0 || k == widthrand -)
+			}
+		}
+		
 		//TODO
 	}
 	

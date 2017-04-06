@@ -3,10 +3,10 @@
 /Enemy.class
 /GamePlay.class
 /Inventory.class
-/Item.class
+/Item/
 /Level.class
 /Player.class
 /RougeView$ViewUpdate.class
 /RougeView.class
 /Unit.class
-/Item/
+/Room.class
