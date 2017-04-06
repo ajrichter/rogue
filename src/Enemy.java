@@ -2,19 +2,16 @@ import Item.Item;
 
 /*
 	Create the different enemies
-	Start with a list  of 5 or so?
+	Start with 5 enemies.
 	addMakeEnemy() Method which randomly generates an Enemy
-
 */
 
 public class Enemy extends Unit{
 
 	//special ability
 	//boolean[] flags
-	private int armorClass;
 	private double treasureChance;
-	private int expGained;
-	private int dmg;
+	private int trs, expGained,  dmg;
 
 	public Enemy() {
 		//values for prototype
@@ -24,31 +21,75 @@ public class Enemy extends Unit{
 		this.hp=20;
 	}
 
-	public void chase() {
+	/*
+		Prioritize certain monsters by level.
+		Initializes a Monster for Enemy.
 
+		Difficulty just has to be implemented, as usual
+	*/
+	private void genMon(){
+		DiceRoller d= new DiceRoller();
+		switch (d.roll(1, 6)) {
+		   case 1: this.val = "A"
+		   			this.name = "aquator";
+					this.xp = 20;
+					this.hp = d.roll(5,8);
+					this.dmg = 0;
+					this.trs = 0;
+					this.df = 5;
+					break;
+			case 2: this.val = "B"
+				   	this.name = "bat";
+					this.xp = 1;
+					this.hp = d.roll(1,8);
+					this.dmg = d.roll(1,2);
+					this.trs = 0;
+					this.df = 3;
+					break;
+			case 3: this.val = "C"
+					this.name = "centaur";
+					this.xp = 17;
+					this.hp = d.roll(4,8);
+					this.dmg = d.roll(1,2) + d.roll(2,5);
+					this.trs = 15;
+					this.df = 11;
+					break;
+			case 4: this.val = "D"
+					this.name = "dragon";
+					this.xp = 5000;
+					this.hp = d.roll(10,8);
+					this.dmg = d.roll(2,8) + d.roll(3,10);
+					this.trs = 100;
+					this.df = 26;
+					break;
+			case 5: this.val = "E"
+					this.name = "emu";
+					this.xp = 2;
+					this.hp = d.roll(1,8);
+					this.dmg = d.roll(1,2);
+					this.trs = 0;
+					this.df = 3;
+					break;
+		    default: this.val = "F"
+				    this.name = "Venus Flytrap";
+				    this.xp = 80;
+				    this.hp = d.roll(8,8);
+				    this.dmg = d.roll(1,2);
+				    this.trs = 0;
+					this.df = 10;
+				    break;
+		}
 	}
 
-	public void moveTo() {
-
+	// Treasure returned when the enemy dies
+	public int dropT(){
+		return this.trs;
 	}
 
-	public void moveRandom() {
-
-	}
-
-	public int attackPlayer() {
-		return 0;
-
-	}
-
-	public void removeMonster() {
-
-	}
-
-	//decides to drop an item and returns a random item
+	// decides to drop an item and returns a random item
+	// Should drop treasure
 	public Item dropTreasure() {
 		Item i= new Item("Amulet of Yendor",null);
 		return i;
 	}
-
 }

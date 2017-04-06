@@ -25,6 +25,8 @@ public class Level {
 	}
 	
 	//Small for prototype
+	//test comment
+	//another test comment
 	public void makeLevel(){
 		
 		this.floorSeen= new String[20][20];
