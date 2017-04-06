@@ -1,32 +1,44 @@
+/*
+	TODO:
+	Move
+	isDead
+	How are stats used?
+*/
 public class Unit {
+	//  representation on the board
+	protected String val, name;
+	// Statistics for the Unit
+	protected int level, xp, strength, hp, maxHP, armor;
+	protected boolean dead;
 
-	protected int statusTime;
-	protected int level;
-	protected int strength;
-	protected int hp;
-	protected int maxHP;
-	protected int armor;
-	public boolean isDead=false;
-	protected String name;
-	protected String boardName;
-	
+	// All done in Subclasses
+	// Clearly not dead as it has just been constructed!
 	public Unit() {
-		// TODO constructor and stuff
+		dead = false;
 	}
-	
+
+	// Returns the Unit's character representation
 	public String toString(){
-		return boardName;
+		return val;
 	}
-	
+
 	public String getName(){
 		return name;
 	}
-	
-	//returns armor
-	public int getAC(){
-		return this.armor;
+
+	// Returns the armor value.
+	public int getArmor(){
+		return armor;
 	}
-	
+
+	// Lowers a Unit's HP from a fight.
+	public void takeDamage(int damage){
+		this.hp-=damage;
+		if(this.hp<=0){
+			dead=true;
+		}
+	}
+
 	//returns hit value and damage
 	public int[] fight() {
 		DiceRoller d= new DiceRoller();
@@ -38,23 +50,8 @@ public class Unit {
 		}
 		return attack;
 	}
-	
 
-	public void takeDamage(int damage){
-		this.hp-=damage;
-		if(this.hp<=0){
-			isDead=true;
-		}
-	}
-	
-	public void move(int[] dir) {
-		// TODO figure out this direction thing
-		//Call level.move(Player, Direction)?
-	}
-	
 	public boolean isDead() {
-		// TODO write the code and maybe add in an attribute
-		
-		return false;
+		return dead;
 	}
 }
