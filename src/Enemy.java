@@ -24,44 +24,51 @@ public class Enemy extends Unit{
 	/*
 		Prioritize certain monsters by level.
 		Initializes a Monster for Enemy.
+
+		Difficulty just has to be implemented, as usual
 	*/
 	private void genMon(){
 		DiceRoller d= new DiceRoller();
-		switch (d.roll(1, 5)) {
+		switch (d.roll(1, 6)) {
 		   case 1: this.val = "A"
-		   			this.name = "Aquator";
+		   			this.name = "aquator";
 					this.xp = 20;
 					this.hp = d.roll(5,8);
 					this.dmg = 0;
 					this.trs = 0;
+					this.df = 5;
 					break;
 			case 2: this.val = "B"
-				   	this.name = "Bat";
+				   	this.name = "bat";
 					this.xp = 1;
 					this.hp = d.roll(1,8);
 					this.dmg = d.roll(1,2);
 					this.trs = 0;
+					this.df = 3;
 					break;
 			case 3: this.val = "C"
-					this.name = "Centaur";
+					this.name = "centaur";
 					this.xp = 17;
 					this.hp = d.roll(4,8);
 					this.dmg = d.roll(1,2) + d.roll(2,5);
 					this.trs = 15;
+					this.df = 11;
 					break;
 			case 4: this.val = "D"
-					this.name = "Dragon";
+					this.name = "dragon";
 					this.xp = 5000;
 					this.hp = d.roll(10,8);
 					this.dmg = d.roll(2,8) + d.roll(3,10);
 					this.trs = 100;
+					this.df = 26;
 					break;
 			case 5: this.val = "E"
-					this.name = "Emu";
+					this.name = "emu";
 					this.xp = 2;
 					this.hp = d.roll(1,8);
 					this.dmg = d.roll(1,2);
 					this.trs = 0;
+					this.df = 3;
 					break;
 		    default: this.val = "F"
 				    this.name = "Venus Flytrap";
@@ -69,10 +76,11 @@ public class Enemy extends Unit{
 				    this.hp = d.roll(8,8);
 				    this.dmg = d.roll(1,2);
 				    this.trs = 0;
+					this.df = 10;
 				    break;
 		}
 	}
-	
+
 	// Treasure returned when the enemy dies
 	public int dropT(){
 		return this.trs;
