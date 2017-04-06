@@ -2,7 +2,7 @@
 ## Team
 Myra Doubet, Harry Carpenter, Ink Chinavinijkul, and Andrew Richter
 
-Week | Tasks
+Sprints | Tasks
 ------------ | -------------
 1 | Reviewed Design Document
 2 | Took stock of existing code: Plays 1 non-randomly generated 24x80 Level

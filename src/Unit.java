@@ -6,14 +6,9 @@
 */
 public class Unit {
 	//  representation on the board
-	protected String val;
-	protected String name;
+	protected String val, name;
 	// Statistics for the Unit
-	protected int level;
-	protected int strength;
-	protected int hp;
-	protected int maxHP;
-	protected int armor;
+	protected int level, xp, strength, hp, maxHP, armor;
 	protected boolean dead;
 
 	// All done in Subclasses

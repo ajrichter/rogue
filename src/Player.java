@@ -8,7 +8,7 @@
 public class Player extends Unit{
 	private boolean hasA;
 	private boolean hasW;
-	private int gold, xp, nexp, steps, hunger;
+	private int gold, nexp, steps, hunger;
 
 	//private Inventory inventory;
 
