@@ -1,7 +1,8 @@
 package Item;
 public class Scrolls extends Item {
-	private String name;
-	private String typeItem;
+
+	
+	
 	public Scrolls(String name, String typeItem) {
 		super(name, typeItem);
 		this.boardName = "?";
@@ -9,72 +10,72 @@ public class Scrolls extends Item {
 		this.typeItem = typeItem;
 	}
 
-	public void getEffectsFromScrolls()
+	public void getEffectsFromScrolls(Item s)
 	{
-		if (name.equalsIgnoreCase("Confuse"))
+		if (s.name.equalsIgnoreCase("Confuse"))
 		{
 			message = "Your hands begin to glow red";
 			
 		}
-		else if (name.equalsIgnoreCase("Light"))
+		else if (s.name.equalsIgnoreCase("Light"))
 		{
 			message = "The corridor glows and then fades";
 		}
-		else if (name.equalsIgnoreCase("Armor"))
+		else if (s.name.equalsIgnoreCase("Armor"))
 		{
 			message = "Your armor glows faintly for a moment";
 		}
-		else if (name.equalsIgnoreCase("Hold"))
+		else if (s.name.equalsIgnoreCase("Hold"))
 		{
 	
 		}
-		else if (name.equalsIgnoreCase("Sleep"))
+		else if (s.name.equalsIgnoreCase("Sleep"))
 		{
 			message = "You fall asleep.";
 		}
-		else if (name.equalsIgnoreCase("Create"))
+		else if (s.name.equalsIgnoreCase("Create"))
 		{
 			message = "You hear a faint cry of anguish in the distance.";
 		}
-		else if (name.equalsIgnoreCase("Ident"))
+		else if (s.name.equalsIgnoreCase("Ident"))
 		{
 			message = "This scroll is an identify scroll";
 		}
-		else if (name.equalsIgnoreCase("Map"))
+		else if (s.name.equalsIgnoreCase("Map"))
 		{
 		    message = "Oh, now this scroll has a map on it.";
 		}
-		else if (name.equalsIgnoreCase("GFIND"))
+		else if (s.name.equalsIgnoreCase("GFIND"))
 		{
 			message = "You begin to feel greedy and you sense gold.";
 		}
-		else if (name.equalsIgnoreCase("Teleport"))
+		else if (s.name.equalsIgnoreCase("Teleport"))
 		{
 			
 
 		}
-		else if (name.equalsIgnoreCase("Ench"))
+		else if (s.name.equalsIgnoreCase("Ench"))
 		{
 			
 		
 		}
-		else if (name.equalsIgnoreCase("Scare"))
+		else if (s.name.equalsIgnoreCase("Scare"))
 		{
 			message = "You hear maniacal laughter in the distance.";
 		}
-		else if (name.equalsIgnoreCase("Remove"))
+		else if (s.name.equalsIgnoreCase("Remove"))
 		{
 			message = "You feel as if somebody is watching over you.";
 		}
-		else if (name.equalsIgnoreCase("Agr"))
+		else if (s.name.equalsIgnoreCase("Agr"))
 		{
 			message = "You hear a high pitched humming noise.";
 		}
-		else if (name.equalsIgnoreCase("NOP"))
+		else if (s.name.equalsIgnoreCase("NOP"))
 		{
 			message = "This scroll seems to be blank";
 		}
-		else if (name.equalsIgnoreCase("Genocide"))
+		else if (s.name.equalsIgnoreCase("Genocide"))
 		{
 			message = "You have been granted the boon of genocide";	
 		}

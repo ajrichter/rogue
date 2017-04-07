@@ -1,6 +1,8 @@
 package Item;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 
 
@@ -16,18 +18,35 @@ public class ItemLevel {
 
 		floorUnits= new UnitForItem[20][20];
 		floorItems= new Item[20][20];
-		int [] loc = new int [] {4, 5};
-		int [] loc2 = new int [] {5,4};
-		int [] loc3 = new int [] {6,4};
-		int [] loc4 = new int [] {9, 4};
-		int [] loc5 = new int [] {7, 7};
+		int [] loc1 = new int [] {10, 8};
+		int [] loc2 = new int [] {12, 5};
+		int [] loc3 = new int [] {5, 12};
+		int [] loc4 = new int [] {11, 6};
+		int [] loc5 = new int [] {6, 15};
+		int [] loc6 = new int [] {10, 6};
+		int [] loc7 = new int [] {6, 10};
+		int [] loc8 = new int [] {5, 9};
+		int [] loc9 = new int [] {9, 5};
+		int [] loc10 = new int [] {7, 8};
+		int [] loc11 = new int [] {4, 5};
+		int [] loc12 = new int [] {5, 4};
 		
 		
-		addItem(items[0], loc);
+		addItem(items[0], loc1);
 		addItem(items[1], loc2);
 		addItem(items[2], loc3);
+		
 		addItem(items[3], loc4);
 		addItem(items[4], loc5);
+		addItem(items[5], loc6);
+		
+		addItem(items[6], loc7);
+		addItem(items[7], loc8);
+		addItem(items[8], loc9);
+		
+		addItem(items[9], loc10);
+		addItem(items[10], loc11);
+		addItem(items[11], loc12);
 		addUnit(player);
 	}
 
@@ -45,7 +64,8 @@ public class ItemLevel {
 					this.floorSeen[i][k]= "=";
 				}else if(k==0 ||k==19){
 					this.floorSeen[i][k]="|";
-				}else{
+				}
+				else{
 					this.floorSeen[i][k]=".";
 				}
 			}
@@ -92,8 +112,7 @@ public class ItemLevel {
 		}else{
 			//check if piece of floor
 			String loc = floorSeen[location[1]+dir[1]][location[0]+dir[0]];
-			if(loc.equals(".")|| loc.equals("?") || 
-					loc.equals(")") || loc.equals("!") || loc.equals(":") || loc.equals("/") || loc.equals("=") || loc.equals("]")){
+			if(loc.equals(".")||  loc.equals(")") || loc.equals("!") || loc.equals(":") || loc.equals("/") ||  loc.equals("]") ||  loc.equals("?")){
 						return true;
 					}
 		}
@@ -116,8 +135,7 @@ public class ItemLevel {
 		}else{
 			//check if piece of floor
 			String loc = floorSeen[location[1]+dir[1]][location[0]+dir[0]];
-			if(loc.equals(".")|| loc.equals("?") || 
-					loc.equals(")") || loc.equals("!") || loc.equals(":") || loc.equals("/") || loc.equals("=") || loc.equals("]")){
+			if(loc.equals(".")||loc.equals(")") || loc.equals("!") || loc.equals(":") || loc.equals("/") || loc.equals("=") || loc.equals("]") || loc.equals("?")  ){
 				return (Item) floorItems[location[1]+dir[1]][location[0]+dir[0]];
 			}
 		}

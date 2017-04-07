@@ -77,7 +77,7 @@ public class Item {
 	
 	public String getScrollMessage() {
 		Scrolls s = new Scrolls(name, typeItem);
-		s.getEffectsFromScrolls();
+		s.getEffectsFromScrolls(s);
 		return s.getMessage();
 	}
 
