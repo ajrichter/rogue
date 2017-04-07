@@ -24,7 +24,7 @@ public class Enemy extends Unit{
 	private void genMon(int lvl, int pl){
 		DiceRoller d= new DiceRoller();
 		// d.roll(1, 6)
-		switch (4) {
+		switch (3) {
 		   case 1: this.val = "A";
 		   			this.name = "aquator";
 					this.xp = 20;
