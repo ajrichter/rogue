@@ -14,20 +14,14 @@ public class Enemy extends Unit{
 	private int trs, expGained,  dmg;
 
 	public Enemy() {
-		//values for prototype
-		this.val="E";
-		this.name="Slime";
-		this.armor=10;
-		this.hp=20;
+		this.genMon(2, 20);
 	}
 
 	/*
 		Prioritize certain monsters by level.
-		Initializes a Monster for Enemy.
-
 		Difficulty just has to be implemented, as usual
 	*/
-	private void genMon(){
+	private void genMon(int lvl, int pl){
 		DiceRoller d= new DiceRoller();
 		switch (d.roll(1, 6)) {
 		   case 1: this.val = "A"
@@ -79,6 +73,9 @@ public class Enemy extends Unit{
 					this.df = 10;
 				    break;
 		}
+
+		if(this.df > ((lvl + pl) /2))
+			this.genMon();
 	}
 
 	// Treasure returned when the enemy dies
