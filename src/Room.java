@@ -66,7 +66,6 @@ public class Room {
 		}
 	}
 	
-	
 	/**
 	 * gonna create a makeDoor() class which basically just makes the door
 	 * by rewriting over the walls of the dungeon
@@ -85,6 +84,19 @@ public class Room {
 		//probably need some kind of error catching 
 	}
 	
+	public void makeDoors() {
+		numDoors();
+		/**
+		 * in hindsight this is rather tricky, need to know the position of each room
+		 * to determine where the doors are (south edge room will not have doors 
+		 * to the south of the room) 
+		 * 
+		 * might require a 3x3 array for level or so
+		 * 
+		 * also need to determine the connections of the hallway and how all the rooms
+		 * will connect to each other (so you don't have some wonkey leve design
+		 */
+	}
 	
 	/**
 	 * NOTE: Method currently NOT used, code implemented in constructor
