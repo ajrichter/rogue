@@ -12,6 +12,24 @@ public class Room {
 	//type of room, co = corner, ce = center, ed = edge
 	private String type;
 	
+	/**
+	 * Each level has dimensions of 24x80 and can contain up to 9 rooms
+	 * Subsequently, each room can have a maximum dimension of 8x26 (divided by 3)
+	 * Minimum Height and Width of room is 4x4 (room with 4 block to walk on)
+	 *	 	 _ _ _ _
+	 * 		 | . . +
+	 * 		 | . . |
+	 *		 _ _ _ _
+	 *	
+	 *	| & _ = wall, . = floor, + = door
+	 *
+	 * @param type: n = north, s = south, e = east, w = west, c = center
+	 * 				e.x. ne = north east, 2 doors max
+	 * 				corner rooms can have up to 2 doors
+	 * 				edge rooms   "			  " 3 doors
+	 * 				center room  "			  " 4 doors
+	 * 				
+	 */
 	public Room(String type) {
 		this.maxHeight = 24/3;	// = 8
 		this.maxWidth = 80/3;	// = 26.66.. = 26
@@ -21,8 +39,8 @@ public class Room {
 		
 		//Randomize height and width
 		Random r = new Random();
-		this.height = r.nextInt(this.maxHeight) + 1;
-		this.width = r.nextInt(this.maxWidth) + 1;
+		this.height = r.nextInt(this.maxHeight) + 4;
+		this.width = r.nextInt(this.maxWidth) + 4;
 		
 		//create room
 		//height = # rows, width = # cols
@@ -48,8 +66,8 @@ public class Room {
 		//randomizes height and width of room
 		//could've been done in constructor (might do that instead)
 		Random r = new Random();
-		this.height = r.nextInt(this.maxHeight) + 1;
-		this.width = r.nextInt(this.maxWidth) + 1;
+		this.height = r.nextInt(this.maxHeight) + 4;
+		this.width = r.nextInt(this.maxWidth) + 4;
 	}
 	
 	public void drawRoom() {

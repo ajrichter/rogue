@@ -9,6 +9,7 @@ public class Level {
 	private Item[][] floorItems;
 	private String[][] floorTraps;
 	
+	//not used yet
 	private Room[] rooms;
 	
 	public Level(Unit player){
