@@ -116,7 +116,7 @@ public class Level {
 			return null;
 		}else{
 			//check if piece of floor
-			if(floorSeen[location[1]+dir[1]][location[0]+dir[0]].equals("E")){
+			if(Character.isUpperCase(floorSeen[location[1]+dir[1]][location[0]+dir[0]].charAt(0))){
 				return (Enemy) floorUnits[location[1]+dir[1]][location[0]+dir[0]];
 			}
 		}
