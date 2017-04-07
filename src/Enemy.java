@@ -23,7 +23,8 @@ public class Enemy extends Unit{
 	*/
 	private void genMon(int lvl, int pl){
 		DiceRoller d= new DiceRoller();
-		switch (d.roll(1, 6)) {
+		// d.roll(1, 6)
+		switch (4) {
 		   case 1: this.val = "A";
 		   			this.name = "aquator";
 					this.xp = 20;
@@ -77,9 +78,29 @@ public class Enemy extends Unit{
 		if(this.df > ((lvl + pl) /2))
 			this.genMon(20, 20);
 	}
-	
-	public int DMG(){
-		return 0;
+
+	public int getDMG(){
+		switch (this.val) {
+			case "A":
+				this.dmg = 0;
+				 break;
+		 	case "B":
+				 this.dmg = d.roll(1,2);
+				 break;
+		 	 case "C":
+				 this.dmg = d.roll(1,2) + d.roll(2,5);
+				 break;
+		 	 case "D":
+				 this.dmg = d.roll(2,8) + d.roll(3,10);
+				 break;
+		 	 case "E":
+				 this.dmg = d.roll(1,2);
+				 break;
+		 	 default:
+				 this.dmg = d.roll(1,2);
+				 break;
+	 	 }
+		return this.dmg;
 	}
 
 	// Treasure returned when the enemy dies
