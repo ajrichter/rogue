@@ -23,8 +23,7 @@ public class Enemy extends Unit{
 	*/
 	private void genMon(int lvl, int pl){
 		DiceRoller d= new DiceRoller();
-		// d.roll(1, 6)
-		switch (3) {
+		switch (d.roll(1, 6)) {
 		   case 1: this.val = "A";
 		   			this.name = "aquator";
 					this.xp = 20;
@@ -76,7 +75,7 @@ public class Enemy extends Unit{
 		}
 
 		if(this.df > ((lvl + pl) /2))
-			this.genMon(20, 20);
+			this.genMon(10, 20);
 	}
 
 	public int getDMG(){
