@@ -11,11 +11,15 @@ public class Level {
 	private Item[][] floorItems;
 	private String[][] floorTraps;
 	
+	private Room[] rooms;
+	
 	public Level(Unit player){
 		makeLevel();
 		
 		floorUnits= new Unit[24][80];
 		floorItems= new Item[24][80];
+		
+		rooms = new Room[9];	//9 possible rooms
 		
 		Enemy e= new Enemy();
 		addUnit(player);
