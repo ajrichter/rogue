@@ -12,10 +12,16 @@ import Item.Item;
 public class GamePlay {
 	
 	private boolean hasAmulet=false;
-	private Player play; 
-	private Level level;
-	private static RougeView view;
+	Player play; 
+	Level level;
+	private RougeView view;
 	private String[] lines = new String[10];
+	
+	public GamePlay(RougeView view) {
+		this.play = new Player();
+		this.level = new Level(play);
+		this.view = view;
+	}
 	
 	public void climbStairs() {
 		if(hasAmulet==true) {
@@ -43,21 +49,22 @@ public class GamePlay {
 		String text= "";
 		int[] attack = attacker.fight();
 		
-		if(attack[0]>=defender.getAC()){
+		if(attack[0]>=defender.getArmor()){
 			defender.takeDamage(attack[1]);
 			text= attacker.getName() + " hit " + defender.getName()+ " for " +attack[1]+ " damage";
-			if(defender.isDead){
-				Item i=((Enemy) defender).dropTreasure();
+			if(defender.isDead()){
+				//Item i=((Enemy) defender).dropTreasure();
 				//drop item
-				if(i!=null){
-					level.addItem(i, this.level.unitLocation(defender));
-				}
+				//if(i!=null){
+				//	level.addItem(i, this.level.unitLocation(defender));
+			//	}
 				text=attacker.getName() + " hit " + defender.getName()+ " for " +attack[1]+ " damage and defeated it!";
 				this.level.removeUnit(defender);
 			}
 		}else{
 			text= attacker.getName()+ " missed "+ defender.getName();
 		}
+		
 		
 		this.view.updateNaration(text);
 	}
@@ -106,7 +113,7 @@ public class GamePlay {
 	}
 	
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		GamePlay game = new GamePlay();
 		String[] dyingnoises = new String[4];
@@ -125,5 +132,5 @@ public class GamePlay {
 		//makes controller
 		Controller c= new Controller("cat");
 		c.sendInfo(game,view);
-	}
+	}*/
 }

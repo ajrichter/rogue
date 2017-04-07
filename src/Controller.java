@@ -1,30 +1,38 @@
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+//import RougeView.ViewUpdate;
+
 public class Controller extends JFrame implements KeyListener {
 	
     private JLabel label;
     private GamePlay game;
     private RougeView view;
+    public static JFrame frame;
     
     public Controller(String s) {
         super(s);
-        JPanel p = new JPanel();
+        /*JPanel p = new JPanel();
         label = new JLabel("Key Listener!");
         p.add(label);
         add(p);
         addKeyListener(this);
         setSize(200, 100);
         setVisible(true);
-
-    }
-    
-    public void sendInfo(GamePlay play, RougeView view){
-    	this.game=play;
-    	this.view=view;
+        */
+        
+        frame= new JFrame();
+		frame.setVisible(true);
+		Graphics gr = frame.getGraphics();
+		frame.addKeyListener(this);
+        
+        //initialize variables
+        this.view = new RougeView(frame);
+        this.game = new GamePlay(view);
     }
 	
 	public void keyReleased(KeyEvent e) {
@@ -67,6 +75,34 @@ public class Controller extends JFrame implements KeyListener {
 	        game.move(down);
 	    }
 	    
+	    if (key == KeyEvent.VK_Y) {
+	    	//moves diagonally left and up
+	    	int[] leftup = {-1,1};
+	    	System.out.println("leftup");
+	    	game.move(leftup);
+	    }         
+	
+	    if (key == KeyEvent.VK_U) {
+	    	//moves diagonally right and up
+	        int[] rightup = {1,1};
+	        System.out.println("rightup");
+	        game.move(rightup);
+	    }
+	
+	    if (key == KeyEvent.VK_B) {
+	    	//moves diagonally left and down
+	        int[] leftdown = {-1,-1};
+	        System.out.println("leftdown");
+	        game.move(leftdown);
+	    }
+	
+	    if (key == KeyEvent.VK_N) {
+	    	//moves diagonally right and down
+	        int[] rightdown = {1,-1};
+	        System.out.println("rightdown");
+	        game.move(rightdown);
+	    }
+	    
 	    if (key == KeyEvent.VK_T) {
 	        //Throws an object in the next specified direction
 	    }
@@ -90,4 +126,17 @@ public class Controller extends JFrame implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 	}
 	
+	public static void main(String[] args) {
+		Controller control = new Controller("Rogue");
+		String[] dyingnoises = new String[4];
+		//game.saveGame(dyingnoises); 
+		
+		
+		//makes a board
+		control.view.updateBoard(control.game.level.getSeenFloor());
+		control.view.updateStats(control.game.play.playerStats());
+		control.view.nextTurn();
+		
+		//makes controller
+	}
 }
