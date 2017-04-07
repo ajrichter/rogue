@@ -80,6 +80,7 @@ public class Enemy extends Unit{
 	}
 
 	public int getDMG(){
+		DiceRoller d= new DiceRoller();
 		switch (this.val) {
 			case "A":
 				this.dmg = 0;
