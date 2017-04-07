@@ -2,6 +2,9 @@ package Item;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.net.URL;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -28,14 +31,19 @@ public class RougeViewItem {
 	}
 	
 	public RougeViewItem(){
+		
 		//width and height of frame
 		int x=750;
 		int y=750;
 
 		//creates the new painter
-		frame= new JFrame();
+		frame= new JFrame("RougePort");
 		frame.setVisible(true);
 		Graphics gr = frame.getGraphics();
+		
+        URL appIconUrl = getClass().getResource("Frogger.gif");
+        ImageIcon appIcon = new ImageIcon(appIconUrl);
+        frame.setIconImage(appIcon.getImage()); 
 		
 		//creates the new drawer
 		this.view = new ViewUpdate();

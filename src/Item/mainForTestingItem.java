@@ -135,10 +135,9 @@ public class mainForTestingItem {
 			e.printStackTrace();
 		}
 	}
-
-
+	
 	public static void main(String[] args) {
-
+		
 		mainForTestingItem game = new mainForTestingItem();
 		String[] dyingnoises = new String[4];
 		game.saveGame(dyingnoises); 
