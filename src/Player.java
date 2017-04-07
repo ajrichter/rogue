@@ -35,7 +35,7 @@ public class Player extends Unit{
 
 	public String[] playerStats(){
 		String[] temp= new String[2];
-		temp[0]= "Level: " + this.level + " Hits: " +this.hp+ " ("+this.maxHP+") "+
+		temp[0]= "Level: " + this.level + " HP: " +this.hp+ " ("+this.maxHP+") "+
 		" Str: "+this.strength+ " (" + this.strength + ") Armor: "+ this.armor+
 		 " Gold: "+ gold + " Exp: " + this.xp;
 		return temp;

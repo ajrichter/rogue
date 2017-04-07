@@ -4,18 +4,21 @@ import Item.Item;
 
 public class Level {
 	
-	// Commit vs. push
-	
 	private String[][] floorSeen;
 	private Unit[][] floorUnits;
 	private Item[][] floorItems;
 	private String[][] floorTraps;
+	
+	//not used yet
+	private Room[] rooms;
 	
 	public Level(Unit player){
 		makeLevel();
 		
 		floorUnits= new Unit[24][80];
 		floorItems= new Item[24][80];
+		
+		rooms = new Room[9];	//9 possible rooms
 		
 		Enemy e= new Enemy();
 		addUnit(player);
@@ -27,12 +30,11 @@ public class Level {
 	}
 	
 	//Small for prototype
-	//test comment
-	//another test comment
 	public void makeLevel(){
-		this.floorSeen = new String[24][80];
+		//this.floorSeen = new String[24][80];
 		//should probably call makeroom()
-		/*
+		
+		//put this back for testing
 		this.floorSeen= new String[20][20];
 		for(int i=0; i<20;i++){
 			for(int k=0; k<20;k++){
@@ -45,7 +47,7 @@ public class Level {
 				}
 			}
 		}
-		*/
+		
 	}
 	
 	//makes one room
@@ -53,15 +55,8 @@ public class Level {
 		//you would probably want this to make an object
 		//there are DARK and LIT room
 		//seems like the max size of a room is 7x25 (let's make upper limit 8x26
-		
-		Random rand = new Random();
-		int heightRand = rand.nextInt(6) + 1;
-		int widthRand = rand.nextInt(24) + 1;
-		for(int i = 0; i < heightRand; i++) {
-			for(int j = 0; j < widthRand; j++) {
-				if(i == 0 || k == widthrand -)
-			}
-		}
+
+		//this is moved to the room class
 		
 		//TODO
 	}
@@ -121,7 +116,7 @@ public class Level {
 			return null;
 		}else{
 			//check if piece of floor
-			if(floorSeen[location[1]+dir[1]][location[0]+dir[0]].equals("E")){
+			if(Character.isLetter(floorSeen[location[1]+dir[1]][location[0]+dir[0]].charAt(0))){
 				return (Enemy) floorUnits[location[1]+dir[1]][location[0]+dir[0]];
 			}
 		}

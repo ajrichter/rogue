@@ -26,13 +26,13 @@ public class RougeView {
 		frame.repaint();
 	}
 	
-	public RougeView(){
+	public RougeView(JFrame sentFrame){
 		//width and height of frame
 		int x=750;
 		int y=750;
 
 		//creates the new painter
-		frame= new JFrame();
+		frame= sentFrame;
 		frame.setVisible(true);
 		Graphics gr = frame.getGraphics();
 		
