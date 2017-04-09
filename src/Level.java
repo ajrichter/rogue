@@ -1,5 +1,5 @@
 import java.util.Random;
-
+import java.util.concurrent.ThreadLocalRandom;
 import Item.Item;
 
 public class Level {
@@ -27,12 +27,28 @@ public class Level {
 	private Item[][] floorItems;
 	private String[][] floorTraps;
 
+	private int numR;
+
 
 	private Room[] rooms;
 
-	public Level(int num) {
+	/*	The maximum room size is
+		25 wide * 7 high
+		--------------------+-
+		|.......................|
+		|.......................|
+		+.......................|
+		|.......................+
+		|.......................|
+		----------------------
+	*/
 
+	// Andrew's Level Generator
+	public Level(int num) {
+		numR = ThreadLocalRandom.current().nextInt(5, 8 + 1);
+		makeL();
 	}
+
 	public Level(Unit player){
 		makeLevel();
 
@@ -44,6 +60,48 @@ public class Level {
 		Enemy e= new Enemy();
 		addUnit(player);
 		addUnit(e);
+	}
+
+	public void makeLevel(){
+		
+	}
+
+
+	private void makeRooms() {
+
+	}
+
+	//Small for prototype
+	// Yes, I can tell
+	public void makeLevel(){
+		this.floorSeen= new String[20][20];
+		for(int i=0; i<20;i++){
+			for(int k=0; k<20;k++){
+				if(i==0 || i==19){
+					this.floorSeen[i][k]= "=";
+				}else if(k==0 ||k==19){
+					this.floorSeen[i][k]="|";
+				}else{
+					this.floorSeen[i][k]=".";
+				}
+			}
+		}
+	}
+
+	//makes one room
+	private void makeRoom(){
+		//you would probably want this to make an object
+		//there are DARK and LIT room
+		//seems like the max size of a room is 7x25 (let's make upper limit 8x26
+
+		//this is moved to the room class
+
+		//TODO
+	}
+
+	//Not implemented in prototype
+	private void makeHallway(){
+		//TODO
 	}
 
 	public char[][] showL(){
@@ -62,40 +120,6 @@ public class Level {
 
 	public String[][] getSeenFloor(){
 		return floorSeen;
-	}
-
-	//Small for prototype
-	// Yes, I can tell
-	public void makeLevel(){
-		this.floorSeen= new String[20][20];
-		for(int i=0; i<20;i++){
-			for(int k=0; k<20;k++){
-				if(i==0 || i==19){
-					this.floorSeen[i][k]= "=";
-				}else if(k==0 ||k==19){
-					this.floorSeen[i][k]="|";
-				}else{
-					this.floorSeen[i][k]=".";
-				}
-			}
-		}
-
-	}
-
-	//makes one room
-	private void makeRoom(){
-		//you would probably want this to make an object
-		//there are DARK and LIT room
-		//seems like the max size of a room is 7x25 (let's make upper limit 8x26
-
-		//this is moved to the room class
-
-		//TODO
-	}
-
-	//Not implemented in prototype
-	private void makeHallway(){
-		//TODO
 	}
 
 	//adds a unit to the level
