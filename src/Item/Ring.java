@@ -1,12 +1,11 @@
 package Item;
 
 public class Ring extends Item {
-		public Ring(String name, String typeItem) {
-			super(name, typeItem);
-
+	
+		
+		public Ring() {
+			
 		}
-		
-		
 		
 		
 		

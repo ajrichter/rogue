@@ -31,16 +31,22 @@ public class ItemLevel {
 		int [] loc11 = new int [] {4, 5};
 		int [] loc12 = new int [] {5, 4};
 		
+	
+		//String boardName3 = items[2].boardName;
+	
 		
 		addItem(items[0], loc1);
 		addItem(items[1], loc2);
 		addItem(items[2], loc3);
+	
+	
+		
 		
 		addItem(items[3], loc4);
 		addItem(items[4], loc5);
 		addItem(items[5], loc6);
 		
-		addItem(items[6], loc7);
+	addItem(items[6], loc7);
 		addItem(items[7], loc8);
 		addItem(items[8], loc9);
 		
@@ -166,7 +172,7 @@ public class ItemLevel {
 			if(floorItems[location[1]][location[0]]==null){
 				floorSeen[location[1]][location[0]]= ".";
 			}else{
-				floorSeen[location[1]][location[0]]=floorItems[location[1]][location[0]].toString();
+				floorSeen[location[1]][location[0]]=floorItems[location[1]][location[0]].boardName;
 			}
 			floorUnits[location[1]][location[0]]= null;
 			//add units to current location
@@ -204,9 +210,9 @@ public class ItemLevel {
 		//TODO
 	}
 
-	public void addItem(Item item, int[] location){
+	public void addItem(Item item,  int[] location){
 		floorItems[location[1]][location[0]]=item;
-		floorSeen[location[1]][location[0]]=item.toString();
+		floorSeen[location[1]][location[0]]= item.boardName;
 	}
 
 }
