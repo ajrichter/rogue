@@ -14,6 +14,7 @@ public class Enemy extends Unit{
 	private int trs, expGained,  dmg, df;
 
 	public Enemy() {
+		super();
 		this.genMon(2, 20);
 	}
 

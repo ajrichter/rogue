@@ -14,7 +14,11 @@ public class Unit {
 	// All done in Subclasses
 	// Clearly not dead as it has just been constructed!
 	public Unit() {
-		dead = false;
+		this.dead = false;
+	}
+
+	public boolean isEnemy(){
+		return !this.val.equals("@");
 	}
 
 	// Returns the Unit's character representation

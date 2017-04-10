@@ -21,16 +21,16 @@ public class Level {
    * 		 | . . |
    *		 --------
 	*/
-	private char[][] floor;
-	private boolean[][] isSeen;
 	private Unit[][] floorUnits;
 	private Item[][] floorItems;
 	private String[][] floorTraps;
-
-	private int numR;
-
-
 	private Room[] rooms;
+
+	// Andrew's  Instance Variables
+	private int numLevel;
+	private int numR;
+	private char[][] floor;
+	private boolean[][] isSeen;
 
 	/*	The maximum room size is
 		25 wide * 7 high
@@ -43,10 +43,58 @@ public class Level {
 		----------------------
 	*/
 
+	// Maximum Room dimensions are 8*26, h*w
+	// Maximum Room dimensions are 4*4, with walls and 4 squares to move in.
+	// x = w, y = h
+	class Rm {
+		private int x1, x2,  y1, y2, w, h;
+
+		public Rm() {
+			h = ThreadLocalRandom.current().nextInt(4, 8 + 1);
+			w = ThreadLocalRandom.current().nextInt(4, 26 + 1);
+		}
+
+		private void set(int x, int y){
+			x1 = x;
+			y1 = y;
+			x2 = x1 + w;
+			y2 = y1 + h;
+		}
+	}
+
 	// Andrew's Level Generator
-	public Level(int num) {
-		numR = ThreadLocalRandom.current().nextInt(5, 8 + 1);
-		makeL();
+	/* Generate a number of rooms
+		? should I generate the size of the room as a factor of the number of rooms
+		? yes because this is more dynamic and makes it more interesting
+		Using inner Room class, Generate a random room
+		First room is placed randomly
+		Second and following rooms are placed after checking to see if there square is open
+		Try to fit it in the array
+		If it doesn't fit, make a new room and repeat
+		Repeat for the number of rooms
+	*/
+	public Level(int nL) {
+		numLevel = nL;
+		numR = ThreadLocalRandom.current().nextInt(4, 8 + 1);
+
+		isSeen = new boolean[24][80];
+		floor = new char[24][80];
+		// set everything to 0, which means empty
+		for(int y = 0; y < 24; y++){
+			for(int x = 0; x < 80; x++){
+				floor[y][x] = '0';
+			}
+		}
+
+		Rm r1 = new Rm();
+		int x = ThreadLocalRandom.current().nextInt(0, 79 + 1);
+		int y = ThreadLocalRandom.current().nextInt(0, 23 + 1);
+
+		for(int w = 0; w < r1.w; w++){
+			floor[][]
+			floor[][]
+		}
+
 	}
 
 	public Level(Unit player){
@@ -61,11 +109,6 @@ public class Level {
 		addUnit(player);
 		addUnit(e);
 	}
-
-	public void makeLevel(){
-		
-	}
-
 
 	private void makeRooms() {
 
