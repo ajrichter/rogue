@@ -50,15 +50,15 @@ public class Level {
 		private int x1, x2,  y1, y2, w, h;
 
 		public Rm() {
-			h = ThreadLocalRandom.current().nextInt(4, 8 + 1);
 			w = ThreadLocalRandom.current().nextInt(4, 26 + 1);
+			h = ThreadLocalRandom.current().nextInt(4, 8 + 1);
 		}
 
 		private void set(int x, int y){
 			x1 = x;
 			y1 = y;
-			x2 = x1 + w;
-			y2 = y1 + h;
+			x2 = x1 + w - 1;
+			y2 = y1 + h - 1;
 		}
 	}
 
@@ -85,16 +85,7 @@ public class Level {
 				floor[y][x] = '0';
 			}
 		}
-
-		Rm r1 = new Rm();
-		int x = ThreadLocalRandom.current().nextInt(0, 79 + 1);
-		int y = ThreadLocalRandom.current().nextInt(0, 23 + 1);
-
-		for(int w = 0; w < r1.w; w++){
-			floor[][]
-			floor[][]
-		}
-
+		makeRooms();
 	}
 
 	public Level(Unit player){
@@ -110,8 +101,46 @@ public class Level {
 		addUnit(e);
 	}
 
-	private void makeRooms() {
+	public void makeRooms(){
+		Rm r1 = new Rm();
+		r1.set(ThreadLocalRandom.current().nextInt(0, 79 - r1.w + 1), ThreadLocalRandom.current().nextInt(0, 23 - r1.h + 1))
+		insertRoom(r1);
 
+		// now make new rooms and check validity
+		for(int r = 0; r < numR -1; r++){
+			Rm rx = new Rm();
+			rx.set(ThreadLocalRandom.current().nextInt(0, 79 - r1.w + 1), ThreadLocalRandom.current().nextInt(0, 23 - r1.h + 1))
+			while(!fits(rx)){
+
+			}
+			insertRoom(rx);
+		}
+	}
+
+	private boolean fits(Rm r){
+		// Ensure there is one extra space around the room for hallways
+		for (int y = r.y1-1; y < r.y2+2; y++){
+			for(int x = r.x1-1; x < r.x2 + 2; x++){
+				if(floor[y][x] != '0')
+					return false;
+			}
+		}
+		return true;
+	}
+	private void insertRoom(Rm r){
+		// make top and part of a room
+		for(int w = 0; w < r.w; w++){
+			floor[r.y1][w] = '-';
+			floor[r.y2][w] ='-';
+		}
+		// make inner room and sidewalls
+		for(int h = r.y1+1; h < r.y2; h++){
+			floor[h][r.x1] = '|';
+			for(int w = r.x1+1; w < r.x2; w++){
+				floor[h][w] = '.';
+			}
+			floor[h][x2] ='|';
+		}
 	}
 
 	//Small for prototype
@@ -129,22 +158,6 @@ public class Level {
 				}
 			}
 		}
-	}
-
-	//makes one room
-	private void makeRoom(){
-		//you would probably want this to make an object
-		//there are DARK and LIT room
-		//seems like the max size of a room is 7x25 (let's make upper limit 8x26
-
-		//this is moved to the room class
-
-		//TODO
-	}
-
-	//Not implemented in prototype
-	private void makeHallway(){
-		//TODO
 	}
 
 	public char[][] showL(){
