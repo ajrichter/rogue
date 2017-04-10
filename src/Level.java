@@ -46,6 +46,7 @@ public class Level {
 	// Maximum Room dimensions are 8*26, h*w
 	// Maximum Room dimensions are 4*4, with walls and 4 squares to move in.
 	// x = w, y = h
+	// Size needs to be a DiceRoller beacuse it should be different Probabilities
 	class Rm {
 		private int x1, x2,  y1, y2, w, h;
 
@@ -106,7 +107,13 @@ public class Level {
 		r1.set(ThreadLocalRandom.current().nextInt(0, 79 - r1.w + 1), ThreadLocalRandom.current().nextInt(0, 23 - r1.h + 1))
 		insertRoom(r1);
 
-		// now make new rooms and check validity
+		// now make new rooms and check if they fit
+		// Add a new method in here to make the room find a spot that fits
+		// should all rooms just be within their 1/9th of the grid
+		// Yes. This makes much more sense
+		// So put it in a random spot in its 1/9th, not on the whoel grid
+		// Move through the 9 and random boolean concerning if it isor is not a room
+		// Then do doors/hallways
 		for(int r = 0; r < numR -1; r++){
 			Rm rx = new Rm();
 			rx.set(ThreadLocalRandom.current().nextInt(0, 79 - r1.w + 1), ThreadLocalRandom.current().nextInt(0, 23 - r1.h + 1))
