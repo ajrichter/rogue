@@ -112,7 +112,7 @@ public class Enemy extends Unit{
 	// decides to drop an item and returns a random item
 	// Should drop treasure
 	public Item dropTreasure() {
-		Item i= new Item("Amulet of Yendor",null);
+		Item i= new Item();
 		return i;
 	}
 }
