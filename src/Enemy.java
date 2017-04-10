@@ -1,9 +1,9 @@
+import java.awt.Point;
+
 import Item.Item;
 
 /*
-	Create the different enemies
-	Start with 5 enemies.
-	addMakeEnemy() Method which randomly generates an Enemy
+	Add next 21 enemies.
 */
 
 public class Enemy extends Unit{
@@ -12,6 +12,7 @@ public class Enemy extends Unit{
 	//boolean[] flags
 	private double treasureChance;
 	private int trs, expGained,  dmg, df;
+	private Point p;
 
 	public Enemy() {
 		super();
@@ -77,6 +78,12 @@ public class Enemy extends Unit{
 
 		if(this.df > ((lvl + pl) /2))
 			this.genMon(10, 20);
+	}
+	public void setP(int x, int y){
+		p = new Point(x, y);
+	}
+	public Point getP(){
+		return p;
 	}
 
 	public int getDMG(){

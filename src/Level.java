@@ -3,17 +3,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import Item.Item;
 
 public class Level {
-	// New Outline for Level
-	private boolean[][] isSeen;
-	/* We need a way to represent all the enemies such that
-	they can be defeated or added each time you enter a new room
-	*/
-	// Can't use a queue because then can't access the enemies location when needed.
-	private Queue<Enemy> enemies = new ArrayDeque<Enemy>();
-	private int numEnemies;
-
 	private String[][] floorSeen;
-
 
 	/*
    *	     ---+----
