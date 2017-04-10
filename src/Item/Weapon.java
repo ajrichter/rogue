@@ -3,77 +3,79 @@ package Item;
 public class Weapon extends Item {
 	DiceRollerItem dice = new DiceRollerItem();
 
-	public Weapon (String name, String typeItem) { 
-		super(name, typeItem);
-		
+
+	public Weapon() {
 		this.boardName= ")";
-		this.name = name;
-		this.typeItem = typeItem;
+		this.getWeapon();
+		
 	}
 
+
+	public void getWeapon()
+	{
+		DiceRollerItem d= new DiceRollerItem();
+
+		switch (d.rollDie(11)) { 	
 	
-	public void getDamageFromWeapon(Item w)
-		{
-			if (w.name.equalsIgnoreCase("Mace"))
-			{
-				
-				damage = dice.rollDie(4) + dice.rollDie(4); //2d4 damage 
-			}
-			else if (w.name.equalsIgnoreCase("Long Sword"))
-			{
-				damage = dice.rollDie(10); //1d10 damagvar=0;e
-			}
-			else if (w.name.equalsIgnoreCase("Short Bow"))
-			{
-				damage = 1; //1d1 damage 
-			}
-			else if (w.name.equalsIgnoreCase("Arrow"))
-			{
-				damage = 1; //1d1 damage
-			}
-			else if (w.name.equalsIgnoreCase("Dagger"))
-			{
-				damage = dice.rollDie(6); //1d6 damage  
-			}
-			else if (w.name.equalsIgnoreCase("Rock"))
-			{
-				damage = dice.rollDie(2); 
-			}
-			else if (w.name.equalsIgnoreCase("Two-Handed Sword"))
-			{
-				damage = dice.rollDie(6) + dice.rollDie(6) + dice.rollDie(6); 
-			}
-			else if (w.name.equalsIgnoreCase("Sling"))
-			{
-				damage = 0;
-			}
-			else if (w.name.equalsIgnoreCase("Dart"))
-			{
-				damage = 1; 
-			}
-			else if (w.name.equalsIgnoreCase("Crossbow"))
-			{
-				damage = 1;
-			}
-			else if (w.name.equalsIgnoreCase("Crossbow bolt"))
-			{
-				damage = dice.rollDie(2);
-			}
-			else if (w.name.equalsIgnoreCase("Spear"))
-			{
-				damage = dice.rollDie(8);
-			}
-	
-		}	
+		case 1: this.name = "Mace";
+		this.damage = dice.rollDie(4) + dice.rollDie(4); //2d4 damage 
+		break;
 		
-		public int getDamage() {
-			return damage;
+		
+		case 2: this.name = "Long Sword";
+		this.damage = dice.rollDie(10); //1d10 damage
+		break;
+		
+		case 3: this.name = "Short Bow";
+		this.damage = 1; //1d1 damage 
+		break;
+		
+		case 4: this.name = "Arrow";
+		this.damage = 1; //1d1 damage
+		break;
+		
+		case 5: this.name = "Dagger"; 
+		this.damage = dice.rollDie(6); //1d6 damage  
+		break;
+		
+		
+		case 6: this.name = "Rock"; 
+		this.damage = dice.rollDie(2);
+		break;
+		
+		case 7: this.name = "Two-Handed Sword"; 
+		this.damage = dice.rollDie(6) + dice.rollDie(6) + dice.rollDie(6); 
+		break;
+		
+		case 8: this.name = "Sling";
+		this.damage = 0;
+		break;
+		
+		case 9: this.name = "Dart";  
+		this.damage = 1;
+		break;
+		
+		case 10: this.name = "Crossbow";
+		this.damage = 1;
+		break;
+		
+		case 11: this.name = "Crossbow bolt";
+		this.damage = dice.rollDie(2);
+		break;
+		
+		
+		default:
+			this.name = "NOP";
+			break;
 		}
 		
+	}	
+
+
 	
-		
-		
-	}
+
+
+}
 
 
 

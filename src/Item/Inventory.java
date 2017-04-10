@@ -7,13 +7,13 @@ public class Inventory {
 	private LinkedList<Item> inventory;
 	private LinkedList<Character> invChar;
 	//private HashMap<Character, Item> invChar;
-	private int maxFood = 2; // Figure out the index of the last piece of food
-	private int maxWand = 2;
-	private int maxArmor = 2;
-	private int maxWeapon = 2;
-	private int maxScrolls = 2;
-	private int maxPotions = 2;
-	private int maxRings = 2;
+	private int maxFood = 5; 
+	private int maxWand = 1;
+	private int maxArmor = 1;
+	private int maxWeapon = 1;
+	private int maxScrolls = 1;
+	private int maxPotions = 5;
+	private int maxRings = 1;
 	
 	public Inventory() {
 		this.inventory = new LinkedList<Item>();
@@ -31,43 +31,43 @@ public class Inventory {
 		 */
 		// TODO add cases for other item types.
 
-		if (toAdd.getTypeItem().equalsIgnoreCase("Weapon") && maxWeapon != 0)
+		if (toAdd.typeItem.equalsIgnoreCase("Weapon") && maxWeapon != 0)
 		{
 			maxWeapon--;
 			inventory.add(toAdd);
 			return true;
 		}
-		else if (toAdd.getTypeItem().equalsIgnoreCase("Armor") && maxArmor != 0)
+		else if (toAdd.typeItem.equalsIgnoreCase("Armor") && maxArmor != 0)
 		{
 			maxArmor--;
 			inventory.add(toAdd);
 			return true;
 		}
-		else if (toAdd.getTypeItem().equalsIgnoreCase("Wand") && maxWand != 0)
+		else if (toAdd.typeItem.equalsIgnoreCase("Wand") && maxWand != 0)
 		{
 			maxWand--;
 			inventory.add(toAdd);
 			return true;
 		}
-		else if (toAdd.getTypeItem().equalsIgnoreCase("Food") && maxFood != 0)
+		else if (toAdd.typeItem.equalsIgnoreCase("Food") && maxFood != 0)
 		{
 			maxFood--;
 			inventory.add(toAdd);
 			return true;
 		}
-		else if (toAdd.getTypeItem().equalsIgnoreCase("Scrolls") && maxScrolls != 0)
+		else if (toAdd.typeItem.equalsIgnoreCase("Scrolls") && maxScrolls != 0)
 		{
 			maxScrolls--;
 			inventory.add(toAdd);
 			return true;
 		}
-		else if (toAdd.getTypeItem().equalsIgnoreCase("Potions") && maxPotions != 0)
+		else if (toAdd.typeItem.equalsIgnoreCase("Potions") && maxPotions != 0)
 		{
 			maxPotions--;
 			inventory.add(toAdd);
 			return true;
 		}
-		else if (toAdd.getTypeItem().equalsIgnoreCase("Rings") && maxRings != 0)
+		else if (toAdd.typeItem.equalsIgnoreCase("Rings") && maxRings != 0)
 		{
 			maxRings--;
 			inventory.add(toAdd);
@@ -93,7 +93,7 @@ public class Inventory {
 	
 	public void listInventory() {
 		for (int i = 0; i < inventory.size(); i++) {
-			System.out.println(invChar.get(i) + ": " + inventory.get(i).getName());
+			System.out.println(invChar.get(i) + ": " + inventory.get(i).name);
 		}
 	}
 }

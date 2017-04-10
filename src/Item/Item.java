@@ -8,78 +8,72 @@ import java.util.HashMap;
  */
 
 public class Item {
-	protected int armorProtection = 0;
-	protected int strength = 0;
-	protected int damage = 0;
-	protected String carnation; //Cursed, blessed, or normal
-	protected String message;
-	protected String weaponName;
 	protected String boardName;
 	protected String name; //name of item
 	protected String typeItem; //armor,equipment,ring,food,
-	protected int itemNumber; //id for item
+	protected int damage; 
+	protected int armorProtection;
+	protected String potionMessage;
+	protected String scrollMessage;
+	protected int foodStrength;
+	protected String finalMessage;
+	
+	public Item() {
 		
-	public Item(String name1, String typeItem1){
-		name = name1; 
-		typeItem = typeItem1;
+		
 	}
-	
-	public String toString() {
-		return boardName;
+
+
+	public void generateItem() {
+		GenItem g = new GenItem();
+		g.genItem();
+		this.typeItem = g.getTypeItem();
+		this.name = g.getName();
+		this.boardName = g.getBoardName();
+		this.finalMessage = g.getPickUpMessage();
+		if (this.typeItem.equals("Food")) {
+			this.foodStrength = g.getFoodStrength();
+		}
+		
+		
+		
 	}
 
 	
 	
 	
-	//takes up time to use items
-	protected void wasteTime(){
-		//Todo
-	}
 	
-	//returns type item
-	protected String typeItem(){
-		return getTypeItem();
-	}
-
-	public String getTypeItem() {
-		return typeItem;
-	}
-
-
 	
-
-
-	public String getName() {
-		return name;
-	}
-
-	public int getItemNumber() {
-		return itemNumber;
-	}
 	
-	public int getDamageFromW() {
-		Weapon w = new Weapon(name, typeItem);
-		w.getDamageFromWeapon(w);
-		return w.getDamage();
-	}
 	
-	public int getProtectionFromArmor() {
-		Armor a = new Armor(name, typeItem);
-		a.getArmorProtection(a);
-		return a.getArmorProtection();
-	}
 	
-	public int getStrengthFromFood() {
-		Food f = new Food(name, typeItem);
-		f.getStrengthFromFood(f);
-		return f.getFoodStrength();
-	}
 	
-	public String getScrollMessage() {
-		Scrolls s = new Scrolls(name, typeItem);
-		s.getEffectsFromScrolls(s);
-		return s.getMessage();
-	}
+	
+	
+	
+//	public int getDamageFromW() {
+//		Weapon w = new Weapon(name, typeItem);
+//		w.getDamageFromWeapon(w);
+//		return w.getDamage();
+//	}
+//	
+//	public int getProtectionFromArmor() {
+//		Armor a = new Armor(name, typeItem);
+//		a.getArmorProtection(a);
+//		return a.getArmorProtection();
+//	}
+//	
+//	public int getStrengthFromFood() {
+//		Food f = new Food();
+//		f.getStrengthFromFood(f);
+//		return f.getFoodStrength();
+//	}
+//	
+//	public String getScrollMessage() {
+//		Scrolls s = new Scrolls(name, typeItem);
+//		s.getEffectsFromScrolls(s);
+//		return s.getMessage();
+//	}
 
 
 }
