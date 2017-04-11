@@ -12,7 +12,6 @@ public class Enemy extends Unit{
 	//boolean[] flags
 	private double treasureChance;
 	private int trs, expGained,  dmg, df;
-	private Point p;
 
 	public Enemy() {
 		super();
@@ -21,7 +20,7 @@ public class Enemy extends Unit{
 
 	/*
 		Prioritize certain monsters by level.
-		Difficulty just has to be implemented, as usual
+		Difficulty has to be implemented.
 	*/
 	private void genMon(int lvl, int pl){
 		DiceRoller d= new DiceRoller();
@@ -79,13 +78,7 @@ public class Enemy extends Unit{
 		if(this.df > ((lvl + pl) /2))
 			this.genMon(10, 20);
 	}
-	public void setP(int x, int y){
-		p = new Point(x, y);
-	}
-	public Point getP(){
-		return p;
-	}
-
+	
 	public int getDMG(){
 		DiceRoller d= new DiceRoller();
 		switch (this.val) {
