@@ -70,6 +70,7 @@ public class Level {
 		}
 		
 		makeRooms();
+		fitHalls();
 	}
 
 	public Level(Unit player){
@@ -84,12 +85,17 @@ public class Level {
 		addUnit(player);
 		addUnit(e);
 	}
+	
 	/*
 	 * Add 9 Randomly sized rooms
 	 * Then fit Doors/Hallways
 	 * The next part Ink will work on:
 	 * Then places Item and Generates Enemies 
 	 */
+	private void fitHalls(){
+		
+	}
+	
 	private void makeRooms(){
 		boolean[] rs = new boolean[9];
 		
