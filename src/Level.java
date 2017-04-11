@@ -86,14 +86,23 @@ public class Level {
 		addUnit(e);
 	}
 	
+	private void fitHalls(){
+		
+	}
+	
 	/*
 	 * Add 9 Randomly sized rooms
 	 * Then fit Doors/Hallways
 	 * The next part Ink will work on:
 	 * Then places Item and Generates Enemies 
 	 */
-	private void fitHalls(){
-		
+	private void makeDoors(Rm r, int i){
+		int numD = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+		if(i == 0|| i == 2 || i == 6 || i ==8){
+			numD = ThreadLocalRandom.current().nextInt(1, 2 + 1);
+		} else if(i == 4){
+			numD = ThreadLocalRandom.current().nextInt(1, 4 + 1);
+		}
 	}
 	
 	private void makeRooms(){
@@ -102,6 +111,7 @@ public class Level {
 		for(int i = 0; i < numR; i++){
 				rs = addR(rs);
 		}
+		makeDoors(rs, )
 	}
 	
 	private boolean[] addR(boolean[] rs){
@@ -111,7 +121,9 @@ public class Level {
 		rs[roomN] = true;
 		
 		Rm r = new Rm();
-		placeR(r, roomN);
+		r = placeR(r, roomN);
+
+		makeDoors(r, roomN);
 		
 		return rs;
 	}
@@ -122,7 +134,7 @@ public class Level {
 	 * x: 0__25#27__52#54__79
 	 * y: 0__6#8__14#16__22#
 	 */
-	private void placeR(Rm r, int num){
+	private Rm placeR(Rm r, int num){
 		int min = 0, max = 25;
 		// math is wrong 0->8
 		if(num%3 == 1){
@@ -147,10 +159,10 @@ public class Level {
 		
 		r.set(x, y);
 		
-		writeR(r);
+		return writeR(r);
 	}
 	
-	private void writeR(Rm r){
+	private Rm writeR(Rm r){
 		// make top and part of a room
 		for(int w = 0; w < r.w; w++){
 			floor[r.y1][w] = '-';
@@ -164,6 +176,8 @@ public class Level {
 			}
 			floor[h][r.x2] ='|';
 		}
+		
+		return r;
 	}
 
 	//Small for prototype
