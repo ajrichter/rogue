@@ -11,7 +11,7 @@ public class Inventory {
 	private int maxWand = 1;
 	private int maxArmor = 1;
 	private int maxWeapon = 1;
-	private int maxScrolls = 1;
+	private int maxScrolls = 10;
 	private int maxPotions = 5;
 	private int maxRings = 1;
 	
@@ -67,7 +67,7 @@ public class Inventory {
 			inventory.add(toAdd);
 			return true;
 		}
-		else if (toAdd.typeItem.equalsIgnoreCase("Rings") && maxRings != 0)
+		else if (toAdd.typeItem.equalsIgnoreCase("Ring") && maxRings != 0)
 		{
 			maxRings--;
 			inventory.add(toAdd);

@@ -1,5 +1,7 @@
 package Item;
 
+import java.util.Random;
+
 public class GenItem {
 private String typeItem;
 private String itemName;	
@@ -13,11 +15,56 @@ public GenItem () {
 }
 
 
+	public int getProbabilityOfItem() {
+		int num = 0;
+		Random rnd = new Random(); 
+		num = rnd.nextInt(100);	
+		if (num < 5) 
+		{
+			return 1;
+		}
+		else if (num < 10 && num >= 5)
+		{
+			return 2;
+		}
+		else if (num < 50 && num >= 10)
+		{
+			return 3;
+		}
+		else if (num < 60 && num >= 50)
+		{
+			return 4;
+		}
+		else if (num < 70 && num >= 60)
+		{
+			return 5;
+		}
+		else if (num < 80 && num >= 70)
+		{
+			return 6;
+		}
+		else if (num < 100 && num >= 80)
+		{
+			return 7;
+		}
+		else {
+			return -1;
+		}
+		
+	}
+	
+
+
+
+
+
+
+
 
 	public void genItem()
 	{
-		DiceRollerItem d= new DiceRollerItem();
-		switch (d.rollDie(3)) { 
+		int num = getProbabilityOfItem();
+		switch (num) { 
 		case 1: this.typeItem = "Armor";
 		Armor a = new Armor();
 		a.getArmor();
@@ -45,34 +92,41 @@ public GenItem () {
 			this.pickUpMessage = "You picked up " + this.itemName + " with a food strength of " + this.foodStrength;
 			break;
 		
+
+		case 4: this.typeItem = "Ring";
+			Ring ring = new Ring();
+			ring.getRing();
+			this.boardName = ring.boardName;
+			this.itemName = ring.name;
+			this.pickUpMessage = "You picked up the " + this.itemName + " Ring."; 
+			break;
+			
+		case 5: this.typeItem = "Scrolls";
+			Scrolls scroll = new Scrolls();
+			scroll.getScrolls();
+			this.boardName = scroll.boardName;
+			this.itemName = scroll.name;
+			this.pickUpMessage = "You picked up the " + this.itemName + " Scroll.";
+			break;
+			
+		case 6: this.typeItem = "Wand";
+			Wand wand = new Wand();
+			wand.getWand();
+			this.boardName = wand.boardName;
+			this.itemName = wand.name;
+			this.pickUpMessage = "You picked up the " + this.itemName + " Wand.";
+			break;
+
+		case 7: this.typeItem = "Potions";
+			Potions p = new Potions();
+			p.getPotion();
+			this.boardName = p.boardName;
+			this.itemName = p.name;
+			this.pickUpMessage = "You picked up the " + this.itemName + " Potion.";
+			break;
 		default:
 			this.typeItem = "NOP";
-		break;
-		
-		
-		
-		
-////		case 4: this.typeItem = "Ring";
-////			Ring ring = new Ring();
-////			this.boardName = ring.boardName;
-////			
-////		break;
-////		case 5: this.typeItem = "Scrolls";
-////			Scrolls scroll = new Scrolls();
-////			this.boardName = scroll.boardName;
-////
-////		case 6: this.typeItem = "Wand";
-////			Wand wand = new Wand();
-////			this.boardName = wand.boardName;
-////			
-////		break;
-////
-////		case 7: this.typeItem = "Potions";
-////			Potions p = new Potions();
-////			this.boardName = p.boardName;
-//
-//		break;
-
+		break;	
 
 
 		}

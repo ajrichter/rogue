@@ -118,7 +118,7 @@ public class ItemLevel {
 		}else{
 			//check if piece of floor
 			String loc = floorSeen[location[1]+dir[1]][location[0]+dir[0]];
-			if(loc.equals(".")||  loc.equals(")") || loc.equals("!") || loc.equals(":") || loc.equals("/") ||  loc.equals("]") ||  loc.equals("?")){
+			if(loc.equals(".")||  loc.equals(")") || loc.equals("!") || loc.equals(":") || loc.equals("/") ||  loc.equals("]") ||  loc.equals("?") || loc.equals("R")){
 						return true;
 					}
 		}
@@ -141,7 +141,7 @@ public class ItemLevel {
 		}else{
 			//check if piece of floor
 			String loc = floorSeen[location[1]+dir[1]][location[0]+dir[0]];
-			if(loc.equals(".")||loc.equals(")") || loc.equals("!") || loc.equals(":") || loc.equals("/") || loc.equals("=") || loc.equals("]") || loc.equals("?")  ){
+			if(loc.equals(".")||loc.equals(")") || loc.equals("!") || loc.equals(":") || loc.equals("/") || loc.equals("R") || loc.equals("]") || loc.equals("?")  ){
 				return (Item) floorItems[location[1]+dir[1]][location[0]+dir[0]];
 			}
 		}

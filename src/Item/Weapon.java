@@ -1,5 +1,7 @@
 package Item;
 
+import java.util.Random;
+
 public class Weapon extends Item {
 	DiceRollerItem dice = new DiceRollerItem();
 
@@ -9,7 +11,7 @@ public class Weapon extends Item {
 		this.getWeapon();
 		
 	}
-
+	//From https://strategywiki.org/wiki/Rogue/Items
 
 	public void getWeapon()
 	{
@@ -18,51 +20,51 @@ public class Weapon extends Item {
 		switch (d.rollDie(11)) { 	
 	
 		case 1: this.name = "Mace";
-		this.damage = dice.rollDie(4) + dice.rollDie(4); //2d4 damage 
+//		Mace	2d4	
+		this.damage = 2 * dice.rollDie(4);
 		break;
 		
 		
 		case 2: this.name = "Long Sword";
-		this.damage = dice.rollDie(10); //1d10 damage
+//		Long sword	3d4	
+		this.damage = 3 * dice.rollDie(4);
 		break;
 		
 		case 3: this.name = "Short Bow";
+//		Short bow	1d1	
 		this.damage = 1; //1d1 damage 
 		break;
 		
 		case 4: this.name = "Arrow";
-		this.damage = 1; //1d1 damage
+//		Arrow	2d3	Takes bonuses from equipped short bow.
+		this.damage = 2 * dice.rollDie(3);
 		break;
 		
 		case 5: this.name = "Dagger"; 
+//		Dagger	1d6
 		this.damage = dice.rollDie(6); //1d6 damage  
 		break;
 		
 		
-		case 6: this.name = "Rock"; 
-		this.damage = dice.rollDie(2);
+		case 6: this.name = "Spear"; 
+//		Spear	2d3	1d6 thrown
+		this.damage = 2 * dice.rollDie(3);
 		break;
 		
 		case 7: this.name = "Two-Handed Sword"; 
-		this.damage = dice.rollDie(6) + dice.rollDie(6) + dice.rollDie(6); 
+//		Two handed sword	4d4	
+		this.damage = 4* dice.rollDie(4);
 		break;
 		
-		case 8: this.name = "Sling";
-		this.damage = 0;
+		case 8: this.name = "Shuriken";
+//		Shuriken	2d4 thrown	
+		this.damage = 2 * dice.rollDie(4);
 		break;
 		
 		case 9: this.name = "Dart";  
-		this.damage = 1;
+//		Dart	1d3 thrown	
+		this.damage = dice.rollDie(3);
 		break;
-		
-		case 10: this.name = "Crossbow";
-		this.damage = 1;
-		break;
-		
-		case 11: this.name = "Crossbow bolt";
-		this.damage = dice.rollDie(2);
-		break;
-		
 		
 		default:
 			this.name = "NOP";
