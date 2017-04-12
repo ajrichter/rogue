@@ -1,9 +1,9 @@
+import java.awt.Point;
+
 import Item.Item;
 
 /*
-	Create the different enemies
-	Start with 5 enemies.
-	addMakeEnemy() Method which randomly generates an Enemy
+	Add next 21 enemies.
 */
 
 public class Enemy extends Unit{
@@ -20,7 +20,7 @@ public class Enemy extends Unit{
 
 	/*
 		Prioritize certain monsters by level.
-		Difficulty just has to be implemented, as usual
+		Difficulty has to be implemented.
 	*/
 	private void genMon(int lvl, int pl){
 		DiceRoller d= new DiceRoller();
@@ -78,7 +78,7 @@ public class Enemy extends Unit{
 		if(this.df > ((lvl + pl) /2))
 			this.genMon(10, 20);
 	}
-
+	
 	public int getDMG(){
 		DiceRoller d= new DiceRoller();
 		switch (this.val) {
@@ -112,7 +112,7 @@ public class Enemy extends Unit{
 	// decides to drop an item and returns a random item
 	// Should drop treasure
 	public Item dropTreasure() {
-		Item i= new Item("Amulet of Yendor",null);
+		Item i= new Item();
 		return i;
 	}
 }
