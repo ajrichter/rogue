@@ -16,10 +16,14 @@ public class Level {
 
 	// Andrew's  Instance Variables
 	private int numLevel;
+	// Number of Rooms
 	private int numR;
+	
 	private char[][] floor;
 	private boolean[][] isSeen;
+	// 0-8 of rooms if it is a room
 	private boolean[] rb;
+	// The Rms if they exist
 	private Rm[] rs;
 	
 	
@@ -38,7 +42,7 @@ public class Level {
 
 		public Rm() {
 			w = ThreadLocalRandom.current().nextInt(4, 26 + 1);
-			h = ThreadLocalRandom.current().nextInt(3, 7 + 1);
+			h = ThreadLocalRandom.current().nextInt(4, 7 + 1);
 		}
 
 		private void set(int x, int y){
@@ -77,6 +81,7 @@ public class Level {
 		}
 		
 		makeRooms();
+		makeDoors();
 		fitHalls();
 	}
 
@@ -104,6 +109,7 @@ public class Level {
 	 * Then places Item and Generates Enemies 
 	 */
 	private void makeDoors(){
+		int i= 0;
 		int numD = ThreadLocalRandom.current().nextInt(1, 3 + 1);
 		if(i == 0|| i == 2 || i == 6 || i ==8){
 			numD = ThreadLocalRandom.current().nextInt(1, 2 + 1);
@@ -118,7 +124,6 @@ public class Level {
 		for(int i = 0; i < numR; i++){
 				addR();
 		}
-		makeDoors();
 	}
 	
 	private void addR(){
