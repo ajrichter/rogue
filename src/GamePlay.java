@@ -77,12 +77,14 @@ public class GamePlay {
 		//View.printOptionMenu();
 	}
 	
-	public void move(int[] direction) {
+	public boolean move(int[] direction) {
 		
+		boolean b=false;
 		if(level.isEnemy(this.play, direction)!=null){
 			//fights the monster TODO put in separate attack method
 			Enemy enemy= level.isEnemy(this.play, direction);
 			unitAttack(this.play, enemy);
+			b=true;
 			
 		}else{
 			//picking up item
@@ -96,6 +98,7 @@ public class GamePlay {
 		}
 		
 		view.nextTurn();
+		return b;
 	}
 	
 	public void saveGame(String[] test) {

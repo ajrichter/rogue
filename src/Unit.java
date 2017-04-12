@@ -1,3 +1,5 @@
+import java.awt.Point;
+
 /*
 	TODO:
 	Move
@@ -10,6 +12,7 @@ public class Unit {
 	// Statistics for the Unit
 	protected int level, xp, strength, hp, maxHP, armor;
 	protected boolean dead;
+	private Point p;
 
 	// All done in Subclasses
 	// Clearly not dead as it has just been constructed!
@@ -19,6 +22,13 @@ public class Unit {
 
 	public boolean isEnemy(){
 		return !this.val.equals("@");
+	}
+	
+	public void setP(int x, int y){
+		p = new Point(x, y);
+	}
+	public Point getP(){
+		return p;
 	}
 
 	// Returns the Unit's character representation

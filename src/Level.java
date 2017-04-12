@@ -2,25 +2,13 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import Item.Item;
 
+/*TODO
+ * isLit
+ * Enemies
+ * Items
+ */
 public class Level {
-	// New Outline for Level
-	private boolean[][] isSeen;
-	/* We need a way to represent all the enemies such that
-	they can be defeated or added each time you enter a new room
-	*/
-	// Can't use a queue because then can't access the enemies location when needed.
-	private Queue<Enemy> enemies = new ArrayDeque<Enemy>();
-	private int numEnemies;
-
 	private String[][] floorSeen;
-
-
-	/*
-   *	     ---+----
-   * 		 | . . +
-   * 		 | . . |
-   *		 --------
-	*/
 	private Unit[][] floorUnits;
 	private Item[][] floorItems;
 	private String[][] floorTraps;
@@ -31,27 +19,22 @@ public class Level {
 	private int numR;
 	private char[][] floor;
 	private boolean[][] isSeen;
-
-	/*	The maximum room size is
-		25 wide * 7 high
-		--------------------+-
-		|.......................|
-		|.......................|
-		+.......................|
-		|.......................+
-		|.......................|
-		----------------------
-	*/
-
-	// Maximum Room dimensions are 8*26, h*w
-	// Maximum Room dimensions are 4*4, with walls and 4 squares to move in.
-	// x = w, y = h
+	/*
+	 * A Level is 24*80
+	 * 24 in the y/h dir, 80 in the x/w dir
+	 * The level is composed of 9 rooms in a grid
+	 * Each room is a maximum of 7*23
+	 * With 1 buffer space surrounding each interior side
+	 * And an additional buffer on the bottom row above the text line 
+	 */
+	
+	// An inner class used to define each room
 	class Rm {
 		private int x1, x2,  y1, y2, w, h;
 
 		public Rm() {
 			w = ThreadLocalRandom.current().nextInt(4, 26 + 1);
-			h = ThreadLocalRandom.current().nextInt(4, 8 + 1);
+			h = ThreadLocalRandom.current().nextInt(3, 7 + 1);
 		}
 
 		private void set(int x, int y){
@@ -85,7 +68,9 @@ public class Level {
 				floor[y][x] = '0';
 			}
 		}
+		
 		makeRooms();
+		fitHalls();
 	}
 
 	public Level(Unit player){
@@ -100,47 +85,99 @@ public class Level {
 		addUnit(player);
 		addUnit(e);
 	}
-
-	public void makeRooms(){
-		Rm r1 = new Rm();
-		r1.set(ThreadLocalRandom.current().nextInt(0, 79 - r1.w + 1), ThreadLocalRandom.current().nextInt(0, 23 - r1.h + 1))
-		insertRoom(r1);
-
-		// now make new rooms and check validity
-		for(int r = 0; r < numR -1; r++){
-			Rm rx = new Rm();
-			rx.set(ThreadLocalRandom.current().nextInt(0, 79 - r1.w + 1), ThreadLocalRandom.current().nextInt(0, 23 - r1.h + 1))
-			while(!fits(rx)){
-
-			}
-			insertRoom(rx);
+	
+	private void fitHalls(){
+		
+	}
+	
+	/*
+	 * Add 9 Randomly sized rooms
+	 * Then fit Doors/Hallways
+	 * The next part Ink will work on:
+	 * Then places Item and Generates Enemies 
+	 */
+	private void makeDoors(Rm r, int i){
+		int numD = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+		if(i == 0|| i == 2 || i == 6 || i ==8){
+			numD = ThreadLocalRandom.current().nextInt(1, 2 + 1);
+		} else if(i == 4){
+			numD = ThreadLocalRandom.current().nextInt(1, 4 + 1);
 		}
 	}
-
-	private boolean fits(Rm r){
-		// Ensure there is one extra space around the room for hallways
-		for (int y = r.y1-1; y < r.y2+2; y++){
-			for(int x = r.x1-1; x < r.x2 + 2; x++){
-				if(floor[y][x] != '0')
-					return false;
-			}
+	
+	private void makeRooms(){
+		boolean[] rs = new boolean[9];
+		
+		for(int i = 0; i < numR; i++){
+				rs = addR(rs);
 		}
-		return true;
+		makeDoors(rs, )
 	}
-	private void insertRoom(Rm r){
+	
+	private boolean[] addR(boolean[] rs){
+		int roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
+		while(rs[roomN])
+			roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
+		rs[roomN] = true;
+		
+		Rm r = new Rm();
+		r = placeR(r, roomN);
+
+		makeDoors(r, roomN);
+		
+		return rs;
+	}
+
+	/* Grid Layout
+	 * Array Indices:
+	 * #: Buffer, __: Range
+	 * x: 0__25#27__52#54__79
+	 * y: 0__6#8__14#16__22#
+	 */
+	private Rm placeR(Rm r, int num){
+		int min = 0, max = 25;
+		// math is wrong 0->8
+		if(num%3 == 1){
+			min = 27;
+			max = 52;
+		} else if(num%3 == 2){
+			min = 54;
+			max = 79;
+		}
+		int x  =ThreadLocalRandom.current().nextInt(min, max -r.w);
+		
+		min = 0;
+		max = 6;
+		if(num / 3 == 1){
+			min = 8;
+			max = 14;
+		} else if(num / 3 == 2){
+			min = 16;
+			max = 22;
+		}
+		int y = ThreadLocalRandom.current().nextInt(min, max -r.h) ;
+		
+		r.set(x, y);
+		
+		return writeR(r);
+	}
+	
+	private Rm writeR(Rm r){
 		// make top and part of a room
 		for(int w = 0; w < r.w; w++){
 			floor[r.y1][w] = '-';
 			floor[r.y2][w] ='-';
 		}
-		// make inner room and sidewalls
+		// make inner room and side walls
 		for(int h = r.y1+1; h < r.y2; h++){
 			floor[h][r.x1] = '|';
 			for(int w = r.x1+1; w < r.x2; w++){
 				floor[h][w] = '.';
 			}
-			floor[h][x2] ='|';
+			floor[h][r.x2] ='|';
 		}
+		
+		return r;
 	}
 
 	//Small for prototype
