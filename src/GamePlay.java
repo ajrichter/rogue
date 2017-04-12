@@ -14,6 +14,7 @@ public class GamePlay {
 	private boolean hasAmulet=false;
 	Player play; 
 	Level level;
+	Level[] dungeon;
 	private RougeView view;
 	private String[] lines = new String[10];
 	
