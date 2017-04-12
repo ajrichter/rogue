@@ -19,6 +19,10 @@ public class Level {
 	private int numR;
 	private char[][] floor;
 	private boolean[][] isSeen;
+	private boolean[] rb;
+	private Rm[] rs;
+	
+	
 	/*
 	 * A Level is 24*80
 	 * 24 in the y/h dir, 80 in the x/w dir
@@ -62,6 +66,9 @@ public class Level {
 
 		isSeen = new boolean[24][80];
 		floor = new char[24][80];
+		rb = new boolean[9];
+		rs = new Rm[9];
+		
 		// set everything to 0, which means empty
 		for(int y = 0; y < 24; y++){
 			for(int x = 0; x < 80; x++){
@@ -96,36 +103,34 @@ public class Level {
 	 * The next part Ink will work on:
 	 * Then places Item and Generates Enemies 
 	 */
-	private void makeDoors(Rm r, int i){
+	private void makeDoors(){
 		int numD = ThreadLocalRandom.current().nextInt(1, 3 + 1);
 		if(i == 0|| i == 2 || i == 6 || i ==8){
 			numD = ThreadLocalRandom.current().nextInt(1, 2 + 1);
 		} else if(i == 4){
 			numD = ThreadLocalRandom.current().nextInt(1, 4 + 1);
 		}
+		
+		
 	}
 	
 	private void makeRooms(){
-		boolean[] rs = new boolean[9];
-		
 		for(int i = 0; i < numR; i++){
-				rs = addR(rs);
+				addR();
 		}
-		makeDoors(rs, )
+		makeDoors();
 	}
 	
-	private boolean[] addR(boolean[] rs){
+	private void addR(){
 		int roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
-		while(rs[roomN])
+		while(rb[roomN])
 			roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
-		rs[roomN] = true;
-		
+
 		Rm r = new Rm();
 		r = placeR(r, roomN);
 
-		makeDoors(r, roomN);
-		
-		return rs;
+		rs[roomN] = r;
+		rb[roomN] = true;
 	}
 
 	/* Grid Layout
@@ -136,7 +141,6 @@ public class Level {
 	 */
 	private Rm placeR(Rm r, int num){
 		int min = 0, max = 25;
-		// math is wrong 0->8
 		if(num%3 == 1){
 			min = 27;
 			max = 52;
