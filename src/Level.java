@@ -90,9 +90,9 @@ public class Level {
 		
 		makeRooms();
 		makeDoors();
-		fitHalls();
 		
 		this.enList = new ArrayList<Enemy>();
+		// Great I just do not understand this part
 		this.allEnemy = new String[] {"A","B","C","D","E","F"};
 	}
 
@@ -109,10 +109,6 @@ public class Level {
 		addUnit(e);
 	}
 	
-	private void fitHalls(){
-		
-	}
-	
 	/*
 	 * Add 9 Randomly sized rooms
 	 * Then fit Doors/Hallways
@@ -120,15 +116,14 @@ public class Level {
 	 * Then places Item and Generates Enemies 
 	 */
 	private void makeDoors(){
-		int i= 0;
-		int numD = ThreadLocalRandom.current().nextInt(1, 3 + 1);
-		if(i == 0|| i == 2 || i == 6 || i ==8){
-			numD = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-		} else if(i == 4){
-			numD = ThreadLocalRandom.current().nextInt(1, 4 + 1);
+		// Rm: rs bool: rb
+		for (int i = 0; i < rb.length -1; i++){
+			if(rb[i]){
+				// Now need to see how many doors possible and then size
+				
+			}
 		}
-		
-		
+		// ThreadLocalRandom.current().nextInt(1, 3 + 1);
 	}
 	
 	private void makeRooms(){
@@ -200,6 +195,7 @@ public class Level {
 		return r;
 	}
 
+	// Delete
 	//Small for prototype
 	// Yes, I can tell
 	public void makeLevel(){
@@ -217,6 +213,9 @@ public class Level {
 		}
 	}
 
+	// This needs to be completed.
+	// Or left alone if floor is always correct
+	// Probably better to check the boolean and then print it
 	public char[][] showL(){
 		// make the floor dynamically here and return one array
 		// combine all of the arrays
@@ -253,7 +252,6 @@ public class Level {
 
 	//checks if a move is valid or not, this method is working
 	public boolean validMove(Unit u, int[] dir){
-
 		int[] location= unitLocation(u);
 
 		//if out of bound
@@ -312,7 +310,9 @@ public class Level {
 
 			return null;
 		}
-
+		
+	// No. This should be stored by Unit as a Point
+	// when the Enemy is created initially 
 	public int[] unitLocation(Unit u){
 		int[] temp= new int[2];
 
@@ -326,7 +326,8 @@ public class Level {
 		}
 		return temp;
 	}
-
+	// Maybe this should be move a point in a certain direction or
+	// the unit at the point
 	//moves the player in a certain direction
 	public boolean moveUnit(Unit u, int[] dir){
 		int[] location= unitLocation(u);
@@ -402,7 +403,7 @@ public class Level {
 	 * 
 	 */
 	public void spawnPlayer(Player p) {
-		if(this.numLevel == 1 && !(p.hasA)) { //also need condition where player does not have amulet of yandor
+		if(this.numLevel == 1 && !(p.hasA)) { //also need condition where player does not have amulet of yendor
 			//TODO: place player anywhere on 1st floor
 			Rm temp = randomRoom();	//can probably go outside
 			int xPos = ThreadLocalRandom.current().nextInt(temp.x1 + 1, temp.x2);
