@@ -1,7 +1,7 @@
 package Item;
 
-import java.util.Random;
 
+import java.util.Random;
 public class Wand extends Item {
 	
 	public Wand() {

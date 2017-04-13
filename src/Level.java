@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+
 import Item.Item;
 
 /*TODO
@@ -13,7 +14,9 @@ public class Level {
 	private Item[][] floorItems;
 	private String[][] floorTraps;
 	private Room[] rooms;
+	private Item item;
 
+	
 	// Andrew's  Instance Variables
 	private int numLevel;
 	private int numR;
@@ -82,6 +85,18 @@ public class Level {
 		rooms = new Room[9];	//9 possible rooms
 
 		Enemy e= new Enemy();
+		//control.view.nextTurn();
+	
+		
+		int [] loc = {5,5};
+		item = new Item();
+		item.generateItem();
+		addItem(item, loc);
+		
+	
+		
+		
+		
 		addUnit(player);
 		addUnit(e);
 	}
@@ -111,7 +126,7 @@ public class Level {
 		for(int i = 0; i < numR; i++){
 				rs = addR(rs);
 		}
-		makeDoors(rs, )
+		//makeDoors(rs, )
 	}
 	
 	private boolean[] addR(boolean[] rs){
@@ -244,8 +259,8 @@ public class Level {
 			return false;
 		}else{
 			//check if piece of floor
-			if(floorSeen[location[1]+dir[1]][location[0]+dir[0]].equals(".")||
-			   floorSeen[location[1]+dir[1]][location[0]+dir[0]].equals("A")){
+			String loc = floorSeen[location[1]+dir[1]][location[0]+dir[0]];
+			if(loc.equals(".")|| loc.equals(")") || loc.equals("?") || loc.equals("/") || loc.equals(":") || loc.equals("!") || loc.equals("%")){
 				return true;
 			}
 		}
@@ -285,7 +300,10 @@ public class Level {
 				return null;
 			}else{
 				//check if piece of floor
-				if(floorSeen[location[1]+dir[1]][location[0]+dir[0]].equals("A")){
+				String loc = floorSeen[location[1]+dir[1]][location[0]+dir[0]];
+				
+				
+				if(loc.equals(":") || loc.equals("]") || loc.equals("?") || loc.equals(")") || loc.equals("!") || loc.equals("%")) {
 					return (Item) floorItems[location[1]+dir[1]][location[0]+dir[0]];
 				}
 			}
@@ -356,7 +374,16 @@ public class Level {
 
 	public void addItem(Item item, int[] location){
 		floorItems[location[1]][location[0]]=item;
-		floorSeen[location[1]][location[0]]=item.toString();
+		floorSeen[location[1]][location[0]]=item.getBoardName();
 	}
 
+	public String getItemName() {
+		return item.getName();
+	}
+	
+	public String getItemMessage() {
+		return item.getPrintMessage();
+	}
+	
+	
 }

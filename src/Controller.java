@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Item.Item;
+
 //import RougeView.ViewUpdate;
 
 public class Controller extends JFrame implements KeyListener {
@@ -14,6 +16,7 @@ public class Controller extends JFrame implements KeyListener {
     private RougeView view;
     public static JFrame frame;
     public boolean narration;
+    private Item [] items;
     
     public Controller(String s) {
         super(s);
@@ -143,7 +146,8 @@ public class Controller extends JFrame implements KeyListener {
 		//makes a board
 		control.view.updateBoard(control.game.level.getSeenFloor());
 		control.view.updateStats(control.game.play.playerStats());
-		control.view.nextTurn();
+		
+		
 		
 		//makes controller
 	}
