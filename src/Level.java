@@ -31,6 +31,9 @@ public class Level {
 	private ArrayList<Enemy> enList;
 	//list of available enemies
 	private String[] allEnemy;
+	//position of stair, 2 elements, stair[0] = x, stair[1] = y
+	protected int[] stair;
+	
 	
 	/*
 	 * A Level is 24*80
@@ -377,6 +380,10 @@ public class Level {
 	}
 
 	/**
+	 * Fills up the empty enList with random enemies
+	 * Currently this list will just fill up with any random enemies
+	 * 	but eventually we'll have different enemies spawn on each level
+	 * 
 	 * Only 6 monsters currently (6 symbols) so 
 	 */
 	public void makeEnemyList() {
@@ -391,8 +398,51 @@ public class Level {
 		}
 	}
 	
-	public void spawnEnemy() {
+	/**
+	 * 
+	 */
+	public void spawnPlayer(Player p) {
+		if(this.numLevel == 1 && !(p.hasA)) { //also need condition where player does not have amulet of yandor
+			//TODO: place player anywhere on 1st floor
+			Rm temp = randomRoom();	//can probably go outside
+			int xPos = ThreadLocalRandom.current().nextInt(temp.x1 + 1, temp.x2);
+			int yPos = ThreadLocalRandom.current().nextInt(temp.y1 + 1, temp.y2);
+			p.setP(xPos, yPos);
+			
+		} else {
+			//TODO: place player on stairs, FIND IT
+		}
+	}
+	
+	/**
+	 * I think this works
+	 */
+	public void spawnEnemy(ArrayList<Enemy> eList) {
+		Rm temp;
 		
+		//place all enemy in list to random rooms
+		for(int i = 0; i < eList.size(); i++) {
+			temp = randomRoom();
+			int xPos = ThreadLocalRandom.current().nextInt(temp.x1 + 1, temp.x2);
+			int yPos = ThreadLocalRandom.current().nextInt(temp.y1 + 1, temp.y2);
+			(eList.get(i)).setP(xPos, yPos);
+		}
+	}
+	
+	/**
+	 * Don't repeat yourself? Gonna be choosing random room a lot so 
+	 * might as well create a method that does that
+	 */
+	public Rm randomRoom() {
+		boolean validRm = false;
+		int index = -1;
+		while(!validRm) { 	//if fail use validRm == false
+			int ranRm = ThreadLocalRandom.current().nextInt(0, 8 + 1);
+			validRm = this.rb[ranRm];
+			index = ranRm;
+		}
+		
+		return this.rs[index];
 	}
 	
 }
