@@ -1,10 +1,14 @@
+package Item;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.net.URL;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class RougeView {
+public class RougeViewItem {
 
 	public static JFrame frame;
 	private static ViewUpdate view;
@@ -26,15 +30,20 @@ public class RougeView {
 		frame.repaint();
 	}
 	
-	public RougeView(JFrame sentFrame){
+	public RougeViewItem(){
+		
 		//width and height of frame
 		int x=750;
 		int y=750;
 
 		//creates the new painter
-		frame= sentFrame;
+		frame= new JFrame("RougePort");
 		frame.setVisible(true);
 		Graphics gr = frame.getGraphics();
+		
+        URL appIconUrl = getClass().getResource("Frogger.gif");
+        ImageIcon appIcon = new ImageIcon(appIconUrl);
+        frame.setIconImage(appIcon.getImage()); 
 		
 		//creates the new drawer
 		this.view = new ViewUpdate();
