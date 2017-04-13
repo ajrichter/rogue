@@ -1,5 +1,1 @@
-# exclude folder
-bin/*
-
-# except
-!bin/.gitkeep
+/bin/
