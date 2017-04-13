@@ -1,6 +1,7 @@
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import Item.Item;
+import java.util.ArrayList;
 
 /*TODO
  * isLit
@@ -26,6 +27,10 @@ public class Level {
 	// The Rms if they exist
 	private Rm[] rs;
 	
+	//list of enemy
+	private ArrayList<Enemy> enList;
+	//list of available enemies
+	private String[] allEnemy;
 	
 	/*
 	 * A Level is 24*80
@@ -83,6 +88,9 @@ public class Level {
 		makeRooms();
 		makeDoors();
 		fitHalls();
+		
+		this.enList = new ArrayList<Enemy>();
+		this.allEnemy = new String[] {"A","B","C","D","E","F"};
 	}
 
 	public Level(Unit player){
@@ -368,4 +376,23 @@ public class Level {
 		floorSeen[location[1]][location[0]]=item.toString();
 	}
 
+	/**
+	 * Only 6 monsters currently (6 symbols) so 
+	 */
+	public void makeEnemyList() {
+		int numEnemy = ThreadLocalRandom.current().nextInt(1, 9 + 1);	//may be changed later
+		Enemy e = new Enemy();
+		
+		//remember that val = symbol of the monster
+		for(int i = 0; i < numEnemy; i++) {
+			int chooseEnemy = ThreadLocalRandom.current().nextInt(0, this.allEnemy.length + 1);
+			e.val = allEnemy[chooseEnemy];
+			(this.enList).add(e);
+		}
+	}
+	
+	public void spawnEnemy() {
+		
+	}
+	
 }
