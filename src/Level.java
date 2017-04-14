@@ -52,7 +52,8 @@ public class Level {
 		private int x1, x2,  y1, y2, w, h;
 
 		public Rm() {
-			w = ThreadLocalRandom.current().nextInt(4, 26 + 1);
+			// These are both one shorter because random room placement confused me
+			w = ThreadLocalRandom.current().nextInt(4, 25 + 1);
 			h = ThreadLocalRandom.current().nextInt(4, 6 + 1);
 		}
 
@@ -206,6 +207,7 @@ public class Level {
 			min = 54;
 			max = 79;
 		}
+		System.out.println(min + " "+ max);
 		int x  =ThreadLocalRandom.current().nextInt(min, max -r.w+1);
 		
 		min = 0;
@@ -217,7 +219,7 @@ public class Level {
 			min = 16;
 			max = 22;
 		}
-		// bound must be greater than origin
+		System.out.println(min + " "+ max);
 		int y = ThreadLocalRandom.current().nextInt(min, max -r.h +1) ;
 		
 		r.set(x, y);
@@ -276,6 +278,13 @@ public class Level {
 				}
 			}
 		}
+		
+		for (int y = 0; y< floor.length; y++){
+			for(int x =0; x < floor[y].length; x++){
+				pfloor[y][x] = '0';
+			}
+		}
+			
 		return pfloor;
 	}
 
