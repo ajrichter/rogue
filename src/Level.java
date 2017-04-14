@@ -19,8 +19,9 @@ public class Level {
 	private int numLevel;
 	// Number of Rooms
 	private int numR;
-	
+	// The full floor
 	private char[][] floor;
+	// if you've seen the square
 	private boolean[][] isSeen;
 	// 0-8 of rooms if it is a room
 	private boolean[] rb;
@@ -148,7 +149,7 @@ public class Level {
 						floor[d2][b] = '#';
 					}
 				} else {
-					
+					// Find another room if no adjacent
 				}
 				db[i] = true;
 			}
@@ -249,21 +250,22 @@ public class Level {
 		}
 	}
 
-	// This needs to be completed.
-	// Or left alone if floor is always correct
-	// Probably better to check the boolean and then print it
-	public char[][] showL(){
-		// make the floor dynamically here and return one array
-		// combine all of the arrays
-		return floor;
-	}
-
 	public boolean[][] getSeen(){
 		return isSeen;
 	}
 
 	public char[][] getFloor() {
-		return floor;
+		char[][] pfloor = new char[24][80];
+		for (int y = 0; y< floor.length; y++){
+			for(int x =0; x < floor[y].length; x++){
+				if(isSeen[y][x]){
+					pfloor[y][x] = floor[y][x];
+				} else {
+					pfloor[y][x] = '0';
+				}
+			}
+		}
+		return pfloor;
 	}
 
 	public String[][] getSeenFloor(){
@@ -439,6 +441,7 @@ public class Level {
 	 * 
 	 */
 	public void spawnPlayer(Player p) {
+		// Shouldnt matter which level it is
 		if(this.numLevel == 1 && !(p.hasA)) { //also need condition where player does not have amulet of yendor
 			//TODO: place player anywhere on 1st floor
 			Rm temp = randomRoom();	//can probably go outside
@@ -446,6 +449,7 @@ public class Level {
 			int yPos = ThreadLocalRandom.current().nextInt(temp.y1 + 1, temp.y2);
 			p.setP(xPos, yPos);
 			
+			floor[yPos][xPos] = '@';
 		} else {
 			//TODO: place player on stairs, FIND IT
 		}
