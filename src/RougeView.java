@@ -66,8 +66,9 @@ public class RougeView {
 			gr.drawString(naration,0,25);
 			
 			//Prints the board
+			gr.setFont(new Font("TimesRoman", Font.PLAIN, 16));
 			for(int i=0; i<board.length; i++){
-				gr.drawChars(board[i], 0, board[i].length, 100, i*25+100);
+				gr.drawChars(board[i], 0, board[i].length, 45, i*16+125);
 			}
 			/*
 			for(int i=0; i<board.length;i++){
@@ -78,6 +79,7 @@ public class RougeView {
 			*/
 			
 			//prints stats
+			gr.setFont(new Font("TimesRoman", Font.PLAIN, 26));
 			gr.drawString(stats[0],0,625);
 			
 		}
