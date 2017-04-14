@@ -1,6 +1,5 @@
 package Item;
 
-import java.util.HashMap;
 /**
  * 
  * @author Harry
@@ -34,17 +33,27 @@ public class Item {
 		if (this.typeItem.equals("Food")) {
 			this.foodStrength = g.getFoodStrength();
 		}
+		else if (this.typeItem.equals("Weapon"))
+		{
+			this.damage = g.getWeaponDamage();
+		}
+		
 		
 		
 		
 	}
 
+	public String getBoardName() {
+		return this.boardName;
+	}
 	
+	public String getPrintMessage() {
+		return finalMessage;
+	}
 	
-	
-	
-	
-	
+	public String getName() {
+		return name;
+	}
 	
 	
 	

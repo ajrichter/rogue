@@ -1,5 +1,6 @@
 package Item;
 
+
 import java.util.Random;
 
 public class Food extends Item {
@@ -15,8 +16,9 @@ public class Food extends Item {
 	public void getFood()
 	{
 	
-		DiceRollerItem d= new DiceRollerItem();
+		DiceRoller d= new DiceRoller();
 		switch (d.rollDie(8)) { 
+		
 		case 1: this.name = "Pizza";
 		this.foodStrength = 4;
 		break;

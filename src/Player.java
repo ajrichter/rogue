@@ -6,10 +6,7 @@
 */
 
 public class Player extends Unit{
-	//has amulet, changed this to public because the spawn player wouldn't work for some reason
-	//gonna need help with this
-	public boolean hasA;
-	//what the hell is this, weapon? status effect?
+	private boolean hasA;
 	private boolean hasW;
 	private int gold, nexp, steps, hunger;
 
@@ -34,10 +31,6 @@ public class Player extends Unit{
 		DiceRoller d= new DiceRoller();
 		this.strength = d.roll(3, 6);
 		this.maxHP = this.hp = d.roll(4, 6);
-		
-		//for prototyping, if more instances of player are created (e.x. going to new floor)
-		//then this will be a problem
-		this.hasA = false;
 	}
 
 	public String[] playerStats(){

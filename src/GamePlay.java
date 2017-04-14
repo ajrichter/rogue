@@ -7,20 +7,17 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
-import Item.Item;
-
 public class GamePlay {
 	
 	private boolean hasAmulet=false;
 	Player play; 
 	Level level;
-	Level[] dungeon;
 	private RougeView view;
 	private String[] lines = new String[10];
 	
 	public GamePlay(RougeView view) {
 		this.play = new Player();
-		this.level = new Level(play);
+		this.level = new Level(1);
 		this.view = view;
 	}
 	
@@ -91,8 +88,8 @@ public class GamePlay {
 			//picking up item
 			if(level.isItem(this.play, direction)!=null){
 				level.pickUp(this.play, direction);
-				view.updateBoard(level.getSeenFloor());
-				view.updateNaration(play.getName()+ " has found the Amulet of Yendor and won the game!!!");
+				view.updateBoard(level.getFloor());
+				view.updateNaration(play.getName()+ " " + level.getItemMessage());
 			}
 			//moves to new space
 			level.moveUnit(this.play,direction);

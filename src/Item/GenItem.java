@@ -1,5 +1,7 @@
 package Item;
 
+
+
 import java.util.Random;
 
 public class GenItem {
@@ -71,6 +73,7 @@ public GenItem () {
 		this.protection = a.armorProtection;
 		this.boardName = a.boardName;
 		this.itemName = a.name;
+		System.out.println(this.typeItem);
 		this.pickUpMessage = "You picked up " + this.itemName + " Armor with " + this.protection + " protection!";
 		break;
 		
@@ -80,6 +83,7 @@ public GenItem () {
 		this.weaponDamage = w.damage;
 		this.itemName = w.name;
 		this.boardName = w.boardName;
+		System.out.println(this.typeItem);
 		this.pickUpMessage = "You picked up " + this.itemName + " with a damage of " + this.weaponDamage;
 		break;
 	
@@ -89,7 +93,8 @@ public GenItem () {
 			this.boardName = food.boardName;
 			this.itemName = food.name;
 			this.foodStrength = food.foodStrength;
-			this.pickUpMessage = "You picked up " + this.itemName + " with a food strength of " + this.foodStrength;
+			System.out.println(this.typeItem);
+			this.pickUpMessage = "picked up " + this.itemName + " with a food strength of " + this.foodStrength;
 			break;
 		
 
@@ -98,7 +103,8 @@ public GenItem () {
 			ring.getRing();
 			this.boardName = ring.boardName;
 			this.itemName = ring.name;
-			this.pickUpMessage = "You picked up the " + this.itemName + " Ring."; 
+			System.out.println(this.typeItem);
+			this.pickUpMessage = "picked up the " + this.itemName + " Ring."; 
 			break;
 			
 		case 5: this.typeItem = "Scrolls";
@@ -106,7 +112,8 @@ public GenItem () {
 			scroll.getScrolls();
 			this.boardName = scroll.boardName;
 			this.itemName = scroll.name;
-			this.pickUpMessage = "You picked up the " + this.itemName + " Scroll.";
+			System.out.println(this.typeItem);
+			this.pickUpMessage = "picked up the " + this.itemName + " Scroll.";
 			break;
 			
 		case 6: this.typeItem = "Wand";
@@ -114,7 +121,8 @@ public GenItem () {
 			wand.getWand();
 			this.boardName = wand.boardName;
 			this.itemName = wand.name;
-			this.pickUpMessage = "You picked up the " + this.itemName + " Wand.";
+			System.out.println(this.typeItem);
+			this.pickUpMessage = "picked up the " + this.itemName + " Wand.";
 			break;
 
 		case 7: this.typeItem = "Potions";
@@ -122,7 +130,8 @@ public GenItem () {
 			p.getPotion();
 			this.boardName = p.boardName;
 			this.itemName = p.name;
-			this.pickUpMessage = "You picked up the " + this.itemName + " Potion.";
+			System.out.println(this.typeItem);
+			this.pickUpMessage = "picked up the " + this.itemName + " Potion.";
 			break;
 		default:
 			this.typeItem = "NOP";
@@ -152,7 +161,9 @@ public GenItem () {
 		return this.pickUpMessage;
 	}
 
-
+	public int getWeaponDamage() {
+		return this.weaponDamage;
+	}
 
 
 

@@ -1,5 +1,6 @@
 package Item;
 
+
 public class Armor extends Item {
 
 
@@ -11,8 +12,8 @@ public class Armor extends Item {
 	//Note: The names and armor protections are correct based on this source:
 	//https://strategywiki.org/wiki/Rogue/Items
 	public void getArmor() {
-		DiceRollerItem d= new DiceRollerItem();
-		switch (d.rollDie(6)) { 
+		DiceRoller d= new DiceRoller();
+		switch (d.rollDie(8)) { 
 		
 		case 1: this.name = "Leather armor";
 			this.armorProtection = 4;
@@ -38,6 +39,7 @@ public class Armor extends Item {
 		case 6: this.name = "Banded mail"; 
 			this.armorProtection = 7;
 			break;
+			
 		case 7: this.name = "Splint mail";	
 			this.armorProtection = 7;
 			break;

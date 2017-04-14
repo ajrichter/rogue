@@ -1,21 +1,19 @@
 package Item;
 
-import java.util.Random;
-
 public class Weapon extends Item {
-	DiceRollerItem dice = new DiceRollerItem();
-
+	DiceRoller dice;
 
 	public Weapon() {
 		this.boardName= ")";
 		this.getWeapon();
-		
+
 	}
 	//From https://strategywiki.org/wiki/Rogue/Items
 
 	public void getWeapon()
 	{
-		DiceRollerItem d= new DiceRollerItem();
+		dice = new DiceRoller();
+		DiceRoller d= new DiceRoller();
 
 		switch (d.rollDie(11)) { 	
 	
