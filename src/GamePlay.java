@@ -95,7 +95,7 @@ public class GamePlay {
 		*/
 		// validity checked in Level
 		level.moveUnit(this.play,direction);
-		
+		view.updateBoard(level.getFloor());
 		view.nextTurn();
 		return b;
 	}
