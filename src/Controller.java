@@ -78,14 +78,14 @@ public class Controller extends JFrame implements KeyListener {
 			// j Move down.
 			// k Move up.
 			
-			if (key == KeyEvent.VK_K) {
-				int[] down = {0,-1};
+			if (key == KeyEvent.VK_J) {
+				int[] down = {0,1};
 				System.out.println("down");
 				narration = game.move(down);
 			}
 			
-			if (key == KeyEvent.VK_J) {
-				int[] up = {0,1};
+			if (key == KeyEvent.VK_K) {
+				int[] up = {0,-1};
 				System.out.println("up");
 				narration = game.move(up);
 			}
