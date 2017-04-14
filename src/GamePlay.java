@@ -76,16 +76,13 @@ public class GamePlay {
 	}
 	
 	public boolean move(int[] direction) {
-		// {left/right, down/up}
-		
-		// Tell this section to call Level Move
 		boolean b=false;
+		/*
 		if(level.isEnemy(this.play, direction)!=null){
 			//fights the monster TODO put in separate attack method
 			Enemy enemy= level.isEnemy(this.play, direction);
 			unitAttack(this.play, enemy);
 			b=true;
-			
 		}else{
 			//picking up item
 			if(level.isItem(this.play, direction)!=null){
@@ -94,10 +91,10 @@ public class GamePlay {
 				view.updateNaration(play.getName());
 				// + " " + level.getItemMessage())
 			}
-			//moves to new space
-			level.moveUnit(this.play,direction);
-			
 		}
+		*/
+		// validity checked in Level
+		level.moveUnit(this.play,direction);
 		
 		view.nextTurn();
 		return b;

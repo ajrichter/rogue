@@ -309,7 +309,7 @@ public class Level {
 
 	//checks if a move is valid or not, this method is working
 	public boolean validMove(Unit u, int[] dir){
-		int[] location= unitLocation(u);
+		// int[] location= unitLocation(u);
 		
 		Point a = p.getP();
 
@@ -394,7 +394,7 @@ public class Level {
 	// the unit at the point
 	//moves the player in a certain direction
 	public boolean moveUnit(Unit u, int[] dir){
-		int[] location= unitLocation(u);
+		// int[] location= unitLocation(u);
 		
 		Point a = p.getP();
 		
