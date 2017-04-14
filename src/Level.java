@@ -91,7 +91,7 @@ public class Level {
 		// set everything to 0, which means empty
 		for(int y = 0; y < 24; y++){
 			for(int x = 0; x < 80; x++){
-				floor[y][x] = '0';
+				floor[y][x] = ' ';
 			}
 		}
 		
@@ -276,11 +276,11 @@ public class Level {
 		char[][] pfloor = new char[24][80];
 		for (int y = 0; y< floor.length; y++){
 			for(int x =0; x < floor[y].length; x++){
-				if(isSeen[y][x]){
+				//if(isSeen[y][x]){
 					pfloor[y][x] = floor[y][x];
-				} else {
-					pfloor[y][x] = ' ';
-				}
+				//} else {
+					//pfloor[y][x] = ' ';
+				//}
 			}
 		}
 			
@@ -398,7 +398,7 @@ public class Level {
 		
 		Point a = p.getP();
 		
-		if(validMove(u, dir)){
+		// if(validMove(u, dir)){
 			
 			floor[(int) a.getY()][(int) a.getX()] = '.';
 			p.setP((int) a.getX() + dir[0], (int) a.getY() + dir[1]);
@@ -415,9 +415,9 @@ public class Level {
 			//floorSeen[(location[1]+dir[1])][(location[0]+dir[0])]=u.toString();
 			//floorUnits[(location[1]+dir[1])][(location[0]+dir[0])]= u;
 			return true;
-		}
+		//}
 
-		return false;
+		//return false;
 	}
 
 	//called by enemy who dies
