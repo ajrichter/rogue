@@ -73,17 +73,21 @@ public class Controller extends JFrame implements KeyListener {
 				System.out.println("right");
 				narration = game.move(right);
 			}
-	
+			// Just small mixup in up/down
+			// From the guide:
+			// j Move down.
+			// k Move up.
+			
 			if (key == KeyEvent.VK_J) {
-				int[] up = {0,1};
-				System.out.println("up");
-				narration = game.move(up);
-			}
-	
-			if (key == KeyEvent.VK_K) {
 				int[] down = {0,-1};
 				System.out.println("down");
 				narration = game.move(down);
+			}
+			
+			if (key == KeyEvent.VK_K) {
+				int[] up = {0,1};
+				System.out.println("up");
+				narration = game.move(up);
 			}
 	    
 			if (key == KeyEvent.VK_Y) {

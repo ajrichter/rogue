@@ -278,12 +278,6 @@ public class Level {
 				}
 			}
 		}
-		
-		for (int y = 0; y< floor.length; y++){
-			for(int x =0; x < floor[y].length; x++){
-				pfloor[y][x] = '0';
-			}
-		}
 			
 		return pfloor;
 	}
