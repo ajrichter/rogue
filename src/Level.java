@@ -3,6 +3,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import Item.Item;
 import java.util.ArrayList;
 
+//need to spawn a player and then make the spaces true??
+
 /*TODO
  * isLit
  * Enemies
@@ -51,7 +53,7 @@ public class Level {
 
 		public Rm() {
 			w = ThreadLocalRandom.current().nextInt(4, 26 + 1);
-			h = ThreadLocalRandom.current().nextInt(4, 7 + 1);
+			h = ThreadLocalRandom.current().nextInt(4, 6 + 1);
 		}
 
 		private void set(int x, int y){
@@ -108,6 +110,14 @@ public class Level {
 		Enemy e= new Enemy();
 		addUnit(player);
 		addUnit(e);
+	}
+	
+	private void placeItem(int x, int y){
+		Item i = new Item();
+		i.generateItem();
+		// add to arraylist
+		
+		floor[y][x] = i.getBoardName().charAt(0);
 	}
 	
 	/*
@@ -196,7 +206,7 @@ public class Level {
 			min = 54;
 			max = 79;
 		}
-		int x  =ThreadLocalRandom.current().nextInt(min, max -r.w);
+		int x  =ThreadLocalRandom.current().nextInt(min, max -r.w+1);
 		
 		min = 0;
 		max = 6;
@@ -207,7 +217,8 @@ public class Level {
 			min = 16;
 			max = 22;
 		}
-		int y = ThreadLocalRandom.current().nextInt(min, max -r.h) ;
+		// bound must be greater than origin
+		int y = ThreadLocalRandom.current().nextInt(min, max -r.h +1) ;
 		
 		r.set(x, y);
 		

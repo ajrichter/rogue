@@ -9,6 +9,8 @@ import Item.Item;
 
 //import RougeView.ViewUpdate;
 
+// need to spawn a player and then make the spaces true??
+
 public class Controller extends JFrame implements KeyListener {
 	
     private JLabel label;
@@ -62,7 +64,7 @@ public class Controller extends JFrame implements KeyListener {
 				//Tells what the next character you type is
 			}
 		
-			if (key == KeyEvent.VK_H) {
+			if (key == KeyEvent.VK_H || key == KeyEvent.VK_LEFT) {
 				int[] left = {-1,0};
 				System.out.println("left");
 				narration = game.move(left);

@@ -77,6 +77,8 @@ public class GamePlay {
 	
 	public boolean move(int[] direction) {
 		
+		// Tell this section to call Level Move
+		
 		boolean b=false;
 		if(level.isEnemy(this.play, direction)!=null){
 			//fights the monster TODO put in separate attack method
@@ -89,7 +91,8 @@ public class GamePlay {
 			if(level.isItem(this.play, direction)!=null){
 				level.pickUp(this.play, direction);
 				view.updateBoard(level.getFloor());
-				view.updateNaration(play.getName()+ " " + level.getItemMessage());
+				view.updateNaration(play.getName());
+				// + " " + level.getItemMessage())
 			}
 			//moves to new space
 			level.moveUnit(this.play,direction);

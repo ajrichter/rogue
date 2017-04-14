@@ -66,7 +66,6 @@ public class RougeView {
 			gr.drawString(naration,0,25);
 			
 			//Prints the board
-			
 			for(int i=0; i<board.length; i++){
 				gr.drawChars(board[i], 0, board[i].length, 100, i*25+100);
 			}
