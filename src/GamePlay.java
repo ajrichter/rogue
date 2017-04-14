@@ -76,9 +76,9 @@ public class GamePlay {
 	}
 	
 	public boolean move(int[] direction) {
+		// {left/right, down/up}
 		
 		// Tell this section to call Level Move
-		
 		boolean b=false;
 		if(level.isEnemy(this.play, direction)!=null){
 			//fights the monster TODO put in separate attack method
@@ -96,6 +96,7 @@ public class GamePlay {
 			}
 			//moves to new space
 			level.moveUnit(this.play,direction);
+			
 		}
 		
 		view.nextTurn();

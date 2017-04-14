@@ -1,6 +1,8 @@
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import Item.Item;
+
+import java.awt.Point;
 import java.util.ArrayList;
 
 //need to spawn a player and then make the spaces true??
@@ -308,8 +310,15 @@ public class Level {
 	//checks if a move is valid or not, this method is working
 	public boolean validMove(Unit u, int[] dir){
 		int[] location= unitLocation(u);
+		
+		Point a = p.getP();
 
+		if(floor[a.y + dir[1]][a.y + dir[0]]  == '.'){
+			return true;
+		}
+		
 		//if out of bound
+		/*
 		if(location[0]+dir[0]<0 ||
 		   location[0]+dir[0]>(floorUnits.length-1)||
 		   location[1]+dir[1]<0 ||
@@ -321,7 +330,7 @@ public class Level {
 			   floorSeen[location[1]+dir[1]][location[0]+dir[0]].equals("A")){
 				return true;
 			}
-		}
+		}*/
 
 		return false;
 	}
@@ -386,18 +395,25 @@ public class Level {
 	//moves the player in a certain direction
 	public boolean moveUnit(Unit u, int[] dir){
 		int[] location= unitLocation(u);
-
+		
+		Point a = p.getP();
+		
 		if(validMove(u, dir)){
+			
+			floor[(int) a.getY()][(int) a.getX()] = '.';
+			p.setP((int) a.getX() + dir[0], (int) a.getY() + dir[1]);
+			floor[(int) a.getY() + dir[1]][(int) a.getX() + dir[0]] = '@';
+			
 			//make previous location clear
-			if(floorItems[location[1]][location[0]]==null){
-				floorSeen[location[1]][location[0]]= ".";
-			}else{
-				floorSeen[location[1]][location[0]]=floorItems[location[1]][location[0]].toString();
-			}
-			floorUnits[location[1]][location[0]]= null;
+//			if(floorItems[location[1]][location[0]]==null){
+				// floorSeen[location[1]][location[0]]= ".";
+			//}else{
+			//	floorSeen[location[1]][location[0]]=floorItems[location[1]][location[0]].toString();
+			//}
+			// floorUnits[location[1]][location[0]]= null;
 			//add units to current location
-			floorSeen[(location[1]+dir[1])][(location[0]+dir[0])]=u.toString();
-			floorUnits[(location[1]+dir[1])][(location[0]+dir[0])]= u;
+			//floorSeen[(location[1]+dir[1])][(location[0]+dir[0])]=u.toString();
+			//floorUnits[(location[1]+dir[1])][(location[0]+dir[0])]= u;
 			return true;
 		}
 
