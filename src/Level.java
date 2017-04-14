@@ -36,6 +36,7 @@ public class Level {
 	private String[] allEnemy;
 	//position of stair, 2 elements, stair[0] = x, stair[1] = y
 	protected int[] stair;
+	protected Player p;
 	
 	
 	/*
@@ -94,6 +95,8 @@ public class Level {
 		
 		makeRooms();
 		makeDoors();
+		p = new Player();
+		spawnPlayer(p);
 		
 		this.enList = new ArrayList<Enemy>();
 		// Great I just do not understand this part
@@ -417,16 +420,6 @@ public class Level {
 		this.floorSeen[loc[1]+direction[1]][loc[0]+direction[0]]=".";
 	}
 
-	//checks if player can see trap
-	public void seeTrap(){
-		//TODO
-	}
-
-	//checks if player can disarm a trap
-	public void disarmTrap(){
-		//TODO
-	}
-
 	public void addItem(Item item, int[] location){
 		floorItems[location[1]][location[0]]=item;
 		floorSeen[location[1]][location[0]]=item.toString();
@@ -455,8 +448,8 @@ public class Level {
 	 * 
 	 */
 	public void spawnPlayer(Player p) {
-		// Shouldnt matter which level it is
-		if(this.numLevel == 1 && !(p.hasA)) { //also need condition where player does not have amulet of yendor
+		// Level num is irrelevant
+		//if(this.numLevel == 1 && !(p.hasA)) { //also need condition where player does not have amulet of yendor
 			//TODO: place player anywhere on 1st floor
 			Rm temp = randomRoom();	//can probably go outside
 			int xPos = ThreadLocalRandom.current().nextInt(temp.x1 + 1, temp.x2);
@@ -464,10 +457,21 @@ public class Level {
 			p.setP(xPos, yPos);
 			
 			floor[yPos][xPos] = '@';
-		} else {
+			seeRm(temp);
+			
+		//} else {
 			//TODO: place player on stairs, FIND IT
+		//}
+	}
+	
+	private void seeRm(Rm r){
+		for(int y = r.y1; y <= r.y2; y++){
+			for(int x = r.x1; x <= r.x2; x++){
+				isSeen[y][x] = true;
+			}
 		}
 	}
+	
 	
 	/**
 	 * I think this works
