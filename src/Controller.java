@@ -9,8 +9,6 @@ import Item.Item;
 
 //import RougeView.ViewUpdate;
 
-// need to spawn a player and then make the spaces true??
-
 public class Controller extends JFrame implements KeyListener {
 	
     private JLabel label;
