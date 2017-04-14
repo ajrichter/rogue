@@ -1,16 +1,15 @@
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import Item.Item;
-
 import java.awt.Point;
 import java.util.ArrayList;
 
-//need to spawn a player and then make the spaces true??
-
 /*TODO
- * isLit
  * Enemies
  * Items
+ * isLit
+ * Stairs
+ * 
  */
 public class Level {
 	private String[][] floorSeen;
@@ -40,22 +39,13 @@ public class Level {
 	protected int[] stair;
 	protected Player p;
 	
-	
-	/*
-	 * A Level is 24*80
-	 * 24 in the y/h dir, 80 in the x/w dir
-	 * The level is composed of 9 rooms in a grid
-	 * Each room is a maximum of 7*23
-	 * With 1 buffer space surrounding each interior side
-	 * And an additional buffer on the bottom row above the text line 
-	 */
-	
 	// An inner class used to define each room
 	class Rm {
 		private int x1, x2,  y1, y2, w, h;
 
 		public Rm() {
 			// These are both one shorter because random room placement confused me
+			// I do not know why this is wrong
 			w = ThreadLocalRandom.current().nextInt(4, 25 + 1);
 			h = ThreadLocalRandom.current().nextInt(4, 6 + 1);
 		}
@@ -69,18 +59,10 @@ public class Level {
 	}
 
 	// Andrew's Level Generator
-	/* Generate a number of rooms
-		? should I generate the size of the room as a factor of the number of rooms
-		? yes because this is more dynamic and makes it more interesting
-		Using inner Room class, Generate a random room
-		First room is placed randomly
-		Second and following rooms are placed after checking to see if there square is open
-		Try to fit it in the array
-		If it doesn't fit, make a new room and repeat
-		Repeat for the number of rooms
-	*/
 	public Level(int nL) {
 		numLevel = nL;
+		// store the last point for going down a level
+		// need a point for  where player is
 		numR = ThreadLocalRandom.current().nextInt(4, 8 + 1);
 
 		isSeen = new boolean[24][80];
@@ -233,8 +215,10 @@ public class Level {
 	}
 	
 	private Rm writeR(Rm r){
+		// I made a small change to this loop
+		// w not 0->w but x1->x2
 		// make top and part of a room
-		for(int w = 0; w < r.w; w++){
+		for(int w = r.x1; w <= r.x2; w++){
 			floor[r.y1][w] = '-';
 			floor[r.y2][w] ='-';
 		}
