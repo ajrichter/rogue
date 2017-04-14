@@ -50,6 +50,7 @@ public class Controller extends JFrame implements KeyListener {
 		if (key == KeyEvent.VK_SPACE) {
 			narration = false;
 			view.updateNaration("");
+			frame.repaint();
 		}
 		
 		if (narration == false) {
@@ -144,10 +145,9 @@ public class Controller extends JFrame implements KeyListener {
 		
 		
 		//makes a board
-		control.view.updateBoard(control.game.level.getSeenFloor());
+		control.view.updateBoard(control.game.level.getFloor());
 		control.view.updateStats(control.game.play.playerStats());
-		
-		
+		control.view.nextTurn();
 		
 		//makes controller
 	}

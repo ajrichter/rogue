@@ -17,7 +17,7 @@ public class GamePlay {
 	
 	public GamePlay(RougeView view) {
 		this.play = new Player();
-		this.level = new Level(play);
+		this.level = new Level(1);
 		this.view = view;
 	}
 	
@@ -88,7 +88,7 @@ public class GamePlay {
 			//picking up item
 			if(level.isItem(this.play, direction)!=null){
 				level.pickUp(this.play, direction);
-				view.updateBoard(level.getSeenFloor());
+				view.updateBoard(level.getFloor());
 				view.updateNaration(play.getName()+ " " + level.getItemMessage());
 			}
 			//moves to new space
