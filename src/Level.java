@@ -116,14 +116,50 @@ public class Level {
 	 * Then places Item and Generates Enemies 
 	 */
 	private void makeDoors(){
-		// Rm: rs bool: rb
-		for (int i = 0; i < rb.length -1; i++){
-			if(rb[i]){
-				// Now need to see how many doors possible and then size
-				
+		// rb, rs
+		// door booleans
+		boolean[] db = new boolean[9];
+		// Right Side Doors
+		for(int i = 0; i < 8; i++){
+			if(rb[i] && ThreadLocalRandom.current().nextBoolean()){
+				// find closest room
+				Rm r1 = rs[i];
+				if(rb[i+1]){
+					int d1 = ThreadLocalRandom.current().nextInt(r1.y1+1, r1.y2);
+					int d2 = ThreadLocalRandom.current().nextInt(rs[i+1].y1+1, rs[i+1].y2);
+					// make doors
+					floor[d1][r1.x2] = '+';
+					floor[d2][rs[i+1].x1] = '+';
+					// make halls
+					// first half
+					for(int a = r1.x2+1; a < (rs[i+1].x1 - r1.x2)/2; a++){
+						floor[d1][a] = '#';
+					}
+					// up/down
+					if(d1 > d2){
+						for(int u = d2; u <= d1; u++)
+							floor[u][(rs[i+1].x1 - r1.x2)/2] = '#';
+					} else if(d2 < d1){
+						for(int u = d1; u <= d2; u++)
+							floor[u][(rs[i+1].x1 - r1.x2)/2] = '#';
+					}
+					// second half
+					for(int b = (rs[i+1].x1 - r1.x2)/2; b < rs[i+1].x1; b++){
+						floor[d2][b] = '#';
+					}
+				} else {
+					
+				}
+				db[i] = true;
 			}
+			if(i % 3 == 1)
+				i++;	
 		}
-		// ThreadLocalRandom.current().nextInt(1, 3 + 1);
+		// bottom doors are if not done || if true
+		
+		
+		
+		// Problem: Need a failsafe if a room has no door and exists so both booleans false
 	}
 	
 	private void makeRooms(){
