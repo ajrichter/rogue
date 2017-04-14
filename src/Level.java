@@ -261,7 +261,7 @@ public class Level {
 				if(isSeen[y][x]){
 					pfloor[y][x] = floor[y][x];
 				} else {
-					pfloor[y][x] = '0';
+					pfloor[y][x] = ' ';
 				}
 			}
 		}
