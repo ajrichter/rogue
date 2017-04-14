@@ -207,8 +207,8 @@ public class Level {
 			min = 54;
 			max = 79;
 		}
-		System.out.println(min + " "+ max);
 		int x  =ThreadLocalRandom.current().nextInt(min, max -r.w+1);
+		System.out.println(min + " "+ max + " " + (max -r.w+1) +" " + x);
 		
 		min = 0;
 		max = 6;
@@ -219,8 +219,8 @@ public class Level {
 			min = 16;
 			max = 22;
 		}
-		System.out.println(min + " "+ max);
 		int y = ThreadLocalRandom.current().nextInt(min, max -r.h +1) ;
+		System.out.println(min + " "+ max + " " + (max -r.h+1) +" " + y);
 		
 		r.set(x, y);
 		
