@@ -102,23 +102,25 @@ public class Level {
 	 * Then places Item and Generates Enemies 
 	 */
 	private void makeDoors(){
-		// rb, rs
 		// door booleans
 		boolean[] db = new boolean[9];
+		
 		// Right Side Doors
 		for(int i = 0; i < 8; i++){
 			if(rb[i] && ThreadLocalRandom.current().nextBoolean()){
 				// find closest room
 				Rm r1 = rs[i];
 				if(rb[i+1]){
+					Rm r2 = rs[i+1];
 					int d1 = ThreadLocalRandom.current().nextInt(r1.y1+1, r1.y2);
 					int d2 = ThreadLocalRandom.current().nextInt(rs[i+1].y1+1, rs[i+1].y2);
 					// make doors
 					floor[d1][r1.x2] = '+';
-					floor[d2][rs[i+1].x1] = '+';
+					floor[d2][r2.x1] = '+';
+					// Halls dont work!!
 					// make halls
 					// first half
-					for(int a = r1.x2+1; a < (rs[i+1].x1 - r1.x2)/2; a++){
+					/*for(int a = r1.x2+1; a < (rs[i+1].x1 - r1.x2)/2; a++){
 						floor[d1][a] = '#';
 					}
 					// up/down
@@ -133,6 +135,7 @@ public class Level {
 					for(int b = (rs[i+1].x1 - r1.x2)/2; b < rs[i+1].x1; b++){
 						floor[d2][b] = '#';
 					}
+					*/
 				} else {
 					// Find another room if no adjacent
 				}
@@ -297,8 +300,7 @@ public class Level {
 	 */
 	public void spawnPlayer(Player p) {
 		// Level num is irrelevant
-		//if(this.numLevel == 1 && !(p.hasA)) { //also need condition where player does not have amulet of yendor
-			//TODO: place player anywhere on 1st floor
+		//if(this.numLevel == 1 && !(p.hasA)) {
 			Rm temp = randomRoom();	//can probably go outside
 			int xPos = ThreadLocalRandom.current().nextInt(temp.x1 + 1, temp.x2);
 			int yPos = ThreadLocalRandom.current().nextInt(temp.y1 + 1, temp.y2);
