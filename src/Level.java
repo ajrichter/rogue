@@ -243,29 +243,28 @@ public class Level {
 		return pfloor;
 	}
 
-	//checks if a move is valid or not, this method is working
+	public boolean moveUnit(Unit u, int[] dir){
+		Point a = p.getP();
+		if(validMove(u, dir)){
+			// only if it is not a door
+			floor[a.y][a.x] = '.';
+			p.setP(a.x + dir[0], a.y + dir[1]);
+			a.translate(dir[0], dir[1]);
+			floor[a.y][a.x] = '@';
+		}
+		return true;
+	}
+	
 	public boolean validMove(Unit u, int[] dir){
 		// inside a room || door || hall
 		// && No out of bounds check!
 		// Else no move
 		
 		Point a = p.getP();
-
 		if(floor[a.y + dir[1]][a.y + dir[0]]  == '.'){
 			return true;
 		}
 		return false;
-	}
-
-	public boolean moveUnit(Unit u, int[] dir){
-		Point a = p.getP();
-		// if(validMove(...
-			
-		floor[(int) a.getY()][(int) a.getX()] = '.';
-		p.setP((int) a.getX() + dir[0], (int) a.getY() + dir[1]);
-		floor[(int) a.getY() + dir[1]][(int) a.getX() + dir[0]] = '@';
-		
-		return true;
 	}
 
 	// remove enemy

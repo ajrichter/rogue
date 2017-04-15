@@ -18,6 +18,7 @@ public class Unit {
 	// Clearly not dead as it has just been constructed!
 	public Unit() {
 		this.dead = false;
+		p = new Point();
 	}
 
 	public boolean isEnemy(){
@@ -25,8 +26,9 @@ public class Unit {
 	}
 	
 	public void setP(int x, int y){
-		p = new Point(x, y);
+		p.setLocation(x,  y);
 	}
+	
 	public Point getP(){
 		return p;
 	}
