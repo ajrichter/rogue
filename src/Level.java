@@ -251,7 +251,12 @@ public class Level {
 			p.setP(a.x + dir[0], a.y + dir[1]);
 			a.translate(dir[0], dir[1]);
 			floor[a.y][a.x] = '@';
+			
+			System.out.println("Valid");
+			
+			return true;
 		}
+		System.out.println("Not Valid");
 		return true;
 	}
 	
