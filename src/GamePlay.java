@@ -7,8 +7,6 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
-import Item.Item;
-
 public class GamePlay {
 	
 	private boolean hasAmulet=false;
@@ -19,7 +17,7 @@ public class GamePlay {
 	
 	public GamePlay(RougeView view) {
 		this.play = new Player();
-		this.level = new Level(play);
+		this.level = new Level(1);
 		this.view = view;
 	}
 	
@@ -78,25 +76,26 @@ public class GamePlay {
 	}
 	
 	public boolean move(int[] direction) {
-		
 		boolean b=false;
+		/*
 		if(level.isEnemy(this.play, direction)!=null){
 			//fights the monster TODO put in separate attack method
 			Enemy enemy= level.isEnemy(this.play, direction);
 			unitAttack(this.play, enemy);
 			b=true;
-			
 		}else{
 			//picking up item
 			if(level.isItem(this.play, direction)!=null){
 				level.pickUp(this.play, direction);
-				view.updateBoard(level.getSeenFloor());
-				view.updateNaration(play.getName()+ " has found the Amulet of Yendor and won the game!!!");
+				view.updateBoard(level.getFloor());
+				view.updateNaration(play.getName());
+				// + " " + level.getItemMessage())
 			}
-			//moves to new space
-			level.moveUnit(this.play,direction);
 		}
-		
+		*/
+		// validity checked in Level
+		level.moveUnit(this.play,direction);
+		view.updateBoard(level.getFloor());
 		view.nextTurn();
 		return b;
 	}

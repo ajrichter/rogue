@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Item.Item;
+
 //import RougeView.ViewUpdate;
 
 public class Controller extends JFrame implements KeyListener {
@@ -14,6 +16,7 @@ public class Controller extends JFrame implements KeyListener {
     private RougeView view;
     public static JFrame frame;
     public boolean narration;
+    private Item [] items;
     
     public Controller(String s) {
         super(s);
@@ -47,6 +50,7 @@ public class Controller extends JFrame implements KeyListener {
 		if (key == KeyEvent.VK_SPACE) {
 			narration = false;
 			view.updateNaration("");
+			frame.repaint();
 		}
 		
 		if (narration == false) {
@@ -58,7 +62,7 @@ public class Controller extends JFrame implements KeyListener {
 				//Tells what the next character you type is
 			}
 		
-			if (key == KeyEvent.VK_H) {
+			if (key == KeyEvent.VK_H || key == KeyEvent.VK_LEFT) {
 				int[] left = {-1,0};
 				System.out.println("left");
 				narration = game.move(left);
@@ -69,17 +73,17 @@ public class Controller extends JFrame implements KeyListener {
 				System.out.println("right");
 				narration = game.move(right);
 			}
-	
+			
 			if (key == KeyEvent.VK_J) {
-				int[] up = {0,1};
-				System.out.println("up");
-				narration = game.move(up);
-			}
-	
-			if (key == KeyEvent.VK_K) {
-				int[] down = {0,-1};
+				int[] down = {0,1};
 				System.out.println("down");
 				narration = game.move(down);
+			}
+			
+			if (key == KeyEvent.VK_K) {
+				int[] up = {0,-1};
+				System.out.println("up");
+				narration = game.move(up);
 			}
 	    
 			if (key == KeyEvent.VK_Y) {
@@ -141,7 +145,7 @@ public class Controller extends JFrame implements KeyListener {
 		
 		
 		//makes a board
-		control.view.updateBoard(control.game.level.getSeenFloor());
+		control.view.updateBoard(control.game.level.getFloor());
 		control.view.updateStats(control.game.play.playerStats());
 		control.view.nextTurn();
 		

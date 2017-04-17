@@ -38,6 +38,11 @@ public class Item {
 		{
 			this.damage = generate.getWeaponDamage();
 		}
+		else if (this.typeItem.equals("Weapon"))
+		{
+			this.damage = g.getWeaponDamage();
+		}
+		
 		
 		return generate;
 	}
@@ -45,6 +50,24 @@ public class Item {
 	public char getBoardName() {
 		return this.boardName;
 	}
+<<<<<<< HEAD
+=======
+
+	public String getBoardName() {
+		return this.boardName;
+	}
+	
+	public String getPrintMessage() {
+		return finalMessage;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	
+	
+>>>>>>> master
 	
 	public String getPrintMessage() {
 		return finalMessage;

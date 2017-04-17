@@ -1,40 +1,53 @@
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import Item.Item;
+import java.awt.Point;
+import java.util.ArrayList;
 
 /*TODO
- * isLit
  * Enemies
  * Items
+ * isLit
+ * Stairs
+ * 
  */
 public class Level {
-	private String[][] floorSeen;
-	private Unit[][] floorUnits;
-	private Item[][] floorItems;
-	private String[][] floorTraps;
-	private Room[] rooms;
-
-	// Andrew's  Instance Variables
 	private int numLevel;
+	// Number of Rooms
 	private int numR;
+	// The full floor
 	private char[][] floor;
+	// Visible part of the floor
 	private boolean[][] isSeen;
-	/*
-	 * A Level is 24*80
-	 * 24 in the y/h dir, 80 in the x/w dir
-	 * The level is composed of 9 rooms in a grid
-	 * Each room is a maximum of 7*23
-	 * With 1 buffer space surrounding each interior side
-	 * And an additional buffer on the bottom row above the text line 
-	 */
+	// Array of Rooms Existence
+	private boolean[] rb;
+	// Array of Rooms
+	private Rm[] rs;
+	// List of enemies
+	private ArrayList<Enemy> enList;
+	
+	// Need something similar for Items?
+	// Ink is right. Make a Room class. But simple!!
+	// door, edges, items, 
+	// How do I do hallways then?
+	// Things to think about...
+	
+	//list of available enemies
+	private String[] allEnemy;
+	//position of stair, 2 elements, stair[0] = x, stair[1] = y
+	protected int[] stair;
+	
+	// Player needs to be in GamePlay too though
+	protected Player p;
 	
 	// An inner class used to define each room
 	class Rm {
 		private int x1, x2,  y1, y2, w, h;
 
 		public Rm() {
-			w = ThreadLocalRandom.current().nextInt(4, 26 + 1);
-			h = ThreadLocalRandom.current().nextInt(3, 7 + 1);
+			// These are both one shorter because random room placement confused me
+			// I do not know why this is wrong
+			w = ThreadLocalRandom.current().nextInt(4, 25 + 1);
+			h = ThreadLocalRandom.current().nextInt(4, 6 + 1);
 		}
 
 		private void set(int x, int y){
@@ -46,48 +59,40 @@ public class Level {
 	}
 
 	// Andrew's Level Generator
-	/* Generate a number of rooms
-		? should I generate the size of the room as a factor of the number of rooms
-		? yes because this is more dynamic and makes it more interesting
-		Using inner Room class, Generate a random room
-		First room is placed randomly
-		Second and following rooms are placed after checking to see if there square is open
-		Try to fit it in the array
-		If it doesn't fit, make a new room and repeat
-		Repeat for the number of rooms
-	*/
 	public Level(int nL) {
 		numLevel = nL;
+		// store the last point for going down a level
+		// need a point for  where player is
 		numR = ThreadLocalRandom.current().nextInt(4, 8 + 1);
 
 		isSeen = new boolean[24][80];
 		floor = new char[24][80];
+		rb = new boolean[9];
+		rs = new Rm[9];
+		
 		// set everything to 0, which means empty
 		for(int y = 0; y < 24; y++){
 			for(int x = 0; x < 80; x++){
-				floor[y][x] = '0';
+				floor[y][x] = ' ';
 			}
 		}
 		
 		makeRooms();
-		fitHalls();
-	}
-
-	public Level(Unit player){
-		makeLevel();
-
-		floorUnits= new Unit[24][80];
-		floorItems= new Item[24][80];
-
-		rooms = new Room[9];	//9 possible rooms
-
-		Enemy e= new Enemy();
-		addUnit(player);
-		addUnit(e);
+		makeDoors();
+		p = new Player();
+		spawnPlayer(p);
+		
+		this.enList = new ArrayList<Enemy>();
+		// Great I just do not understand this part
+		this.allEnemy = new String[] {"A","B","C","D","E","F"};
 	}
 	
-	private void fitHalls(){
+	private void placeItem(int x, int y){
+		Item i = new Item();
+		i.generateItem();
+		// add to arraylist
 		
+		floor[y][x] = i.getBoardName().charAt(0);
 	}
 	
 	/*
@@ -96,36 +101,72 @@ public class Level {
 	 * The next part Ink will work on:
 	 * Then places Item and Generates Enemies 
 	 */
-	private void makeDoors(Rm r, int i){
-		int numD = ThreadLocalRandom.current().nextInt(1, 3 + 1);
-		if(i == 0|| i == 2 || i == 6 || i ==8){
-			numD = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-		} else if(i == 4){
-			numD = ThreadLocalRandom.current().nextInt(1, 4 + 1);
+	private void makeDoors(){
+		// door booleans
+		boolean[] db = new boolean[9];
+		
+		// Right Side Doors
+		for(int i = 0; i < 8; i++){
+			if(rb[i] && ThreadLocalRandom.current().nextBoolean()){
+				// find closest room
+				Rm r1 = rs[i];
+				if(rb[i+1]){
+					Rm r2 = rs[i+1];
+					int d1 = ThreadLocalRandom.current().nextInt(r1.y1+1, r1.y2);
+					int d2 = ThreadLocalRandom.current().nextInt(rs[i+1].y1+1, rs[i+1].y2);
+					// make doors
+					floor[d1][r1.x2] = '+';
+					floor[d2][r2.x1] = '+';
+					// Halls dont work!!
+					// make halls
+					// first half
+					/*for(int a = r1.x2+1; a < (rs[i+1].x1 - r1.x2)/2; a++){
+						floor[d1][a] = '#';
+					}
+					// up/down
+					if(d1 > d2){
+						for(int u = d2; u <= d1; u++)
+							floor[u][(rs[i+1].x1 - r1.x2)/2] = '#';
+					} else if(d2 < d1){
+						for(int u = d1; u <= d2; u++)
+							floor[u][(rs[i+1].x1 - r1.x2)/2] = '#';
+					}
+					// second half
+					for(int b = (rs[i+1].x1 - r1.x2)/2; b < rs[i+1].x1; b++){
+						floor[d2][b] = '#';
+					}
+					*/
+				} else {
+					// Find another room if no adjacent
+				}
+				db[i] = true;
+			}
+			if(i % 3 == 1)
+				i++;	
 		}
+		// bottom doors are if not done || if true
+		
+		
+		
+		// Problem: Need a failsafe if a room has no door and exists so both booleans false
 	}
 	
 	private void makeRooms(){
-		boolean[] rs = new boolean[9];
-		
 		for(int i = 0; i < numR; i++){
-				rs = addR(rs);
+				addR();
 		}
-		makeDoors(rs, )
 	}
 	
-	private boolean[] addR(boolean[] rs){
+	private void addR(){
 		int roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
-		while(rs[roomN])
+		while(rb[roomN])
 			roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
-		rs[roomN] = true;
-		
+
 		Rm r = new Rm();
 		r = placeR(r, roomN);
 
-		makeDoors(r, roomN);
-		
-		return rs;
+		rs[roomN] = r;
+		rb[roomN] = true;
 	}
 
 	/* Grid Layout
@@ -136,7 +177,6 @@ public class Level {
 	 */
 	private Rm placeR(Rm r, int num){
 		int min = 0, max = 25;
-		// math is wrong 0->8
 		if(num%3 == 1){
 			min = 27;
 			max = 52;
@@ -144,7 +184,8 @@ public class Level {
 			min = 54;
 			max = 79;
 		}
-		int x  =ThreadLocalRandom.current().nextInt(min, max -r.w);
+		int x  =ThreadLocalRandom.current().nextInt(min, max -r.w+1);
+		System.out.println(min + " "+ max + " " + (max -r.w+1) +" " + x);
 		
 		min = 0;
 		max = 6;
@@ -155,7 +196,8 @@ public class Level {
 			min = 16;
 			max = 22;
 		}
-		int y = ThreadLocalRandom.current().nextInt(min, max -r.h) ;
+		int y = ThreadLocalRandom.current().nextInt(min, max -r.h +1) ;
+		System.out.println(min + " "+ max + " " + (max -r.h+1) +" " + y);
 		
 		r.set(x, y);
 		
@@ -163,8 +205,10 @@ public class Level {
 	}
 	
 	private Rm writeR(Rm r){
+		// I made a small change to this loop
+		// w not 0->w but x1->x2
 		// make top and part of a room
-		for(int w = 0; w < r.w; w++){
+		for(int w = r.x1; w <= r.x2; w++){
 			floor[r.y1][w] = '-';
 			floor[r.y2][w] ='-';
 		}
@@ -180,183 +224,138 @@ public class Level {
 		return r;
 	}
 
-	//Small for prototype
-	// Yes, I can tell
-	public void makeLevel(){
-		this.floorSeen= new String[20][20];
-		for(int i=0; i<20;i++){
-			for(int k=0; k<20;k++){
-				if(i==0 || i==19){
-					this.floorSeen[i][k]= "=";
-				}else if(k==0 ||k==19){
-					this.floorSeen[i][k]="|";
-				}else{
-					this.floorSeen[i][k]=".";
-				}
-			}
-		}
-	}
-
-	public char[][] showL(){
-		// make the floor dynamically here and return one array
-		// combine all of the arrays
-		return floor;
-	}
-
 	public boolean[][] getSeen(){
 		return isSeen;
 	}
 
 	public char[][] getFloor() {
-		return floor;
-	}
-
-	public String[][] getSeenFloor(){
-		return floorSeen;
-	}
-
-	//adds a unit to the level
-	private void addUnit(Unit u){
-
-		Random rand = new Random();
-		int  tempX = rand.nextInt(this.floorSeen.length);
-		int tempY = rand.nextInt(this.floorSeen[0].length);
-
-		//look for empty space on a floor
-		while(this.floorSeen[tempX][tempY]!="."){
-			tempX = rand.nextInt(this.floorSeen.length);
-			tempY = rand.nextInt(this.floorSeen[0].length);
-		}
-		this.floorUnits[tempX][tempY]=u;
-		this.floorSeen[tempX][tempY]=u.toString();
-	}
-
-	//checks if a move is valid or not, this method is working
-	public boolean validMove(Unit u, int[] dir){
-
-		int[] location= unitLocation(u);
-
-		//if out of bound
-		if(location[0]+dir[0]<0 ||
-		   location[0]+dir[0]>(floorUnits.length-1)||
-		   location[1]+dir[1]<0 ||
-		   location[1]+dir[1]>(floorUnits[0].length-1)){
-			return false;
-		}else{
-			//check if piece of floor
-			if(floorSeen[location[1]+dir[1]][location[0]+dir[0]].equals(".")||
-			   floorSeen[location[1]+dir[1]][location[0]+dir[0]].equals("A")){
-				return true;
+		char[][] pfloor = new char[24][80];
+		for (int y = 0; y< floor.length; y++){
+			for(int x =0; x < floor[y].length; x++){
+				//if(isSeen[y][x]){
+					pfloor[y][x] = floor[y][x];
+				//} else {
+					//pfloor[y][x] = ' ';
+				//}
 			}
 		}
-
-		return false;
+			
+		return pfloor;
 	}
 
-	//if player hits enemy
-	public Enemy isEnemy(Unit u, int[] dir){
-		int[] location= unitLocation(u);
-
-		//if out of bound
-		if(location[0]+dir[0]<0 ||
-		   location[0]+dir[0]>(floorUnits.length-1)||
-		   location[1]+dir[1]<0 ||
-		   location[1]+dir[1]>(floorUnits[0].length-1)){
-			return null;
-		}else{
-			//check if piece of floor
-			if(Character.isLetter(floorSeen[location[1]+dir[1]][location[0]+dir[0]].charAt(0))){
-				return (Enemy) floorUnits[location[1]+dir[1]][location[0]+dir[0]];
-			}
-		}
-
-		return null;
-	}
-
-	//if player hits enemy
-		public Item isItem(Unit u, int[] dir){
-			int[] location= unitLocation(u);
-
-			//if out of bound
-			if(location[0]+dir[0]<0 ||
-			   location[0]+dir[0]>(floorUnits.length-1)||
-			   location[1]+dir[1]<0 ||
-			   location[1]+dir[1]>(floorUnits[0].length-1)){
-				return null;
-			}else{
-				//check if piece of floor
-				if(floorSeen[location[1]+dir[1]][location[0]+dir[0]].equals("A")){
-					return (Item) floorItems[location[1]+dir[1]][location[0]+dir[0]];
-				}
-			}
-
-			return null;
-		}
-
-	public int[] unitLocation(Unit u){
-		int[] temp= new int[2];
-
-		for(int i=0; i<floorUnits.length;i++){
-			for(int k=0; k<floorUnits.length;k++){
-				if(u.equals(floorUnits[i][k])){
-					temp[0]=k;
-					temp[1]=i;
-				}
-			}
-		}
-		return temp;
-	}
-
-	//moves the player in a certain direction
 	public boolean moveUnit(Unit u, int[] dir){
-		int[] location= unitLocation(u);
-
+		Point a = p.getP();
 		if(validMove(u, dir)){
-			//make previous location clear
-			if(floorItems[location[1]][location[0]]==null){
-				floorSeen[location[1]][location[0]]= ".";
-			}else{
-				floorSeen[location[1]][location[0]]=floorItems[location[1]][location[0]].toString();
-			}
-			floorUnits[location[1]][location[0]]= null;
-			//add units to current location
-			floorSeen[(location[1]+dir[1])][(location[0]+dir[0])]=u.toString();
-			floorUnits[(location[1]+dir[1])][(location[0]+dir[0])]= u;
+			// only if it is not a door
+			floor[a.y][a.x] = '.';
+			p.setP(a.x + dir[0], a.y + dir[1]);
+			a.translate(dir[0], dir[1]);
+			floor[a.y][a.x] = '@';
+			
+			System.out.println("Valid");
+			
 			return true;
 		}
-
+		System.out.println("Not Valid");
+		return true;
+	}
+	
+	public boolean validMove(Unit u, int[] dir){
+		// inside a room || door || hall
+		// && No out of bounds check!
+		// Else no move
+		
+		Point a = p.getP();
+		if(floor[a.y + dir[1]][a.y + dir[0]]  == '.'){
+			return true;
+		}
 		return false;
 	}
 
-	//called by enemy who dies
+	// remove enemy
 	public void removeUnit(Unit u){
-		int[] loc= unitLocation(u);
-		this.floorUnits[loc[1]][loc[0]]=null;
-		if(this.floorItems[loc[1]][loc[0]]==null){
-			this.floorSeen[loc[1]][loc[0]]=".";
-		}
 	}
 
 	//picks up an item
 	public void pickUp(Unit u, int[] direction){
-		int[] loc= unitLocation(u);
-		this.floorItems[loc[1]+direction[1]][loc[0]+direction[0]]=null;
-		this.floorSeen[loc[1]+direction[1]][loc[0]+direction[0]]=".";
 	}
 
-	//checks if player can see trap
-	public void seeTrap(){
-		//TODO
+	/**
+	 * Fills up the empty enList with random enemies
+	 * Currently this list will just fill up with any random enemies
+	 * 	but eventually we'll have different enemies spawn on each level
+	 * 
+	 * Only 6 monsters currently (6 symbols) so 
+	 */
+	public void makeEnemyList() {
+		int numEnemy = ThreadLocalRandom.current().nextInt(1, 9 + 1);	//may be changed later
+		Enemy e = new Enemy();
+		
+		//remember that val = symbol of the monster
+		for(int i = 0; i < numEnemy; i++) {
+			int chooseEnemy = ThreadLocalRandom.current().nextInt(0, this.allEnemy.length + 1);
+			e.val = allEnemy[chooseEnemy];
+			(this.enList).add(e);
+		}
 	}
-
-	//checks if player can disarm a trap
-	public void disarmTrap(){
-		//TODO
+	
+	/**
+	 * 
+	 */
+	public void spawnPlayer(Player p) {
+		// Level num is irrelevant
+		//if(this.numLevel == 1 && !(p.hasA)) {
+			Rm temp = randomRoom();	//can probably go outside
+			int xPos = ThreadLocalRandom.current().nextInt(temp.x1 + 1, temp.x2);
+			int yPos = ThreadLocalRandom.current().nextInt(temp.y1 + 1, temp.y2);
+			p.setP(xPos, yPos);
+			
+			floor[yPos][xPos] = '@';
+			seeRm(temp);
+			
+		//} else {
+			//TODO: place player on stairs, FIND IT
+		//}
 	}
-
-	public void addItem(Item item, int[] location){
-		floorItems[location[1]][location[0]]=item;
-		floorSeen[location[1]][location[0]]=item.toString();
+	
+	private void seeRm(Rm r){
+		for(int y = r.y1; y <= r.y2; y++){
+			for(int x = r.x1; x <= r.x2; x++){
+				isSeen[y][x] = true;
+			}
+		}
 	}
-
+	
+	
+	/**
+	 * I think this works
+	 */
+	public void spawnEnemy(ArrayList<Enemy> eList) {
+		Rm temp;
+		
+		//place all enemy in list to random rooms
+		for(int i = 0; i < eList.size(); i++) {
+			temp = randomRoom();
+			int xPos = ThreadLocalRandom.current().nextInt(temp.x1 + 1, temp.x2);
+			int yPos = ThreadLocalRandom.current().nextInt(temp.y1 + 1, temp.y2);
+			(eList.get(i)).setP(xPos, yPos);
+		}
+	}
+	
+	/**
+	 * Don't repeat yourself? Gonna be choosing random room a lot so 
+	 * might as well create a method that does that
+	 */
+	public Rm randomRoom() {
+		boolean validRm = false;
+		int index = -1;
+		while(!validRm) { 	//if fail use validRm == false
+			int ranRm = ThreadLocalRandom.current().nextInt(0, 8 + 1);
+			validRm = this.rb[ranRm];
+			index = ranRm;
+		}
+		
+		return this.rs[index];
+	}
+	
 }

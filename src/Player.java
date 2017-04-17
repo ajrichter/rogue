@@ -6,7 +6,8 @@
 */
 
 public class Player extends Unit{
-	private boolean hasA;
+	// Haha what the hell is this
+	protected boolean hasA;
 	private boolean hasW;
 	private int gold, nexp, steps, hunger;
 
