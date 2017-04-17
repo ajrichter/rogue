@@ -1,13 +1,14 @@
+
 package Item;
 
-import java.util.Random;
+
 
 public class Weapon extends Item {
 	DiceRollerItem dice = new DiceRollerItem();
 
 
 	public Weapon() {
-		this.boardName= ")";
+		this.boardName= ')';
 		this.getWeapon();
 		
 	}

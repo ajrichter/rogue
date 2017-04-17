@@ -1,3 +1,4 @@
+
 package Item;
 
 import java.util.Random;
@@ -7,11 +8,13 @@ private String typeItem;
 private String itemName;	
 private int protection = 0;
 private int foodStrength = 0;
-private String boardName;
+private char boardName;
 private int weaponDamage;
 private String pickUpMessage = "";
+
+
 public GenItem () {
-	
+
 }
 
 
@@ -140,7 +143,7 @@ public GenItem () {
 		return this.itemName;
 	}
 
-	public String getBoardName() {
+	public Character getBoardName() {
 		return this.boardName;
 	}
 
@@ -152,9 +155,12 @@ public GenItem () {
 		return this.pickUpMessage;
 	}
 
-
+	public int getWeaponDamage() {
+		return this.weaponDamage;
+	}
 
 
 
 
 }
+

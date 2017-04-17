@@ -1,10 +1,14 @@
+
+
+
+
 package Item;
 
 public class Armor extends Item {
 
 
 	public Armor () {
-		this.boardName = "]";		
+		this.boardName = ']';		
 		this.getArmor();
 	}
 
@@ -12,7 +16,7 @@ public class Armor extends Item {
 	//https://strategywiki.org/wiki/Rogue/Items
 	public void getArmor() {
 		DiceRollerItem d= new DiceRollerItem();
-		switch (d.rollDie(6)) { 
+		switch (d.rollDie(8)) { 
 		
 		case 1: this.name = "Leather armor";
 			this.armorProtection = 4;
@@ -53,6 +57,7 @@ public class Armor extends Item {
 	}
 	
 		
+
 
 
 

@@ -1,3 +1,4 @@
+
 package Item;
 
 import java.util.Random;
@@ -6,7 +7,7 @@ public class Ring extends Item {
 	
 		
 		public Ring() {
-			this.boardName = "R";
+			this.boardName = 'R';
 			this.getRing();
 		}
 	
@@ -161,3 +162,4 @@ public class Ring extends Item {
 			
 }
 }
+

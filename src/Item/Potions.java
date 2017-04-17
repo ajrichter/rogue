@@ -1,3 +1,13 @@
+
+
+
+
+
+
+
+
+
+
 package Item;
 
 import java.util.Random;
@@ -6,8 +16,8 @@ public class Potions extends Item {
 
 	//From https://strategywiki.org/wiki/Rogue/Items	
 		public Potions() {
-			this.boardName = "!";
-			this.getPotion();	
+			this.boardName = '!';
+			this.getPotion();
 		}
 		
 	
@@ -148,6 +158,7 @@ public class Potions extends Item {
 			}
 		}	
 	}
+
 
 
 

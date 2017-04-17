@@ -1,3 +1,4 @@
+
 package Item;
 
 import java.util.Random;
@@ -6,7 +7,7 @@ public class Food extends Item {
 	
 	
 	public Food() {
-		this.boardName = ":";
+		this.boardName = ':';
 		this.getFood();
 	}
 	
@@ -18,39 +19,39 @@ public class Food extends Item {
 		DiceRollerItem d= new DiceRollerItem();
 		switch (d.rollDie(8)) { 
 		case 1: this.name = "Pizza";
-		this.foodStrength = 4;
+		this.playerStrength = 4;
 		break;
 		
 		case 2: this.name = "Hot Dog";
-		this.foodStrength = 5;
+		this.playerStrength = 5;
 		break;
 		
 		case 3: this.name = "Hamburger";
-		this.foodStrength = 6;
+		this.playerStrength = 6;
 		break;
 		
 		case 4: this.name = "Pancakes";
-		this.foodStrength = 1;
+		this.playerStrength = 1;
 		break;
 		
 		case 5: this.name = "Chicken Wings";
-		this.foodStrength = 7;
+		this.playerStrength = 7;
 		break;
 		
 		case 6: this.name = "Waffles";
-		this.foodStrength = 2;
+		this.playerStrength = 2;
 		break;
 		
 		case 7: this.name = "Steak";
-		this.foodStrength= 8; 
+		this.playerStrength= 8; 
 		break;		
 		
 		case 8: this.name = "Spaghetti";		
-		this.foodStrength = 3;		
+		this.playerStrength = 3;		
 		break;
 		
 		case 9: this.name = "Lobster";
-		this.foodStrength = 9;
+		this.playerStrength = 9;
 		break;
 		
 		
@@ -67,3 +68,4 @@ public class Food extends Item {
 	
 	
 }
+

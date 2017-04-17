@@ -1,3 +1,4 @@
+
 package Item;
 
 import java.util.Random;
@@ -6,7 +7,7 @@ public class Scrolls extends Item {
 
 
 	public Scrolls() {
-		this.boardName = "?";
+		this.boardName = '?';
 		this.getScrolls();
 	}
 
@@ -212,5 +213,6 @@ public class Scrolls extends Item {
 	}	
 
 }
+
 
 
