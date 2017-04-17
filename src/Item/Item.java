@@ -13,11 +13,20 @@ public class Item {
 	protected String typeItem; //armor,equipment,ring,food,
 	protected int damage; 
 	protected int armorProtection;
-	protected String potionMessage;
-	protected String scrollMessage;
-	protected int foodStrength;
+	protected int playerStrength;
+	protected int playerHealth;
+	protected int playerHP;
 	protected String finalMessage;
 	private GenItem generate;
+	protected boolean monsterHaste = false; //item from wand
+	protected boolean monsterDetection = false; //item from potion
+	protected boolean monsterInvisable = false; //item from wand
+	protected boolean hallucination = false; //item from potion 
+	protected boolean levitation = false;  //item from potion
+	protected boolean seeInvisable = false; //item from potion
+	protected boolean polyMorph = false;
+	protected boolean slowMonster = false;
+	
 	
 	public Item() {
 	generate = new GenItem();
@@ -32,17 +41,16 @@ public class Item {
 		this.boardName = generate.getBoardName();
 		this.finalMessage = generate.getPickUpMessage();
 		if (this.typeItem.equals("Food")) {
-			this.foodStrength = generate.getFoodStrength();
+			this.playerStrength = generate.getFoodStrength();
 		}
 		else if (this.typeItem.equals("Weapon"))
 		{
 			this.damage = generate.getWeaponDamage();
 		}
-		else if (this.typeItem.equals("Weapon"))
+		else if (this.typeItem.equals("Armor"))
 		{
-			this.damage = g.getWeaponDamage();
+			this.armorProtection = generate.getArmorProtection();
 		}
-		
 		
 		return generate;
 	}
@@ -50,24 +58,6 @@ public class Item {
 	public char getBoardName() {
 		return this.boardName;
 	}
-<<<<<<< HEAD
-=======
-
-	public String getBoardName() {
-		return this.boardName;
-	}
-	
-	public String getPrintMessage() {
-		return finalMessage;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	
-	
->>>>>>> master
 	
 	public String getPrintMessage() {
 		return finalMessage;
@@ -77,13 +67,19 @@ public class Item {
 		return name;
 	}
 	
-	public String getItemType() {
-		return typeItem;
+	public int getArmorProtection() {
+		return armorProtection;
+	}
+	
+	public int getDamageFromWeapon() {
+		return damage;
+	}
+	
+	public int getStrengthFromFood() {
+		return playerStrength;
 	}
 
 	
-
-
 
 
 
