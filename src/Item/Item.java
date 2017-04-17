@@ -26,7 +26,10 @@ public class Item {
 	protected boolean seeInvisable = false; //item from potion
 	protected boolean polyMorph = false;
 	protected boolean slowMonster = false;
-	
+	protected boolean sustainStrength = false; //Item from ring
+	protected boolean aggregateMonster = false; //Item from ring
+	protected boolean maintainArmor = false; //Item from ring
+	protected boolean isStealth = false; //Item from ring
 	
 	public Item() {
 	generate = new GenItem();
