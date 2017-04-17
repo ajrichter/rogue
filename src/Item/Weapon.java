@@ -4,7 +4,7 @@ public class Weapon extends Item {
 	DiceRoller dice;
 
 	public Weapon() {
-		this.boardName= ")";
+		this.boardName= ')';
 		this.getWeapon();
 
 	}
@@ -76,6 +76,7 @@ public class Weapon extends Item {
 
 
 }
+
 
 
 

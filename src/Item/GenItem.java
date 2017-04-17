@@ -9,7 +9,7 @@ private String typeItem;
 private String itemName;	
 private int protection = 0;
 private int foodStrength = 0;
-private String boardName;
+private Character boardName;
 private int weaponDamage;
 private String pickUpMessage = "";
 public GenItem () {
@@ -92,7 +92,7 @@ public GenItem () {
 			food.getFood();
 			this.boardName = food.boardName;
 			this.itemName = food.name;
-			this.foodStrength = food.foodStrength;
+			this.foodStrength = food.playerStrength;
 			System.out.println(this.typeItem);
 			this.pickUpMessage = "picked up " + this.itemName + " with a food strength of " + this.foodStrength;
 			break;
@@ -149,7 +149,7 @@ public GenItem () {
 		return this.itemName;
 	}
 
-	public String getBoardName() {
+	public Character getBoardName() {
 		return this.boardName;
 	}
 
@@ -164,8 +164,12 @@ public GenItem () {
 	public int getWeaponDamage() {
 		return this.weaponDamage;
 	}
-
+	
+	public int getArmorProtection() {
+		return this.protection;
+	}
 
 
 
 }
+

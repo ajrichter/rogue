@@ -1,5 +1,6 @@
-package Item;
 
+
+package Item;
 
 import java.util.Random;
 
@@ -7,8 +8,8 @@ public class Potions extends Item {
 
 	//From https://strategywiki.org/wiki/Rogue/Items	
 		public Potions() {
-			this.boardName = "!";
-			this.getPotion();	
+			this.boardName = '!';
+			this.getPotion();
 		}
 		
 	
@@ -124,12 +125,12 @@ public class Potions extends Item {
 			break;
 			
 			case 11: this.name = "Restore Strength";
-			this.potionMessage = "Hey, this tastes great.  It make you feel warm all over.";
+			this.finalMessage = "Hey, this tastes great.  It make you feel warm all over.";
 //			Restore strength	13	Hey, this tastes great. It make you feel warm all over. Restores strength to maximum.
 			break;
 			
 			case 12: this.name = "Blindness";
-			this.potionMessage = "A cloak of darkness falls around you.";
+			this.finalMessage = "A cloak of darkness falls around you.";
 //			Blindness	5	Blinds player for 807-892 turns
 			break;
 			
@@ -143,12 +144,13 @@ public class Potions extends Item {
 					
 					
 			default: this.name = "NOP";
-			this.potionMessage = "This potion tastes extremely dull.";
+			this.finalMessage = "This potion tastes extremely dull.";
 			break;	
 			
 			}
 		}	
 	}
+
 
 
 

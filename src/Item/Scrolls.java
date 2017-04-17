@@ -1,13 +1,12 @@
 package Item;
 
-
 import java.util.Random;
 
 public class Scrolls extends Item {
 
 
 	public Scrolls() {
-		this.boardName = "?";
+		this.boardName = '?';
 		this.getScrolls();
 	}
 
@@ -106,24 +105,24 @@ public class Scrolls extends Item {
 		switch (num)
 		{
 		case 1: this.name = "Moster Confusion";
-		this.scrollMessage = "Your hands begin to glow red";
+		this.finalMessage = "Your hands begin to glow red";
 		//		Monster confusion	7	Your hands begin to glow red. Next melee attack confuses a monster.
 		break;
 
 		case 2: this.name = "Map";
-		this.scrollMessage = "Oh, now this scroll has a map on it.";
+		this.finalMessage = "Oh, now this scroll has a map on it.";
 		//		Magic mapping	4	Reveals the entire map; objects are still hidden
 		break;
 
 
 		case 3: this.name = "Hold Monster";
 		//		Hold monster	2	Freezes adjecent monsters.
-		this.scrollMessage = "You stay!";
+		this.finalMessage = "You stay!";
 		break;
 
 		case 4: this.name = "Sleep";
 		//		Sleep	3	Sleepts reader for 4-8 turns.
-		this.scrollMessage = "You fall asleep";
+		this.finalMessage = "You fall asleep";
 		break;
 
 
@@ -133,7 +132,7 @@ public class Scrolls extends Item {
 
 		case 6: this.name = "Identify Potion";
 		//		Identify potion	10	Identifies a potion.
-		this.scrollMessage = "This scroll is an identify scroll";
+		this.finalMessage = "This scroll is an identify scroll";
 		break;
 
 
@@ -163,7 +162,7 @@ public class Scrolls extends Item {
 
 		case 11: this.name = "Scare";
 		//		Scare monster	3	When read, you hear maniacal laughter in the distance. To properly use the scroll, drop it; monsters will not walk on it.
-		this.scrollMessage = "You hear maniacal laughter in the distance.";
+		this.finalMessage = "You hear maniacal laughter in the distance.";
 		break;
 
 		case 12: this.name = "Food detection";
@@ -172,7 +171,7 @@ public class Scrolls extends Item {
 
 		case 13: this.name = "Teleport";
 		//		Teleportation	5	Teleports to a random location on the map.
-		this.scrollMessage = "You are transported";
+		this.finalMessage = "You are transported";
 		break;
 
 
@@ -183,19 +182,19 @@ public class Scrolls extends Item {
 
 		case 15: this.name = "Create";
 		//		Create Monster	4	Summons a monster on an adjecent tile. If it fails, you hear a faint cry of anguish in the distance.
-		this.scrollMessage = "You hear a faint cry of anguish in the distance.";
+		this.finalMessage = "You hear a faint cry of anguish in the distance.";
 		break;
 
 
 
 		case 16: this.name = "Remove";
 		//		Remove curse	7	You feel as if somebody is watching over you. Removes curses from equipped items.
-		this.scrollMessage = "You feel as if somebody is watching over you.";
+		this.finalMessage = "You feel as if somebody is watching over you.";
 		break;
 
 		case 17: this.name = "Agr";
 		//		Aggravate monsters	3	You hear a high pitched humming noise.. Alerts all monsters on the map.
-		this.scrollMessage = "You hear a high pitched humming noise.";
+		this.finalMessage = "You hear a high pitched humming noise.";
 		break;
 
 		case 18: this.name = "Protect Armor"; 
@@ -206,12 +205,13 @@ public class Scrolls extends Item {
 
 		default:
 			this.name = "cryptography";
-			this.potionMessage = "What a puzzling scroll!";
+			this.finalMessage = "What a puzzling scroll!";
 			break;
 		}
 
 	}	
 
 }
+
 
 

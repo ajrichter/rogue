@@ -1,11 +1,10 @@
 package Item;
 
-
 public class Armor extends Item {
 
 
 	public Armor () {
-		this.boardName = "]";		
+		this.boardName = ']';		
 		this.getArmor();
 	}
 
@@ -39,7 +38,6 @@ public class Armor extends Item {
 		case 6: this.name = "Banded mail"; 
 			this.armorProtection = 7;
 			break;
-			
 		case 7: this.name = "Splint mail";	
 			this.armorProtection = 7;
 			break;
@@ -55,6 +53,7 @@ public class Armor extends Item {
 	}
 	
 		
+
 
 
 

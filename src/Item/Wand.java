@@ -1,12 +1,16 @@
+
 package Item;
 
-
 import java.util.Random;
+
 public class Wand extends Item {
+private DiceRoller d;
+	
 	
 	public Wand() {
-		this.boardName = "/";
+		this.boardName = '/';
 		this.getWand();
+		d = new DiceRoller();
 	}
 	
 	public int generateWandNumber() {
@@ -81,6 +85,7 @@ public class Wand extends Item {
 			break;
 			
 			case 2: this.name = "Invisability";
+			this.monsterInvisable = true;
 //			Invisibility	6	Makes a monster invisible.
 			break;
 			
@@ -90,31 +95,39 @@ public class Wand extends Item {
 			break;
 			
 			case 4: this.name = "Missle";
+	
+			this.damage = d.rollDie(4); 
 //			Magic missile	10	Inflicts 1d4 damage on a single target.
 			break;
 
 			
 			case 5: this.name = "Haste";
+			this.monsterHaste = true;
 //			Haste monster	10	Hastens a monster.
 			break;
 			
 			case 6: this.name = "Lightning";
+			this.damage = 6 * d.rollDie(6);
 //			Lightning	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls.
 			break;
 			
 			case 7: this.name = "Fire"; 
+			this.damage = 6 * d.rollDie(6);
 //	Fire	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Dragons are immune.
 			break;
 			
 			case 8: this.name = "Cold";
-//			Cold	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Yetis are immune.
+			this.damage = 6 * d.rollDie(6);
+			//			Cold	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Yetis are immune.
 			break;
 			
 			case 9: this.name = "Polymorph";
-//				Polymorph	15	Changes a monster type.
+			this.polyMorph = true;
+			
 			break;
 			
 			case 10: this.name = "Slow monster";
+			this.slowMonster = true;
 //					Slow monster	11	Slows a monster.
 			break;
 			

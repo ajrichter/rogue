@@ -1,3 +1,4 @@
+
 package Item;
 
 /**
@@ -7,43 +8,54 @@ package Item;
  */
 
 public class Item {
-	protected String boardName;
+	protected Character boardName;
 	protected String name; //name of item
 	protected String typeItem; //armor,equipment,ring,food,
 	protected int damage; 
 	protected int armorProtection;
-	protected String potionMessage;
-	protected String scrollMessage;
-	protected int foodStrength;
+	protected int playerStrength;
+	protected int playerHealth;
+	protected int playerHP;
 	protected String finalMessage;
+	private GenItem generate;
+	protected boolean monsterHaste = false; //item from wand
+	protected boolean monsterDetection = false; //item from potion
+	protected boolean monsterInvisable = false; //item from wand
+	protected boolean hallucination = false; //item from potion 
+	protected boolean levitation = false;  //item from potion
+	protected boolean seeInvisable = false; //item from potion
+	protected boolean polyMorph = false;
+	protected boolean slowMonster = false;
+	
 	
 	public Item() {
-		
+	generate = new GenItem();
 		
 	}
 
 
-	public void generateItem() {
-		GenItem g = new GenItem();
-		g.genItem();
-		this.typeItem = g.getTypeItem();
-		this.name = g.getName();
-		this.boardName = g.getBoardName();
-		this.finalMessage = g.getPickUpMessage();
+	public GenItem generateItem() {
+		generate.genItem();
+		this.typeItem = generate.getTypeItem();
+		this.name = generate.getName();
+		this.boardName = generate.getBoardName();
+		this.finalMessage = generate.getPickUpMessage();
 		if (this.typeItem.equals("Food")) {
-			this.foodStrength = g.getFoodStrength();
+			this.playerStrength = generate.getFoodStrength();
 		}
 		else if (this.typeItem.equals("Weapon"))
 		{
-			this.damage = g.getWeaponDamage();
+			this.damage = generate.getWeaponDamage();
+		}
+		else if (this.typeItem.equals("Armor"))
+		{
+			this.armorProtection = generate.getArmorProtection();
 		}
 		
-		
-		
-		
+		return generate;
 	}
 
-	public String getBoardName() {
+	public char getBoardName() {
 		return this.boardName;
 	}
 	
@@ -51,38 +63,24 @@ public class Item {
 		return finalMessage;
 	}
 	
-	public String getName() {
+	public String getItemName() {
 		return name;
 	}
 	
+	public int getArmorProtection() {
+		return armorProtection;
+	}
 	
+	public int getDamageFromWeapon() {
+		return damage;
+	}
 	
+	public int getStrengthFromFood() {
+		return playerStrength;
+	}
+
 	
-	
-	
-//	public int getDamageFromW() {
-//		Weapon w = new Weapon(name, typeItem);
-//		w.getDamageFromWeapon(w);
-//		return w.getDamage();
-//	}
-//	
-//	public int getProtectionFromArmor() {
-//		Armor a = new Armor(name, typeItem);
-//		a.getArmorProtection(a);
-//		return a.getArmorProtection();
-//	}
-//	
-//	public int getStrengthFromFood() {
-//		Food f = new Food();
-//		f.getStrengthFromFood(f);
-//		return f.getFoodStrength();
-//	}
-//	
-//	public String getScrollMessage() {
-//		Scrolls s = new Scrolls(name, typeItem);
-//		s.getEffectsFromScrolls(s);
-//		return s.getMessage();
-//	}
+
 
 
 }
