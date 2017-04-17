@@ -98,7 +98,7 @@ public class Level {
 		i.generateItem();
 		// add to arraylist
 		
-		floor[y][x] = i.getBoardName().charAt(0);
+		floor[y][x] = (char) i.getBoardName();
 	}
 	/**
 	 * Might need to use if-else instead of just if
@@ -385,7 +385,7 @@ public class Level {
 		if(validMove(u, dir)){
 			// only if it is not a door
 			floor[a.y][a.x] = '.';
-			p.setP(a.x + dir[0], a.y + dir[1]);
+			//p.setP(a.x + dir[0], a.y + dir[1]);
 			a.translate(dir[0], dir[1]);
 			floor[a.y][a.x] = '@';
 			
@@ -403,7 +403,7 @@ public class Level {
 		// Else no move
 		
 		Point a = p.getP();
-		if(floor[a.y + dir[1]][a.y + dir[0]]  == '.'){
+		if((a.x+dir[0]>0) && (a.x+dir[0]<80) && (a.y+dir[1]>0) && (a.y+dir[1]<24) && (floor[a.y + dir[1]][a.x + dir[0]]  != '-') && (floor[a.y + dir[1]][a.x + dir[0]]  != '|') && (floor[a.y + dir[1]][a.x + dir[0]]  != ' ')){
 			return true;
 		}
 		return false;
