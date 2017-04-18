@@ -20,7 +20,7 @@ public class Player extends Unit{
 	public Player(String s) {
 		 super();
 		 // the player-character is an @-symbol
- 		this.val = "@";
+ 		this.val = '@';
  		this.name=s;
 		this.gold=0;
 		this.xp=0;
