@@ -1,3 +1,5 @@
+import Item.Inventory;
+
 /*
 	Has timers for different things
 	Health goes up with each Move
@@ -11,7 +13,7 @@ public class Player extends Unit{
 	private boolean hasW;
 	private int gold, nexp, steps, hunger;
 
-	//private Inventory inventory;
+	private Inventory inventory;
 
 	public Player(){
 		this("John Dooley");
@@ -20,7 +22,8 @@ public class Player extends Unit{
 	public Player(String s) {
 		 super();
 		 // the player-character is an @-symbol
- 		this.val = '@';
+ 		
+		this.val = '@';
  		this.name=s;
 		this.gold=0;
 		this.xp=0;

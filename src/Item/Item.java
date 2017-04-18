@@ -1,6 +1,8 @@
 
 package Item;
 
+import java.awt.Point;
+
 /**
  * 
  * @author Harry
@@ -8,6 +10,7 @@ package Item;
  */
 
 public class Item {
+	protected Point p;
 	protected Character boardName;
 	protected String name; //name of item
 	protected String typeItem; //armor,equipment,ring,food,
@@ -30,6 +33,7 @@ public class Item {
 	protected boolean aggregateMonster = false; //Item from ring
 	protected boolean maintainArmor = false; //Item from ring
 	protected boolean isStealth = false; //Item from ring
+	protected boolean cancellation = false; //Item from wand
 	
 	public Item() {
 	generate = new GenItem();
