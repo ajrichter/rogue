@@ -93,8 +93,13 @@ public class GamePlay {
 			}
 		}
 		*/
-		// validity checked in Level
-		level.moveUnit(this.play,direction);
+		
+		/* 
+		 * I changed this to work with Level
+		 * Player needs to be shared between Level and GamePlay
+		 */
+		
+		level.moveUnit(level.play, direction);
 		view.updateBoard(level.getFloor());
 		view.nextTurn();
 		return b;

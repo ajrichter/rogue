@@ -18,6 +18,8 @@ public class Level {
 	private int numLevel;
 	// Number of Rooms
 	private int numR;
+	// Tells move what to replace the square with
+	private boolean inside;
 	// The full floor
 	private char[][] floor;
 	// Visible part of the floor
@@ -64,6 +66,7 @@ public class Level {
 		rb = new boolean[9];
 		rs = new Rm[9];
 		conn = new boolean[9];
+		
 		/* set everything to 0, which means empty */
 		for(int y = 0; y < 24; y++)
 			for(int x = 0; x < 80; x++)
@@ -71,46 +74,50 @@ public class Level {
 		
 		makeRooms();
 		makeDoors();
-		play = new Player();
-		spawnPlayer(play);
 		
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
 		
+		// Arbitrary number of Enemies/Items
+		for(int i = 0; i < 8; i++){
+			makeItem();
+			makeEnemy();
+		}
+		
+		/*
+		 * Spawn Player and Light up its room.
+		 * Use the %|/ 3 to find the room?
+		 */
+		play = new Player();
+		play.p = findS();
+		floor[play.p.y][play.p.x] = play.val;
+		inside = true;
+		
+		// seeRm()
 		
 		
 		// I dont know what most of this random shit does
-		
-		
 		/*
 		 * We are gonna make the damn corridors by
 		 * creating a new boolean array conn
 		 * And fixing that wtf door code
 		 * 
-		 * We are gonna make a findS(quare)
-		 * method to place items and enemies
-		 * We are gonna leave them stationary for now...
+		 * We are gonna leave enemies stationary for now...
 		 * But we will store both in arraylists
 		 */
 	}
 	
+	
+	/*
+	 * Finds a room.
+	 * No use for this
+	 */
 	private int randomRoom() {
 		int ranRm = ThreadLocalRandom.current().nextInt(0, 8 + 1);
 		while(!rb[ranRm])
 			ranRm = ThreadLocalRandom.current().nextInt(0, 8 + 1);
 		
 		return ranRm;
-		
-		/*
-		boolean validRm = false;
-		int index = -1;
-		while(!validRm) { 	//if fail use validRm == false
-			int ranRm = ThreadLocalRandom.current().nextInt(0, 8 + 1);
-			validRm = this.rb[ranRm];
-			index = ranRm;
-		}
-		return this.rs[index];
-		*/
 	}
 	
 	/*
@@ -127,11 +134,13 @@ public class Level {
 		}
 		return rd;
 	}
-	
+	/*
+	 * Need to store the Item Point
+	 */
 	private void makeItem(){
 		Item i = new Item();
 		Point spot = findS();
-		// i.space = spot
+		// i.p = spot
 		
 		items.add(i);
 		floor[spot.y][spot.x] = i.getBoardName();
@@ -140,11 +149,12 @@ public class Level {
 	private void makeEnemy(){
 		Enemy e = new Enemy();
 		Point spot = findS();
-		// i.space = spot
 		e.p = spot;
-		
 		enemies.add(e);
 		floor[spot.y][spot.x] = e.val;
+	}
+	
+	public void removeUnit(Unit u){
 	}
 	
 	/**
@@ -409,60 +419,41 @@ public class Level {
 			
 		return pfloor;
 	}
-
-	public int  moveUnit(Unit u, int[] dir){
-		Point a = play.getP();
-		if(validMove(u, dir)){
-			// only if it is not a door
-			floor[a.y][a.x] = '.';
-			play.setP(a.x + dir[0], a.y + dir[1]);
-			a.translate(dir[0], dir[1]);
-			floor[a.y][a.x] = '@';
-			
-			System.out.println("Valid");
-			
-			return 1;
-		} else if() {
-			
+	/* Returns:
+	 * 0 = successful move
+	 * 1 = FIGHT!
+	 * 2 = No Move occurred
+	 */
+	public int moveUnit(Unit u, int[] dir){
+		/* This will be changed to Unit */
+		Point a = u.p;
+		
+		/* Out of Bounds */
+		if((a.x + dir[0]) < 0 || (a.y + dir[1]) < 0 || (a.y + dir[1]) > 23 || (a.x + dir[0]) > 79){
+			return 0;
 		}
-		System.out.println("Not Valid");
+		char c = floor[a.y + dir[1]][a.x + dir[0]];
+		
+		if(Character.isUpperCase(c)) {
+			System.out.println("FIGHT NIGHT!");
+			return 1;
+		} else if(validMove(c)){
+			floor[a.y][a.x] = '.';
+			if(!inside)
+				floor[a.y][a.x] = '#';
+			
+			a.setLocation(a.x + dir[0], a.y + dir[1]);
+			floor[a.y][a.x] = '@';
+			inside = (c == '.');
+			System.out.println("Moved Successfully");
+			return 0;
+		}	
+		System.out.println("No Move");
 		return 2;
 	}
 	
-	public boolean validMove(Unit u, int[] dir){
-		// inside a room || door || hall
-		// && No out of bounds check!
-		// Else no move
-		
-		Point a = play.getP();
-		char c = floor[a.y + dir[1]][a.x + dir[0]]; 
-		if(c  == '.' || c == '+' || c == '#'){
-			return true;
-		}
-		return false;
-	}
-
-	// remove enemy
-	public void removeUnit(Unit u){
-	}
-
-	//picks up an item
-	public void pickUp(Unit u, int[] direction){
-	}
-	
-	/**
-	 * 
-	 */
-	public void spawnPlayer(Player p) {
-		// Level num is irrelevant
-		//if(this.numLevel == 1 && !(p.hasA)) {
-			Rm temp = rs[randomRoom()];	//can probably go outside
-			int xPos = ThreadLocalRandom.current().nextInt(temp.x1 + 1, temp.x2);
-			int yPos = ThreadLocalRandom.current().nextInt(temp.y1 + 1, temp.y2);
-			p.setP(xPos, yPos);
-			
-			floor[yPos][xPos] = '@';
-			seeRm(temp);
+	private boolean validMove(char c){
+		return (c  == '.' || c == '+' || c == '#');
 	}
 	
 	private void seeRm(Rm r){
