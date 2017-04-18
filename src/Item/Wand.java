@@ -132,7 +132,8 @@ private DiceRoller d;
 			break;
 			
 			case 11: this.name = "Cancellation"; 
-//					Cancellation	5	Supresses monster's special abilities.
+			this.cancellation = true;
+			//					Cancellation	5	Supresses monster's special abilities.
 			break;
 			
 			case 12: this.name = "Teleport away"; 
