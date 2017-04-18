@@ -146,6 +146,8 @@ public class Level {
 
 	/*
 	 * Finds a random empty square
+	 * 
+	 * Finds a new Square to Place things
 	 */
 	private Point findS() {
 		Point rd = new Point();
