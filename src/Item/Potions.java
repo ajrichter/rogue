@@ -97,18 +97,22 @@ public class Potions extends Item {
 			break;
 			
 			case 4: this.name = "Monster Detection";
+			this.monsterDetection = true;
 //			Monster detection	6	Reveals monsters on the map.
 			break;
 			
 			case 5: this.name = "Hallucination";
+			this.hallucination = true;
 //			Hallucination	8	Causes hallucinations for 850 turns - can't recognize monsters or items
 			break;
 			
 			case 6: this.name = "Levitation";
+			this.levitation = true;
 //			Levitation	6	Levitates for 29-32 turns
 			break;
 			
 			case 7: this.name = "See Invisiable";
+			this.seeInvisable = true;
 //			See invisible	3	This potion tastes like slime mold juice. Reveals Phantoms.
 			break;
 			
