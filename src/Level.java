@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /*TODO
+ * Player needs to be created in GamePlay. For name purposes
  * Enemies
  * Items
- * isLit
  * Stairs
- * 
+ * store the last point for going down a level
+ * need a point for where player is
+ * isLit
  */
 public class Level {
 	private int numLevel;
@@ -22,37 +24,30 @@ public class Level {
 	private boolean[][] isSeen;
 	// Array of Rooms Existence
 	private boolean[] rb;
+	// array of rooms connected all together
+	private boolean[] conn;
 	// Array of Rooms
 	private Rm[] rs;
 	// List of enemies
 	private ArrayList<Enemy> enList;
-	
-	// Need something similar for Items?
-	// Ink is right. Make a Room class. But simple!!
-	// door, edges, items, 
-	// How do I do hallways then?
-	// Things to think about...
+	private ArrayList<Item> items;
 	
 	//list of available enemies
 	private String[] allEnemy;
 	//position of stair, 2 elements, stair[0] = x, stair[1] = y
 	protected int[] stair;
-	
-	// Player needs to be in GamePlay too though
+
 	protected Player p;
 	
-	// An inner class used to define each room
+	// Rooms
 	class Rm {
 		private int x1, x2,  y1, y2, w, h, numDoors;
 
 		public Rm() {
-			// These are both one shorter because random room placement confused me
-			// I do not know why this is wrong
 			w = ThreadLocalRandom.current().nextInt(4, 25 + 1);
 			h = ThreadLocalRandom.current().nextInt(4, 6 + 1);
 			numDoors = 0;
 		}
-
 		private void set(int x, int y){
 			x1 = x;
 			y1 = y;
@@ -61,44 +56,95 @@ public class Level {
 		}
 	}
 
-	// Andrew's Level Generator
 	public Level(int nL) {
 		numLevel = nL;
-		// store the last point for going down a level
-		// need a point for  where player is
-		numR = ThreadLocalRandom.current().nextInt(4, 8 + 1);
-
+		numR = ThreadLocalRandom.current().nextInt(5, 8 + 1);
 		isSeen = new boolean[24][80];
 		floor = new char[24][80];
 		rb = new boolean[9];
 		rs = new Rm[9];
-		
-		// set everything to 0, which means empty
-		for(int y = 0; y < 24; y++){
-			for(int x = 0; x < 80; x++){
+		conn = new boolean[9];
+		/* set everything to 0, which means empty */
+		for(int y = 0; y < 24; y++)
+			for(int x = 0; x < 80; x++)
 				floor[y][x] = ' ';
-			}
-		}
 		
 		makeRooms();
 		makeDoors();
 		p = new Player();
 		spawnPlayer(p);
 		
-		this.enList = new ArrayList<Enemy>();
+		enList = new ArrayList<Enemy>();
+		items = new ArrayList<Item>();
+		
+		
 		// Great I just do not understand this part
-		this.allEnemy = new String[] {"A","B","C","D","E","F"};
+		allEnemy = new String[] {"A","B","C","D","E","F"};
 		
 		makeEnemyList();
 		spawnEnemy(enList);
+		
+		// I dont know what most of this random shit does
+		
+		
+		/*
+		 * We are gonna make the damn corridors by
+		 * creating a new boolean array conn
+		 * And fixing that wtf door code
+		 * 
+		 * We are gonna make a findS(quare)
+		 * method to place items and enemies
+		 * We are gonna leave them stationary for now...
+		 * But we will store both in arraylists
+		 */
+	}
+	
+	
+	/**
+	 * Don't repeat yourself? Gonna be choosing random room a lot so 
+	 * might as well create a method that does that
+	 */
+	private int randomRoom() {
+		int ranRm = ThreadLocalRandom.current().nextInt(0, 8 + 1);
+		while(!rb[ranRm])
+			ranRm = ThreadLocalRandom.current().nextInt(0, 8 + 1);
+		
+		return ranRm;
+		
+		/*
+		boolean validRm = false;
+		int index = -1;
+		while(!validRm) { 	//if fail use validRm == false
+			int ranRm = ThreadLocalRandom.current().nextInt(0, 8 + 1);
+			validRm = this.rb[ranRm];
+			index = ranRm;
+		}
+		*/
+		
+		//return this.rs[index];
+	}
+	
+	/*
+	 * Similar to validMove
+	 * Finds a random square to place an Item/Enemy
+	 */
+	private Point findS(){
+		Point rd = new Point();
+		
+		
+		
+		return rd;
 	}
 	
 	private void placeItem(int x, int y){
 		Item i = new Item();
-		i.generateItem();
-		// add to arraylist
+		Point spot = new Point();
+		// i.point = p
 		
-		floor[y][x] = i.getBoardName().charAt(0);
+		
+		
+		items.add(i);
+		floor[y][x] = i.getBoardName();
 	}
 	/**
 	 * Might need to use if-else instead of just if
@@ -120,13 +166,6 @@ public class Level {
 		}
 	}
 	
-	/*
-	 * Add 9 Randomly sized rooms
-	 * Then fit Doors/Hallways
-	 * The next part Ink will work on:
-	 * Then places Item and Generates Enemies 
-	 */
-	
 	/**
 	 * This does randomly generate doors at different place
 	 * 
@@ -143,12 +182,12 @@ public class Level {
 	 *		 but not like this
 	 *
 	 *       - - - -        - - - -
-	 * 		 | . . + ####   | . . |
-	 * 		 | . . |	#	| . . |
-	 *		 - - - -	#	- + - -
+	 *      | . . + ####   | . . |
+	 * 	 | . . |	#	          | . . |
+	 *		  - - - -	#	-         + - -
 	 *					#######
 	 *
-	 *	instead, the left room's door should lead to a dead-end and the right room should connect
+	 *	 instead, the left room's door should lead to a dead-end and the right room should connect
 	 *	 to some other room. But then how are you supposed to enter the left room? So that becomes
 	 *	 a problem
 	 *
@@ -156,7 +195,8 @@ public class Level {
 	 *	https://www.youtube.com/watch?v=zUB1KovxOY4
 	 */
 	private void makeDoors(){
-		// door booleans
+		// no I made these class variables so you do not need to pass them
+		// since they are objects they change in all places
 		randomNumDoors(rs, rb);
 		
 		for(int i = 0; i < rs.length; i++) {
@@ -166,8 +206,6 @@ public class Level {
 			for(int j = 0; j < 4; j++) {	
 				side.add(j);
 			}
-			
-			int tempX, tempY;
 			
 			//numDoors initialize to 0 so loop doesn't run for rb[i] = false
 			if(rb[i]) {
@@ -284,10 +322,6 @@ public class Level {
 		}
 	}
 	
-	private void makeHalls() {
-		
-	}
-	
 	private void makeRooms(){
 		for(int i = 0; i < numR; i++){
 				addR();
@@ -306,10 +340,7 @@ public class Level {
 		rb[roomN] = true;
 	}
 
-	/* Grid Layout
-	 * Array Indices:
-	 * #: Buffer, __: Range
-	 * x: 0__25#27__52#54__79
+	/* x: 0__25#27__52#54__79
 	 * y: 0__6#8__14#16__22#
 	 */
 	private Rm placeR(Rm r, int num){
@@ -322,7 +353,6 @@ public class Level {
 			max = 79;
 		}
 		int x  =ThreadLocalRandom.current().nextInt(min, max -r.w+1);
-		System.out.println(min + " "+ max + " " + (max -r.w+1) +" " + x);
 		
 		min = 0;
 		max = 6;
@@ -334,7 +364,6 @@ public class Level {
 			max = 22;
 		}
 		int y = ThreadLocalRandom.current().nextInt(min, max -r.h +1) ;
-		System.out.println(min + " "+ max + " " + (max -r.h+1) +" " + y);
 		
 		r.set(x, y);
 		
@@ -450,10 +479,6 @@ public class Level {
 			
 			floor[yPos][xPos] = '@';
 			seeRm(temp);
-			
-		//} else {
-			//TODO: place player on stairs, FIND IT
-		//}
 	}
 	
 	private void seeRm(Rm r){
@@ -467,6 +492,7 @@ public class Level {
 	
 	/**
 	 * I think this works
+	 * Lol wtf bro
 	 */
 	public void spawnEnemy(ArrayList<Enemy> eList) {
 		Rm temp;
@@ -485,22 +511,5 @@ public class Level {
 			floor[xPos][yPos] = eBoard;
 			*/
 		}
-	}
-	
-	/**
-	 * Don't repeat yourself? Gonna be choosing random room a lot so 
-	 * might as well create a method that does that
-	 */
-	public Rm randomRoom() {
-		boolean validRm = false;
-		int index = -1;
-		while(!validRm) { 	//if fail use validRm == false
-			int ranRm = ThreadLocalRandom.current().nextInt(0, 8 + 1);
-			validRm = this.rb[ranRm];
-			index = ranRm;
-		}
-		
-		return this.rs[index];
-	}
-	
+	}	
 }
