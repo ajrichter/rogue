@@ -32,6 +32,7 @@ public class Controller extends JFrame implements KeyListener {
         narration = false;
         frame= new JFrame();
 		frame.setVisible(true);
+		frame.setSize(200, 100);
 		Graphics gr = frame.getGraphics();
 		frame.addKeyListener(this);
         
