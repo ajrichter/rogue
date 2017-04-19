@@ -34,6 +34,9 @@ public class Level {
 	protected boolean[] rb;
 	// Array of Rooms
 	protected Rm[] rs;
+	private Rconn[] rdes;
+	
+	
 	// position of stair, 2 elements, stair[0] = x, stair[1] = y
 	protected int[] stair;
 
@@ -90,14 +93,29 @@ public class Level {
 				floor[y][x] = ' ';
 
 		makeRooms();
-		doors();
-
+		
+		rdes = new Rconn[MAXROOMS];
+		for(int i = 0; i < MAXROOMS; i++)
+			rdes[i] = new Rconn();
+		/* Initialize Rooms able to Connect */
+		rdes[0].conn[1] = rdes[0].conn[3] = true;
+		rdes[1].conn[0] = rdes[1].conn[2] = rdes[1].conn[4] = true;
+		rdes[2].conn[1] = rdes[2].conn[5] = true;
+		rdes[3].conn[0] = rdes[3].conn[4] = rdes[3].conn[6] = true;
+		rdes[4].conn[1] = rdes[4].conn[3] = rdes[4].conn[5] = rdes[4].conn[7] = true;
+		rdes[5].conn[2] = rdes[5].conn[4] = rdes[5].conn[8] = true;
+		rdes[6].conn[3] = rdes[6].conn[7] = true;
+		rdes[7].conn[4] = rdes[7].conn[6] = rdes[7].conn[8] = true;
+		rdes[8].conn[5] = rdes[8].conn[7] = true;
+		
+		// doors();
+		
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
 
 		for (int i = 0; i < 8; i++) {
-			// Item is a Character not char?
-			// makeItem();
+			// Item.BoardName not initialized
+			makeItem();
 			makeEnemy();
 		}
 
@@ -124,64 +142,21 @@ public class Level {
 	}
 
 	private void doors() {
-		Rconn[] rdes = new Rconn[MAXROOMS];
-		/* Initialize Rooms able to Connect*/
-		rdes[0].conn[1] = rdes[0].conn[3] = true;
-		rdes[1].conn[0] = rdes[1].conn[2] = rdes[1].conn[4] = true; 
-		rdes[2].conn[1] = rdes[2].conn[5] = true;
-		rdes[3].conn[0] = rdes[3].conn[4] = rdes[3].conn[6] = true;
-		rdes[4].conn[1] = rdes[4].conn[3] = rdes[4].conn[5] = rdes[4].conn[7] =  true;
-		rdes[5].conn[2] = rdes[5].conn[4] = rdes[5].conn[8] = true;
-		rdes[6].conn[3] = rdes[6].conn[7] = true;
-		rdes[7].conn[4] = rdes[7].conn[6] = rdes[7].conn[8] = true;
-		rdes[8].conn[5] = rdes[8].conn[7] = true;
-		
-		int roomcount = 1;
-	    Rconn r1 = rdes[ThreadLocalRandom.current().nextInt(MAXROOMS)];
-	    r1.ingraph = true;
-	    do {
-		int i;
-		Rconn r2 = rdes[0];
-		
-		int j = 0;
-		for (i = 0; i < MAXROOMS; i++)
-		    if (r1.conn[i] && !rdes[i].ingraph && ThreadLocalRandom.current().nextInt(++j) == 0)
-		    	r2 = rdes[i];
-		if (j == 0)
-		{
-		    do
-			r1 = rdes[ThreadLocalRandom.current().nextInt(MAXROOMS)];
-		    while (!r1.ingraph);
-		}
-		else
-		{
-		    r2.ingraph = true;
-		    /*
-		     * i = r1 - rdes;
-		     * j = r2 - rdes;
-		     * conn(i, j);
-		     */
-		    r1.isconn[j] = true;
-		    r2.isconn[i] = true;
-		    roomcount++;
-		}
-	    } while (roomcount < MAXROOMS);
-		
-	    
-	    
-		boolean flip = false;
-		for(int i = 0; i < MAXROOMS; i++){
-			if(rb[i]){
-				
+		for (int i = 0; i < MAXROOMS - 1; i++) {
+			// the rdes part is trivial as covered by i%/3
+			if (i%3 < 2 && rb[i] && rb[i+1] && rdes[i].conn[i+1]) {
+				conn(i, i+1);
 			}
-			if(flip){
-				i++;
-				flip = false;
-			} else
-				flip = true;
+			if (i/3 < 2 && rb[i] && rb[i+3] && rdes[i].conn[i+1]) {
+				conn(i, i+3);
+			}
 		}
 	}
 
+	private void  conn(int x, int y){
+		
+	}
+	
 	private void spawnP() {
 		Point rd = new Point();
 		int roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
@@ -195,7 +170,7 @@ public class Level {
 			rd.y = ThreadLocalRandom.current().nextInt(r.y1 + 1, r.y2);
 			c = floor[rd.y][rd.x];
 		}
-		
+
 		play.p = findS();
 		floor[play.p.y][play.p.x] = play.val;
 		inside = true;
@@ -231,7 +206,9 @@ public class Level {
 		Point spot = findS();
 		// i.p = spot
 		// Diff Package so different visibility
-
+		
+		i.generateItem();
+		
 		items.add(i);
 		floor[spot.y][spot.x] = i.getBoardName();
 	}
@@ -511,36 +488,23 @@ public class Level {
 		}
 	}
 
-	/* Change this to make 9 rooms. And choose which to connect to 
-	 * Draw all 9 rooms in order
-	 * */
+	/*
+	 * grid: x: 0__25#27__52#54__79 y: 0__6#8__14#16__22#
+	 */
 	private void makeRooms() {
 		for (int i = 0; i < numR; i++) {
 			int roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
 			while (rb[roomN])
 				roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
-			rs[roomN] = placeR(roomN);
+			
+			Rm r = new Rm();
+			int x = ThreadLocalRandom.current().nextInt((roomN % 3) * 27, ((roomN % 3) * 27) + 25 - r.w + 1);
+			int y = ThreadLocalRandom.current().nextInt((roomN / 3) * 8, ((roomN / 3) * 8) + 6- r.h + 1);
+			r.set(x, y);
+			
+			rs[roomN] = drawR(r);
 			rb[roomN] = true;
 		}
-	}
-
-	/*
-	 * This method contains useful math for understanding how the grid is
-	 * aligned x: 0__25#27__52#54__79 y: 0__6#8__14#16__22#
-	 */
-	private Rm placeR(int num) {
-		Rm r = new Rm();
-		int min = (num % 3) * 27;
-		int max = min + 25;
-		int x = ThreadLocalRandom.current().nextInt(min, max - r.w + 1);
-		
-		min = (num/3)*8;
-		max = min+6;
-		int y = ThreadLocalRandom.current().nextInt(min, max - r.h + 1);
-
-		r.set(x, y);
-
-		return drawR(r);
 	}
 
 	private Rm drawR(Rm r) {
@@ -576,15 +540,20 @@ public class Level {
 	}
 
 	/*
+	 * Returns a String
+	 * Fight 2 spot array
+	 * Or Text of the new Item
+	 * 
 	 * Returns: 0 = successful move 1 = FIGHT! 2 = No Move occurred
 	 * 
-	 * Need to fix isSeen if #/ first + then make all squares around @ seen if
+	 * Assumes Unit is Player
+	 * Need to fix isSeen array so it changes for player
+	 * if #/ first + then make all squares around @ seen if
 	 * second + then make room seen if . then nothing
 	 */
 	public int moveUnit(Unit u, int[] dir) {
 		Point a = u.p;
-
-		/* Out of Bounds */
+		/* Bounds check*/
 		if ((a.x + dir[0]) < 0 || (a.y + dir[1]) < 0 || (a.y + dir[1]) > 23 || (a.x + dir[0]) > 79) {
 			System.out.println("No Move");
 			return 2;
@@ -632,16 +601,4 @@ public class Level {
 			}
 		}
 	}
-
-	public static void main(String[] args) {
-		Level l = new Level(1, new Player());
-
-		for (int y = 0; y < l.floor.length; y++) {
-			for (int x = 0; x < l.floor[y].length; x++) {
-				System.out.print(l.floor[y][x]);
-			}
-			System.out.println("");
-		}
-	}
-
 }
