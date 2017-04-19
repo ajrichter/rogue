@@ -344,28 +344,26 @@ public class Level {
 					int door2Y = findDoor(rs[i+1], "hori", rs[i+1].x1);
 					int height = Math.abs(door1Y - door2Y);
 					int currY = door1Y;
-					/*
-					for(int j = 1; j < hallLength - 1; j++) {
-						floor[rs[i].x1 + j][door1Y] = '#';
-					}
-					*/
 					
 					for(int j = 1; j < hallLength-1; j++) {
 						floor[rs[i].x1 + j][currY] = '#';
 						if(j == hallLength -1) {	//reached halfway
-							if(door1Y < door2Y) {	//door 1 is HIGHER than door 2
-								for(int k = 1; k < height; k++) {
+							for(int k = 1; k < height; k++) {
+								if(door1Y < door2Y) {	//door 1 is HIGHER than door 2
 									floor[rs[i].x1 + j][door1Y + k] = '#';	//going down
-								}
-							} else {
-								for(int k = 1; k < height; k++) {
+								} else {
 									floor[rs[i].x1 + j][door1Y - k] = '#';	//going up
 								}
+								//might need to change door1Y here for currY, prolly doesn't matter
 							}
 							currY = door2Y;
 						}
 					}
 				}
+				//need a case for when adjacent room doesn't exist (goes to next room, 
+				//	and if that adjacent room doesn't exist then what? dead-end or maze or long dead-end)
+				//can probably collapse making of right and bottom door into 1 section
+				//otherwise this code will get much more ugly than it is right now
 			}
 		}
 	}
