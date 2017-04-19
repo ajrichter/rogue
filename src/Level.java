@@ -605,7 +605,7 @@ public class Level {
 	 * Should return a String to narrate for you
 	 * 2 Strings for Monster and Player Attack
 	 * 
-	 * Returns: 0 = successful move 1 = FIGHT! 2 = No Move occurred
+	 * Returns: 0 = moved 1 = fighting 2 = cant move
 	 * Fight Monsters
 	 * Get Items
 	 * 
@@ -613,6 +613,12 @@ public class Level {
 	 * Need to fix isSeen array so it changes for player
 	 * if #/ first + then make all squares around @ seen if
 	 * second + then make room seen if . then nothing
+	 * 
+	 * add to the bottom of this a random move for all enemies
+	 * Iterate over the arraylist and then do a random
+	 * move between 1 and 0 in each direction.
+	 * Simple enough!
+	 * Call new method moveAllMonsters();
 	 */
 	public int moveUnit(Unit u, int[] dir) {
 		Point a = u.p;
