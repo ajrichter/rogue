@@ -106,6 +106,8 @@ public class GamePlay {
 		view.updateBoard(level.getFloor());
 		view.nextTurn();
 		return b;
+		
+		//Add randomly move enemy
 	}
 	
 	public void saveGame(String[] test) {
