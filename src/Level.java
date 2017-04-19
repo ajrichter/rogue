@@ -75,6 +75,7 @@ public class Level {
 
 		makeRooms();
 		makeDoors();
+		makeHall();	//under testing
 
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
@@ -330,6 +331,88 @@ public class Level {
 			}
 		}
 
+	}
+	
+	private void makeHall() {
+		for(int i = 0; i < rs.length; i++) {
+			//if rightside has door, connect to leftside door of adjacent room
+			if(rb[i] && i%3 < 2 && isDoor(rs[i], "hori", rs[i].x2)) {
+				//if adjacent room exists
+				if(rb[i+1] && (i+1)%3 > 0 && isDoor(rs[i+1], "hori", rs[i+1].x1)) {
+					int hallLength = rs[i+1].x1 - rs[i].x2;
+					int door1Y = findDoor(rs[i], "hori", rs[i].x2);
+					int door2Y = findDoor(rs[i+1], "hori", rs[i+1].x1);
+					int height = Math.abs(door1Y - door2Y);
+					int currY = door1Y;
+					/*
+					for(int j = 1; j < hallLength - 1; j++) {
+						floor[rs[i].x1 + j][door1Y] = '#';
+					}
+					*/
+					
+					for(int j = 1; j < hallLength-1; j++) {
+						floor[rs[i].x1 + j][currY] = '#';
+						if(j == hallLength -1) {	//reached halfway
+							if(door1Y < door2Y) {	//door 1 is HIGHER than door 2
+								for(int k = 1; k < height; k++) {
+									floor[rs[i].x1 + j][door1Y + k] = '#';	//going down
+								}
+							} else {
+								for(int k = 1; k < height; k++) {
+									floor[rs[i].x1 + j][door1Y - k] = '#';	//going up
+								}
+							}
+							currY = door2Y;
+						}
+					}
+				}
+			}
+		}
+	}
+	/**
+	 * for curSide, x1 = left, y1 = top, x2, = right, y2 = bottom
+	 */
+	private boolean isDoor(Rm curRoom, String side, int curSide) {
+		if(side.equals("hori")) {
+			for(int i = curRoom.y1; i < curRoom.y2; i++) {
+				if(floor[curSide][i] == '+') {
+					return true;
+				}
+			}
+		}
+		if(side.equals("vert")) {
+			for(int i = curRoom.x1; i < curRoom.x2; i++) {
+				if(floor[i][curSide] == '+') {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * can probably just use 1 method and have it return the coordinate of the door
+	 * 
+	 * use the boolean above and pass in a variable to be changed
+	 */
+	private int findDoor(Rm curRoom, String side, int curSide) {
+		if(side.equals("hori")) {
+			for(int i = curRoom.y1; i < curRoom.y2; i++) {
+				if(floor[curSide][i] == '+') {
+					return i;
+				}
+			}
+		}
+		if(side.equals("vert")) {
+			for(int i = curRoom.x1; i < curRoom.x2; i++) {
+				if(floor[i][curSide] == '+') {
+					return i;
+				}
+			}
+		}
+		
+		return 0;
 	}
 
 	/**
