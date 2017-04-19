@@ -160,10 +160,9 @@ public class Level {
 		if (r1 + 1 == r2)
 		    direc = 'r';
 		Point delta = new Point();
-		int turn, currx, curry;
+		int turn;
 		
 		if(direc == 'r'){
-			delta.x = rs[r2].x1 - rs[r1].x2;
 			/* the x coords are already set by the room of course! */ 
 			/* And d means door */
 			int d1y = ThreadLocalRandom.current().nextInt(rs[r1].y1+1, rs[r1].y2);
@@ -171,11 +170,8 @@ public class Level {
 			floor[d1y][rs[r1].x2] = '+';
 			floor[d2y][rs[r2].x1] = '+';
 			
-			delta.y = d1y - d2y;
-			turn = (delta.x / 2) + rs[r1].x2 + 1;
+			turn = ((rs[r2].x1 + rs[r1].x2 + 2) / 2);
 			// turn  = ThreadLocalRandom.current().nextInt(rs[r2].x2+1, rs[r2].x1);
-			currx =  rs[r1].x2 + 1;
-			curry = d1y; 
 			/* Left Side */
 			for(int x = rs[r1].x2 + 1; x <= turn; x++){
 				floor[d1y][x] = '#';
@@ -187,7 +183,7 @@ public class Level {
 				top = d2y;
 				bottom = d1y;
 			}
-			/* Turn */
+			/* Move Up */
 			for(int up = bottom; up <= top; up++){
 				floor[up][turn] = '#';
 			}
@@ -195,18 +191,39 @@ public class Level {
 			for(int x = turn; x < rs[r2].x1; x++){
 				floor[d2y][x] = '#';
 			}
-			/*
-			while(delta.x != 0 || delta.y != 0){
-				floor[curry][currx] = '#';
-				if(currx == turn){
-					
-				}
-				delta.x--;
-				currx++;
-			}
-			*/
-		} else if(direc =='r'){
+		} else if(direc =='d'){
+			int d1x = ThreadLocalRandom.current().nextInt(rs[r1].x1+1, rs[r1].x2);
+			int d2x = ThreadLocalRandom.current().nextInt(rs[r2].x1+1, rs[r2].x2);
+			floor[rs[r1].y2][d1x] = '+';
+			floor[rs[r2].y1][d2x] = '+';
 			
+			delta.x = rs[r2].x1 - rs[r1].x2;
+			delta.y = rs[r2].y1 - rs[r1].y2;
+			
+			turn = ((rs[r2].y1 + rs[r1].y2 + 2) / 2);
+			// turn  = ThreadLocalRandom.current().nextInt(rs[r2].x2+1, rs[r2].x1);
+			
+			/* Top */
+			for(int y = rs[r1].x2 + 1; y <= turn; y++){
+				floor[y][d1x] = '#';
+			}
+			/* Find Right Door */
+			int left = d1x;
+			int right = d2x;
+			if(d1x < d2x){
+				left= d2x;
+				right = d1x;
+			}
+			/* Move Right*/
+			for(int x = left; x <= right; x++){
+				floor[turn][x] = '#';
+			}
+			/* Bottom */
+			for(int y = turn; y < rs[r2].y1; y++){
+				floor[y][d2x] = '#';
+			}
+		} else {
+			System.out.println("Oops! There is an error in conn().");
 		}
 	}
 	
@@ -644,8 +661,12 @@ public class Level {
 	}
 
 	/*
-	 * Pass a point If its a + then see the Rm If its not then see the 8(9-self)
-	 * surrounding squares
+	 * 0 1 2
+	 * 3 @ 5
+	 * 6 7 8
+	 * When move to a #: show 1, 3, 5, 7
+	 * When move to a +: show the room you entered
+	 * Simple enough!
 	 */
 	private void seeRm(Rm r) {
 		for (int y = r.y1; y <= r.y2; y++) {
