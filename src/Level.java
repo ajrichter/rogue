@@ -225,6 +225,9 @@ public class Level {
 	 *
 	 * Watch this video and notice how the rooms are connected to each other
 	 * https://www.youtube.com/watch?v=zUB1KovxOY4
+	 * 
+	 * another possibility would be to just add in all the doors and then make it so that there's a chance that it won't generate
+	 * then the corresponding door would just be a dead-end
 	 */
 	private void makeDoors() {
 		// no I made these class variables so you do not need to pass them
