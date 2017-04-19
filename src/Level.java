@@ -76,6 +76,7 @@ public class Level {
 	}
 
 	public Level(int nL, Player pp) {
+        System.out.println("Level Constructor called");
 		numLevel = nL;
 		numR = ThreadLocalRandom.current().nextInt(5, 8 + 1);
 

@@ -20,6 +20,7 @@ public class Controller extends JFrame implements KeyListener {
     
     public Controller(String s) {
         super(s);
+        System.out.println("Controller Constructor called");
         /*JPanel p = new JPanel();
         label = new JLabel("Key Listener!");
         p.add(label);
