@@ -15,35 +15,37 @@ import java.util.Collections;
  * isLit
  */
 public class Level {
+	/*  Definitions */
+	protected final int MAXROOMS = 9;
+	
+	/* Class Variables */
 	private int numLevel;
+	/* Making rooms 	*/
 	// Number of Rooms
-	private int numR;
+	protected int numR;
 	// Tells move what to replace the square with
-	private boolean inside;
+	protected boolean inside;
 	// The full floor
-	private char[][] floor;
+	protected char[][] floor;
 	// Visible part of the floor
-	private boolean[][] isSeen;
+	protected boolean[][] isSeen;
 	// Array of Rooms Existence
-	private boolean[] rb;
-	// array of rooms connected all together
-	private boolean[] conn;
+	protected boolean[] rb;
 	// Array of Rooms
-	private Rm[] rs;
+	protected Rm[] rs;
+	// position of stair, 2 elements, stair[0] = x, stair[1] = y
+	protected int[] stair;
+	
+	/* Spawning Enemies and Items */
 	// List of enemies
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Item> items;
 
-	// list of available enemies
-	private String[] allEnemy;
-	// position of stair, 2 elements, stair[0] = x, stair[1] = y
-	protected int[] stair;
-
 	protected Player play;
-
-	// Rooms
-	class Rm {
-		private int x1, x2, y1, y2, w, h, numDoors;
+	
+	/* Room */
+	public class Rm {
+		int x1, x2, y1, y2, w, h, numDoors;
 
 		public Rm() {
 			w = ThreadLocalRandom.current().nextInt(4, 25 + 1);
@@ -66,7 +68,6 @@ public class Level {
 		floor = new char[24][80];
 		rb = new boolean[9];
 		rs = new Rm[9];
-		conn = new boolean[9];
 
 		/* set everything to 0, which means empty */
 		for (int y = 0; y < 24; y++)
@@ -74,8 +75,14 @@ public class Level {
 				floor[y][x] = ' ';
 
 		makeRooms();
+		
+		/*
 		makeDoors();
 		makeHall();	//under testing
+		Passages pass = new Passages();
+		// pass.makePass(floor, rs, rb);
+		
+		
 
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
@@ -85,9 +92,10 @@ public class Level {
 			makeItem();
 			makeEnemy();
 		}
+		*/
 
 		/*
-		 * Spawn Player and Light up its room. Use the %|/ 3 to find the room?
+		 * Spawn Player and Light up its room. Use %|/ 3 to find the room
 		 */
 		play = pp;
 		spawnP();
@@ -146,9 +154,7 @@ public class Level {
 	}
 
 	/*
-	 * Finds a random empty square
-	 * 
-	 * Finds a new Square to Place things
+	 * Finds a random empty square inside a room
 	 */
 	private Point findS() {
 		Point rd = new Point();
@@ -164,12 +170,14 @@ public class Level {
 
 	/*
 	 * Need to store the Item Point
+	 * Public not protected
 	 */
 	private void makeItem() {
 		Item i = new Item();
 		Point spot = findS();
 		// i.p = spot
-
+		// Diff Package so different visibility
+		
 		items.add(i);
 		floor[spot.y][spot.x] = i.getBoardName();
 	}
