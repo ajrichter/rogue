@@ -21,6 +21,7 @@ public class Player extends Unit{
 
 	public Player(String s) {
 		 super();
+	        System.out.println("Player Constructor called");
 		 // the player-character is an @-symbol
  		
 		this.val = '@';

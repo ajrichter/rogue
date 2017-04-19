@@ -16,9 +16,12 @@ public class GamePlay {
 	private String[] lines = new String[10];
 	
 	public GamePlay(RougeView view) {
+        System.out.println("Gameplay Constructor called");
 		this.play = new Player();
 		this.level = new Level(1, play);
 		this.view = view;
+		view.updateBoard(level.getFloor());
+		 System.out.println("Gameplay Constructor called");
 	}
 	
 	public void climbStairs() {

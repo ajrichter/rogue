@@ -11,6 +11,7 @@ public class RougeView {
 	
 	public void updateBoard(char[][] board){
 		view.board=board;	
+        System.out.println("Board Updated");
 	}
 	
 	public void updateStats(String[] stats){
@@ -28,6 +29,7 @@ public class RougeView {
 	
 	public RougeView(JFrame sentFrame){
 		//width and height of frame
+        System.out.println("RogueView Constructor called");
 		int x=750;
 		int y=750;
 
