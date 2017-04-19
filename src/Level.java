@@ -59,7 +59,7 @@ public class Level {
 		}
 	}
 
-	public Level(int nL) {
+	public Level(int nL, Player pp) {
 		numLevel = nL;
 		numR = ThreadLocalRandom.current().nextInt(5, 8 + 1);
 		isSeen = new boolean[24][80];
@@ -88,7 +88,7 @@ public class Level {
 		/*
 		 * Spawn Player and Light up its room. Use the %|/ 3 to find the room?
 		 */
-		play = new Player();
+		play = pp;
 		spawnP();
 
 		// I dont know what most of this random shit does
@@ -443,7 +443,8 @@ public class Level {
 
 		/* Out of Bounds */
 		if ((a.x + dir[0]) < 0 || (a.y + dir[1]) < 0 || (a.y + dir[1]) > 23 || (a.x + dir[0]) > 79) {
-			return 0;
+			System.out.println("No Move");
+			return 2;
 		}
 		char c = floor[a.y + dir[1]][a.x + dir[0]];
 

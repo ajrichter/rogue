@@ -17,7 +17,7 @@ public class GamePlay {
 	
 	public GamePlay(RougeView view) {
 		this.play = new Player();
-		this.level = new Level(1);
+		this.level = new Level(1, play);
 		this.view = view;
 	}
 	
