@@ -24,8 +24,10 @@ public class Level {
 	/* Making rooms */
 	// Number of Rooms
 	protected int numR;
-	// Tells move what to replace the square with
+	/*Tells you what to put down after you leave a space */
+	protected char last;
 	protected boolean inside;
+	protected boolean door;
 	// The full floor
 	protected char[][] floor;
 	// Visible part of the floor
@@ -46,6 +48,7 @@ public class Level {
 	private ArrayList<Item> items;
 
 	protected Player play;
+	protected int hits;
 
 	/* Room */
 	public class Rm {
@@ -113,7 +116,7 @@ public class Level {
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
 
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 5; i++) {
 			// makeItem();
 			makeEnemy();
 		}
@@ -123,21 +126,14 @@ public class Level {
 		 */
 		play = pp;
 		spawnP();
-
+		last  = '.';
+		hits = 0;
+		
 		for (int y = 0; y < 24; y++)
 			for (int x = 0; x < 80; x++)
 				isSeen[y][x] = true;
 
 		System.out.println("Level Constructor Finished.");
-
-		// I dont know what most of this random shit does
-		/*
-		 * We are gonna make the damn corridors by creating a new boolean array
-		 * conn And fixing that wtf door code
-		 * 
-		 * We are gonna leave enemies stationary for now... But we will store
-		 * both in arraylists
-		 */
 	}
 
 	private void doors() {
@@ -152,14 +148,13 @@ public class Level {
 	}
 	/*
 	 * The "Working Class" Method
-	 * Yes, I laugh at my own jokes, thank you.
 	 * All the work drawing a hall done in here
 	 */
 	private void  conn(int r1, int r2){
+		/* d is down, r is right. Stolen from C code*/
 		char direc = 'd';
 		if (r1 + 1 == r2)
 		    direc = 'r';
-		Point delta = new Point();
 		int turn;
 		
 		if(direc == 'r'){
@@ -167,11 +162,11 @@ public class Level {
 			/* And d means door */
 			int d1y = ThreadLocalRandom.current().nextInt(rs[r1].y1+1, rs[r1].y2);
 			int d2y = ThreadLocalRandom.current().nextInt(rs[r2].y1+1, rs[r2].y2);
-			floor[d1y][rs[r1].x2] = '+';
-			floor[d2y][rs[r2].x1] = '+';
-			
 			turn = ((rs[r2].x1 + rs[r1].x2 + 2) / 2);
 			// turn  = ThreadLocalRandom.current().nextInt(rs[r2].x2+1, rs[r2].x1);
+			
+			floor[d1y][rs[r1].x2] = '+';
+			floor[d2y][rs[r2].x1] = '+';
 			/* Left Side */
 			for(int x = rs[r1].x2 + 1; x <= turn; x++){
 				floor[d1y][x] = '#';
@@ -194,23 +189,20 @@ public class Level {
 		} else if(direc =='d'){
 			int d1x = ThreadLocalRandom.current().nextInt(rs[r1].x1+1, rs[r1].x2);
 			int d2x = ThreadLocalRandom.current().nextInt(rs[r2].x1+1, rs[r2].x2);
-			floor[rs[r1].y2][d1x] = '+';
-			floor[rs[r2].y1][d2x] = '+';
-			
-			delta.x = rs[r2].x1 - rs[r1].x2;
-			delta.y = rs[r2].y1 - rs[r1].y2;
-			
-			turn = ((rs[r2].y1 + rs[r1].y2 + 2) / 2);
+			turn = ((rs[r2].y1 - rs[r1].y2) / 2) + rs[r1].y2;
 			// turn  = ThreadLocalRandom.current().nextInt(rs[r2].x2+1, rs[r2].x1);
 			
+			/* Doors */
+			floor[rs[r1].y2][d1x] = '+';
+			floor[rs[r2].y1][d2x] = '+';
 			/* Top */
-			for(int y = rs[r1].x2 + 1; y <= turn; y++){
+			for(int y = rs[r1].y2 + 1; y <= turn; y++){
 				floor[y][d1x] = '#';
 			}
 			/* Find Right Door */
 			int left = d1x;
 			int right = d2x;
-			if(d1x < d2x){
+			if(d1x > d2x){
 				left= d2x;
 				right = d1x;
 			}
@@ -610,11 +602,12 @@ public class Level {
 	}
 
 	/*
-	 * Returns a String
-	 * Fight 2 spot array
-	 * Or Text of the new Item
+	 * Should return a String to narrate for you
+	 * 2 Strings for Monster and Player Attack
 	 * 
 	 * Returns: 0 = successful move 1 = FIGHT! 2 = No Move occurred
+	 * Fight Monsters
+	 * Get Items
 	 * 
 	 * Assumes Unit is Player
 	 * Need to fix isSeen array so it changes for player
@@ -625,29 +618,33 @@ public class Level {
 		Point a = u.p;
 		/* Bounds check*/
 		if ((a.x + dir[0]) < 0 || (a.y + dir[1]) < 0 || (a.y + dir[1]) > 23 || (a.x + dir[0]) > 79) {
-			System.out.println("No Move");
+			System.out.println("You are trying to move out of bounds. Very Bad!");
 			return 2;
 		}
 		char c = floor[a.y + dir[1]][a.x + dir[0]];
 
+		/* Implementing a pseudo-fight method for testing/getting Monsters out of the way! */
 		if (Character.isUpperCase(c)) {
-			System.out.println("FIGHT NIGHT!");
+			hits++;
+			if(hits == 3){
+				floor[a.y + dir[1]][a.x + dir[0]] = '.';
+				hits = 0;
+			}
+			
+			System.out.println("Good Hit on the " + c + "!");
 			return 1;
 		} else if (validMove(c)) {
-			floor[a.y][a.x] = '.';
-			if (!inside) {
-				floor[a.y][a.x] = '#';
-			}
-
+			floor[a.y][a.x] = last;
+			last = c;
+			
 			a.setLocation(a.x + dir[0], a.y + dir[1]);
 			floor[a.y][a.x] = '@';
+			
 			/*
-			 * Not comprehensive enough At a minimum: all 8 surrounding squares
-			 * are seen
+			 * This is where isSeen needs to be changed
+			 * Not enough to just do the square 
 			 */
-
 			isSeen[a.y][a.x] = true;
-			inside = (c == '.');
 
 			System.out.println("Moved Successfully");
 			return 0;
@@ -675,6 +672,7 @@ public class Level {
 			}
 		}
 	}
+	/*
 	public static void main(String[] args){
 		Level l = new Level(1, new Player());
 		
@@ -685,5 +683,5 @@ public class Level {
 			System.out.println("");
 		}
 	}
-	
+	*/
 }
