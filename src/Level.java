@@ -84,7 +84,7 @@ public class Level {
 		makeHall();	//under testing
 		Passages pass = new Passages();
 		// pass.makePass(floor, rs, rb);
-		
+		*/
 		
 
 		enemies = new ArrayList<Enemy>();
@@ -92,10 +92,11 @@ public class Level {
 
 		// Arbitrary number of Enemies/Items
 		for (int i = 0; i < 8; i++) {
-			makeItem();
+			// Item is a Character not char?
+			//makeItem();
 			makeEnemy();
 		}
-		*/
+		
 
 		/*
 		 * Spawn Player and Light up its room. Use %|/ 3 to find the room
@@ -166,7 +167,7 @@ public class Level {
 	 */
 	private Point findS() {
 		Point rd = new Point();
-		/* Find a room that is !false*/
+		/* Find a room that exists*/
 		int roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
 		while (!rb[roomN])
 			roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
