@@ -56,14 +56,16 @@ public class Controller extends JFrame implements KeyListener {
 		}
 		
 		if (narration == false) {
+			//TODO
 			if (key == KeyEvent.VK_SLASH) {
 				//Tells what the next character you type is
 			}
 		
+			//TODO
 			if (key == KeyEvent.VK_SLASH) {
 				//Tells what the next character you type is
 			}
-		
+		 
 			if (key == KeyEvent.VK_H || key == KeyEvent.VK_LEFT) {
 				int[] left = {-1,0};
 				System.out.println("left");
@@ -116,22 +118,116 @@ public class Controller extends JFrame implements KeyListener {
 				narration = game.move(rightdown);
 			}
 	    
+			//TODO
 			if (key == KeyEvent.VK_T) {
 				//Throws an object in the next specified direction
 			}
 	    
+			//TODO
 			if (key == KeyEvent.VK_F) {
 				//Fights until someone dies
 				//Given a direction, fight the enemy in that direction
 			}
 	    
+			//TODO
 			if (key == KeyEvent.VK_M) {
 				//Move onto something without picking it up
 				//must be given a direction after and only moves one step without picking it up
 			}
 	    
+			//TODO
 			if (key == KeyEvent.VK_Z) {
 				//uses a wand or stave, but must be pointed in a direction
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_S) {
+				//searches for traps in all adjacent spots
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_GREATER) {
+				//climb up staircase
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_LESS) {
+				//climb down staircase IF you have the amulet
+			}
+			
+			if (key == KeyEvent.VK_PERIOD) {
+				//rest, do nothing for the turn
+				view.nextTurn();
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_COMMA) {
+				//pick up whatever you're standing on if you're standing on something
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_I) {
+				//print inventory
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_L) {
+				//Tells you what a single item in your inventory is
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_Q) {
+				//quaff one of the potions you're carrying
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_R) {
+				//read one of the scrolls in your inventory
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_E) {
+				//eat food from your inventory
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_W) {
+				//replace weapon you are carrying with weapon in your inventory
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_D) {
+				//drop an uncursed item from your inventory
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_C) {
+				//rename an item something
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_O) {
+				//print and allow changes to options
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_V) {
+				//print program version number
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_RIGHT_PARENTHESIS) {
+				//print current weapon name
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_BRACERIGHT) {
+				//print current armor name
+			}
+			
+			//TODO
+			if (key == KeyEvent.VK_EQUALS) {
+				//print current rings names
 			}
 		}
 	    
