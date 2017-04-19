@@ -113,9 +113,8 @@ public class Level {
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
 
-		for (int i = 0; i < 8; i++) {
-			// Item.BoardName not initialized
-			makeItem();
+		for (int i = 0; i < 6; i++) {
+			// makeItem();
 			makeEnemy();
 		}
 
@@ -173,16 +172,42 @@ public class Level {
 			floor[d2y][rs[r2].x1] = '+';
 			
 			delta.y = d1y - d2y;
-			turn = delta.x /2;
+			turn = (delta.x / 2) + rs[r1].x2 + 1;
+			// turn  = ThreadLocalRandom.current().nextInt(rs[r2].x2+1, rs[r2].x1);
 			currx =  rs[r1].x2 + 1;
 			curry = d1y; 
-			while(delta.x > 0 && delta.y > 0){
-				floor[delta.y][delta.x] = '#';
+			/* Left Side */
+			for(int x = rs[r1].x2 + 1; x <= turn; x++){
+				floor[d1y][x] = '#';
 			}
+			/* Find top door */
+			int top = d1y;
+			int bottom = d2y;
+			if(d1y < d2y){
+				top = d2y;
+				bottom = d1y;
+			}
+			/* Turn */
+			for(int up = bottom; up <= top; up++){
+				floor[up][turn] = '#';
+			}
+			/* Right Side */
+			for(int x = turn; x < rs[r2].x1; x++){
+				floor[d2y][x] = '#';
+			}
+			/*
+			while(delta.x != 0 || delta.y != 0){
+				floor[curry][currx] = '#';
+				if(currx == turn){
+					
+				}
+				delta.x--;
+				currx++;
+			}
+			*/
 		} else if(direc =='r'){
 			
 		}
-		
 	}
 	
 	private void spawnP() {
@@ -629,4 +654,15 @@ public class Level {
 			}
 		}
 	}
+	public static void main(String[] args){
+		Level l = new Level(1, new Player());
+		
+		for(int y = 0; y < l.floor.length; y++){
+			for(int x = 0; x < l.floor[y].length; x++){
+				System.out.print(l.floor[y][x]);
+			}
+			System.out.println("");
+		}
+	}
+	
 }
