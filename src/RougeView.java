@@ -83,7 +83,8 @@ public class RougeView {
 			
 			//prints stats
 			gr.setFont(new Font("TimesRoman", Font.PLAIN, 26));
-			gr.drawString(stats[0],0,625);
+			//gr.drawString(stats[0],0,625);
+			gr.drawString("Test String",0,625);
 			
 		}
 		
