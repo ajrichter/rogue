@@ -76,7 +76,6 @@ public class Level {
 	}
 
 	public Level(int nL, Player pp) {
-        System.out.println("Level Constructor called");
 		numLevel = nL;
 		numR = ThreadLocalRandom.current().nextInt(5, 8 + 1);
 
@@ -112,7 +111,7 @@ public class Level {
 			for (int x = 0; x < 80; x++)
 				isSeen[y][x] = true;
 
-		System.out.println("Level did not hang.");
+		System.out.println("Level Constructor Finished.");
 
 		// I dont know what most of this random shit does
 		/*
