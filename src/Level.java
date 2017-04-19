@@ -108,7 +108,7 @@ public class Level {
 		rdes[7].conn[4] = rdes[7].conn[6] = rdes[7].conn[8] = true;
 		rdes[8].conn[5] = rdes[8].conn[7] = true;
 		
-		// doors();
+		doors();
 		
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
@@ -143,17 +143,45 @@ public class Level {
 
 	private void doors() {
 		for (int i = 0; i < MAXROOMS - 1; i++) {
-			// the rdes part is trivial as covered by i%/3
-			if (i%3 < 2 && rb[i] && rb[i+1] && rdes[i].conn[i+1]) {
+			if (i%3 < 2 && rb[i] && rb[i+1]) {
 				conn(i, i+1);
 			}
-			if (i/3 < 2 && rb[i] && rb[i+3] && rdes[i].conn[i+1]) {
+			if (i/3 < 2 && rb[i] && rb[i+3]) {
 				conn(i, i+3);
 			}
 		}
 	}
-
-	private void  conn(int x, int y){
+	/*
+	 * The "Working Class" Method
+	 * Yes, I laugh at my own jokes, thank you.
+	 * All the work drawing a hall done in here
+	 */
+	private void  conn(int r1, int r2){
+		char direc = 'd';
+		if (r1 + 1 == r2)
+		    direc = 'r';
+		Point delta = new Point();
+		int turn, currx, curry;
+		
+		if(direc == 'r'){
+			delta.x = rs[r2].x1 - rs[r1].x2;
+			/* the x coords are already set by the room of course! */ 
+			/* And d means door */
+			int d1y = ThreadLocalRandom.current().nextInt(rs[r1].y1+1, rs[r1].y2);
+			int d2y = ThreadLocalRandom.current().nextInt(rs[r2].y1+1, rs[r2].y2);
+			floor[d1y][rs[r1].x2] = '+';
+			floor[d2y][rs[r2].x1] = '+';
+			
+			delta.y = d1y - d2y;
+			turn = delta.x /2;
+			currx =  rs[r1].x2 + 1;
+			curry = d1y; 
+			while(delta.x > 0 && delta.y > 0){
+				floor[delta.y][delta.x] = '#';
+			}
+		} else if(direc =='r'){
+			
+		}
 		
 	}
 	
