@@ -64,6 +64,7 @@ public class Level {
 	public Level(int nL, Player pp) {
 		numLevel = nL;
 		numR = ThreadLocalRandom.current().nextInt(5, 8 + 1);
+		
 		isSeen = new boolean[24][80];
 		floor = new char[24][80];
 		rb = new boolean[9];
@@ -73,8 +74,10 @@ public class Level {
 		for (int y = 0; y < 24; y++)
 			for (int x = 0; x < 80; x++)
 				floor[y][x] = ' ';
-
+		
 		makeRooms();
+		doors();
+		
 		
 		/*
 		makeDoors();
@@ -100,6 +103,14 @@ public class Level {
 		play = pp;
 		spawnP();
 
+		for (int y = 0; y < 24; y++)
+			for (int x = 0; x < 80; x++)
+				isSeen[y][x] = true;
+		
+		
+		System.out.println("Level did not hang.");
+		
+		
 		// I dont know what most of this random shit does
 		/*
 		 * We are gonna make the damn corridors by creating a new boolean array
@@ -109,13 +120,21 @@ public class Level {
 		 * both in arraylists
 		 */
 	}
+	
+	private void doors() {
+		boolean flip = false;
+		for(int i = 0; i < 8; i++){
+			
+			if(flip){
+				i++;
+				flip = false;
+			} else
+				flip = true;
+		}
+	}
 
-	/*
-	 *  0 1 2
-	 *  3 4 5
-	 *  6 7 8
-	 */
 	private void spawnP() {
+		
 		play.p = findS();	
 		floor[play.p.y][play.p.x] = play.val;
 		inside = true;
@@ -143,23 +162,17 @@ public class Level {
 	}
 
 	/*
-	 * Finds a room.
-	 */
-	private int randomRoom() {
-		int ranRm = ThreadLocalRandom.current().nextInt(0, 8 + 1);
-		while (!rb[ranRm])
-			ranRm = ThreadLocalRandom.current().nextInt(0, 8 + 1);
-
-		return ranRm;
-	}
-
-	/*
 	 * Finds a random empty square inside a room
 	 */
 	private Point findS() {
 		Point rd = new Point();
-		Rm r = rs[randomRoom()];
-		char c = ' ';
+		/* Find a room that is !false*/
+		int roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
+		while (!rb[roomN])
+			roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
+		
+		Rm r = rs[roomN];
+		char c = '0';
 		while (c != '.') {
 			rd.x = ThreadLocalRandom.current().nextInt(r.x1 + 1, r.x2);
 			rd.y = ThreadLocalRandom.current().nextInt(r.y1 + 1, r.y2);
@@ -448,7 +461,9 @@ public class Level {
 
 	private void makeRooms() {
 		for (int i = 0; i < numR; i++) {
-			int roomN = randomRoom();
+			int roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
+			while (rb[roomN])
+				roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
 			rs[roomN] = placeR(roomN);
 			rb[roomN] = true;
 		}
@@ -483,10 +498,10 @@ public class Level {
 
 		r.set(x, y);
 
-		return writeR(r);
+		return drawR(r);
 	}
 
-	private Rm writeR(Rm r) {
+	private Rm drawR(Rm r) {
 		// Top and Bottom
 		for (int w = r.x1; w <= r.x2; w++) {
 			floor[r.y1][w] = '-';
@@ -511,11 +526,7 @@ public class Level {
 		char[][] pfloor = new char[24][80];
 		for (int y = 0; y < floor.length; y++) {
 			for (int x = 0; x < floor[y].length; x++) {
-				// if(isSeen[y][x]){
 				pfloor[y][x] = floor[y][x];
-				// } else {
-				// pfloor[y][x] = ' ';
-				// }
 			}
 		}
 
@@ -581,4 +592,16 @@ public class Level {
 			}
 		}
 	}
+	
+	public static void main(String[] args){
+		Level l = new Level(1, new Player());
+		
+		for(int y = 0; y < l.floor.length; y++){
+			for(int x = 0; x < l.floor[y].length; x++){
+				System.out.print(l.floor[y][x]);
+			}
+			System.out.println("");
+		}
+	}
+	
 }
