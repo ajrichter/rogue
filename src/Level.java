@@ -36,8 +36,6 @@ public class Level {
 	protected boolean[] rb;
 	// Array of Rooms
 	protected Rm[] rs;
-	private Rconn[] rdes;
-	
 	
 	// position of stair, 2 elements, stair[0] = x, stair[1] = y
 	protected int[] stair;
@@ -68,23 +66,9 @@ public class Level {
 		}
 	}
 
-	class Rconn {
-		boolean[] conn, isconn;
-		boolean ingraph;
-
-		public Rconn() {
-			conn = new boolean[MAXROOMS]; /* possible to connect to room i? */
-			isconn = new boolean[MAXROOMS]; /*
-											 * connection been made to room i?
-											 */
-			ingraph = false; /* this room in graph already? */
-		}
-	}
-
 	public Level(int nL, Player pp) {
 		numLevel = nL;
 		numR = ThreadLocalRandom.current().nextInt(5, 8 + 1);
-
 		isSeen = new boolean[24][80];
 		floor = new char[24][80];
 		rb = new boolean[9];
@@ -96,21 +80,6 @@ public class Level {
 				floor[y][x] = ' ';
 
 		makeRooms();
-		
-		rdes = new Rconn[MAXROOMS];
-		for(int i = 0; i < MAXROOMS; i++)
-			rdes[i] = new Rconn();
-		/* Initialize Rooms able to Connect */
-		rdes[0].conn[1] = rdes[0].conn[3] = true;
-		rdes[1].conn[0] = rdes[1].conn[2] = rdes[1].conn[4] = true;
-		rdes[2].conn[1] = rdes[2].conn[5] = true;
-		rdes[3].conn[0] = rdes[3].conn[4] = rdes[3].conn[6] = true;
-		rdes[4].conn[1] = rdes[4].conn[3] = rdes[4].conn[5] = rdes[4].conn[7] = true;
-		rdes[5].conn[2] = rdes[5].conn[4] = rdes[5].conn[8] = true;
-		rdes[6].conn[3] = rdes[6].conn[7] = true;
-		rdes[7].conn[4] = rdes[7].conn[6] = rdes[7].conn[8] = true;
-		rdes[8].conn[5] = rdes[8].conn[7] = true;
-		
 		doors();
 		
 		enemies = new ArrayList<Enemy>();
@@ -283,273 +252,10 @@ public class Level {
 		floor[spot.y][spot.x] = e.val;
 	}
 
+	/* I loosely implemented this in move when an Enemy is killed.*/
 	public void removeUnit(Unit u) {
 	}
-
-	/**
-	 * Might need to use if-else instead of just if
-	 */
-	private void randomNumDoors(Rm[] roomArr, boolean[] roomBoo) {
-		for (int i = 0; i < roomArr.length; i++) {
-			// corner rooms
-			if (i % 2 == 0 && i != 4 && roomBoo[i]) {
-				roomArr[i].numDoors = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-			}
-			// edge room
-			if (i % 2 == 1 && i != 4 && roomBoo[i]) {
-				roomArr[i].numDoors = ThreadLocalRandom.current().nextInt(1, 3 + 1);
-			}
-			// center room
-			if (i == 4 && roomBoo[i]) {
-				roomArr[i].numDoors = ThreadLocalRandom.current().nextInt(1, 4 + 1);
-			}
-		}
-	}
-
-	/**
-	 * This does randomly generate doors at different place
-	 * 
-	 * I still think there's a problem with generating doors this way in that
-	 * doors don't connect to other doors that aren't directly opposite to it
-	 * 
-	 * e.x. connections may happen like this
-	 * 
-	 * - - - - - - - - | . . + #### | . . | | . . | ### + . . | - - - - - - - -
-	 *
-	 * but not like this
-	 *
-	 * - - - - - - - - | . . + #### | . . | | . . | # | . . | - - - - # - + - -
-	 * #######
-	 *
-	 * instead, the left room's door should lead to a dead-end and the right
-	 * room should connect to some other room. But then how are you supposed to
-	 * enter the left room? So that becomes a problem
-	 *
-	 * Watch this video and notice how the rooms are connected to each other
-	 * https://www.youtube.com/watch?v=zUB1KovxOY4
-	 * 
-	 * another possibility would be to just add in all the doors and then make
-	 * it so that there's a chance that it won't generate then the corresponding
-	 * door would just be a dead-end
-	 */
-	private void makeDoors() {
-		// no I made these class variables so you do not need to pass them
-		// since they are objects they change in all places
-		randomNumDoors(rs, rb);
-
-		for (int i = 0; i < rs.length; i++) {
-			ArrayList<Integer> side = new ArrayList<Integer>(4);
-
-			// side of the room, 0 = left, 1 = top, 2 = right, 3 = bot
-			for (int j = 0; j < 4; j++) {
-				side.add(j);
-			}
-
-			// numDoors initialize to 0 so loop doesn't run for rb[i] = false
-			if (rb[i]) {
-				for (int j = 0; j < rs[i].numDoors; j++) {
-					// top left room
-					if (i == 0) {
-						if (side.contains(0) && side.contains(1)) {
-							side.remove(side.indexOf(0));
-							side.remove(side.indexOf(1));
-						}
-
-						int curSide = shuffle(side);
-						placeDoor(curSide, rs[i]);
-					}
-					// top room
-					if (i == 1) {
-						if (side.contains(1)) {
-							side.remove(side.indexOf(1));
-						}
-
-						int curSide = shuffle(side);
-						placeDoor(curSide, rs[i]);
-					}
-					// top right room
-					if (i == 2) {
-						if (side.contains(1) && side.contains(2)) {
-							side.remove(side.indexOf(1));
-							side.remove(side.indexOf(2));
-						}
-
-						int curSide = shuffle(side);
-						placeDoor(curSide, rs[i]);
-					}
-					// left room
-					if (i == 3) {
-						if (side.contains(0)) {
-							side.remove(side.indexOf(0));
-						}
-
-						int curSide = shuffle(side);
-						placeDoor(curSide, rs[i]);
-					}
-					// center room
-					if (i == 4) {
-						int curSide = shuffle(side);
-						placeDoor(curSide, rs[i]);
-					}
-					// right room
-					if (i == 5) {
-						if (side.contains(2)) {
-							side.remove(side.indexOf(2));
-						}
-
-						int curSide = shuffle(side);
-						placeDoor(curSide, rs[i]);
-					}
-					// bottom left room
-					if (i == 6) {
-						if (side.contains(0) && side.contains(3)) {
-							side.remove(side.indexOf(0));
-							side.remove(side.indexOf(3));
-						}
-
-						int curSide = shuffle(side);
-						placeDoor(curSide, rs[i]);
-					}
-					// bottom room
-					if (i == 7) {
-						if (side.contains(3)) {
-							side.remove(side.indexOf(3));
-						}
-
-						int curSide = shuffle(side);
-						placeDoor(curSide, rs[i]);
-					}
-					// bottom right room
-					if (i == 8) {
-						if (side.contains(2) && side.contains(3)) {
-							side.remove(side.indexOf(2));
-							side.remove(side.indexOf(3));
-						}
-
-						int curSide = shuffle(side);
-						placeDoor(curSide, rs[i]);
-					}
-				}
-			}
-		}
-
-	}
-
-	private void makeHall() {
-		for (int i = 0; i < rs.length; i++) {
-			// if rightside has door, connect to leftside door of adjacent room
-			if (rb[i] && i % 3 < 2 && isDoor(rs[i], "hori", rs[i].x2)) {
-				// if adjacent room exists
-				if (rb[i + 1] && (i + 1) % 3 > 0 && isDoor(rs[i + 1], "hori", rs[i + 1].x1)) {
-					int hallLength = rs[i + 1].x1 - rs[i].x2;
-					int door1Y = findDoor(rs[i], "hori", rs[i].x2);
-					int door2Y = findDoor(rs[i + 1], "hori", rs[i + 1].x1);
-					int height = Math.abs(door1Y - door2Y);
-					int currY = door1Y;
-
-					for (int j = 1; j < hallLength - 1; j++) {
-						floor[rs[i].x1 + j][currY] = '#';
-						if (j == hallLength - 1) { // reached halfway
-							for (int k = 1; k < height; k++) {
-								if (door1Y < door2Y) { // door 1 is HIGHER than
-														// door 2
-									floor[rs[i].x1 + j][door1Y + k] = '#'; // going
-																			// down
-								} else {
-									floor[rs[i].x1 + j][door1Y - k] = '#'; // going
-																			// up
-								}
-								// might need to change door1Y here for currY,
-								// prolly doesn't matter
-							}
-							currY = door2Y;
-						}
-					}
-				}
-				// need a case for when adjacent room doesn't exist (goes to
-				// next room,
-				// and if that adjacent room doesn't exist then what? dead-end
-				// or maze or long dead-end)
-				// can probably collapse making of right and bottom door into 1
-				// section
-				// otherwise this code will get much more ugly than it is right
-				// now
-			}
-		}
-	}
-
-	/**
-	 * for curSide, x1 = left, y1 = top, x2, = right, y2 = bottom
-	 */
-	private boolean isDoor(Rm curRoom, String side, int curSide) {
-		if (side.equals("hori")) {
-			for (int i = curRoom.y1; i < curRoom.y2; i++) {
-				if (floor[curSide][i] == '+') {
-					return true;
-				}
-			}
-		}
-		if (side.equals("vert")) {
-			for (int i = curRoom.x1; i < curRoom.x2; i++) {
-				if (floor[i][curSide] == '+') {
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * can probably just use 1 method and have it return the coordinate of the
-	 * door
-	 * 
-	 * use the boolean above and pass in a variable to be changed
-	 */
-	private int findDoor(Rm curRoom, String side, int curSide) {
-		if (side.equals("hori")) {
-			for (int i = curRoom.y1; i < curRoom.y2; i++) {
-				if (floor[curSide][i] == '+') {
-					return i;
-				}
-			}
-		}
-		if (side.equals("vert")) {
-			for (int i = curRoom.x1; i < curRoom.x2; i++) {
-				if (floor[i][curSide] == '+') {
-					return i;
-				}
-			}
-		}
-
-		return 0;
-	}
-
-	/**
-	 * Used in makeDoors
-	 */
-	private int shuffle(ArrayList<Integer> list) {
-		Collections.shuffle(list);
-		int temp = list.get(0);
-		list.remove(0);
-		return temp;
-	}
-
-	private void placeDoor(int dSide, Rm curRm) {
-		int tempX = ThreadLocalRandom.current().nextInt(curRm.x1 + 1, curRm.x2);
-		int tempY = ThreadLocalRandom.current().nextInt(curRm.y1 + 1, curRm.y2);
-
-		if (dSide == 0) {
-			floor[tempY][curRm.x1] = '+';
-		} else if (dSide == 1) {
-			floor[curRm.y1][tempX] = '+';
-		} else if (dSide == 2) {
-			floor[tempY][curRm.x2] = '+';
-		} else if (dSide == 3) {
-			floor[curRm.y2][tempX] = '+';
-		}
-	}
-
+	
 	/*
 	 * grid: x: 0__25#27__52#54__79 y: 0__6#8__14#16__22#
 	 */
@@ -564,12 +270,12 @@ public class Level {
 			int y = ThreadLocalRandom.current().nextInt((roomN / 3) * 8, ((roomN / 3) * 8) + 6- r.h + 1);
 			r.set(x, y);
 			
-			rs[roomN] = drawR(r);
+			rs[roomN] = drawRoom(r);
 			rb[roomN] = true;
 		}
 	}
 
-	private Rm drawR(Rm r) {
+	private Rm drawRoom(Rm r) {
 		// Top and Bottom
 		for (int w = r.x1; w <= r.x2; w++) {
 			floor[r.y1][w] = '-';
@@ -629,7 +335,9 @@ public class Level {
 		}
 		char c = floor[a.y + dir[1]][a.x + dir[0]];
 
-		/* Implementing a pseudo-fight method for testing/getting Monsters out of the way! */
+		/* Implementing a pseudo-fight method for testing/getting Monsters out of the way! 
+		 * However, the enemy should also be removed from enemies, the list
+		 * */
 		if (Character.isUpperCase(c)) {
 			hits++;
 			if(hits == 3){
