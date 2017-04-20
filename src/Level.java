@@ -51,11 +51,19 @@ public class Level {
 	/* Room */
 	public class Rm {
 		int x1, x2, y1, y2, w, h, numDoors;
+		boolean isDark;
 
 		public Rm() {
 			w = ThreadLocalRandom.current().nextInt(4, 25 + 1);
 			h = ThreadLocalRandom.current().nextInt(4, 6 + 1);
 			numDoors = 0;
+			
+			int darkChance = ThreadLocalRandom.current().nextInt(0, 9 + 1);
+			if(darkChance < 2) {	//currently 20% chance
+				isDark = true;
+			} else {
+				isDark = false;
+			}
 		}
 
 		private void set(int x, int y) {
@@ -209,7 +217,21 @@ public class Level {
 		floor[play.p.y][play.p.x] = play.val;
 		inside = true;
 
-		seeRm(getCurRoom(play));
+		//assuming you can get spawned inside a dark room, if yes use this
+		//if not then change up the spawn room selection above to include
+		//rs[roomN].isDark in the statement
+		if(!getCurRoom(play).isDark) {
+			seeRm(getCurRoom(play));
+		} else {
+			//simply draw the outline of the room
+			//shows squares around player
+			for(int i = 0; i < 3; i++) {
+				for(int j = 0; j < 3; j++) {
+					isSeen[(play.p.y) + i - 1][(play.p.x) + j - 1] = true;
+				}
+			}
+			
+		}
 	}
 
 	/*
@@ -369,9 +391,12 @@ public class Level {
 			//fix is simple, just create a boolean isDark in room object and 
 			//then pass isDark through the if statement below
 			//will also need a method which makes the floor dark again when out of sight of player
-			if(isInRoom(u)) {
+			if(isInRoom(u) && !(getCurRoom(u).isDark)) {
 				seeRm(getCurRoom(u));
 				
+			}
+			if(getCurRoom(u).isDark) {
+				makeDark(getCurRoom(u));
 			}
 			
 			//shows squares around player
@@ -430,6 +455,18 @@ public class Level {
 		return room;
 	}
 	
+	/**
+	 * there might be a problem with this if it erases items and monster (and maybe player)
+	 * in the room to make it dark again, shouldn't happen since you're using boolean and not
+	 * directly changing the board itself
+	 */
+	private void makeDark(Rm curRoom) {
+		for(int x = (curRoom.x1 + 1); x < curRoom.x2; x++) {
+			for(int y = (curRoom.y1 + 1); y < curRoom.y2;y++) {
+				isSeen[y][x] = false;
+			}
+		}
+	}
 
 	private boolean validMove(char c) {
 		return (c == '.' || c == '+' || c == '#');
