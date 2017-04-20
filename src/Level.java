@@ -58,8 +58,8 @@ public class Level {
 			h = ThreadLocalRandom.current().nextInt(4, 6 + 1);
 			numDoors = 0;
 			
-			int darkChance = ThreadLocalRandom.current().nextInt(0, 9 + 1);
-			if(darkChance < 2) {	//currently 20% chance
+			int darkChance = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+			if(darkChance < 20) {	//currently 20% chance, KEEP IT HERE FOR DEMO ON FRIDAY
 				isDark = true;
 			} else {
 				isDark = false;
@@ -387,18 +387,20 @@ public class Level {
 			a.setLocation(a.x + dir[0], a.y + dir[1]);
 			floor[a.y][a.x] = '@';
 				
-			//show everything if in room (need some changes if room is dark)
-			//fix is simple, just create a boolean isDark in room object and 
-			//then pass isDark through the if statement below
-			//will also need a method which makes the floor dark again when out of sight of player
+			//shows everything if room is not dark, shows surrounding area if it is dark
 			if(isInRoom(u) && !(getCurRoom(u).isDark)) {
 				seeRm(getCurRoom(u));
 				
-			}
-			if(getCurRoom(u).isDark) {
+			} else {//otherwise room is dark
 				makeDark(getCurRoom(u));
 			}
-			
+			//quick fix, make every dark room dark again instead of the one you've just left
+			for(int i = 0; i < rs.length; i++) {
+				if(rb[i] && rs[i].isDark) {
+					makeDark(rs[i]);
+				}
+			}
+		
 			//shows squares around player
 			for(int i = 0; i < 3; i++) {
 				for(int j = 0; j < 3; j++) {
@@ -406,7 +408,6 @@ public class Level {
 				}
 			}
 			
-
 			System.out.println("Moved Successfully");
 			return 0;
 		}
