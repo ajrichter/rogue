@@ -4,24 +4,31 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class GamePlay {
 	
 	private boolean hasAmulet=false;
-	Player play; 
+	Player play;
+	ArrayList<Level> dungeon;
 	Level level;
 	private RougeView view;
 	private String[] lines = new String[10];
+	int currlevel;
 	
 	public GamePlay(RougeView view) {
         System.out.println("Gameplay Constructor called");
 		this.play = new Player();
 		this.level = new Level(1, play);
+		this.dungeon = new ArrayList<Level>();
+		this.dungeon.add(level);
 		this.view = view;
 		view.updateBoard(level.getFloor());
 		 System.out.println("Gameplay Constructor called");
+		this.currlevel=0;
+		
 	}
 	
 	public void climbStairs() {
@@ -102,7 +109,13 @@ public class GamePlay {
 		 * Player needs to be shared between Level and GamePlay
 		 */
 		
-		level.moveUnit(level.play, direction);
+		int x=level.moveUnit(level.play, direction);
+		if(x==6){
+			Level l = new Level(1,play);
+			dungeon.add(l);
+			this.currlevel++;
+			this.level = l;
+		}
 		view.updateBoard(level.getFloor());
 		view.nextTurn();
 		return b;
