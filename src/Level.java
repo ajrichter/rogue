@@ -89,6 +89,11 @@ public class Level {
 			// makeItem();
 			makeEnemy();
 		}
+		
+		//initialize to false
+		for (int y = 0; y < 24; y++)
+			for (int x = 0; x < 80; x++)
+				isSeen[y][x] = false;
 
 		/*
 		 * Spawn Player and Light up its room. Use %|/ 3 to find the room
@@ -98,9 +103,7 @@ public class Level {
 		last  = '.';
 		hits = 0;
 		
-		for (int y = 0; y < 24; y++)
-			for (int x = 0; x < 80; x++)
-				isSeen[y][x] = true;
+		
 
 		System.out.println("Level Constructor Finished.");
 	}
@@ -206,7 +209,7 @@ public class Level {
 		floor[play.p.y][play.p.x] = play.val;
 		inside = true;
 
-		seeRm(rs[roomN]);
+		seeRm(getCurRoom(play));
 	}
 
 	/*
@@ -292,15 +295,23 @@ public class Level {
 		return r;
 	}
 
+	/**
+	 * returns isSeen
+	 */
 	public boolean[][] getSeen() {
 		return isSeen;
 	}
 
+	/**
+	 * returns board as viewed by player
+	 */
 	public char[][] getFloor() {
 		char[][] pfloor = new char[24][80];
 		for (int y = 0; y < floor.length; y++) {
 			for (int x = 0; x < floor[y].length; x++) {
-				pfloor[y][x] = floor[y][x];
+				if(isSeen[y][x]) {
+					pfloor[y][x] = floor[y][x];
+				}
 			}
 		}
 
@@ -353,12 +364,23 @@ public class Level {
 			
 			a.setLocation(a.x + dir[0], a.y + dir[1]);
 			floor[a.y][a.x] = '@';
+				
+			//show everything if in room (need some changes if room is dark)
+			//fix is simple, just create a boolean isDark in room object and 
+			//then pass isDark through the if statement below
+			//will also need a method which makes the floor dark again when out of sight of player
+			if(isInRoom(u)) {
+				seeRm(getCurRoom(u));
+				
+			}
 			
-			/*
-			 * This is where isSeen needs to be changed
-			 * Not enough to just do the square 
-			 */
-			isSeen[a.y][a.x] = true;
+			//shows squares around player
+			for(int i = 0; i < 3; i++) {
+				for(int j = 0; j < 3; j++) {
+					isSeen[a.y + i - 1][a.x + j - 1] = true;
+				}
+			}
+			
 
 			System.out.println("Moved Successfully");
 			return 0;
@@ -366,6 +388,48 @@ public class Level {
 		System.out.println("No Move");
 		return 2;
 	}
+	
+	/**
+	 * checks if unit is currently in a room
+	 */
+	private boolean isInRoom(Unit u) {
+		Point a = u.p;
+		for(int i = 0; i < rs.length; i++) {
+			if(rb[i]) {
+				for(int scanX = rs[i].x1; scanX <= rs[i].x2; scanX++) {
+					for(int scanY = rs[i].y1; scanY <= rs[i].y2; scanY++) {
+						if(rb[i] && a.x == scanX && a.y == scanY) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * check which room the unit is in
+	 */
+	private Rm getCurRoom(Unit u) {
+		Point a = u.p;
+		for(int i = 0; i < rs.length; i++) {
+			if(rb[i]) {
+				for(int scanX = rs[i].x1; scanX <= rs[i].x2; scanX++) {
+					for(int scanY = rs[i].y1; scanY <= rs[i].y2; scanY++) {
+						if(rb[i] && a.x == scanX && a.y == scanY) {
+							return rs[i];
+						}
+					}
+				}
+			}
+		}
+		
+		//never used, need it here to prevent compilation err
+		Rm room = new Rm();
+		return room;
+	}
+	
 
 	private boolean validMove(char c) {
 		return (c == '.' || c == '+' || c == '#');
