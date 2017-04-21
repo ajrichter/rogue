@@ -7,8 +7,9 @@ Sprints | Tasks
 1 | Reviewed Design Document
 2 | Took stock of existing code: Plays 1 non-randomly generated 24x80 Level
 3 | Began major work on polishing 4 major sections: Level/MVC/Unit/Item
-4 | Brought Sections Together
-5 | Finishing Random Level Generation
+4 | <del>Brought Sections Together</del> Created problems for ourselves 
+5 | Random Level Generation
+6 | Bring Item into default package. Generate Items/Monsters and their Point objects. Pick up Items. Attack Monsters. Fix Dark Rooms. Stairs...
 
 TODO:
 - [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
@@ -17,7 +18,7 @@ TODO:
 - [ ] this is an incomplete item
 
 Team Names Backwards:  
-Werden  
-Arym  
-Kni  
-Yrrah  
+Werdna
+Arym
+Kni
+Yrrah

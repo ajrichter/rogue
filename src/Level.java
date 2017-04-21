@@ -1,15 +1,14 @@
-import java.util.concurrent.ThreadLocalRandom;
 import Item.Item;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.awt.Point;
-import java.security.spec.RSAKeyGenParameterSpec;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /*TODO
  * Player needs to be created in GamePlay. For name purposes
  * Enemies
- * Items
+ * Items: Should be moved into default package
+ * And then  
  * Stairs
  * store the last point for going down a level
  * need a point for where player is
@@ -20,7 +19,7 @@ public class Level {
 	protected final int MAXROOMS = 9;
 
 	/* Class Variables */
-	private int numLevel;
+	protected int numLevel;
 	/* Making rooms */
 	// Number of Rooms
 	protected int numR;
@@ -93,8 +92,8 @@ public class Level {
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
 
-		for (int i = 0; i < 5; i++) {
-			// makeItem();
+		for (int i = 0; i < 6; i++) {
+			makeItem();
 			makeEnemy();
 		}
 		
@@ -260,8 +259,6 @@ public class Level {
 	private void makeItem() {
 		Item i = new Item();
 		Point spot = findS();
-		// i.p = spot
-		// Diff Package so different visibility
 		
 		i.generateItem();
 		
@@ -414,6 +411,10 @@ public class Level {
 		System.out.println("No Move");
 		return 2;
 	}
+
+	private boolean validMove(char c) {
+		return (c == '.' || c == '+' || c == '#');
+	}
 	
 	/**
 	 * checks if unit is currently in a room
@@ -467,10 +468,6 @@ public class Level {
 				isSeen[y][x] = false;
 			}
 		}
-	}
-
-	private boolean validMove(char c) {
-		return (c == '.' || c == '+' || c == '#');
 	}
 
 	/*
