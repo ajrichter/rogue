@@ -1,7 +1,7 @@
-
 package Item;
 
 import java.awt.Point;
+
 
 /**
  * 
@@ -10,8 +10,9 @@ import java.awt.Point;
  */
 
 public class Item {
+	protected int ringProtection;
 	protected Point p;
-	protected Character boardName;
+	protected char boardName;
 	protected String name; //name of item
 	protected String typeItem; //armor,equipment,ring,food,
 	protected int damage; 
@@ -19,7 +20,10 @@ public class Item {
 	protected int playerStrength;
 	protected int playerHealth;
 	protected int playerHP;
-	protected String finalMessage;
+	protected String eMessage; //Message for using or equiping
+	protected String dMessage; //Message for dropping
+	protected String pMessage; //Message for picking up item
+	protected String uMessage; //Message for taking off equiptment
 	private GenItem generate;
 	protected boolean monsterHaste = false; //item from wand
 	protected boolean monsterDetection = false; //item from potion
@@ -34,6 +38,7 @@ public class Item {
 	protected boolean maintainArmor = false; //Item from ring
 	protected boolean isStealth = false; //Item from ring
 	protected boolean cancellation = false; //Item from wand
+
 	
 	public Item() {
 	generate = new GenItem();
@@ -46,13 +51,19 @@ public class Item {
 		this.typeItem = generate.getTypeItem();
 		this.name = generate.getName();
 		this.boardName = generate.getBoardName();
-		this.finalMessage = generate.getPickUpMessage();
+		this.eMessage = generate.getEquiptOrUseMessage();
+		this.uMessage = generate.getTakeOffMessage();
+		this.pMessage = generate.getPickUpMessage();
+		this.dMessage = generate.getDropMessage();
+		
+		
 		if (this.typeItem.equals("Food")) {
 			this.playerStrength = generate.getFoodStrength();
 		}
 		else if (this.typeItem.equals("Weapon"))
 		{
 			this.damage = generate.getWeaponDamage();
+
 		}
 		else if (this.typeItem.equals("Armor"))
 		{
@@ -62,18 +73,41 @@ public class Item {
 		return generate;
 	}
 
+	
+	public String getUseMessage() {
+		return eMessage;
+	}
+	
+	public String getTakeOffMessage() {
+		return uMessage;
+	}
+	
+	public String getDropMessage() {
+		return dMessage;
+	}
+	
+	public String getPickUpMesage() {
+		return pMessage;
+	}
+	
+	
+	
+	public String getItemType() {
+		return typeItem;
+	}
+	
+
 	public char getBoardName() {
 		return this.boardName;
 	}
 	
-	public String getPrintMessage() {
-		return finalMessage;
-	}
+
 	
 	public String getItemName() {
 		return name;
 	}
 	
+
 	public int getArmorProtection() {
 		return armorProtection;
 	}
@@ -82,7 +116,7 @@ public class Item {
 		return damage;
 	}
 	
-	public int getStrengthFromFood() {
+	public int getPlayerStrength() {
 		return playerStrength;
 	}
 

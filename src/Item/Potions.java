@@ -1,5 +1,3 @@
-
-
 package Item;
 
 import java.util.Random;
@@ -117,7 +115,8 @@ public class Potions extends Item {
 			break;
 			
 			case 8: this.name = "Gain Strength";
-//			Gain strength	13	Increases strength by 1.
+			this.playerStrength += 1;
+			
 			break;
 			
 			case 9: this.name = "Extra Healing";
@@ -129,12 +128,12 @@ public class Potions extends Item {
 			break;
 			
 			case 11: this.name = "Restore Strength";
-			this.finalMessage = "Hey, this tastes great.  It make you feel warm all over.";
+			this.eMessage = "Hey, this tastes great.  It make you feel warm all over.";
 //			Restore strength	13	Hey, this tastes great. It make you feel warm all over. Restores strength to maximum.
 			break;
 			
 			case 12: this.name = "Blindness";
-			this.finalMessage = "A cloak of darkness falls around you.";
+			this.eMessage = "A cloak of darkness falls around you.";
 //			Blindness	5	Blinds player for 807-892 turns
 			break;
 			
@@ -148,12 +147,17 @@ public class Potions extends Item {
 					
 					
 			default: this.name = "NOP";
-			this.finalMessage = "This potion tastes extremely dull.";
+			this.eMessage = "This potion tastes extremely dull.";
 			break;	
 			
 			}
 		}	
 	}
+
+
+
+
+
 
 
 

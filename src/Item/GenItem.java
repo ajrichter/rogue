@@ -11,7 +11,11 @@ private int protection = 0;
 private int foodStrength = 0;
 private Character boardName;
 private int weaponDamage;
+private String useMessage = "";
+private String dropMessage = "";
 private String pickUpMessage = "";
+private String takeOffMessage = "";
+
 public GenItem () {
 	
 }
@@ -73,8 +77,10 @@ public GenItem () {
 		this.protection = a.armorProtection;
 		this.boardName = a.boardName;
 		this.itemName = a.name;
-		System.out.println(this.typeItem);
-		this.pickUpMessage = "You picked up " + this.itemName + " Armor with " + this.protection + " protection!";
+		this.pickUpMessage = " picked up " + this.itemName;
+		this.useMessage = " equpted " + this.itemName + " Armor with " + this.protection + " protection!";
+		this .dropMessage = "You dropped the " + this.itemName + " on the floor.";
+		this.takeOffMessage = "You took off the " + this.itemName + " and put it back into your inventory";
 		break;
 		
 		case 2: this.typeItem = "Weapon";
@@ -83,8 +89,10 @@ public GenItem () {
 		this.weaponDamage = w.damage;
 		this.itemName = w.name;
 		this.boardName = w.boardName;
-		System.out.println(this.typeItem);
-		this.pickUpMessage = "You picked up " + this.itemName + " with a damage of " + this.weaponDamage;
+		this.useMessage = " equipted the " + this.itemName + " with a damage of " + this.weaponDamage;
+		this .dropMessage = " dropped the " + this.itemName + " on the floor.";
+		this.takeOffMessage = " took off the " + this.itemName + " " + this.typeItem + " and put it back into your inventory";
+		this.pickUpMessage = " picked up " + this.itemName;
 		break;
 	
 		case 3: this.typeItem = "Food";
@@ -93,8 +101,9 @@ public GenItem () {
 			this.boardName = food.boardName;
 			this.itemName = food.name;
 			this.foodStrength = food.playerStrength;
-			System.out.println(this.typeItem);
-			this.pickUpMessage = "picked up " + this.itemName + " with a food strength of " + this.foodStrength;
+			this.pickUpMessage = " picked up " + this.itemName;
+			this.useMessage = " ate a " + this.itemName + " with a food strength of " + this.foodStrength;
+			this .dropMessage = " dropped the " + this.itemName + " on the floor.";
 			break;
 		
 
@@ -103,8 +112,10 @@ public GenItem () {
 			ring.getRing();
 			this.boardName = ring.boardName;
 			this.itemName = ring.name;
-			System.out.println(this.typeItem);
-			this.pickUpMessage = "picked up the " + this.itemName + " Ring."; 
+			this.useMessage = " put the " + this.itemName + " ring on his finger."; 
+			this .dropMessage = " dropped the " + this.itemName + " on the floor.";
+			this.takeOffMessage = " took off the " + this.itemName + " and put it back into his inventory";
+			this.pickUpMessage = " picked up " + this.itemName;
 			break;
 			
 		case 5: this.typeItem = "Scrolls";
@@ -112,8 +123,9 @@ public GenItem () {
 			scroll.getScrolls();
 			this.boardName = scroll.boardName;
 			this.itemName = scroll.name;
-			System.out.println(this.typeItem);
-			this.pickUpMessage = "picked up the " + this.itemName + " Scroll.";
+			this.useMessage = " read the " + this.itemName + " Scroll.";
+			this .dropMessage = " dropped the " + this.itemName + " on the floor.";
+			this.pickUpMessage = " picked up " + this.itemName;
 			break;
 			
 		case 6: this.typeItem = "Wand";
@@ -121,8 +133,10 @@ public GenItem () {
 			wand.getWand();
 			this.boardName = wand.boardName;
 			this.itemName = wand.name;
-			System.out.println(this.typeItem);
-			this.pickUpMessage = "picked up the " + this.itemName + " Wand.";
+			this.useMessage = " equiped the " + this.itemName + " Wand.";
+			this .dropMessage = " dropped the " + this.itemName + " on the floor.";
+			this.takeOffMessage = " took off the " + this.itemName + " and put it back into his inventory";
+			this.pickUpMessage = " picked up " + this.itemName;
 			break;
 
 		case 7: this.typeItem = "Potions";
@@ -130,8 +144,9 @@ public GenItem () {
 			p.getPotion();
 			this.boardName = p.boardName;
 			this.itemName = p.name;
-			System.out.println(this.typeItem);
-			this.pickUpMessage = "picked up the " + this.itemName + " Potion.";
+			this.useMessage = " drank the " + this.itemName + " potion.";
+			this .dropMessage = " dropped the " + this.itemName + " on the floor.";
+			this.pickUpMessage = " picked up " + this.itemName;
 			break;
 		default:
 			this.typeItem = "NOP";
@@ -157,10 +172,23 @@ public GenItem () {
 		return this.foodStrength;
 	}
 
+	public String getEquiptOrUseMessage() {
+		return this.useMessage;
+	}
+
+	public String getDropMessage() {
+		return this.dropMessage;
+	}
+	
+	public String getTakeOffMessage() {
+		return this.takeOffMessage;
+	}
+	
 	public String getPickUpMessage() {
 		return this.pickUpMessage;
 	}
-
+	
+	
 	public int getWeaponDamage() {
 		return this.weaponDamage;
 	}
@@ -172,4 +200,6 @@ public GenItem () {
 
 
 }
+
+
 
