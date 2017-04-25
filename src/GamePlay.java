@@ -14,20 +14,19 @@ public class GamePlay {
 	Player play;
 	ArrayList<Level> dungeon;
 	Level level;
-	private RougeView view;
 	private String[] lines = new String[10];
 	int currlevel;
+	String narration;
 	
-	public GamePlay(RougeView view) {
+	public GamePlay() {
         System.out.println("Gameplay Constructor called");
-		this.play = new Player();
-		this.level = new Level(1, play);
-		this.dungeon = new ArrayList<Level>();
-		this.dungeon.add(level);
-		this.view = view;
-		view.updateBoard(level.getFloor());
-		 System.out.println("Gameplay Constructor called");
-		this.currlevel=0;
+		play = new Player();
+		level = new Level(1, play);
+		dungeon = new ArrayList<Level>();
+		dungeon.add(level);
+		System.out.println("Gameplay Constructor called");
+		currlevel=0;
+		narration = "";
 		
 	}
 	
@@ -52,7 +51,7 @@ public class GamePlay {
 	}
 	
 	//resolves attack. returns 0 if nobody died, 1 if defender died, 2 if attacker died
-	public void unitAttack(Unit attacker, Unit defender) {
+	/*public void unitAttack(Unit attacker, Unit defender) {
 		
 		String text= "";
 		int[] attack = attacker.fight();
@@ -75,34 +74,10 @@ public class GamePlay {
 		
 		
 		this.view.updateNaration(text);
-	}
+	}*/
 	
-	public void help() {
-		//View.printControlMenu();
-	}
-	
-	public void option() {
-		//View.printOptionMenu();
-	}
-	
-	public boolean move(int[] direction) {
-		boolean b=false;
-		/*
-		if(level.isEnemy(this.play, direction)!=null){
-			//fights the monster TODO put in separate attack method
-			Enemy enemy= level.isEnemy(this.play, direction);
-			unitAttack(this.play, enemy);
-			b=true;
-		}else{
-			//picking up item
-			if(level.isItem(this.play, direction)!=null){
-				level.pickUp(this.play, direction);
-				view.updateBoard(level.getFloor());
-				view.updateNaration(play.getName());
-				// + " " + level.getItemMessage())
-			}
-		}
-		*/
+	public int move(int[] direction) {
+		int update=0;
 		
 		/* 
 		 * I changed this to work with Level
@@ -117,14 +92,10 @@ public class GamePlay {
 			this.level = l;
 		}
 		if(x==1){
-			view.updateNaration(level.narration);
+			update=1;
+			narration=level.narration;
 		}
-		view.updateBoard(level.getFloor());
-		view.nextTurn();
-		if(x==1 || x==6){
-			b=true;
-		}
-		return b;
+		return update;
 		
 		//Add randomly move enemy
 	}

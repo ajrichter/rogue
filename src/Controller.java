@@ -39,7 +39,9 @@ public class Controller extends JFrame implements KeyListener {
         
         //initialize variables
         this.view = new RougeView(frame);
-        this.game = new GamePlay(view);
+        this.game = new GamePlay();
+        view.updateBoard(game.level.getFloor());
+        view.nextTurn();
     }
 	
 	public void keyReleased(KeyEvent e) {
@@ -69,53 +71,61 @@ public class Controller extends JFrame implements KeyListener {
 			if (key == KeyEvent.VK_H || key == KeyEvent.VK_LEFT) {
 				int[] left = {-1,0};
 				System.out.println("left");
-				narration = game.move(left);
+				int update = game.move(left);
+				updateView(update);
 			}         
 	
 			if (key == KeyEvent.VK_L) {
 				int[] right = {1,0};
 				System.out.println("right");
-				narration = game.move(right);
+				int update = game.move(right);
+				updateView(update);
 			}
 			
 			if (key == KeyEvent.VK_J) {
 				int[] down = {0,1};
 				System.out.println("down");
-				narration = game.move(down);
+				int update = game.move(down);
+				updateView(update);
 			}
 			
 			if (key == KeyEvent.VK_K) {
 				int[] up = {0,-1};
 				System.out.println("up");
-				narration = game.move(up);
+				int update = game.move(up);
+				updateView(update);
 			}
 	    
 			if (key == KeyEvent.VK_Y) {
 				//moves diagonally left and up
 				int[] leftup = {-1,1};
 				System.out.println("leftup");
-				narration = game.move(leftup);
+				int update = game.move(leftup);
+				updateView(update);
 			}         
 	
 			if (key == KeyEvent.VK_U) {
 				//moves diagonally right and up
 				int[] rightup = {1,1};
 				System.out.println("rightup");
-				narration = game.move(rightup);
+				int update = game.move(rightup);
+				updateView(update);
 			}
 	
 			if (key == KeyEvent.VK_B) {
 				//moves diagonally left and down
 				int[] leftdown = {-1,-1};
 				System.out.println("leftdown");
-				narration = game.move(leftdown);
+				int update = game.move(leftdown);
+				updateView(update);
 			}
 	
 			if (key == KeyEvent.VK_N) {
 				//moves diagonally right and down
 				int[] rightdown = {1,-1};
 				System.out.println("rightdown");
-				narration = game.move(rightdown);
+				int update = game.move(rightdown);
+				updateView(update);
 			}
 	    
 			//TODO
@@ -234,6 +244,15 @@ public class Controller extends JFrame implements KeyListener {
 	}
 	
 	public void keyTyped(KeyEvent e) {
+	}
+	
+	public void updateView(int update) {
+		if(update==1){
+			view.updateNaration(game.narration);
+			narration=true;
+		} 
+		view.updateBoard(game.level.getFloor());
+		view.nextTurn();
 	}
 	
 	public static void main(String[] args) {
