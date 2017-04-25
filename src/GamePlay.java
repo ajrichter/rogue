@@ -116,8 +116,14 @@ public class GamePlay {
 			this.currlevel++;
 			this.level = l;
 		}
+		if(x==1){
+			view.updateNaration(level.narration);
+		}
 		view.updateBoard(level.getFloor());
 		view.nextTurn();
+		if(x==1 || x==6){
+			b=true;
+		}
 		return b;
 		
 		//Add randomly move enemy

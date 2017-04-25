@@ -46,6 +46,7 @@ public class Level {
 
 	protected Player play;
 	protected int hits;
+	protected String narration;
 
 	/* Room */
 	public class Rm {
@@ -110,7 +111,7 @@ public class Level {
 		last  = '.';
 		hits = 0;
 		
-		
+		narration = "";
 
 		System.out.println("Level Constructor Finished.");
 	}
@@ -376,6 +377,7 @@ public class Level {
 			}
 			
 			System.out.println("Good Hit on the " + c + "!");
+			narration = "You hit the " + c + "!";
 			return 1;
 		} else if (validMove(c)) {
 			floor[a.y][a.x] = last;
