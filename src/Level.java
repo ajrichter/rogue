@@ -40,7 +40,9 @@ public class Level {
 	protected Rm[] rs;
 	
 	// position of stair, 2 elements, stair[0] = x, stair[1] = y
-	protected int[] stair;
+	//protected int[] stair;
+	protected Stairs stair;
+	 
 
 	/* Spawning Enemies and Items */
 	// List of enemies
@@ -85,6 +87,17 @@ public class Level {
 			y2 = y1 + h - 1;
 		}
 	}
+	
+	public class Stairs {
+		int x, y;
+		char sym;
+	 
+	    public Stairs() {
+	    	this.x = this.y = 0;
+	    	this.sym = '%';
+	    }
+	}
+	 
 
 	public Level(int nL, Player pp) {
 		numLevel = nL;
@@ -93,6 +106,7 @@ public class Level {
 		floor = new char[24][80];
 		rb = new boolean[9];
 		rs = new Rm[9];
+		stair = new Stairs();
 
 		/* set everything to 0, which means empty */
 		for (int y = 0; y < 24; y++)
@@ -124,6 +138,9 @@ public class Level {
 		spawnP();
 		last  = '.';
 		hits = 0;
+		
+		//Spawn stair for current level
+		spawnStair();
 		
 		narration = "";
 
@@ -214,6 +231,8 @@ public class Level {
 	}
 	
 	private void spawnP() {
+		/*
+		 * I don't think the code commented here is used at all (moved to method findS()
 		Point rd = new Point();
 		int roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
 		while (!rb[roomN])
@@ -226,6 +245,7 @@ public class Level {
 			rd.y = ThreadLocalRandom.current().nextInt(r.y1 + 1, r.y2);
 			c = floor[rd.y][rd.x];
 		}
+		*/
 
 		play.p = findS();
 		floor[play.p.y][play.p.x] = play.val;
@@ -268,6 +288,17 @@ public class Level {
 		return rd;
 	}
 
+	/**
+	 * Spawn stair
+	 */
+	private void spawnStair() {
+		Point pt = findS();
+		this.stair.x = pt.x;
+		this.stair.y = pt.y;
+	 
+	    floor[stair.y][stair.x] = stair.sym;
+	}
+	
 	/*
 	 * Need to store the Item Point Public not protected
 	 */
@@ -392,7 +423,7 @@ public class Level {
 		/* Implementing a pseudo-fight method for testing/getting Monsters out of the way! 
 		 * However, the enemy should also be removed from enemies, the list
 		 * */
-		if (Character.isUpperCase(c)) {
+		if (Character.isUpperCase(c) && c != '%') {
 			hits++;
 			if(hits == 3){
 				floor[a.y + dir[1]][a.x + dir[0]] = '.';
@@ -412,17 +443,12 @@ public class Level {
 			}
 			
 			
-			
 			floor[a.y][a.x] = last;
 			last = c;
 			
 			a.setLocation(a.x + dir[0], a.y + dir[1]);
 			floor[a.y][a.x] = '@';
 				
-			
-		
-			
-			
 			
 			//shows everything if room is not dark, shows surrounding area if it is dark
 			if(isInRoom(u) && !(getCurRoom(u).isDark)) {
@@ -447,6 +473,9 @@ public class Level {
 			
 			System.out.println("Moved Successfully");
 			return 0;
+		}
+		if(c == stair.sym) {
+			return 6;
 		}
 		System.out.println("No Move");
 		return 2;
