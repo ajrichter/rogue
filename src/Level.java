@@ -543,4 +543,5 @@ public class Level {
 		}
 	}
 	*/
+		//change this to "last" later b/c you'll have to be on top of the stair
 }
