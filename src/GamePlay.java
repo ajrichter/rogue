@@ -12,28 +12,21 @@ public class GamePlay {
 	
 	private boolean hasAmulet=false;
 	Player play;
-	//ArrayList<Level> dungeon;
-	Dungeon dungeon;
-	Level currLevel;
+	ArrayList<Level> dungeon;
+	Level level;
 	private String[] lines = new String[10];
-	int currNumLevel;
+	int currlevel;
 	String narration;
-	boolean goUp;
 	
 	public GamePlay() {
         System.out.println("Gameplay Constructor called");
 		play = new Player();
-		dungeon = new Dungeon();
-		//NOTE that there will be a problem later on when climbing UP stairs
-		//since you'd probably have 2 players, or maybe not
-		//currLevel = dungeon.lvl.get(currNumLevel);
-		currLevel = new Level(currNumLevel, play);
-		//dungeon = new ArrayList<Level>();
-		dungeon.lvl.add(currLevel);
+		level = new Level(1, play);
+		dungeon = new ArrayList<Level>();
+		dungeon.add(level);
 		System.out.println("Gameplay Constructor called");
-		currNumLevel=0;
+		currlevel=0;
 		narration = "";
-		goUp = true;
 	}
 	
 	public void climbStairs() {
@@ -89,59 +82,20 @@ public class GamePlay {
 		 * I changed this to work with Level
 		 * Player needs to be shared between Level and GamePlay
 		 */
-		int x=currLevel.moveUnit(currLevel.play, direction);
+		int x=level.moveUnit(level.play, direction);
 		if(x==6){
-			/*
 			Level l = new Level(1,play);
 			dungeon.add(l);
 			this.currlevel++;
 			this.level = l;
-			*/
-			
-			/**
-			this.currNumLevel++;
-			Level tempLvl = new Level(currNumLevel, play);
-			dungeon.lvl.add(tempLvl);
-			
-			this.currLevel = dungeon.lvl.get(currNumLevel);
-			**/
-			
-			changeFloor(goUp);
 		}
 		if(x==1){
 			update=1;
-			narration=currLevel.narration;
+			narration=level.narration;
 		}
 		return update;
 		
 		//Add randomly move enemy
-	}
-	
-	public void changeFloor(boolean change) {
-		if(!change /*&& this.currNumLevel >= 0*/) {
-			this.currNumLevel--;
-			//System.out.println("Can't go down!");
-			//return;
-			//TODO Consider floor -1 (can't go down) case - basically win condition with amulet
-		} else {
-			this.currNumLevel++;
-		}
-		
-		Level tempLvl;
-		
-		//only dealing with going down dungeon right now
-		if(this.currNumLevel >= dungeon.lvl.size()) {
-			//add new floor
-			tempLvl = new Level(currNumLevel, play);
-			dungeon.lvl.add(tempLvl);
-		} else {
-			//go to existing floor
-			//TODO fix this, might not work since play contains position of player of previous floor
-			tempLvl = dungeon.lvl.get(currNumLevel);
-			tempLvl.play = this.play;	//update player
-		}
-		
-		this.currLevel = tempLvl;
 	}
 	
 	public void saveGame(String[] test) {

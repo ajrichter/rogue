@@ -40,7 +40,7 @@ public class Controller extends JFrame implements KeyListener {
         //initialize variables
         this.view = new RougeView(frame);
         this.game = new GamePlay();
-        view.updateBoard(game.currLevel.getFloor());
+        view.updateBoard(game.level.getFloor());
         view.nextTurn();
     }
 	
@@ -245,7 +245,6 @@ public class Controller extends JFrame implements KeyListener {
 				//this might not be right, might need a case for if you're standing on stair
 				System.out.println("Go down a floor");
 				int[] still = {0,0};
-				game.goUp = true;
 				game.move(still);
 			}
 			
@@ -254,7 +253,6 @@ public class Controller extends JFrame implements KeyListener {
 				//i feel like this way people can abuse just press < and you can go down
 				System.out.println("Go up a floor");
 				int[] still = {0,0};
-				game.goUp = false;
 				game.move(still);
 			}
 		}
@@ -269,7 +267,7 @@ public class Controller extends JFrame implements KeyListener {
 			view.updateNaration(game.narration);
 			narration=true;
 		} 
-		view.updateBoard(game.currLevel.getFloor());
+		view.updateBoard(game.level.getFloor());
 		view.nextTurn();
 	}
 	
@@ -280,7 +278,7 @@ public class Controller extends JFrame implements KeyListener {
 		
 		
 		//makes a board
-		control.view.updateBoard(control.game.currLevel.getFloor());
+		control.view.updateBoard(control.game.level.getFloor());
 		control.view.updateStats(control.game.play.playerStats());
 		control.view.nextTurn();
 		
