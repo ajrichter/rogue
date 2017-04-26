@@ -1,8 +1,11 @@
+import Item.Inventory;
 import Item.Item;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /*TODO
  * Player needs to be created in GamePlay. For name purposes
@@ -37,14 +40,22 @@ public class Level {
 	protected Rm[] rs;
 	
 	// position of stair, 2 elements, stair[0] = x, stair[1] = y
-	//protected int[] stair;
-	protected Stairs stair;
+	protected int[] stair;
 
 	/* Spawning Enemies and Items */
 	// List of enemies
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Item> items;
+	private Map <Integer [][], Item> itemPos; //Maps each item to an item Position
+	
+	
+	private String pickUpMessage;
+	private String equipOrConsume;
 
+	
+	
+	private Inventory inventory;
+	
 	protected Player play;
 	protected int hits;
 	protected String narration;
@@ -74,17 +85,6 @@ public class Level {
 			y2 = y1 + h - 1;
 		}
 	}
-	
-	public class Stairs {
-		int x, y;
-		char sym;
-		
-		public Stairs() {
-			this.x = this.y = 0;
-			
-			this.sym = '%';
-		}
-	}
 
 	public Level(int nL, Player pp) {
 		numLevel = nL;
@@ -93,7 +93,6 @@ public class Level {
 		floor = new char[24][80];
 		rb = new boolean[9];
 		rs = new Rm[9];
-		stair = new Stairs();
 
 		/* set everything to 0, which means empty */
 		for (int y = 0; y < 24; y++)
@@ -105,6 +104,8 @@ public class Level {
 		
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
+		inventory = new Inventory();
+		itemPos = new HashMap <Integer[][], Item>();
 
 		for (int i = 0; i < 6; i++) {
 			makeItem();
@@ -116,15 +117,13 @@ public class Level {
 			for (int x = 0; x < 80; x++)
 				isSeen[y][x] = false;
 
-		
-		//Spawn Player and Light up its room. Use %|/ 3 to find the room
+		/*
+		 * Spawn Player and Light up its room. Use %|/ 3 to find the room
+		 */
 		play = pp;
 		spawnP();
 		last  = '.';
 		hits = 0;
-		
-		//Spawn stair for current level
-		spawnStair();
 		
 		narration = "";
 
@@ -215,8 +214,6 @@ public class Level {
 	}
 	
 	private void spawnP() {
-		/*
-		 * I don't think the code commented here is used at all
 		Point rd = new Point();
 		int roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
 		while (!rb[roomN])
@@ -229,7 +226,6 @@ public class Level {
 			rd.y = ThreadLocalRandom.current().nextInt(r.y1 + 1, r.y2);
 			c = floor[rd.y][rd.x];
 		}
-		*/
 
 		play.p = findS();
 		floor[play.p.y][play.p.x] = play.val;
@@ -252,17 +248,6 @@ public class Level {
 		}
 	}
 
-	/**
-	 * Spawn stair
-	 */
-	private void spawnStair() {
-		Point pt = findS();
-		this.stair.x = pt.x;
-		this.stair.y = pt.y;
-		
-		floor[stair.y][stair.x] = stair.sym;
-	}
-	
 	/*
 	 * Finds a random empty square inside a room
 	 */
@@ -294,7 +279,16 @@ public class Level {
 		
 		items.add(i);
 		floor[spot.y][spot.x] = i.getBoardName();
+		Integer [][] value = new Integer [spot.y][spot.x];
+		play = new Player();
+		
+		
+		pickUpMessage = i.getPickUpMessage();
+		
+		itemPos.put(value, i);
+		
 	}
+	
 
 	private void makeEnemy() {
 		Enemy e = new Enemy();
@@ -398,7 +392,7 @@ public class Level {
 		/* Implementing a pseudo-fight method for testing/getting Monsters out of the way! 
 		 * However, the enemy should also be removed from enemies, the list
 		 * */
-		if (Character.isUpperCase(c) && c != '%') {
+		if (Character.isUpperCase(c)) {
 			hits++;
 			if(hits == 3){
 				floor[a.y + dir[1]][a.x + dir[0]] = '.';
@@ -409,12 +403,27 @@ public class Level {
 			narration = "You hit the " + c + "!";
 			return 1;
 		} else if (validMove(c)) {
+			if (isItem(c)) {
+				c = '.';
+				Integer [][] value = new Integer [a.y + dir[1]][a.x + dir[0]];
+				Item curr = itemPos.get(value);
+				inventory.addItem(curr);
+				narration = "You are awesome!";
+			}
+			
+			
+			
 			floor[a.y][a.x] = last;
 			last = c;
 			
 			a.setLocation(a.x + dir[0], a.y + dir[1]);
 			floor[a.y][a.x] = '@';
 				
+			
+		
+			
+			
+			
 			//shows everything if room is not dark, shows surrounding area if it is dark
 			if(isInRoom(u) && !(getCurRoom(u).isDark)) {
 				seeRm(getCurRoom(u));
@@ -439,17 +448,19 @@ public class Level {
 			System.out.println("Moved Successfully");
 			return 0;
 		}
-		
-		if(c == stair.sym) {
-			return 6;
-		}
 		System.out.println("No Move");
 		return 2;
 	}
 
 	private boolean validMove(char c) {
-		return (c == '.' || c == '+' || c == '#');
+		return (c == ':' || c == '.' || c == '+' || c == '#' || c == '!' || c == '/' || c == ']'); //The player can step on any item, even if the player's inventory is full 
 	}
+	
+	private boolean isItem(char c) {
+		return (c == ':' || c == '!' || c == '/' || c == ']');
+	}
+	
+	
 	
 	/**
 	 * checks if unit is currently in a room

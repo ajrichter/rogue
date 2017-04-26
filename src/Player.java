@@ -6,7 +6,7 @@ import Item.Item;
 	Health goes up with each Move
 	Move method is for health increase and stats decrease
 	Level calls player.Move
-*/
+ */
 
 public class Player extends Unit{
 	// Haha what the hell is this
@@ -15,18 +15,18 @@ public class Player extends Unit{
 	private int gold, nexp, steps, hunger;
 	private static Player play;
 	private Inventory inventory;
+	private String narrationMessage;
 
 	public Player(){
 		this("John Dooley");
 	}
 
 	public Player(String s) {
-		 super();
-	        System.out.println("Player Constructor called");
-		 // the player-character is an @-symbol
- 		
+		super();
+		System.out.println("Player Constructor called");
+		// the player-character is an @-symbol
 		this.val = '@';
- 		this.name=s;
+		this.name=s;
 		this.gold=0;
 		this.xp=0;
 		this.level=1;
@@ -38,155 +38,91 @@ public class Player extends Unit{
 		this.strength = d.roll(3, 6);
 		this.maxHP = this.hp = d.roll(4, 6);
 		this.name=s;
+		inventory = new Inventory();
+	
 	}
 
+
+	
+	
+	
 	public void pickUpAndStoreInI(Item item) {
 		inventory.addItem(item);
-
-		if (item.getItemType().equals("Armor"))
-		{
-			this.armor += item.getArmorProtection();
-			System.out.println(play.name + item.getPickUpMesage());
-		}
-		else if (item.getItemType().equals("Food"))
-		{
-			this.strength += item.getPlayerStrength();
-			System.out.println(play.name + item.getPickUpMesage());
-		}
-		else if (item.getItemType().equals("Ring"))
-		{
-			System.out.println(play.name + item.getPickUpMesage());
-			this.strength += item.getPlayerStrength();
-
-		}
-		else if (item.getItemType().equals("Potions"))
-		{
-			System.out.println(play.name + item.getPickUpMesage());
-
-		}
-
-		else if (item.getItemType().equals("Scrolls"))
-		{
-			System.out.println(play.name + item.getPickUpMesage());
-		}
-
-		else if (item.getItemType().equals("Wand"))
-		{
-			System.out.println(play.name + item.getPickUpMesage());
-		}	
+		narrationMessage = play.name + item.getPickUpMessage();
+		
 	}
 
 
 
 	public void equiptOrConsumeItem(Item item) {
 
-		if (item.getItemType().equals("Armor"))
-		{
+		switch (item.getItemType()) {
+		case "Armor":
 			this.armor += item.getArmorProtection();
-			System.out.println(play.name + item.getUseMessage());
-		}
-		else if (item.getItemType().equals("Food"))
-		{
+			narrationMessage = play.name + item.getUseMessage();
+			break;
+		case "Food":
 			System.out.println("Player strength: " + strength);
 			this.strength += item.getPlayerStrength();
-			System.out.println(play.name + item.getUseMessage());
+			narrationMessage = play.name + item.getUseMessage();
 			System.out.println("Player strength: " + strength);
 			inventory.removeItem(item);
-		}
-		else if (item.getItemType().equals("Ring"))
-		{
-			System.out.println(play.name + item.getUseMessage());
+			break;
+		case "Ring":
+			narrationMessage = play.name + item.getUseMessage();
 			this.strength += item.getPlayerStrength();
-
-		}
-		else if (item.getItemType().equals("Potions"))
-		{
-			System.out.println(play.name + item.getUseMessage());
+			break;
+		case "Potions":
+			narrationMessage = play.name + item.getUseMessage();
 			inventory.removeItem(item);
-		}
-
-		else if (item.getItemType().equals("Scrolls"))
-		{
-			System.out.println(play.name + item.getUseMessage());
+			break;
+		case "Scrolls":
+			narrationMessage = play.name + item.getUseMessage();
 			inventory.removeItem(item);
-		}
-
-		else if (item.getItemType().equals("Wand"))
-		{
-			System.out.println(play.name + item.getUseMessage());
+			break;
+		case "Wand":
+			narrationMessage = play.name + item.getUseMessage();
+			break;
+		
+		
 		}
 	}		
 
 	public void unequipItem(Item item) {
-
-		if (item.getItemType().equals("Armor"))
-		{
+		switch (item.getItemType()) {
+		case "Armor":
 			this.armor -= item.getArmorProtection();
-			System.out.println(play.name + item.getTakeOffMessage());
-		}
-
-		else if (item.getItemType().equals("Ring"))
-		{
-			System.out.println(play.name + item.getTakeOffMessage());
+			narrationMessage = play.name + item.getTakeOffMessage();
+			break;
+		case "Ring":
+			narrationMessage = play.name + item.getTakeOffMessage();
 			this.strength -= item.getPlayerStrength();
+			break;
+		case "Wand":	
+			narrationMessage = play.name + item.getTakeOffMessage();
+			break;
+		
+		
 		}
-
-		else if (item.getItemType().equals("Wand"))
-		{
-			System.out.println(play.name + item.getTakeOffMessage());
-		}	
-
-
-
-
-	}
-
-
-
-
-
+		
+}
 
 	public void dropItem(Item item) {
+		inventory.removeItem(item);
+		narrationMessage = play.name + item.getDropMessage();
 		
-		
-		
-		if (item.getItemType().equals("Armor"))
-		{
-			this.armor -= item.getArmorProtection();
-			System.out.println(play.name + item.getDropMessage());
-			inventory.removeItem(item);
-		}
-		else if (item.getItemType().equals("Food"))
-		{
-			this.strength -= item.getPlayerStrength();
-			System.out.println(play.name + item.getDropMessage());
-			System.out.println("Player strength: " + strength);
-			inventory.removeItem(item);
-		}
-		else if (item.getItemType().equals("Ring"))
-		{
-			System.out.println(play.name + item.getDropMessage());
-			this.strength -= item.getPlayerStrength();
-			inventory.removeItem(item);
-		}
-		else if (item.getItemType().equals("Potions"))
-		{
-			System.out.println(play.name + item.getDropMessage());
-			inventory.removeItem(item);
-		}
-
-		else if (item.getItemType().equals("Scrolls"))
-		{
-			System.out.println(play.name + item.getDropMessage());
-			inventory.removeItem(item);
-		}
-
-		else if (item.getItemType().equals("Wand"))
-		{
-			System.out.println(play.name + item.getDropMessage());
-			inventory.removeItem(item);
-		}	
 	}
+		
+	public String getNarrationMessage() {
+		return narrationMessage;
+	}
+	
+	public void inventoryString() {
+		inventory.listInventory();
+	}
+	
+	
+	
 
 	public String[] playerStats(){
 		String[] temp= new String[2];

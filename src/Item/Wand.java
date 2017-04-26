@@ -96,7 +96,7 @@ private DiceRoller d;
 			
 			case 4: this.name = "Missle";
 	
-			this.damage = d.rollDie(4); 
+			//this.damage = d.rollDie(4); 
 //			Magic missile	10	Inflicts 1d4 damage on a single target.
 			break;
 
@@ -107,17 +107,17 @@ private DiceRoller d;
 			break;
 			
 			case 6: this.name = "Lightning";
-			this.damage = 6 * d.rollDie(6);
+			//this.damage = 6 * d.rollDie(6);
 //			Lightning	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls.
 			break;
 			
 			case 7: this.name = "Fire"; 
-			this.damage = 6 * d.rollDie(6);
+			//this.damage = 6 * d.rollDie(6);
 //	Fire	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Dragons are immune.
 			break;
 			
 			case 8: this.name = "Cold";
-			this.damage = 6 * d.rollDie(6);
+			//this.damage = 6 * d.rollDie(6);
 			//			Cold	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Yetis are immune.
 			break;
 			

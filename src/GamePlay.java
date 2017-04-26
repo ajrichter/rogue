@@ -13,7 +13,6 @@ public class GamePlay {
 	private boolean hasAmulet=false;
 	Player play;
 	ArrayList<Level> dungeon;
-	//Dungeon dungeon;
 	Level level;
 	private String[] lines = new String[10];
 	int currlevel;
@@ -22,7 +21,6 @@ public class GamePlay {
 	public GamePlay() {
         System.out.println("Gameplay Constructor called");
 		play = new Player();
-		//dungeon = new Dungeon(play);
 		level = new Level(1, play);
 		dungeon = new ArrayList<Level>();
 		dungeon.add(level);
@@ -86,8 +84,6 @@ public class GamePlay {
 		 * Player needs to be shared between Level and GamePlay
 		 */
 		
-		
-		//Level curlvl = dungeon.lvl.get(0);
 		int x=level.moveUnit(level.play, direction);
 		if(x==6){
 			Level l = new Level(1,play);

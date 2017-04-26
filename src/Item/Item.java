@@ -86,7 +86,7 @@ public class Item {
 		return dMessage;
 	}
 	
-	public String getPickUpMesage() {
+	public String getPickUpMessage() {
 		return pMessage;
 	}
 	
