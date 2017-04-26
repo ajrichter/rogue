@@ -37,7 +37,8 @@ public class Level {
 	protected Rm[] rs;
 	
 	// position of stair, 2 elements, stair[0] = x, stair[1] = y
-	protected int[] stair;
+	//protected int[] stair;
+	protected Stairs stair;
 
 	/* Spawning Enemies and Items */
 	// List of enemies
@@ -73,6 +74,17 @@ public class Level {
 			y2 = y1 + h - 1;
 		}
 	}
+	
+	public class Stairs {
+		int x, y;
+		char sym;
+		
+		public Stairs() {
+			this.x = this.y = 0;
+			
+			this.sym = '%';
+		}
+	}
 
 	public Level(int nL, Player pp) {
 		numLevel = nL;
@@ -81,6 +93,7 @@ public class Level {
 		floor = new char[24][80];
 		rb = new boolean[9];
 		rs = new Rm[9];
+		stair = new Stairs();
 
 		/* set everything to 0, which means empty */
 		for (int y = 0; y < 24; y++)
@@ -103,13 +116,15 @@ public class Level {
 			for (int x = 0; x < 80; x++)
 				isSeen[y][x] = false;
 
-		/*
-		 * Spawn Player and Light up its room. Use %|/ 3 to find the room
-		 */
+		
+		//Spawn Player and Light up its room. Use %|/ 3 to find the room
 		play = pp;
 		spawnP();
 		last  = '.';
 		hits = 0;
+		
+		//Spawn stair for current level
+		spawnStair();
 		
 		narration = "";
 
@@ -200,6 +215,8 @@ public class Level {
 	}
 	
 	private void spawnP() {
+		/*
+		 * I don't think the code commented here is used at all
 		Point rd = new Point();
 		int roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
 		while (!rb[roomN])
@@ -212,6 +229,7 @@ public class Level {
 			rd.y = ThreadLocalRandom.current().nextInt(r.y1 + 1, r.y2);
 			c = floor[rd.y][rd.x];
 		}
+		*/
 
 		play.p = findS();
 		floor[play.p.y][play.p.x] = play.val;
@@ -234,6 +252,17 @@ public class Level {
 		}
 	}
 
+	/**
+	 * Spawn stair
+	 */
+	private void spawnStair() {
+		Point pt = findS();
+		this.stair.x = pt.x;
+		this.stair.y = pt.y;
+		
+		floor[stair.y][stair.x] = stair.sym;
+	}
+	
 	/*
 	 * Finds a random empty square inside a room
 	 */
