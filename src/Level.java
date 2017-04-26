@@ -398,7 +398,7 @@ public class Level {
 		/* Implementing a pseudo-fight method for testing/getting Monsters out of the way! 
 		 * However, the enemy should also be removed from enemies, the list
 		 * */
-		if (Character.isUpperCase(c)) {
+		if (Character.isUpperCase(c) && c != '%') {
 			hits++;
 			if(hits == 3){
 				floor[a.y + dir[1]][a.x + dir[0]] = '.';
@@ -438,6 +438,10 @@ public class Level {
 			
 			System.out.println("Moved Successfully");
 			return 0;
+		}
+		
+		if(c == stair.sym) {
+			return 6;
 		}
 		System.out.println("No Move");
 		return 2;
