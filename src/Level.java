@@ -445,7 +445,7 @@ public class Level {
 		} else if (validMove(c)) {
 			if (isItem(c)) {
 				narration = play.name + " " + itemPos.get(c).getPickUpMessage();
-				c = '.';
+				floor[a.y + dir[1]][a.x + dir[0]] = '.';
 				
 				
 				
