@@ -11,7 +11,7 @@ import java.awt.Point;
 
 public class Item {
 	protected int ringProtection;
-	protected Point p;
+	public Point p;
 	protected char boardName;
 	protected String name; //name of item
 	protected String typeItem; //armor,equipment,ring,food,

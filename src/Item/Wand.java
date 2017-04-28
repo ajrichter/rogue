@@ -4,13 +4,12 @@ package Item;
 import java.util.Random;
 
 public class Wand extends Item {
-private DiceRoller d;
+
 	
 	
 	public Wand() {
 		this.boardName = '/';
 		this.getWand();
-		d = new DiceRoller();
 	}
 	
 	public int generateWandNumber() {
@@ -78,6 +77,7 @@ private DiceRoller d;
 	
 		public void getWand()
 		{
+			DiceRoller d = new DiceRoller();
 			int num = generateWandNumber();
 			switch (num) {
 			case 1: this.name = "Light";
@@ -96,7 +96,7 @@ private DiceRoller d;
 			
 			case 4: this.name = "Missle";
 	
-			//this.damage = d.rollDie(4); 
+			this.damage = d.rollDie(4); 
 //			Magic missile	10	Inflicts 1d4 damage on a single target.
 			break;
 
@@ -112,12 +112,12 @@ private DiceRoller d;
 			break;
 			
 			case 7: this.name = "Fire"; 
-			//this.damage = 6 * d.rollDie(6);
+			this.damage = 6 * d.rollDie(6);
 //	Fire	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Dragons are immune.
 			break;
 			
 			case 8: this.name = "Cold";
-			//this.damage = 6 * d.rollDie(6);
+			this.damage = 6 * d.rollDie(6);
 			//			Cold	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Yetis are immune.
 			break;
 			

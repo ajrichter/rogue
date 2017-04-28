@@ -39,6 +39,12 @@ public class Level {
 	// Array of Rooms
 	protected Rm[] rs;
 	
+	protected String itemNames;
+	// Array of item displays
+	
+	protected int itemX = 0;
+	protected int itemY = 0;
+	
 	// position of stair, 2 elements, stair[0] = x, stair[1] = y
 	//protected int[] stair;
 	protected Stairs stair;
@@ -48,8 +54,8 @@ public class Level {
 	// List of enemies
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Item> items;
-	private Map <Integer [][], Item> itemPos; //Maps each item to an item Position
-	
+	private Map <Character, Item> itemPos; //Maps each item to an item Position
+
 	
 	private String pickUpMessage;
 	private String equipOrConsume;
@@ -119,7 +125,7 @@ public class Level {
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
 		inventory = new Inventory();
-		itemPos = new HashMap <Integer[][], Item>();
+		itemPos = new HashMap <Character, Item>();
 
 		for (int i = 0; i < 6; i++) {
 			makeItem();
@@ -307,20 +313,23 @@ public class Level {
 		Point spot = findS();
 		
 		i.generateItem();
+		itemY = spot.y;
+		itemX = spot.x;
 		
 		items.add(i);
-		floor[spot.y][spot.x] = i.getBoardName();
-		Integer [][] value = new Integer [spot.y][spot.x];
-		play = new Player();
+		floor[itemY][itemX] = i.getBoardName();
+		char c = floor[itemY][itemX];
 		
-		
-		pickUpMessage = i.getPickUpMessage();
-		
-		itemPos.put(value, i);
-		
+		itemNames = i.getPickUpMessage();
+		itemPos.put(c, i);
 	}
 	
-
+	
+	
+	
+	
+	
+	
 	private void makeEnemy() {
 		Enemy e = new Enemy();
 		Point spot = findS();
@@ -435,11 +444,15 @@ public class Level {
 			return 1;
 		} else if (validMove(c)) {
 			if (isItem(c)) {
+				narration = play.name + " " + itemPos.get(c).getPickUpMessage();
 				c = '.';
-				Integer [][] value = new Integer [a.y + dir[1]][a.x + dir[0]];
-				Item curr = itemPos.get(value);
-				inventory.addItem(curr);
-				narration = "You are awesome!";
+				
+				
+				
+				//Integer [][] pos = new Integer [a.y + dir[1]][a.x + dir[0]];
+				//Item curr = itemPos.get(pos);
+				//inventory.addItem(curr);
+				return 1;
 			}
 			
 			
@@ -482,11 +495,11 @@ public class Level {
 	}
 
 	private boolean validMove(char c) {
-		return (c == ':' || c == '.' || c == '+' || c == '#' || c == '!' || c == '/' || c == ']'); //The player can step on any item, even if the player's inventory is full 
+		return (c == ':' || c == '.' || c == '+' || c == '#' || c == '!' || c == '/' || c == ')' || c == ']' || c == '=' || c == '?'); //The player can step on any item, even if the player's inventory is full 
 	}
 	
 	private boolean isItem(char c) {
-		return (c == ':' || c == '!' || c == '/' || c == ']');
+		return (c == ':' || c == '!' || c == '/' || c == ']' || c == '?' || c == ')' || c == '=');
 	}
 	
 	

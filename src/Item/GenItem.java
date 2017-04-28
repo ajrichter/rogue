@@ -77,7 +77,7 @@ public GenItem () {
 		this.protection = a.armorProtection;
 		this.boardName = a.boardName;
 		this.itemName = a.name;
-		this.pickUpMessage = " picked up " + this.itemName;
+		this.pickUpMessage = " picked up " + this.itemName + " Armor.";
 		this.useMessage = " equpted " + this.itemName + " Armor with " + this.protection + " protection!";
 		this .dropMessage = "You dropped the " + this.itemName + " on the floor.";
 		this.takeOffMessage = "You took off the " + this.itemName + " and put it back into your inventory";
@@ -92,7 +92,7 @@ public GenItem () {
 		this.useMessage = " equipted the " + this.itemName + " with a damage of " + this.weaponDamage;
 		this .dropMessage = " dropped the " + this.itemName + " on the floor.";
 		this.takeOffMessage = " took off the " + this.itemName + " " + this.typeItem + " and put it back into your inventory";
-		this.pickUpMessage = " picked up " + this.itemName;
+		this.pickUpMessage = " picked up " + this.itemName + " Weapon.";
 		break;
 	
 		case 3: this.typeItem = "Food";
@@ -115,7 +115,7 @@ public GenItem () {
 			this.useMessage = " put the " + this.itemName + " ring on his finger."; 
 			this .dropMessage = " dropped the " + this.itemName + " on the floor.";
 			this.takeOffMessage = " took off the " + this.itemName + " and put it back into his inventory";
-			this.pickUpMessage = " picked up " + this.itemName;
+			this.pickUpMessage = " picked up " + this.itemName + " Ring.";
 			break;
 			
 		case 5: this.typeItem = "Scrolls";
@@ -125,7 +125,7 @@ public GenItem () {
 			this.itemName = scroll.name;
 			this.useMessage = " read the " + this.itemName + " Scroll.";
 			this .dropMessage = " dropped the " + this.itemName + " on the floor.";
-			this.pickUpMessage = " picked up " + this.itemName;
+			this.pickUpMessage = " picked up " + this.itemName + " Scroll";
 			break;
 			
 		case 6: this.typeItem = "Wand";
@@ -136,7 +136,7 @@ public GenItem () {
 			this.useMessage = " equiped the " + this.itemName + " Wand.";
 			this .dropMessage = " dropped the " + this.itemName + " on the floor.";
 			this.takeOffMessage = " took off the " + this.itemName + " and put it back into his inventory";
-			this.pickUpMessage = " picked up " + this.itemName;
+			this.pickUpMessage = " picked up " + this.itemName + " Wand.";
 			break;
 
 		case 7: this.typeItem = "Potions";
@@ -146,7 +146,7 @@ public GenItem () {
 			this.itemName = p.name;
 			this.useMessage = " drank the " + this.itemName + " potion.";
 			this .dropMessage = " dropped the " + this.itemName + " on the floor.";
-			this.pickUpMessage = " picked up " + this.itemName;
+			this.pickUpMessage = " picked up " + this.itemName + " Potions.";
 			break;
 		default:
 			this.typeItem = "NOP";

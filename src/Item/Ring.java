@@ -8,7 +8,7 @@ public class Ring extends Item {
 	
 		
 		public Ring() {
-			this.boardName = 'R';
+			this.boardName = '=';
 			this.getRing();
 		}
 	

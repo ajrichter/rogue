@@ -16,7 +16,7 @@ public class Player extends Unit{
 	private static Player play;
 	private Inventory inventory;
 	private String narrationMessage;
-
+	
 	public Player(){
 		this("John Dooley");
 	}
@@ -44,13 +44,7 @@ public class Player extends Unit{
 
 
 	
-	
-	
-	public void pickUpAndStoreInI(Item item) {
-		inventory.addItem(item);
-		narrationMessage = play.name + item.getPickUpMessage();
-		
-	}
+
 
 
 
