@@ -80,7 +80,7 @@ public class Level {
 			h = ThreadLocalRandom.current().nextInt(4, 6 + 1);
 			
 			int darkChance = ThreadLocalRandom.current().nextInt(1, 100 + 1);
-			if(darkChance < 20) {	//currently 20% chance, KEEP IT HERE FOR DEMO ON FRIDAY
+			if(darkChance < 10) {	//currently 20% chance, KEEP IT HERE FOR DEMO ON FRIDAY
 				isDark = true;
 			} else {
 				isDark = false;
@@ -515,9 +515,12 @@ public class Level {
 			//last one checks if gold has already been picked up - in case enemy can drop gold (instead of transfer)
 			if(c == '*' && isInRoom(u) && getCurRoom(u).goldVal != 0) {	
 				u.gold += getCurRoom(u).goldVal;
-				System.out.println("Picked up " + getCurRoom(u).goldVal + " gold");
+				narration = "You've picked up " + getCurRoom(u).goldVal + " gold";
 				getCurRoom(u).goldVal = 0;
 				last = '.';
+				
+				System.out.println("Moved Successfully and Picked Up Some Gold");
+				return 3;
 			}
 			
 			System.out.println("Moved Successfully");

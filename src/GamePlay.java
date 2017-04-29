@@ -93,6 +93,10 @@ public class GamePlay {
 			update=1;
 			narration=level.narration;
 		}
+		if(x == 3) {
+			update = 3;
+			narration = level.narration;
+		}
 		return update;
 		
 		//Add randomly move enemy

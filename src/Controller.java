@@ -255,11 +255,6 @@ public class Controller extends JFrame implements KeyListener {
 				int[] still = {0,0};
 				game.move(still);
 			}
-			
-			//TODO REMOVE THIS LATER, HERE FOR TESTING
-			if (key == KeyEvent.VK_1) {
-				System.out.println("Player has " + game.play.gold + " gold");
-			}
 		}
 	    
 		view.updateStats(game.play.playerStats());
@@ -269,7 +264,7 @@ public class Controller extends JFrame implements KeyListener {
 	}
 	
 	public void updateView(int update) {
-		if(update==1){
+		if(update==1 || update == 3){
 			view.updateNaration(game.narration);
 			narration=true;
 		} 
