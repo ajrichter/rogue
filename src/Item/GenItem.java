@@ -9,6 +9,7 @@ private String typeItem;
 private String itemName;	
 private int protection = 0;
 private int foodStrength = 0;
+private int hunger = 0;
 private Character boardName;
 private int weaponDamage;
 private String useMessage = "";
@@ -79,8 +80,8 @@ public GenItem () {
 		this.itemName = a.name;
 		this.pickUpMessage = " picked up " + this.itemName + " Armor.";
 		this.useMessage = " equpted " + this.itemName + " Armor with " + this.protection + " protection!";
-		this .dropMessage = "You dropped the " + this.itemName + " on the floor.";
-		this.takeOffMessage = "You took off the " + this.itemName + " and put it back into your inventory";
+		this .dropMessage = " dropped the " + this.itemName + " on the floor.";
+		this.takeOffMessage = " took off the " + this.itemName + " and put it back into your inventory";
 		break;
 		
 		case 2: this.typeItem = "Weapon";
@@ -98,11 +99,11 @@ public GenItem () {
 		case 3: this.typeItem = "Food";
 			Food food = new Food();
 			food.getFood();
+			this.hunger = food.playerHunger;
 			this.boardName = food.boardName;
 			this.itemName = food.name;
-			this.foodStrength = food.playerStrength;
 			this.pickUpMessage = " picked up " + this.itemName;
-			this.useMessage = " ate a " + this.itemName + " with a food strength of " + this.foodStrength;
+			this.useMessage = " ate a " + food.name;
 			this .dropMessage = " dropped the " + this.itemName + " on the floor.";
 			break;
 		
@@ -168,8 +169,8 @@ public GenItem () {
 		return this.boardName;
 	}
 
-	public int getFoodStrength() {
-		return this.foodStrength;
+	public int getHunger() {
+		return this.hunger;
 	}
 
 	public String getEquiptOrUseMessage() {

@@ -57,10 +57,9 @@ public class Level {
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Item> items;
 	private Map <Character, Item> itemPos; //Maps each item to an item Position
+	private int p; //armor protection for player
+	private int h; //hunger for player
 
-	
-	private String pickUpMessage;
-	private String equipOrConsume;
 
 	
 	
@@ -427,6 +426,17 @@ public class Level {
 		return pfloor;
 	}
 
+	
+	//Updates the player's stats after equiping or consuming an item
+	public void updatePlayerStatsAfterEquip(Item i) {
+			System.out.println(i);
+			play.equiptOrConsumeItem(i);
+			p = play.armor;	
+			h = play.hunger;
+			System.out.println("You have a hunger of: " + h);
+			
+	}
+	
 	/*
 	 * Should return a String to narrate for you
 	 * 2 Strings for Monster and Player Attack
@@ -471,13 +481,9 @@ public class Level {
 		} else if (validMove(c)) {
 			if (isItem(c)) {
 				narration = play.name + " " + itemPos.get(c).getPickUpMessage();
+				updatePlayerStatsAfterEquip(itemPos.get(c)); //Test Equip
+				inventory.addItem(itemPos.get(c));
 				floor[a.y + dir[1]][a.x + dir[0]] = '.';
-				
-				
-				
-				//Integer [][] pos = new Integer [a.y + dir[1]][a.x + dir[0]];
-				//Item curr = itemPos.get(pos);
-				//inventory.addItem(curr);
 				return 1;
 			}
 			

@@ -10,6 +10,7 @@ import java.awt.Point;
  */
 
 public class Item {
+	protected int playerHunger;
 	protected int ringProtection;
 	public Point p;
 	protected char boardName;
@@ -58,7 +59,7 @@ public class Item {
 		
 		
 		if (this.typeItem.equals("Food")) {
-			this.playerStrength = generate.getFoodStrength();
+			this.playerHunger = generate.getHunger();
 		}
 		else if (this.typeItem.equals("Weapon"))
 		{
@@ -120,7 +121,9 @@ public class Item {
 		return playerStrength;
 	}
 
-	
+	public int getPlayerHunger() {
+		return playerHunger;
+	}
 
 
 
