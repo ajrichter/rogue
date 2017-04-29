@@ -49,6 +49,8 @@ public class Level {
 	//protected int[] stair;
 	protected Stairs stair;
 	 
+	//gold
+	//protected Gold[] gold;
 
 	/* Spawning Enemies and Items */
 	// List of enemies
@@ -70,13 +72,12 @@ public class Level {
 
 	/* Room */
 	public class Rm {
-		int x1, x2, y1, y2, w, h, numDoors;
+		int x1, x2, y1, y2, w, h, goldVal;
 		boolean isDark;
 
 		public Rm() {
 			w = ThreadLocalRandom.current().nextInt(4, 25 + 1);
 			h = ThreadLocalRandom.current().nextInt(4, 6 + 1);
-			numDoors = 0;
 			
 			int darkChance = ThreadLocalRandom.current().nextInt(1, 100 + 1);
 			if(darkChance < 20) {	//currently 20% chance, KEEP IT HERE FOR DEMO ON FRIDAY
@@ -103,7 +104,6 @@ public class Level {
 	    	this.sym = '%';
 	    }
 	}
-	 
 
 	public Level(int nL, Player pp) {
 		numLevel = nL;
@@ -121,6 +121,7 @@ public class Level {
 
 		makeRooms();
 		doors();
+		placeGold();
 		
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
@@ -233,6 +234,31 @@ public class Level {
 			}
 		} else {
 			System.out.println("Oops! There is an error in conn().");
+		}
+	}
+	
+	/**
+	 * Place gold in each room
+	 */
+	private void placeGold() {
+		Point temp = new Point();
+		
+		//50% chance of spawning
+		for(int i = 0; i < rs.length; i++) {
+			if(ThreadLocalRandom.current().nextInt(0, 1 +1) == 0 && rb[i]) {
+				//random gold value
+				rs[i].goldVal = ThreadLocalRandom.current().nextInt(1, 50 + 1);
+				
+				char c = '0';
+				
+				while (c != '.') {
+					temp.x = ThreadLocalRandom.current().nextInt(rs[i].x1 + 1, rs[i].x2);
+					temp.y = ThreadLocalRandom.current().nextInt(rs[i].y1 + 1, rs[i].y2);
+					c = floor[temp.y][temp.x];
+					
+					floor[temp.y][temp.x] = '*';
+				}
+			}
 		}
 	}
 	
@@ -420,7 +446,7 @@ public class Level {
 	 * Simple enough!
 	 * Call new method moveAllMonsters();
 	 */
-	public int moveUnit(Unit u, int[] dir) {
+	public int moveUnit(Player u, int[] dir) {
 		Point a = u.p;
 		/* Bounds check*/
 		if ((a.x + dir[0]) < 0 || (a.y + dir[1]) < 0 || (a.y + dir[1]) > 23 || (a.x + dir[0]) > 79) {
@@ -484,18 +510,29 @@ public class Level {
 				}
 			}
 			
+			//isInRoom should be remove later in case gold can spawn in hall
+			//Picking up gold
+			//last one checks if gold has already been picked up - in case enemy can drop gold (instead of transfer)
+			if(c == '*' && isInRoom(u) && getCurRoom(u).goldVal != 0) {	
+				u.gold += getCurRoom(u).goldVal;
+				System.out.println("Picked up " + getCurRoom(u).goldVal + " gold");
+				getCurRoom(u).goldVal = 0;
+				last = '.';
+			}
+			
 			System.out.println("Moved Successfully");
 			return 0;
 		}
 		if(c == stair.sym) {
 			return 6;
 		}
+		
 		System.out.println("No Move");
 		return 2;
 	}
 
 	private boolean validMove(char c) {
-		return (c == ':' || c == '.' || c == '+' || c == '#' || c == '!' || c == '/' || c == ')' || c == ']' || c == '=' || c == '?'); //The player can step on any item, even if the player's inventory is full 
+		return (c == ':' || c == '.' || c == '+' || c == '#' || c == '!' || c == '/' || c == ')' || c == ']' || c == '=' || c == '?' || c == '*'); //The player can step on any item, even if the player's inventory is full 
 	}
 	
 	private boolean isItem(char c) {

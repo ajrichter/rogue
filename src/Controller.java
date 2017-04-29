@@ -255,6 +255,11 @@ public class Controller extends JFrame implements KeyListener {
 				int[] still = {0,0};
 				game.move(still);
 			}
+			
+			//TODO REMOVE THIS LATER, HERE FOR TESTING
+			if (key == KeyEvent.VK_1) {
+				System.out.println("Player has " + game.play.gold + " gold");
+			}
 		}
 	    
 	}

@@ -12,7 +12,7 @@ public class Player extends Unit{
 	// Haha what the hell is this
 	protected boolean hasA;
 	private boolean hasW;
-	private int gold, nexp, steps, hunger;
+	protected int gold, nexp, steps, hunger;	//changed to protected to allow access to gold
 	private static Player play;
 	private Inventory inventory;
 	private String narrationMessage;
@@ -122,7 +122,7 @@ public class Player extends Unit{
 		String[] temp= new String[2];
 		temp[0]= "Level: " + this.level + " HP: " +this.hp+ " ("+this.maxHP+") "+
 		" Str: "+this.strength+ " (" + this.strength + ") Armor: "+ this.armor+
-		 " Gold: "+ gold + " Exp: " + this.xp;
+		 " Gold: "+ this.gold + " Exp: " + this.xp;
 		return temp;
 	}
 
@@ -151,6 +151,10 @@ public class Player extends Unit{
 	public void levelUp() {
 		nexp = nexp * 2;
 		level++;
+	}
+	
+	public int getGold() {
+		return this.gold;
 	}
 
 	public void chkHu() {
