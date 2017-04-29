@@ -262,6 +262,7 @@ public class Controller extends JFrame implements KeyListener {
 			}
 		}
 	    
+		view.updateStats(game.play.playerStats());
 	}
 	
 	public void keyTyped(KeyEvent e) {
