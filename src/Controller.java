@@ -264,9 +264,11 @@ public class Controller extends JFrame implements KeyListener {
 	}
 	
 	public void updateView(int update) {
-		if(update==1 || update == 3){
+		if(update==1 || update == 3 || update == 4){
 			view.updateNaration(game.narration);
-			narration=true;
+			if(update == 1){
+				narration = true;
+			}
 		} 
 		view.updateBoard(game.level.getFloor());
 		view.nextTurn();
