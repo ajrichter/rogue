@@ -469,6 +469,11 @@ public class Level {
 		 * However, the enemy should also be removed from enemies, the list
 		 * */
 		if (Character.isUpperCase(c) && c != '%') {
+			for(Enemy e: enemies) {
+				if(e.p.x == a.x+dir[0] && e.p.y == a.y+dir[1]) {
+					narration = "You hit the " + e.getName() + "!";
+				}
+			}
 			hits++;
 			if(hits == 3){
 				floor[a.y + dir[1]][a.x + dir[0]] = '.';
@@ -476,7 +481,7 @@ public class Level {
 			}
 			
 			System.out.println("Good Hit on the " + c + "!");
-			narration = "You hit the " + c + "!";
+			//narration = "You hit the " + c + "!";
 			return 1;
 		} else if (validMove(c)) {
 			if (isItem(c)) {
