@@ -112,45 +112,50 @@ public class Potions extends Item {
 //			Hallucination	8	Causes hallucinations for 850 turns - can't recognize monsters or items
 			break;
 			
+			case 6: this.name = "Levitation";
+			break;
 			
-			case 6: this.name = "See Invisiable";
+			case 7: this.name = "See Invisiable";
 			this.eMessage = "This potion tastes like slime mold juice.";
 			this.seeInvisable = true;
 //			See invisible	3	This potion tastes like slime mold juice. Reveals Phantoms.
 			break;
 			
-			case 7: this.name = "Gain Strength";
+			case 8: this.name = "Gain Strength";
 			this.eMessage = "You feel stronger, now.  What bulging muscles!";
 			this.playerStrength += 1;
 			
 			break;
 			
-			case 8: this.name = "Extra Healing";
+			case 9: this.name = "Extra Healing";
 			this.eMessage = "You begin to feel much better.";
 			//			Extra healing	5	Heals 1d8 per character level. Increase max HP by 1, or by 2 if you are at full health.
 			break;
 			
-			case 9: this.name = "Haste Self";
+			case 10: this.name = "Haste Self";
 			this.eMessage = "You feel yourself moving much faster.";
 //			Haste self	5	Hastens player for 4-8 turns.
 			break;
 			
-			case 10: this.name = "Restore Strength";
+			case 11: this.name = "Restore Strength";
 			this.eMessage = "Hey, this tastes great.  It make you feel warm all over.";
 //			Restore strength	13	Hey, this tastes great. It make you feel warm all over. Restores strength to maximum.
 			break;
 			
-			case 11: this.name = "Blindness";
+			case 12: this.name = "Blindness";
 			this.eMessage = "A cloak of darkness falls around you.";
 //			Blindness	5	Blinds player for 807-892 turns
 			break;
 			
-			case 12: this.name = "Raise level"; 
+			case 13: this.name = "Raise level"; 
 			 this.eMessage = "You suddenly feel much more skillful";
 			//					Raise level	2	Increases experience level by 1.
 			break;		
-					
-					
+			
+			case 14: this.name = "Void";
+			this.eMessage = "This potion tastes extremely dull.";
+			break;
+			
 			default: this.name = "NOP";
 			this.eMessage = "This potion tastes extremely dull.";
 			break;	

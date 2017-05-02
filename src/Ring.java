@@ -96,61 +96,61 @@ public class Ring extends Item {
 
 			switch (num)
 			{
-			case 1: this.name = "a Protection";
+			case 1: this.name = "Protection";
 			this.armorProtection = 1;
 //			protection	9	Adds to defense and magical saving throws
 			break;
 			
-			case 2: this.name = "a Strength";
+			case 2: this.name = "Strength";
 			this.playerStrength = 1;
 //			Add strength	9	Adds to strength
 			break;
 			
-			case 3: this.name = "a Sustain Strength";
+			case 3: this.name = "Sustain Strength";
 //			Sustain strength	5	Prevents poison from reducing strength
 			this.sustainStrength = true;
 			break;
 			
-			case 4: this.name = "a Searching";
+			case 4: this.name = "Searching";
 //			Searching	10	Helps detect secret doors and traps.
 			break;
 			
-			case 5: this.name = "a See Invisible"; 
+			case 5: this.name = "See Invisible"; 
 //			See invisible	10	Reveals Phantoms.
 			this.seeInvisable = true;
 			break;
 			
-			case 6: this.name = "an Adornment";
+			case 6: this.name = "Adornment";
 //			Adornment	1	Worth 10 gold.
 			break;
 			
-			case 7: this.name = "an Aggravate monster";
+			case 7: this.name = "Aggravate Monster";
 //			Aggravate monster	10	Cursed. Causes monsters to attack more agressively.
 			this.aggregateMonster = true;
 			break;
 			
-			case 8: this.name = "a Dexterity";
+			case 8: this.name = "Dexterity";
 //			Dexterity	8	Improves weapon accurracy.
 			
 			break;
 			
-			case 9: this.name = "an Increase Damage";
+			case 9: this.name = "Increase Damage";
 //			Increase damage	8	Increases weapon damage.
 			break;
 			
-			case 10: this.name = "a Regeneration";
+			case 10: this.name = "Regeneration";
 //			Regeneration	4	Heals 1 hp per turn
 			break;
 			
-			case 11: this.name = "a Slow Digestion";
+			case 11: this.name = "Slow Digestion";
 //			Slow digestion	9	Reduces food consumption by about 50%. Two rings can cancel out food consumption.
 			break;
 			
-			case 12: this.name = "a Teleportation";
+			case 12: this.name = "Teleportation";
 //			Teleportation	5	Cursed. Randomly teleports the player around the map.
 			break;
 			
-			case 13: this.name = "a Stealth";
+			case 13: this.name = "Stealth";
 //			Stealth	7	Allows player to move without rousing sleeping monsters.
 			this.isStealth = true;
 			break;

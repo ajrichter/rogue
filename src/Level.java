@@ -44,6 +44,7 @@ public class Level {
 	/* Spawning Enemies and Items */
 	// List of enemies
 	private ArrayList<Enemy> enemies;
+	private ArrayList <Item> itemsCollected;
 	private ArrayList<Item> items;
 	private Map <Character, Item> itemPos; //Maps each item to an item Position
 	private int p; //armor protection for player
@@ -112,6 +113,7 @@ public class Level {
 		
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
+		itemsCollected = new ArrayList<Item>();
 		inventory = new Inventory();
 		itemPos = new HashMap <Character, Item>();
 
@@ -425,9 +427,19 @@ public class Level {
 	}
 	
 	public int printInventory() {
-	
-		for (Item i: items) {
-			narration += i.typeItem;
+	narration = "";
+	narration+="Current Inventory: ";
+	int count = 0;
+		for (Item i: itemsCollected) {
+			if (!i.typeItem.equalsIgnoreCase("Food")) {
+			narration += i.name + " " + i.typeItem;
+			}
+			else {
+			narration += i.name;
+			}
+			count++;
+			if (count != itemsCollected.size())
+			narration += ", ";
 		}
 		return 5;
 	}
@@ -486,6 +498,7 @@ public class Level {
 		} else if (validMove(c)) {
 			if (isItem(c)) {
 				narration = "You" + " " + itemPos.get(c).getPickUpMessage();
+				itemsCollected.add(itemPos.get(c));
 				updatePlayerStatsAfterEquip(itemPos.get(c)); //Test Equip
 				inventory.addItem(itemPos.get(c));
 				floor[a.y + dir[1]][a.x + dir[0]] = '.';
