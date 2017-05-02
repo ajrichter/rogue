@@ -71,7 +71,7 @@ public GenItem () {
 	public void genItem()
 	{
 		int num = getProbabilityOfItem();
-		switch (num) { 
+		switch (3) { 
 		case 1: this.typeItem = "Armor";
 		Armor a = new Armor();
 		a.getArmor();

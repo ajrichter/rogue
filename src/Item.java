@@ -10,6 +10,7 @@ import java.awt.Point;
  */
 
 public class Item {
+	
 	protected int playerHunger;
 	protected int ringProtection;
 	public Point p;

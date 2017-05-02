@@ -322,7 +322,6 @@ public class Level {
 	private void makeItem() {
 		Item i = new Item();
 		Point spot = findS();
-		
 		i.generateItem();
 		itemY = spot.y;
 		itemX = spot.x;
@@ -472,7 +471,7 @@ public class Level {
 			return 1;
 		} else if (validMove(c)) {
 			if (isItem(c)) {
-				narration = play.name + " " + itemPos.get(c).getPickUpMessage();
+				narration = "You" + " " + itemPos.get(c).getPickUpMessage();
 				updatePlayerStatsAfterEquip(itemPos.get(c)); //Test Equip
 				inventory.addItem(itemPos.get(c));
 				floor[a.y + dir[1]][a.x + dir[0]] = '.';
