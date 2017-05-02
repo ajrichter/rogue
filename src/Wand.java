@@ -126,7 +126,7 @@ public class Wand extends Item {
 			
 			break;
 			
-			case 10: this.name = "Slow monster";
+			case 10: this.name = "Slow Monster";
 			this.slowMonster = true;
 //					Slow monster	11	Slows a monster.
 			break;
@@ -136,11 +136,11 @@ public class Wand extends Item {
 			//					Cancellation	5	Supresses monster's special abilities.
 			break;
 			
-			case 12: this.name = "Teleport away"; 
+			case 12: this.name = "Teleport Away"; 
 //					Teleport away	6	Teleports a monster randomly on the map.
 			break;
 			
-			case 13: this.name = "Teleport to";
+			case 13: this.name = "Teleport To";
 //					Teleport to	6	Causes the monster to teleport next to the player.
 			break;
 				

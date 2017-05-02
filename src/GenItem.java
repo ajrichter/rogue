@@ -71,7 +71,7 @@ public GenItem () {
 	public void genItem()
 	{
 		int num = getProbabilityOfItem();
-		switch (4) { 
+		switch (num) { 
 		case 1: this.typeItem = "Armor";
 		Armor a = new Armor();
 		a.getArmor();
@@ -147,7 +147,7 @@ public GenItem () {
 			this.itemName = p.name;
 			this.useMessage = " drank the " + this.itemName + " potion.";
 			this .dropMessage = " dropped the " + this.itemName + " on the floor.";
-			this.pickUpMessage = " picked up " + this.itemName + " Potions.";
+			this.pickUpMessage = " picked up the " + this.itemName + " Potion.";
 			break;
 		default:
 			this.typeItem = "NOP";

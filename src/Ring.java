@@ -134,7 +134,7 @@ public class Ring extends Item {
 			
 			break;
 			
-			case 9: this.name = "an Increase damage";
+			case 9: this.name = "an Increase Damage";
 //			Increase damage	8	Increases weapon damage.
 			break;
 			
@@ -142,7 +142,7 @@ public class Ring extends Item {
 //			Regeneration	4	Heals 1 hp per turn
 			break;
 			
-			case 11: this.name = "a Slow digestion";
+			case 11: this.name = "a Slow Digestion";
 //			Slow digestion	9	Reduces food consumption by about 50%. Two rings can cancel out food consumption.
 			break;
 			
@@ -155,7 +155,7 @@ public class Ring extends Item {
 			this.isStealth = true;
 			break;
 			
-			case 14: this.name = "a Maintain armor";
+			case 14: this.name = "a Maintain Armor";
 //			Maintain armor	5	Prevents rust damage
 			this.maintainArmor = true;
 			break;
