@@ -61,6 +61,8 @@ public class Level {
 		boolean isDark;
 
 		public Rm() {
+		
+			
 			w = ThreadLocalRandom.current().nextInt(4, 25 + 1);
 			h = ThreadLocalRandom.current().nextInt(4, 6 + 1);
 			

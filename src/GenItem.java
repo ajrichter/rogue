@@ -71,14 +71,14 @@ public GenItem () {
 	public void genItem()
 	{
 		int num = getProbabilityOfItem();
-		switch (3) { 
+		switch (4) { 
 		case 1: this.typeItem = "Armor";
 		Armor a = new Armor();
 		a.getArmor();
 		this.protection = a.armorProtection;
 		this.boardName = a.boardName;
 		this.itemName = a.name;
-		this.pickUpMessage = " picked up " + this.itemName + " Armor.";
+		this.pickUpMessage = " picked up " + this.itemName + " Armor with a protection of " + this.protection + " points.";
 		this.useMessage = " equpted " + this.itemName + " Armor with " + this.protection + " protection!";
 		this .dropMessage = " dropped the " + this.itemName + " on the floor.";
 		this.takeOffMessage = " took off the " + this.itemName + " and put it back into your inventory";
@@ -93,7 +93,7 @@ public GenItem () {
 		this.useMessage = " equipted the " + this.itemName + " with a damage of " + this.weaponDamage;
 		this .dropMessage = " dropped the " + this.itemName + " on the floor.";
 		this.takeOffMessage = " took off the " + this.itemName + " " + this.typeItem + " and put it back into your inventory";
-		this.pickUpMessage = " picked up " + this.itemName + " Weapon.";
+		this.pickUpMessage = " picked up " + this.itemName + " with a damage of " + this.weaponDamage + " points.";
 		break;
 	
 		case 3: this.typeItem = "Food";
@@ -102,7 +102,7 @@ public GenItem () {
 			this.hunger = food.playerHunger;
 			this.boardName = food.boardName;
 			this.itemName = food.name;
-			this.pickUpMessage = " picked up " + this.itemName;
+			this.pickUpMessage = " picked up " + this.itemName + " It contains " + this.hunger + " calories.";
 			this.useMessage = " ate a " + food.name;
 			this .dropMessage = " dropped the " + this.itemName + " on the floor.";
 			break;

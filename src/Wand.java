@@ -144,7 +144,7 @@ public class Wand extends Item {
 //					Teleport to	6	Causes the monster to teleport next to the player.
 			break;
 				
-			case 14: this.name = "Nothing";
+			case 14: this.name = "Fake";
 //			Nothing	1	Doesn't do anything.
 			break;
 					

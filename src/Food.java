@@ -18,39 +18,39 @@ public class Food extends Item {
 		DiceRoller d= new DiceRoller();
 		switch (d.rollDie(8)) { 
 		case 1: this.name = "kale.";
-		this.playerHunger = 4;
+		this.playerHunger = 40;
 		break;
 		
 		case 2: this.name = "lettuce.";
-		this.playerHunger = 5;
+		this.playerHunger = 50;
 		break;
 		
 		case 3: this.name = "brussel sprouts.";
-		this.playerHunger = 6;
+		this.playerHunger = 60;
 		break;
 		
 		case 4: this.name = "prune juice.";
-		this.playerHunger = 1;
+		this.playerHunger = 10;
 		break;
 		
 		case 5: this.name = "chicken.";
-		this.playerHunger = 7;
+		this.playerHunger = 70;
 		break;
 		
 		case 6: this.name = "waffles.";
-		this.playerHunger = 2;
+		this.playerHunger = 20;
 		break;
 		
 		case 7: this.name = "steak.";
-		this.playerHunger= 8; 
+		this.playerHunger= 80; 
 		break;		
 		
 		case 8: this.name = "spaghetti.";		
-		this.playerHunger = 3;		
+		this.playerHunger = 30;		
 		break;
 		
 		case 9: this.name = "lobster.";
-		this.playerHunger = 9;
+		this.playerHunger = 90;
 		break;
 		
 		

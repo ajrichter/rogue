@@ -14,7 +14,7 @@ public class Armor extends Item {
 		DiceRoller d= new DiceRoller();
 		switch (d.rollDie(8)) { 
 		
-		case 1: this.name = "Leather armor";
+		case 1: this.name = "Leather";
 			this.armorProtection = 4;
 		break;
 
@@ -22,7 +22,7 @@ public class Armor extends Item {
 			this.armorProtection = 4;
 			break;
 		
-		case 3: this.name = "Ring mail";
+		case 3: this.name = "Ring Mail";
 			this.armorProtection = 4;
 		break;
 			
@@ -35,14 +35,14 @@ public class Armor extends Item {
 			this.armorProtection = 6;
 			break;
 		
-		case 6: this.name = "Banded mail"; 
+		case 6: this.name = "Banded Mail"; 
 			this.armorProtection = 7;
 			break;
-		case 7: this.name = "Splint mail";	
+		case 7: this.name = "Splint Mail";	
 			this.armorProtection = 7;
 			break;
 		
-		case 8: this.name = "Plate mail";
+		case 8: this.name = "Plate Mail";
 			this.armorProtection = 8;
 			break;
 		

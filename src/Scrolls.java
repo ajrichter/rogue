@@ -138,7 +138,7 @@ public class Scrolls extends Item {
 
 
 
-		case 7: this.name = "Identify Scroll";
+		case 7: this.name = "Identify";
 		//		Identify scroll	10	Identifies a scroll.
 		break;
 
@@ -155,7 +155,7 @@ public class Scrolls extends Item {
 
 
 
-		case 10: this.name = "Identify ring, wand or staff"; 
+		case 10: this.name = "Identify Ring, Wand or Staff"; 
 		//		Identify ring, wand or staff	10	Identifies a ring, wand or staff.
 		break;
 
@@ -192,7 +192,7 @@ public class Scrolls extends Item {
 		this.eMessage = "You feel as if somebody is watching over you.";
 		break;
 
-		case 17: this.name = "Agr";
+		case 17: this.name = "Aggravate Monster";
 		//		Aggravate monsters	3	You hear a high pitched humming noise.. Alerts all monsters on the map.
 		this.eMessage = "You hear a high pitched humming noise.";
 		break;
