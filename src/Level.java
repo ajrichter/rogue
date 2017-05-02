@@ -6,16 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/*TODO
- * Player needs to be created in GamePlay. For name purposes
- * Enemies
- * Items: Should be moved into default package
- * And then  
- * Stairs
- * store the last point for going down a level
- * need a point for where player is
- * isLit
- */
 public class Level {
 	/* Definitions */
 	protected final int MAXROOMS = 9;
@@ -59,9 +49,6 @@ public class Level {
 	private int p; //armor protection for player
 	private int h; //hunger for player
 
-
-	
-	
 	private Inventory inventory;
 	
 	protected Player play;
@@ -624,17 +611,4 @@ public class Level {
 			}
 		}
 	}
-	/*
-	public static void main(String[] args){
-		Level l = new Level(1, new Player());
-		
-		for(int y = 0; y < l.floor.length; y++){
-			for(int x = 0; x < l.floor[y].length; x++){
-				System.out.print(l.floor[y][x]);
-			}
-			System.out.println("");
-		}
-	}
-	*/
-		//change this to "last" later b/c you'll have to be on top of the stair
 }

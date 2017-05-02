@@ -61,66 +61,49 @@ public class Controller extends JFrame implements KeyListener {
 			//TODO
 			if (key == KeyEvent.VK_SLASH) {
 				//Tells what the next character you type is
-			}
-		
-			//TODO
-			if (key == KeyEvent.VK_SLASH) {
-				//Tells what the next character you type is
-			}
-		 
-			if (key == KeyEvent.VK_H || key == KeyEvent.VK_LEFT) {
+			} else if (key == KeyEvent.VK_LESS) {
+				System.out.println("I want to go down to the next level");
+				
+				
+			} else if (key == KeyEvent.VK_H || key == KeyEvent.VK_LEFT) {
 				int[] left = {-1,0};
 				System.out.println("left");
 				int update = game.move(left);
 				updateView(update);
-			}         
-	
-			if (key == KeyEvent.VK_L) {
+			} else if (key == KeyEvent.VK_L || key == KeyEvent.VK_RIGHT) {
 				int[] right = {1,0};
 				System.out.println("right");
 				int update = game.move(right);
 				updateView(update);
-			}
-			
-			if (key == KeyEvent.VK_J) {
+			} else if (key == KeyEvent.VK_J || key == KeyEvent.VK_DOWN) {
 				int[] down = {0,1};
 				System.out.println("down");
 				int update = game.move(down);
 				updateView(update);
-			}
-			
-			if (key == KeyEvent.VK_K) {
+			} else if (key == KeyEvent.VK_K || key == KeyEvent.VK_UP) {
 				int[] up = {0,-1};
 				System.out.println("up");
 				int update = game.move(up);
 				updateView(update);
-			}
-	    
-			if (key == KeyEvent.VK_Y) {
+			} else if (key == KeyEvent.VK_Y) {
 				//moves diagonally left and up
 				int[] leftup = {-1,1};
 				System.out.println("leftup");
 				int update = game.move(leftup);
 				updateView(update);
-			}         
-	
-			if (key == KeyEvent.VK_U) {
+			} else if (key == KeyEvent.VK_U) {
 				//moves diagonally right and up
 				int[] rightup = {1,1};
 				System.out.println("rightup");
 				int update = game.move(rightup);
 				updateView(update);
-			}
-	
-			if (key == KeyEvent.VK_B) {
+			} else if (key == KeyEvent.VK_B) {
 				//moves diagonally left and down
 				int[] leftdown = {-1,-1};
 				System.out.println("leftdown");
 				int update = game.move(leftdown);
 				updateView(update);
-			}
-	
-			if (key == KeyEvent.VK_N) {
+			} else if (key == KeyEvent.VK_N) {
 				//moves diagonally right and down
 				int[] rightdown = {1,-1};
 				System.out.println("rightdown");
