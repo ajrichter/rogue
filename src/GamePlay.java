@@ -75,6 +75,15 @@ public class GamePlay {
 		this.view.updateNaration(text);
 	}*/
 	
+	public int printInventory()
+	{
+		int update = level.printInventory();
+		narration = level.narration;
+		return update;
+	}
+	
+	
+	
 	public int move(int[] direction) {
 		int update=0;
 		

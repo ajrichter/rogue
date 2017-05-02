@@ -160,7 +160,8 @@ public class Controller extends JFrame implements KeyListener {
 			
 			//TODO
 			if (key == KeyEvent.VK_I) {
-				//print inventory
+				int update = game.printInventory();
+				updateView(update);
 			}
 			
 			//TODO
@@ -247,9 +248,9 @@ public class Controller extends JFrame implements KeyListener {
 	}
 	
 	public void updateView(int update) {
-		if(update==1 || update == 3 || update == 4){
+		if(update==1 || update == 3 || update == 4 || update == 5){
 			view.updateNaration(game.narration);
-			if(update == 1){
+			if(update == 1 || update == 5){
 				narration = true;
 			}
 		} 

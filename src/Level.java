@@ -424,6 +424,18 @@ public class Level {
 			
 	}
 	
+	public int printInventory() {
+	
+		for (Item i: items) {
+			narration += i.typeItem;
+		}
+		return 5;
+	}
+	
+	
+	
+	
+	
 	/*
 	 * Should return a String to narrate for you
 	 * 2 Strings for Monster and Player Attack
@@ -479,6 +491,9 @@ public class Level {
 				floor[a.y + dir[1]][a.x + dir[0]] = '.';
 				return 3;
 			}
+			
+			
+			
 			
 			
 			floor[a.y][a.x] = last;
