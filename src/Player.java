@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 /*
 	Has timers for different things
@@ -13,6 +13,8 @@ public class Player extends Unit{
 	private boolean hasW;
 	protected int gold, nexp, steps, hunger;	//changed to protected to allow access to gold
 	private static Player play;
+	protected ArrayList <Item> items;
+	
 	private Inventory inventory;
 	private String narrationMessage;
 	
@@ -38,6 +40,7 @@ public class Player extends Unit{
 		this.maxHP = this.hp = d.roll(4, 6);
 		this.name=s;
 		inventory = new Inventory();
+		items = new ArrayList <Item>();
 	
 	}
 

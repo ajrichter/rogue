@@ -44,7 +44,7 @@ public class Level {
 	/* Spawning Enemies and Items */
 	// List of enemies
 	private ArrayList<Enemy> enemies;
-	private ArrayList <Item> itemsCollected;
+
 	private ArrayList<Item> items;
 	private Map <Character, Item> itemPos; //Maps each item to an item Position
 	private int p; //armor protection for player
@@ -113,7 +113,7 @@ public class Level {
 		
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
-		itemsCollected = new ArrayList<Item>();
+		
 		inventory = new Inventory();
 		itemPos = new HashMap <Character, Item>();
 
@@ -430,7 +430,7 @@ public class Level {
 	narration = "";
 	narration+="Current Inventory: ";
 	int count = 0;
-		for (Item i: itemsCollected) {
+		for (Item i: play.items) {
 			if (!i.typeItem.equalsIgnoreCase("Food")) {
 			narration += i.name + " " + i.typeItem;
 			}
@@ -438,7 +438,7 @@ public class Level {
 			narration += i.name;
 			}
 			count++;
-			if (count != itemsCollected.size())
+			if (count != play.items.size())
 			narration += ", ";
 		}
 		return 5;
@@ -497,11 +497,16 @@ public class Level {
 			return 1;
 		} else if (validMove(c)) {
 			if (isItem(c)) {
+				if (inventory.addItem(itemPos.get(c)) == false) {
+					narration = "Can't add item. Inventory is full.";
+				}
+				else {
 				narration = "You" + " " + itemPos.get(c).getPickUpMessage();
-				itemsCollected.add(itemPos.get(c));
+				play.items.add(itemPos.get(c));
 				updatePlayerStatsAfterEquip(itemPos.get(c)); //Test Equip
 				inventory.addItem(itemPos.get(c));
 				floor[a.y + dir[1]][a.x + dir[0]] = '.';
+				}
 				return 3;
 			}
 			
