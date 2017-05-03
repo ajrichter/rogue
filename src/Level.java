@@ -136,7 +136,11 @@ public class Level {
 		last  = '.';
 		hits = 0;
 		
-		//Spawn stair for current level
+		/*
+		 * Spawn stair for current level
+		 * Should be above player
+		 * It would be place everything. Then fit player
+		 */
 		spawnStair();
 		
 		narration = "";
@@ -144,25 +148,27 @@ public class Level {
 		System.out.println("Level Constructor Finished.");
 	}
 
+	/*
+	 * Connects all rooms with doors and passages.
+	 */
 	private void doors() {
 		for (int i = 0; i < MAXROOMS - 1; i++) {
 			if (i%3 < 2 && rb[i] && rb[i+1]) {
-				conn(i, i+1);
+				conn(i, i+1, 'r');
+			} else if(i%3 ==0 && rb[i] && rb[i+2]){
+				conn(i, i+2, 'r');
 			}
 			if (i/3 < 2 && rb[i] && rb[i+3]) {
-				conn(i, i+3);
+				conn(i, i+3, 'd');
+			} else if(i/3 == 0 && rb[i] && rb[i+6]){
+				conn(i, i+6, 'd');
 			}
 		}
 	}
 	/*
-	 * The "Working Class" Method
-	 * All the work drawing a hall done in here
+	 * Connects two rooms
 	 */
-	private void  conn(int r1, int r2){
-		/* d is down, r is right. Stolen from C code*/
-		char direc = 'd';
-		if (r1 + 1 == r2)
-		    direc = 'r';
+	private void  conn(int r1, int r2, char direc){
 		int turn;
 		
 		if(direc == 'r'){
