@@ -58,11 +58,14 @@ public class Controller extends JFrame implements KeyListener {
 		}
 		
 		if (narration == false) {
+			// System.out.println("key is " + key);
+			// Less is 46
+			// Shift is 16
 			//TODO
 			if (key == KeyEvent.VK_SLASH) {
 				//Tells what the next character you type is
-			} else if (key == KeyEvent.VK_LESS) {
-				System.out.println("I want to go down to the next level");
+			} else if (e.isShiftDown() && key == 46) {
+				System.out.println("Time to Descend The Stairs!");
 				
 				
 			} else if (key == KeyEvent.VK_H || key == KeyEvent.VK_LEFT) {
@@ -143,11 +146,6 @@ public class Controller extends JFrame implements KeyListener {
 				//climb up staircase
 			}
 			
-			//TODO
-			if (key == KeyEvent.VK_LESS) {
-				//climb down staircase IF you have the amulet
-			}
-			
 			if (key == KeyEvent.VK_PERIOD) {
 				//rest, do nothing for the turn
 				view.nextTurn();
@@ -222,22 +220,6 @@ public class Controller extends JFrame implements KeyListener {
 			//TODO
 			if (key == KeyEvent.VK_EQUALS) {
 				//print current rings names
-			}
-			
-			//TODO
-			if (key == KeyEvent.VK_GREATER) {
-				//this might not be right, might need a case for if you're standing on stair
-				System.out.println("Go down a floor");
-				int[] still = {0,0};
-				game.move(still);
-			}
-			
-			//TODO
-			if (key == KeyEvent.VK_LESS) {
-				//i feel like this way people can abuse just press < and you can go down
-				System.out.println("Go up a floor");
-				int[] still = {0,0};
-				game.move(still);
 			}
 		}
 	    
