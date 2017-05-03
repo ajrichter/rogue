@@ -234,8 +234,10 @@ public class Controller extends JFrame implements KeyListener {
 			view.updateNaration(game.narration);
 			if(update == 1 || update == 5){
 				narration = true;
-			}
-		} 
+			} 
+		} else {
+			view.updateNaration("");
+		}
 		view.updateBoard(game.level.getFloor());
 		view.nextTurn();
 	}
