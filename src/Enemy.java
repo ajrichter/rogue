@@ -1,4 +1,4 @@
-
+import java.util.concurrent.ThreadLocalRandom;
 
 /*
  * Missing Enemy Generation by difficulty level
@@ -145,22 +145,141 @@ public class Enemy extends Unit{
 	 */
 	public int getDMG(){
 		DiceRoller d= new DiceRoller();
+		int chance = -1;
 		switch (this.val) {
 			case 'A':
-				this.dmg = 0;
+				chance = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+				if(chance == 0) {
+					this.dmg = 0;
+				} else {
+					this.dmg = 0;	//+ status effect
+				}
 				 break;
 		 	case 'B':
 				 this.dmg = d.roll(1,2);
 				 break;
 		 	 case 'C':
-				 this.dmg = d.roll(1,2) + d.roll(2,5);
+		 		 chance = ThreadLocalRandom.current().nextInt(0, 2 + 1);
+		 		 if(chance == 0) {
+		 			this.dmg = d.roll(1,2);
+		 		 } else if(chance == 1) {
+		 			this.dmg = d.roll(1,5);
+		 		 } else if(chance == 2) {
+		 			this.dmg = d.roll(1,5);	//+ status effect?
+		 		 }
 				 break;
 		 	 case 'D':
-				 this.dmg = d.roll(2,8) + d.roll(3,10);
+				 //alternative way
+		 		 int[] atk = {d.roll(1,8), d.roll(1,8), d.roll(3,10)};
+		 		 chance = ThreadLocalRandom.current().nextInt(0, 2 + 1);
+		 		 this.dmg = atk[chance];
+		 		 //not sure if we can do this since different monsters have # of atk patterns
+		 		 //and the elements in the array might not be randomized everytime
+		 		 //unless we reinitialize it everytime
+		 		 
 				 break;
 		 	 case 'E':
 				 this.dmg = d.roll(1,2);
 				 break;
+		 	 case 'F':
+		 		 this.dmg = 0;	//SPECIAL CASE, NOT SURE IF IT'S REALLY 0
+		 		 break;
+		 	 case 'G':
+		 		chance = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+				if(chance == 0) {
+					this.dmg = d.roll(4,3);
+				} else {
+					this.dmg = d.roll(3,5);	
+				}
+		 		 break;
+		 	 case 'H':
+		 		 this.dmg = d.roll(1,8);
+		 		 break;
+		 	 case 'I':
+		 		 this.dmg = 0; //+status effect (apparently always freezes)
+		 		 break;
+		 	 case 'J':
+		 		chance = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+				if(chance == 0) {
+					this.dmg = d.roll(2, 12);
+				} else {
+					this.dmg = d.roll(2, 4);	//+ status effect
+				}
+		 		 break;
+		 	 case 'K':
+		 		 this.dmg = d.roll(1, 4);
+		 		 break;
+		 	 case 'L':
+		 		 this.dmg = d.roll(1, 1); //+ steals gold, apparently always steal
+		 		 break;
+		 	 case 'M':
+		 		chance = ThreadLocalRandom.current().nextInt(0, 2 + 1);
+		 		 if(chance == 0) {
+		 			this.dmg = d.roll(3,4);
+		 		 } else if(chance == 1) {
+		 			this.dmg = d.roll(3,4);	//+ status effect?
+		 		 } else if(chance == 2) {
+		 			this.dmg = d.roll(2,5);	//+ status effect too?
+		 		 }
+		 		 break;
+		 	 case 'N':
+		 		 this.dmg = 0;
+		 		 break;
+		 	 case 'O':
+		 		 this.dmg = d.roll(1,8);
+		 		 break;
+		 	 case 'P':
+		 		 this.dmg = d.roll(4, 4);
+		 		 break;
+		 	 case 'Q':
+		 		chance = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+				if(chance == 0) {
+					this.dmg = d.roll(1, 5);
+				} else {
+					this.dmg = d.roll(1, 5);	//no status effect apparently
+				}
+		 		 break;
+		 	 case 'R':
+		 		 this.dmg = d.roll(1, 6); //+ status effect - reduce strength
+		 		 break;
+		 	 case 'S':
+		 		 this.dmg = d.roll(1,3);
+		 		 break;
+		 	 case 'T': 
+		 		 chance = ThreadLocalRandom.current().nextInt(0, 2 + 1);
+		 		 if(chance == 0) {
+		 			this.dmg = d.roll(1, 8);
+		 		 } else if(chance == 1) {
+		 			this.dmg = d.roll(1, 8);	
+		 		 } else if(chance == 2) {
+		 			this.dmg = d.roll(2, 6);
+		 		 }
+		 		 break;
+		 	 case 'U':
+		 		 chance = ThreadLocalRandom.current().nextInt(0, 2 + 1);
+		 		 if(chance == 0) {
+		 			this.dmg = d.roll(1, 9);
+		 		 } else if(chance == 1) {
+		 			this.dmg = d.roll(1, 9);	
+		 		 } else if(chance == 2) {
+		 			this.dmg = d.roll(2, 9);
+		 		 }
+		 		 break;
+		 	 case 'V':
+		 		 this.dmg = d.roll(1, 10); //+drains maxHP
+		 		 break;
+		 	 case 'W':
+		 		 this.dmg = d.roll(1,6); //+drains exp
+		 		 break;
+		 	 case 'X':
+		 		 this.dmg = d.roll(4, 4); //imitates object
+		 		 break;
+		 	 case 'Y':
+		 		 this.dmg = d.roll(1,6);
+		 		 break;
+		 	 case 'Z':
+		 		 this.dmg = d.roll(1, 8);
+		 		 break;
 		 	 default:
 				 this.dmg = d.roll(1,2);
 				 break;
