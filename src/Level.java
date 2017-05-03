@@ -94,6 +94,7 @@ public class Level {
 	}
 
 	public Level(int nL, Player pp) {
+		// starts at 0 so at 25 should find the amulet
 		numLevel = nL;
 		numR = ThreadLocalRandom.current().nextInt(5, 8 + 1);
 		isSeen = new boolean[24][80];
@@ -425,7 +426,7 @@ public class Level {
 			System.out.println("You have a hunger of: " + h);
 			
 	}
-	
+
 	public int printInventory() {
 	narration = "";
 	narration+="Current Inventory: ";
@@ -443,9 +444,6 @@ public class Level {
 		}
 		return 5;
 	}
-	
-	
-	
 	
 	
 	/*

@@ -66,8 +66,8 @@ public class Controller extends JFrame implements KeyListener {
 				//Tells what the next character you type is
 			} else if (e.isShiftDown() && key == 46) {
 				System.out.println("Time to Descend The Stairs!");
-				
-				
+				// This should respawn you in a new level
+				game.descend();
 			} else if (key == KeyEvent.VK_H || key == KeyEvent.VK_LEFT) {
 				int[] left = {-1,0};
 				System.out.println("left");

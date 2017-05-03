@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 /*
 	Has timers for different things
@@ -17,10 +18,6 @@ public class Player extends Unit{
 	
 	private Inventory inventory;
 	private String narrationMessage;
-	
-	public Player(){
-		this("John Dooley");
-	}
 
 	public Player(String s) {
 		super();
@@ -44,14 +41,10 @@ public class Player extends Unit{
 	
 	}
 
-
-	
-
-
-
-
+	/*
+	 * Just name this useItem(i)?
+	 */
 	public void equiptOrConsumeItem(Item item) {
-
 		switch (item.getItemType()) {
 		case "Armor":
 			this.armor += item.getArmorProtection();
@@ -116,9 +109,6 @@ public class Player extends Unit{
 	public void inventoryString() {
 		inventory.listInventory();
 	}
-	
-	
-	
 
 	public String[] playerStats(){
 		String[] temp= new String[2];
@@ -132,7 +122,6 @@ public class Player extends Unit{
 		Regenerate HP
 		Check LevelUp
 		Check Hunger
-
 		Stats decrease
 	*/
 	public void move(){
@@ -150,6 +139,9 @@ public class Player extends Unit{
 		chkHu();
 	}
 
+	/*
+	 * This should be sent to the narration
+	 */
 	public void levelUp() {
 		nexp = nexp * 2;
 		level++;

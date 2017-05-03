@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GamePlay {
 	
@@ -15,17 +16,29 @@ public class GamePlay {
 	ArrayList<Level> dungeon;
 	Level level;
 	private String[] lines = new String[10];
-	int currlevel;
 	String narration;
 	
 	public GamePlay() {
         System.out.println("Gameplay Constructor called");
-		play = new Player();
-		level = new Level(1, play);
+        String s = "John Dooley";
+		switch (ThreadLocalRandom.current().nextInt(0, 3 + 1)) {
+			case 0: s = "Myra";
+				break;
+			case 1: s = "Ink";
+				break;
+			case 2: s = "Harry";
+				break;
+			case 3: s = "Andrew";
+				break;
+			default: s = "John Dooley";
+				break;
+		}
+        play = new Player(s);
+		
+		level = new Level(0, play);
 		dungeon = new ArrayList<Level>();
 		dungeon.add(level);
 		System.out.println("Gameplay Constructor called");
-		currlevel=0;
 		narration = "";
 	}
 	
@@ -93,22 +106,25 @@ public class GamePlay {
 		 */
 		int x=level.moveUnit(level.play, direction);
 		if(x==6){
-			Level l = new Level(1,play);
+			Level l = new Level(level.numLevel++, play);
 			dungeon.add(l);
-			this.currlevel++;
 			this.level = l;
-		}
-		if(x==1){
+		} else if(x==1){
 			update=1;
 			narration=level.narration;
-		}
-		if(x == 3) {
+		} else if(x == 3) {
 			update = 3;
 			narration = level.narration;
 		}
 		return update;
 		
 		//Add randomly move enemy
+	}
+	
+	public void descend(){
+		Level l = new Level(level.numLevel++, play);
+		dungeon.add(l);
+		this.level = l;
 	}
 	
 	public void saveGame(String[] test) {
