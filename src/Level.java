@@ -493,7 +493,8 @@ public class Level {
 			if(hits == 3){
 				floor[a.y + dir[1]][a.x + dir[0]] = '.';
 				hits = 0;
-				return 4;
+				System.out.println(narration);
+				return 1;
 			}
 			
 			System.out.println("Good Hit on the " + c + "!");
