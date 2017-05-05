@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -32,10 +33,11 @@ public class Controller extends JFrame implements KeyListener {
         
         narration = false;
         frame= new JFrame();
-		frame.setVisible(true);
-		frame.setSize(200, 100);
+		frame.setSize(1000, 500);
+		frame.setMinimumSize(new Dimension(1000,400));
 		Graphics gr = frame.getGraphics();
 		frame.addKeyListener(this);
+		frame.setVisible(true);
         
         //initialize variables
         this.view = new RougeView(frame);
