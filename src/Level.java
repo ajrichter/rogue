@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
+
 
 public class Level {
 	/* Definitions */
@@ -51,7 +51,7 @@ public class Level {
 	private int p; //armor protection for player
 	private int h; //hunger for player
 
-	private Inventory inventory;
+	
 	
 	protected Player play;
 	protected int hits;
@@ -116,7 +116,7 @@ public class Level {
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
 		
-		inventory = new Inventory();
+	
 		itemPos = new HashMap <Character, Item>();
 
 		for (int i = 0; i < 6; i++) {
@@ -423,7 +423,11 @@ public class Level {
 		return pfloor;
 	}
 
+	
+
+	
 	public int throwItem(int itemNum, Player u, int[] dir) {
+		narration = "";
 		Point a = u.p;
 		if (play.items.size() > itemNum)
 		{
@@ -432,16 +436,13 @@ public class Level {
 		floor[a.y + dir[1]][a.x + dir[0]] = item.boardName;
 		
 		play.items.remove(item);
-		inventory.removeItem(item);
+		play.inventory.removeItem(item);
 		}
-		
+		else {
+			narration = "The index is too large for the inventory's size.";
+		}
 		return 7;
 	}
-	
-	
-	
-	
-	
 	
 	
 	//Updates the player's stats after equiping or consuming an item
@@ -457,7 +458,7 @@ public class Level {
 			p += play.armor;	
 			h += play.hunger;
 			play.items.remove(item);
-			inventory.removeItem(item);
+			play.inventory.removeItem(item);
 			}
 			else {
 				narration = "The index is too large for the inventory's size.";
@@ -551,13 +552,13 @@ public class Level {
 			return 1;
 		} else if (validMove(c)) {
 			if (isItem(c)) {
-				if (inventory.addItem(itemPos.get(c)) == false) {
+				if (play.inventory.addItem(itemPos.get(c)) == false) {
 					narration = "Can't add item. Inventory is full.";
 				}
 				else {
 				narration = "You" + " " + itemPos.get(c).getPickUpMessage();
 				play.items.add(itemPos.get(c));
-				inventory.addItem(itemPos.get(c));
+				//inventory.addItem(itemPos.get(c));
 				floor[a.y + dir[1]][a.x + dir[0]] = '.';
 				}
 				return 3;

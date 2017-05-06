@@ -182,6 +182,7 @@ public class Controller extends JFrame implements KeyListener {
 			
 			//TODO
 			if (key == KeyEvent.VK_E) {
+				
 				equipItem = true;
 			}
 			

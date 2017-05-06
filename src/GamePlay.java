@@ -91,6 +91,7 @@ public class GamePlay {
 	
 	
 	
+	
 	public int throwItem(int itemNum, int [] direction) {
 		int update = level.throwItem(itemNum, play, direction);
 		narration = level.narration;

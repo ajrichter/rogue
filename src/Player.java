@@ -16,7 +16,7 @@ public class Player extends Unit{
 	private static Player play;
 	protected ArrayList <Item> items;
 	
-	private Inventory inventory;
+	protected Inventory inventory;
 	private String narrationMessage;
 
 	public Player(String s) {
@@ -44,30 +44,36 @@ public class Player extends Unit{
 	
 	public void useItem(Item item) {
 		switch (item.getItemType()) {
+		case "Weapon":
+			inventory.removeItem(item);
+		
 		case "Armor":
 			this.armor += item.getArmorProtection();
 			//narrationMessage = play.name + item.getUseMessage();
+			inventory.removeItem(item);
 			break;
 		case "Food":
 			this.hunger += item.getPlayerHunger();
 			this.name += item.getItemName();
 			//narrationMessage = play.name + " ate " + this.name;
 			//System.out.println("Player strength: " + strength);
-			
+			inventory.removeItem(item);
 			break;
 		case "Ring":
 			//narrationMessage = play.name + item.getUseMessage();
 			this.strength += item.getPlayerStrength();
+			inventory.removeItem(item);
 			break;
 		case "Potions":
 			//narrationMessage = play.name + item.getUseMessage();
-	
+			inventory.removeItem(item);
 			break;
 		case "Scrolls":
 			//narrationMessage = play.name + item.getUseMessage();
-		
+			inventory.removeItem(item);
 			break;
 		case "Wand":
+			inventory.removeItem(item);
 			//narrationMessage = play.name + item.getUseMessage();
 			break;
 		
