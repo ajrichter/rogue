@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Level {
 	/* Definitions */
@@ -424,18 +425,38 @@ public class Level {
 
 	
 	//Updates the player's stats after equiping or consuming an item
-	public void updatePlayerStatsAfterEquip(Item i) {
-			System.out.println(i);
-			play.equiptOrConsumeItem(i);
-			p = play.armor;	
-			h = play.hunger;
-			System.out.println("You have a hunger of: " + h);
+	public int updatePlayerStatsAfterEquip() {
 			
+			narration = "";
+			Item item = play.items.get(0);
+			narration = "You" + item.getUseMessage();
+		
+			play.equiptOrConsumeItem(play.items.get(0));
+			p += play.armor;	
+			h += play.hunger;
+			if (item.getBoardName() == '?' || item.getBoardName() == ':' || item.getBoardName() == '!')
+			{
+			play.items.remove(item);
+			inventory.removeItem(item);
+			}
+			
+			
+			//inventory.removeItem(play.items.get(0)); //removes the first item from list
+			return 6;
 	}
 
+	
 	public int printInventory() {
 	narration = "";
+	if (play.items.size() != 0)
+	{
 	narration+="Current Inventory: ";
+	}
+	else {
+	narration = "Nothing stored in Inventory";
+	}
+	
+	
 	int count = 0;
 		for (Item i: play.items) {
 			if (!i.typeItem.equalsIgnoreCase("Food")) {
@@ -508,7 +529,6 @@ public class Level {
 				else {
 				narration = "You" + " " + itemPos.get(c).getPickUpMessage();
 				play.items.add(itemPos.get(c));
-				updatePlayerStatsAfterEquip(itemPos.get(c)); //Test Equip
 				inventory.addItem(itemPos.get(c));
 				floor[a.y + dir[1]][a.x + dir[0]] = '.';
 				}

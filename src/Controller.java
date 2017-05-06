@@ -181,7 +181,9 @@ public class Controller extends JFrame implements KeyListener {
 			
 			//TODO
 			if (key == KeyEvent.VK_E) {
-				//eat food from your inventory
+				//equip items from your inventory
+				int update = game.equipOrConsumeItem();
+				updateView(update);
 			}
 			
 			//TODO
@@ -232,9 +234,9 @@ public class Controller extends JFrame implements KeyListener {
 	}
 	
 	public void updateView(int update) {
-		if(update==1 || update == 3 || update == 4 || update == 5){
+		if(update==1 || update == 3 || update == 4 || update == 5 || update == 6){
 			view.updateNaration(game.narration);
-			if(update == 1 || update == 5){
+			if(update == 1 || update == 5 || update == 6){
 				narration = true;
 			} 
 		} else {

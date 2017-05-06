@@ -51,8 +51,8 @@ public class Player extends Unit{
 			//narrationMessage = play.name + item.getUseMessage();
 			break;
 		case "Food":
-			this.hunger = item.getPlayerHunger();
-			this.name = item.getItemName();
+			this.hunger += item.getPlayerHunger();
+			this.name += item.getItemName();
 			//narrationMessage = play.name + " ate " + this.name;
 			//System.out.println("Player strength: " + strength);
 			inventory.removeItem(item);

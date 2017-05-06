@@ -88,6 +88,16 @@ public class GamePlay {
 		this.view.updateNaration(text);
 	}*/
 	
+	
+	public int equipOrConsumeItem() {
+		int update = level.updatePlayerStatsAfterEquip();
+		narration = level.narration; 
+		return update;
+	}
+	
+	
+	
+	
 	public int printInventory()
 	{
 		int update = level.printInventory();

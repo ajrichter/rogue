@@ -15,6 +15,7 @@ public class Inventory {
 	}
 	
 	public void removeItem(Item toRemove) {
+		maxInventorySize++;
 		inventory.remove(toRemove);
 	}
 	
