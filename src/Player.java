@@ -41,10 +41,8 @@ public class Player extends Unit{
 	
 	}
 
-	/*
-	 * Just name this useItem(i)?
-	 */
-	public void equiptOrConsumeItem(Item item) {
+	
+	public void useItem(Item item) {
 		switch (item.getItemType()) {
 		case "Armor":
 			this.armor += item.getArmorProtection();
@@ -55,7 +53,7 @@ public class Player extends Unit{
 			this.name += item.getItemName();
 			//narrationMessage = play.name + " ate " + this.name;
 			//System.out.println("Player strength: " + strength);
-			inventory.removeItem(item);
+			
 			break;
 		case "Ring":
 			//narrationMessage = play.name + item.getUseMessage();
@@ -63,11 +61,11 @@ public class Player extends Unit{
 			break;
 		case "Potions":
 			//narrationMessage = play.name + item.getUseMessage();
-			inventory.removeItem(item);
+	
 			break;
 		case "Scrolls":
 			//narrationMessage = play.name + item.getUseMessage();
-			inventory.removeItem(item);
+		
 			break;
 		case "Wand":
 			//narrationMessage = play.name + item.getUseMessage();

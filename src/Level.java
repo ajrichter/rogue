@@ -423,22 +423,47 @@ public class Level {
 		return pfloor;
 	}
 
+	public int throwItem(int itemNum, Player u, int[] dir) {
+		Point a = u.p;
+		if (play.items.size() > itemNum)
+		{
+		Item item = play.items.get(itemNum);
+		narration = "You" + item.getDropMessage();
+		floor[a.y + dir[1]][a.x + dir[0]] = item.boardName;
+		
+		play.items.remove(item);
+		inventory.removeItem(item);
+		}
+		
+		return 7;
+	}
+	
+	
+	
+	
+	
+	
 	
 	//Updates the player's stats after equiping or consuming an item
-	public int updatePlayerStatsAfterEquip() {
-			
-			narration = "";
-			Item item = play.items.get(0);
+	public int updatePlayerStatsAfterEquip(int itemNum) {
+			if (play.items.size() > itemNum)
+			{
+			Item item = play.items.get(itemNum);
 			narration = "You" + item.getUseMessage();
 		
-			play.equiptOrConsumeItem(play.items.get(0));
+			play.useItem(item);
+			
+			
 			p += play.armor;	
 			h += play.hunger;
-			if (item.getBoardName() == '?' || item.getBoardName() == ':' || item.getBoardName() == '!')
-			{
 			play.items.remove(item);
 			inventory.removeItem(item);
 			}
+			else {
+				narration = "The index is too large for the inventory's size.";
+			}
+			
+			
 			
 			
 			//inventory.removeItem(play.items.get(0)); //removes the first item from list
@@ -460,15 +485,18 @@ public class Level {
 	int count = 0;
 		for (Item i: play.items) {
 			if (!i.typeItem.equalsIgnoreCase("Food")) {
+			narration += count + " ";
 			narration += i.name + " " + i.typeItem;
 			}
 			else {
+			narration += count + " ";
 			narration += i.name;
 			}
 			count++;
 			if (count != play.items.size())
 			narration += ", ";
 		}
+		
 		return 5;
 	}
 	

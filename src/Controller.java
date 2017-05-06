@@ -18,7 +18,8 @@ public class Controller extends JFrame implements KeyListener {
     public static JFrame frame;
     public boolean narration;
     private Item [] items;
-    
+    private boolean equipItem = false;
+    private boolean dropItem = false;
     public Controller(String s) {
         super(s);
         System.out.println("Controller Constructor called");
@@ -181,10 +182,46 @@ public class Controller extends JFrame implements KeyListener {
 			
 			//TODO
 			if (key == KeyEvent.VK_E) {
-				//equip items from your inventory
-				int update = game.equipOrConsumeItem();
+				equipItem = true;
+			}
+			
+			if (equipItem == true)
+			{
+			if (key == KeyEvent.VK_0)
+			{
+				int update = game.equipOrConsumeItem(0);
 				updateView(update);
 			}
+			else if (key == KeyEvent.VK_1)
+			{
+				int update = game.equipOrConsumeItem(1);
+				updateView(update);
+			}
+			else if (key == KeyEvent.VK_2)
+			{
+				int update = game.equipOrConsumeItem(2);
+				updateView(update);
+			}
+			else if (key == KeyEvent.VK_3)
+			{
+				int update = game.equipOrConsumeItem(3);
+				updateView(update);
+			}
+			else if (key == KeyEvent.VK_4)
+			{
+				int update = game.equipOrConsumeItem(4);
+				updateView(update);
+			}
+				
+			}
+				
+				
+				
+				
+		
+		
+			
+			
 			
 			//TODO
 			if (key == KeyEvent.VK_W) {
@@ -193,8 +230,45 @@ public class Controller extends JFrame implements KeyListener {
 			
 			//TODO
 			if (key == KeyEvent.VK_D) {
-				//drop an uncursed item from your inventory
+				dropItem = true;
 			}
+			
+			if (dropItem == true)
+			{
+				if (key == KeyEvent.VK_0)
+				{
+					int [] direction = {1, 0};
+					int update = game.throwItem(0, direction);
+					updateView(update);
+				}
+				else if (key == KeyEvent.VK_1)
+				{
+					int [] direction = {1, 0};
+					int update = game.throwItem(1, direction);
+					updateView(update);
+				}
+				else if (key == KeyEvent.VK_2)
+				{
+					int [] direction = {1, 0};
+					int update = game.throwItem(2, direction);
+					updateView(update);
+				}
+				else if (key == KeyEvent.VK_3)
+				{
+					int [] direction = {1, 0};
+					int update = game.throwItem(3, direction);
+					updateView(update);
+				}
+				else if (key == KeyEvent.VK_4)
+				{
+					int [] direction = {1, 0};
+					int update = game.throwItem(4, direction);
+					updateView(update);
+				}
+		
+			}
+			
+			
 			
 			//TODO
 			if (key == KeyEvent.VK_C) {
@@ -234,9 +308,9 @@ public class Controller extends JFrame implements KeyListener {
 	}
 	
 	public void updateView(int update) {
-		if(update==1 || update == 3 || update == 4 || update == 5 || update == 6){
+		if(update==1 || update == 3 || update == 4 || update == 5 || update == 6 || update == 7){
 			view.updateNaration(game.narration);
-			if(update == 1 || update == 5 || update == 6){
+			if(update == 1 || update == 5 || update == 6 || update == 7){
 				narration = true;
 			} 
 		} else {

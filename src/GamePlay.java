@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GamePlay {
@@ -89,8 +90,17 @@ public class GamePlay {
 	}*/
 	
 	
-	public int equipOrConsumeItem() {
-		int update = level.updatePlayerStatsAfterEquip();
+	
+	public int throwItem(int itemNum, int [] direction) {
+		int update = level.throwItem(itemNum, play, direction);
+		narration = level.narration;
+		return update;
+	}
+	
+	
+	public int equipOrConsumeItem(int itemNum) {
+		
+		int update = level.updatePlayerStatsAfterEquip(itemNum);
 		narration = level.narration; 
 		return update;
 	}

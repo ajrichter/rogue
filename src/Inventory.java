@@ -7,7 +7,7 @@ public class Inventory {
 	
 	private LinkedList<Item> inventory;
 	private LinkedList<Character> invChar;
-	private int maxInventorySize = 10;
+	private int maxInventorySize = 5;
 	
 	public Inventory() {
 		this.inventory = new LinkedList<Item>();
