@@ -11,7 +11,7 @@ public class Unit {
 	protected String name;
 	protected char val;
 	// Statistics for the Unit
-	protected int level, xp, strength, hp, maxHP, armor;
+	protected int level, xp, strength, hp, maxHP, armor, maxHunger;
 	protected boolean dead;
 	protected Point p;
 

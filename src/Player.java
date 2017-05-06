@@ -31,7 +31,8 @@ public class Player extends Unit{
 		this.armor=3;
 		this.nexp = 20;
 		this.steps = 0;
-		this.hunger = 150;
+		this.maxHunger = 2000;
+		this.hunger = 1000;
 		DiceRoller d= new DiceRoller();
 		this.strength = d.roll(3, 6);
 		this.maxHP = this.hp = d.roll(4, 6);
@@ -54,7 +55,7 @@ public class Player extends Unit{
 			break;
 		case "Food":
 			this.hunger += item.getPlayerHunger();
-			this.name += item.getItemName();
+
 			//narrationMessage = play.name + " ate " + this.name;
 			//System.out.println("Player strength: " + strength);
 			inventory.removeItem(item);
@@ -66,6 +67,7 @@ public class Player extends Unit{
 			break;
 		case "Potions":
 			//narrationMessage = play.name + item.getUseMessage();
+			this.strength += item.getPlayerStrength();
 			inventory.removeItem(item);
 			break;
 		case "Scrolls":
@@ -116,9 +118,10 @@ public class Player extends Unit{
 
 	public String[] playerStats(){
 		String[] temp= new String[2];
+		this.hunger-= 1;
 		temp[0]= "Level: " + this.level + " HP: " +this.hp+ " ("+this.maxHP+") "+
-		" Str: "+this.strength+ " (" + this.strength + ") Armor: "+ this.armor+
-		 " Gold: "+ this.gold + " Exp: " + this.xp;
+		" Hunger: "+this.hunger+ " (" + this.maxHunger + ") Armor: "+ this.armor+
+		 " Gold: "+ this.gold + " Exp: " + this.xp + " Str:" + this.strength + " (" + this.strength + ")";
 		return temp;
 	}
 
