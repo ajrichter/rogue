@@ -238,32 +238,27 @@ public class Controller extends JFrame implements KeyListener {
 			{
 				if (key == KeyEvent.VK_0)
 				{
-					int [] direction = {1, 0};
-					int update = game.throwItem(0, direction);
+					int update = game.throwItem(0);
 					updateView(update);
 				}
 				else if (key == KeyEvent.VK_1)
 				{
-					int [] direction = {1, 0};
-					int update = game.throwItem(1, direction);
+					int update = game.throwItem(1);
 					updateView(update);
 				}
 				else if (key == KeyEvent.VK_2)
 				{
-					int [] direction = {1, 0};
-					int update = game.throwItem(2, direction);
+					int update = game.throwItem(2);
 					updateView(update);
 				}
 				else if (key == KeyEvent.VK_3)
 				{
-					int [] direction = {1, 0};
-					int update = game.throwItem(3, direction);
+					int update = game.throwItem(3);
 					updateView(update);
 				}
 				else if (key == KeyEvent.VK_4)
 				{
-					int [] direction = {1, 0};
-					int update = game.throwItem(4, direction);
+					int update = game.throwItem(4);
 					updateView(update);
 				}
 		

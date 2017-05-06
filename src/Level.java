@@ -431,12 +431,16 @@ public class Level {
 		Point a = u.p;
 		if (play.items.size() > itemNum)
 		{
+		if (floor[a.y + dir[1]][a.x + dir[0]] != '.') {
+			narration = "Something is in the way. You need to choose a different spot for throwing.";
+		}
+		else {
 		Item item = play.items.get(itemNum);
 		narration = "You" + item.getDropMessage();
 		floor[a.y + dir[1]][a.x + dir[0]] = item.boardName;
-		
 		play.items.remove(item);
 		play.inventory.removeItem(item);
+		}
 		}
 		else {
 			narration = "The index is too large for the inventory's size.";

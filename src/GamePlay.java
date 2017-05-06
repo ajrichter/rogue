@@ -92,8 +92,10 @@ public class GamePlay {
 	
 	
 	
-	public int throwItem(int itemNum, int [] direction) {
-		int update = level.throwItem(itemNum, play, direction);
+	public int throwItem(int itemNum) {
+		
+		int [] dir = {0, 1};
+		int update = level.throwItem(itemNum, play, dir);
 		narration = level.narration;
 		return update;
 	}
