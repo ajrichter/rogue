@@ -31,7 +31,7 @@ public class Player extends Unit{
 		this.armor=3;
 		this.nexp = 20;
 		this.steps = 0;
-		this.maxHunger = 2000;
+		this.maxHunger = 800;
 		this.hunger = 200;
 		DiceRoller d= new DiceRoller();
 		this.strength = d.roll(3, 6);

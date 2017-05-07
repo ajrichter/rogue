@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 
 
 
+
+
+
+
 //import RougeView.ViewUpdate;
 
 public class Controller extends JFrame implements KeyListener {
@@ -320,6 +324,8 @@ public class Controller extends JFrame implements KeyListener {
 	public static void main(String[] args) {
 		Controller control = new Controller("Rogue");
 		String[] dyingnoises = new String[4];
+	
+		
 		//game.saveGame(dyingnoises); 
 		
 		

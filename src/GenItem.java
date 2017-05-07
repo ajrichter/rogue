@@ -80,7 +80,6 @@ public class GenItem {
 		this.pickUpMessage = " picked up the " + this.itemName + " Armor with a protection of " + this.protection + " points.";
 		this.useMessage = " equpted " + this.itemName + " Armor with " + this.protection + " protection!";
 		this.dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
-		this.takeOffMessage = " took off the " + this.itemName + " and put it back into your inventory";
 		break;
 
 		case 2: this.typeItem = "Weapon";
@@ -91,7 +90,6 @@ public class GenItem {
 		this.boardName = w.boardName;
 		this.useMessage = " equipted the " + this.itemName + " with a damage of " + this.weaponDamage;
 		this.dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
-		this.takeOffMessage = " took off the " + this.itemName + " " + this.typeItem + " and put it back into your inventory";
 		this.pickUpMessage = " picked up the " + this.itemName + " with a damage of " + this.weaponDamage + " points.";
 		break;
 
@@ -112,9 +110,8 @@ public class GenItem {
 		ring.getRing();
 		this.boardName = ring.boardName;
 		this.itemName = ring.name;
-		this.useMessage = " put the " + this.itemName + " ring on his finger."; 
+		this.useMessage = " put the " + this.itemName + " ring on your finger."; 
 		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
-		this.takeOffMessage = " took off the " + this.itemName + " and put it back into his inventory";
 		this.pickUpMessage = " picked up " + this.itemName + " Ring.";
 		break;
 
@@ -135,7 +132,6 @@ public class GenItem {
 		this.itemName = wand.name;
 		this.useMessage = " equiped the " + this.itemName + " Wand.";
 		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
-		this.takeOffMessage = " took off the " + this.itemName + " and put it back into his inventory";
 		this.pickUpMessage = " picked up the " + this.itemName + " Wand.";
 		break;
 

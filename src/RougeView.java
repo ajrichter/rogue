@@ -1,6 +1,9 @@
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Font;
 import java.awt.Graphics;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -43,6 +46,11 @@ public class RougeView {
 		frame.add(view);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(x,y);
+		frame.setIconImage(new ImageIcon(ClassLoader.getSystemResource(
+		            "Frogger.gif")).getImage());
+		
+		
+		
 	}
 	
 	//does all of the painting
@@ -82,6 +90,7 @@ public class RougeView {
 				}
 			}
 			
+		
 			
 			//prints stats
 			gr.setFont(new Font("TimesRoman", Font.PLAIN, 26));
@@ -89,6 +98,11 @@ public class RougeView {
 			//gr.drawString("Test String",0,625);
 			
 		}
-		
 	}
+
+	
+
+
+
+
 }
