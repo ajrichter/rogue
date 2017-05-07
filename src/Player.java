@@ -17,7 +17,7 @@ public class Player extends Unit{
 	protected ArrayList <Item> items;
 	
 	protected Inventory inventory;
-	private String narrationMessage;
+	private String narrationMessage = "";
 
 	public Player(String s) {
 		super();
@@ -32,7 +32,7 @@ public class Player extends Unit{
 		this.nexp = 20;
 		this.steps = 0;
 		this.maxHunger = 2000;
-		this.hunger = 1000;
+		this.hunger = 200;
 		DiceRoller d= new DiceRoller();
 		this.strength = d.roll(3, 6);
 		this.maxHP = this.hp = d.roll(4, 6);
@@ -118,7 +118,6 @@ public class Player extends Unit{
 
 	public String[] playerStats(){
 		String[] temp= new String[2];
-		this.hunger-= 1;
 		temp[0]= "Level: " + this.level + " HP: " +this.hp+ " ("+this.maxHP+") "+
 		" Hunger: "+this.hunger+ " (" + this.maxHunger + ") Armor: "+ this.armor+
 		 " Gold: "+ this.gold + " Exp: " + this.xp + " Str:" + this.strength + " (" + this.strength + ")";
@@ -131,7 +130,9 @@ public class Player extends Unit{
 		Check Hunger
 		Stats decrease
 	*/
-	public void move(){
+	public String move(){
+		narrationMessage = "";
+		if (!narrationMessage.equals("You have fainted.")) {
 		steps++;
 		if(steps >= 10) {
 			steps = 0;
@@ -143,7 +144,18 @@ public class Player extends Unit{
 			levelUp();
 
 		hunger--;
-		chkHu();
+		}
+		
+		if(hunger == 50)
+			narrationMessage = "You should probably stop by the Gizmo.";
+		else if(hunger == 25)
+			narrationMessage = "You are starving!";
+		else if(hunger == 0)
+			narrationMessage = "You have fainted. Game over!";
+		
+
+	return narrationMessage;
+	
 	}
 
 	/*
@@ -158,12 +170,4 @@ public class Player extends Unit{
 		return this.gold;
 	}
 
-	public void chkHu() {
-		if(hunger <= 50)
-			System.out.println("You should probably stop by the Gizmo.");
-		else if(hunger <= 25)
-			System.out.println("You are starving!");
-		else if(hunger <= 0)
-			System.out.println("You have fainted.");
-	}
 }

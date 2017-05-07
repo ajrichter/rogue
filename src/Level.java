@@ -28,17 +28,17 @@ public class Level {
 	protected boolean[] rb;
 	// Array of Rooms
 	protected Rm[] rs;
-	
+
 	protected String itemNames;
 	// Array of item displays
-	
+
 	protected int itemX = 0;
 	protected int itemY = 0;
-	
+
 	// position of stair, 2 elements, stair[0] = x, stair[1] = y
 	//protected int[] stair;
 	protected Stairs stair;
-	 
+
 	//gold
 	//protected Gold[] gold;
 
@@ -51,8 +51,8 @@ public class Level {
 	private int p; //armor protection for player
 	private int h; //hunger for player
 
-	
-	
+
+
 	protected Player play;
 	protected int hits;
 	protected String narration;
@@ -63,11 +63,11 @@ public class Level {
 		boolean isDark;
 
 		public Rm() {
-		
-			
+
+
 			w = ThreadLocalRandom.current().nextInt(4, 25 + 1);
 			h = ThreadLocalRandom.current().nextInt(4, 6 + 1);
-			
+
 			int darkChance = ThreadLocalRandom.current().nextInt(1, 100 + 1);
 			if(darkChance < 10) {	//currently 20% chance, KEEP IT HERE FOR DEMO ON FRIDAY
 				isDark = true;
@@ -83,15 +83,15 @@ public class Level {
 			y2 = y1 + h - 1;
 		}
 	}
-	
+
 	public class Stairs {
 		int x, y;
 		char sym;
-	 
-	    public Stairs() {
-	    	this.x = this.y = 0;
-	    	this.sym = '%';
-	    }
+
+		public Stairs() {
+			this.x = this.y = 0;
+			this.sym = '%';
+		}
 	}
 
 	public Level(int nL, Player pp) {
@@ -112,18 +112,18 @@ public class Level {
 		makeRooms();
 		doors();
 		placeGold();
-		
+
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
-		
-	
+
+
 		itemPos = new HashMap <Character, Item>();
 
 		for (int i = 0; i < 6; i++) {
 			makeItem();
 			makeEnemy();
 		}
-		
+
 		//initialize to false
 		for (int y = 0; y < 24; y++)
 			for (int x = 0; x < 80; x++)
@@ -136,14 +136,14 @@ public class Level {
 		spawnP();
 		last  = '.';
 		hits = 0;
-		
+
 		/*
 		 * Spawn stair for current level
 		 * Should be above player
 		 * It would be place everything. Then fit player
 		 */
 		spawnStair();
-		
+
 		narration = "";
 
 		System.out.println("Level Constructor Finished.");
@@ -171,7 +171,7 @@ public class Level {
 	 */
 	private void  conn(int r1, int r2, char direc){
 		int turn;
-		
+
 		if(direc == 'r'){
 			/* the x coords are already set by the room of course! */ 
 			/* And d means door */
@@ -179,7 +179,7 @@ public class Level {
 			int d2y = ThreadLocalRandom.current().nextInt(rs[r2].y1+1, rs[r2].y2);
 			turn = ((rs[r2].x1 + rs[r1].x2 + 2) / 2);
 			// turn  = ThreadLocalRandom.current().nextInt(rs[r2].x2+1, rs[r2].x1);
-			
+
 			floor[d1y][rs[r1].x2] = '+';
 			floor[d2y][rs[r2].x1] = '+';
 			/* Left Side */
@@ -206,7 +206,7 @@ public class Level {
 			int d2x = ThreadLocalRandom.current().nextInt(rs[r2].x1+1, rs[r2].x2);
 			turn = ((rs[r2].y1 - rs[r1].y2) / 2) + rs[r1].y2;
 			// turn  = ThreadLocalRandom.current().nextInt(rs[r2].x2+1, rs[r2].x1);
-			
+
 			/* Doors */
 			floor[rs[r1].y2][d1x] = '+';
 			floor[rs[r2].y1][d2x] = '+';
@@ -233,32 +233,32 @@ public class Level {
 			System.out.println("Oops! There is an error in conn().");
 		}
 	}
-	
+
 	/**
 	 * Place gold in each room
 	 */
 	private void placeGold() {
 		Point temp = new Point();
-		
+
 		//50% chance of spawning
 		for(int i = 0; i < rs.length; i++) {
 			if(ThreadLocalRandom.current().nextInt(0, 1 +1) == 0 && rb[i]) {
 				//random gold value
 				rs[i].goldVal = ThreadLocalRandom.current().nextInt(1, 50 + 1);
-				
+
 				char c = '0';
-				
+
 				while (c != '.') {
 					temp.x = ThreadLocalRandom.current().nextInt(rs[i].x1 + 1, rs[i].x2);
 					temp.y = ThreadLocalRandom.current().nextInt(rs[i].y1 + 1, rs[i].y2);
 					c = floor[temp.y][temp.x];
-					
+
 					floor[temp.y][temp.x] = '*';
 				}
 			}
 		}
 	}
-	
+
 	private void spawnP() {
 		/*
 		 * I don't think the code commented here is used at all (moved to method findS()
@@ -274,7 +274,7 @@ public class Level {
 			rd.y = ThreadLocalRandom.current().nextInt(r.y1 + 1, r.y2);
 			c = floor[rd.y][rd.x];
 		}
-		*/
+		 */
 
 		play.p = findS();
 		floor[play.p.y][play.p.x] = play.val;
@@ -293,7 +293,7 @@ public class Level {
 					isSeen[(play.p.y) + i - 1][(play.p.x) + j - 1] = true;
 				}
 			}
-			
+
 		}
 	}
 
@@ -324,10 +324,10 @@ public class Level {
 		Point pt = findS();
 		this.stair.x = pt.x;
 		this.stair.y = pt.y;
-	 
-	    floor[stair.y][stair.x] = stair.sym;
+
+		floor[stair.y][stair.x] = stair.sym;
 	}
-	
+
 	/*
 	 * Need to store the Item Point Public not protected
 	 */
@@ -337,21 +337,21 @@ public class Level {
 		i.generateItem();
 		itemY = spot.y;
 		itemX = spot.x;
-		
+
 		items.add(i);
 		floor[itemY][itemX] = i.getBoardName();
 		char c = floor[itemY][itemX];
-		
+
 		itemNames = i.getPickUpMessage();
 		itemPos.put(c, i);
 	}
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	private void makeEnemy() {
 		Enemy e = new Enemy();
 		Point spot = findS();
@@ -363,7 +363,7 @@ public class Level {
 	/* I loosely implemented this in move when an Enemy is killed.*/
 	public void removeUnit(Unit u) {
 	}
-	
+
 	/*
 	 * grid: x: 0__25#27__52#54__79 y: 0__6#8__14#16__22#
 	 */
@@ -372,12 +372,12 @@ public class Level {
 			int roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
 			while (rb[roomN])
 				roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
-			
+
 			Rm r = new Rm();
 			int x = ThreadLocalRandom.current().nextInt((roomN % 3) * 27, ((roomN % 3) * 27) + 25 - r.w + 1);
 			int y = ThreadLocalRandom.current().nextInt((roomN / 3) * 8, ((roomN / 3) * 8) + 6- r.h + 1);
 			r.set(x, y);
-			
+
 			rs[roomN] = drawRoom(r);
 			rb[roomN] = true;
 		}
@@ -423,90 +423,90 @@ public class Level {
 		return pfloor;
 	}
 
-	
 
-	
+
+
 	public int throwItem(int itemNum, Player u, int[] dir) {
 		narration = "";
 		Point a = u.p;
 		if (play.items.size() >= itemNum)
 		{
-		if (floor[a.y + dir[1]][a.x + dir[0]] != '.') {
-			narration = "Something is in the way. You need to choose a different spot for throwing.";
-		}
-		else {
-		Item item = play.items.get(itemNum);
-		narration = "You" + item.getDropMessage();
-		floor[a.y + dir[1]][a.x + dir[0]] = item.boardName;
-		play.items.remove(item);
-		play.inventory.removeItem(item);
-		}
+			if (floor[a.y + dir[1]][a.x + dir[0]] != '.') {
+				narration = "Something is in the way. You need to choose a different spot for throwing.";
+			}
+			else {
+				Item item = play.items.get(itemNum);
+				narration = "You" + item.getDropMessage();
+				floor[a.y + dir[1]][a.x + dir[0]] = item.boardName;
+				play.items.remove(item);
+				play.inventory.removeItem(item);
+			}
 		}
 		else {
 			narration = "The index is too large for the inventory's size.";
 		}
 		return 7;
 	}
-	
-	
+
+
 	//Updates the player's stats after equiping or consuming an item
 	public int updatePlayerStatsAfterEquip(int itemNum) {
 		narration = "";	
 		if (play.items.size() >= itemNum)
-			{
+		{
 			Item item = play.items.get(itemNum);
 			narration = "You" + item.getUseMessage();
-		
+
 			play.useItem(item);
-			
-			
+
+
 			p += play.armor;	
 			h += play.hunger;
 			play.items.remove(item);
 			play.inventory.removeItem(item);
-			}
-			else {
-				narration = "The index is too large for the inventory's size.";
-			}
-			
-			
-			
-			
-			//inventory.removeItem(play.items.get(0)); //removes the first item from list
-			return 6;
+		}
+		else {
+			narration = "The index is too large for the inventory's size.";
+		}
+
+
+
+
+		//inventory.removeItem(play.items.get(0)); //removes the first item from list
+		return 6;
 	}
 
-	
+
 	public int printInventory() {
-	narration = "";
-	if (play.items.size() != 0)
-	{
-	narration+="Current Inventory: ";
-	}
-	else {
-	narration = "Nothing stored in Inventory";
-	}
-	
-	
-	int count = 0;
+		narration = "";
+		if (play.items.size() != 0)
+		{
+			narration+="Current Inventory: ";
+		}
+		else {
+			narration = "Nothing stored in Inventory";
+		}
+
+
+		int count = 0;
 		for (Item i: play.items) {
 			if (!i.typeItem.equalsIgnoreCase("Food")) {
-			narration += count + " ";
-			narration += i.name + " " + i.typeItem;
+				narration += count + " ";
+				narration += i.name + " " + i.typeItem;
 			}
 			else {
-			narration += count + " ";
-			narration += i.name;
+				narration += count + " ";
+				narration += i.name;
 			}
 			count++;
 			if (count != play.items.size())
-			narration += ", ";
+				narration += ", ";
 		}
-		
+
 		return 5;
 	}
-	
-	
+
+
 	/*
 	 * Should return a String to narrate for you
 	 * 2 Strings for Monster and Player Attack
@@ -528,6 +528,9 @@ public class Level {
 	 */
 	public int moveUnit(Player u, int[] dir) {
 		Point a = u.p;
+
+
+
 		/* Bounds check*/
 		if ((a.x + dir[0]) < 0 || (a.y + dir[1]) < 0 || (a.y + dir[1]) > 23 || (a.x + dir[0]) > 79) {
 			System.out.println("You are trying to move out of bounds. Very Bad!");
@@ -551,7 +554,7 @@ public class Level {
 				System.out.println(narration);
 				return 1;
 			}
-			
+
 			System.out.println("Good Hit on the " + c + "!");
 			//narration = "You hit the " + c + "!";
 			return 1;
@@ -561,29 +564,29 @@ public class Level {
 					narration = "Can't add item. Inventory is full.";
 				}
 				else {
-				narration = "You" + " " + itemPos.get(c).getPickUpMessage();
-				play.items.add(itemPos.get(c));
-				//inventory.addItem(itemPos.get(c));
-				floor[a.y + dir[1]][a.x + dir[0]] = '.';
+					narration = "You" + " " + itemPos.get(c).getPickUpMessage();
+					play.items.add(itemPos.get(c));
+					//inventory.addItem(itemPos.get(c));
+					floor[a.y + dir[1]][a.x + dir[0]] = '.';
 				}
 				return 3;
 			}
-			
-			
-			
-			
-			
+
+
+
+
+
 			floor[a.y][a.x] = last;
 			last = c;
-			
+
 			a.setLocation(a.x + dir[0], a.y + dir[1]);
 			floor[a.y][a.x] = '@';
-				
-			
+
+
 			//shows everything if room is not dark, shows surrounding area if it is dark
 			if(isInRoom(u) && !(getCurRoom(u).isDark)) {
 				seeRm(getCurRoom(u));
-				
+
 			} else {//otherwise room is dark
 				makeDark(getCurRoom(u));
 			}
@@ -593,14 +596,14 @@ public class Level {
 					makeDark(rs[i]);
 				}
 			}
-		
+
 			//shows squares around player
 			for(int i = 0; i < 3; i++) {
 				for(int j = 0; j < 3; j++) {
 					isSeen[a.y + i - 1][a.x + j - 1] = true;
 				}
 			}
-			
+
 			//isInRoom should be remove later in case gold can spawn in hall
 			//Picking up gold
 			//last one checks if gold has already been picked up - in case enemy can drop gold (instead of transfer)
@@ -609,18 +612,31 @@ public class Level {
 				narration = "You've picked up " + getCurRoom(u).goldVal + " gold";
 				getCurRoom(u).goldVal = 0;
 				last = '.';
-				
+
 				System.out.println("Moved Successfully and Picked Up Some Gold");
 				return 3;
 			}
-			
-			System.out.println("Moved Successfully");
-			return 0;
+			narration = "";
+			narration = play.move();
+			if (narration.equalsIgnoreCase("You should probably stop by the Gizmo.") || narration.equals("You are starving!"))
+			{
+				return 9;
+			}
+			if (narration.equalsIgnoreCase("You have fainted. Game over!"))
+			{
+				floor[a.y][a.x] = '.';
+				return 10;
+			}
+
+			else {	
+				System.out.println("Moved Successfully");
+				return 0;
+			}
 		}
 		if(c == stair.sym) {
 			return 6;
 		}
-		
+
 		System.out.println("No Move");
 		return 2;
 	}
@@ -628,13 +644,13 @@ public class Level {
 	private boolean validMove(char c) {
 		return (c == ':' || c == '.' || c == '+' || c == '#' || c == '!' || c == '/' || c == ')' || c == ']' || c == '=' || c == '?' || c == '*'); //The player can step on any item, even if the player's inventory is full 
 	}
-	
+
 	private boolean isItem(char c) {
 		return (c == ':' || c == '!' || c == '/' || c == ']' || c == '?' || c == ')' || c == '=');
 	}
-	
-	
-	
+
+
+
 	/**
 	 * checks if unit is currently in a room
 	 */
@@ -653,7 +669,7 @@ public class Level {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * check which room the unit is in
 	 */
@@ -670,12 +686,12 @@ public class Level {
 				}
 			}
 		}
-		
+
 		//never used, need it here to prevent compilation err
 		Rm room = new Rm();
 		return room;
 	}
-	
+
 	/**
 	 * there might be a problem with this if it erases items and monster (and maybe player)
 	 * in the room to make it dark again, shouldn't happen since you're using boolean and not

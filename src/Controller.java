@@ -304,9 +304,10 @@ public class Controller extends JFrame implements KeyListener {
 	}
 	
 	public void updateView(int update) {
-		if(update==1 || update == 3 || update == 4 || update == 5 || update == 6 || update == 7){
+		System.out.println(update);
+		if(update == 9 || update==1 || update == 3 || update == 4 || update == 5 || update == 6 || update == 7 || update == 10){
 			view.updateNaration(game.narration);
-			if(update == 1 || update == 5 || update == 6 || update == 7){
+			if(update == 1 || update == 5 || update == 6 || update == 7 || update == 9 || update == 10){
 				narration = true;
 			} 
 		} else {
