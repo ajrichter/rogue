@@ -45,9 +45,6 @@ public class Player extends Unit{
 	
 	public void useItem(Item item) {
 		switch (item.getItemType()) {
-		case "Weapon":
-			inventory.removeItem(item);
-		
 		case "Armor":
 			this.armor += item.getArmorProtection();
 			//narrationMessage = play.name + item.getUseMessage();
@@ -55,9 +52,12 @@ public class Player extends Unit{
 			break;
 		case "Food":
 			this.hunger += item.getPlayerHunger();
-
 			//narrationMessage = play.name + " ate " + this.name;
 			//System.out.println("Player strength: " + strength);
+			inventory.removeItem(item);
+			break;
+		case "Weapon":
+			this.strength += item.getDamageFromWeapon();
 			inventory.removeItem(item);
 			break;
 		case "Ring":

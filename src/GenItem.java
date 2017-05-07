@@ -25,31 +25,31 @@ public class GenItem {
 		int num = 0;
 		Random rnd = new Random(); 
 		num = rnd.nextInt(100);	
-		if (num < 5) 
+		if (num < 10) 
 		{
 			return 1;
 		}
-		else if (num < 10 && num >= 5)
+		else if (num < 20 && num >= 10)
 		{
 			return 2;
 		}
-		else if (num < 50 && num >= 10)
+		else if (num < 60 && num >= 20)
 		{
 			return 3;
 		}
-		else if (num < 60 && num >= 50)
+		else if (num < 70 && num >= 60)
 		{
 			return 4;
 		}
-		else if (num < 70 && num >= 60)
+		else if (num < 80 && num >= 70)
 		{
 			return 5;
 		}
-		else if (num < 80 && num >= 70)
+		else if (num < 90 && num >= 80)
 		{
 			return 6;
 		}
-		else if (num < 100 && num >= 80)
+		else if (num < 100 && num >= 90)
 		{
 			return 7;
 		}
@@ -140,7 +140,7 @@ public class GenItem {
 		p.getPotion();
 		this.boardName = p.boardName;
 		this.itemName = p.name;
-		this.useMessage = " drank the " + this.itemName + " potion.";
+		this.useMessage = " drank the " + this.itemName + " potion." + p.eMessage;
 		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
 		this.pickUpMessage = " picked up the " + this.itemName + " Potion.";
 		break;

@@ -152,7 +152,7 @@ public class Potions extends Item {
 			//					Raise level	2	Increases experience level by 1.
 			break;		
 			
-			case 14: this.name = "Void";
+			case 14: this.name = "NOP";
 			this.eMessage = "This potion tastes extremely dull.";
 			break;
 			
