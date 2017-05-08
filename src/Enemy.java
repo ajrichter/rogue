@@ -130,7 +130,7 @@ public class Enemy extends Unit{
 		}
 
 		if(this.level > ((lvl + pl) /2))
-			this.genMon(30, 30);
+			this.genMon(lvl, pl);
 	}
 	
 	/**
@@ -144,14 +144,12 @@ public class Enemy extends Unit{
 		int chance = -1;
 		switch (this.val) {
 			case 'A':
-				chance = ThreadLocalRandom.current().nextInt(0, 1 + 1);
-				if(chance == 0) {
-					this.dmg = 0;
-				} else {
-					this.dmg = 0;	//+ status effect
-				}
-				 break;
+		 	case 'I':
+		 	case 'N':
+				this.dmg = 0;
+				break;
 		 	case 'B':
+		 	case 'E':
 				 this.dmg = d.roll(1,2);
 				 break;
 		 	 case 'C':
@@ -173,10 +171,6 @@ public class Enemy extends Unit{
 		 		 } else if(chance == 2) {
 		 			this.dmg = d.roll(3,10);	
 		 		 }
-		 		 
-				 break;
-		 	 case 'E':
-				 this.dmg = d.roll(1,2);
 				 break;
 		 	 case 'F':
 		 		 this.dmg = 0;	//SPECIAL CASE, NOT SURE IF IT'S REALLY 0
@@ -190,10 +184,9 @@ public class Enemy extends Unit{
 				}
 		 		 break;
 		 	 case 'H':
+		 	 case 'O':
+		 	 case 'Z':
 		 		 this.dmg = d.roll(1,8);
-		 		 break;
-		 	 case 'I':
-		 		 this.dmg = 0; //+status effect (apparently always freezes)
 		 		 break;
 		 	 case 'J':
 		 		chance = ThreadLocalRandom.current().nextInt(0, 1 + 1);
@@ -219,13 +212,8 @@ public class Enemy extends Unit{
 		 			this.dmg = d.roll(2,5);	//+ status effect too?
 		 		 }
 		 		 break;
-		 	 case 'N':
-		 		 this.dmg = 0;
-		 		 break;
-		 	 case 'O':
-		 		 this.dmg = d.roll(1,8);
-		 		 break;
 		 	 case 'P':
+		 	 case 'X':
 		 		 this.dmg = d.roll(4, 4);
 		 		 break;
 		 	 case 'Q':
@@ -237,7 +225,9 @@ public class Enemy extends Unit{
 				}
 		 		 break;
 		 	 case 'R':
-		 		 this.dmg = d.roll(1, 6); //+ status effect - reduce strength
+		 	 case 'W':
+		 	 case 'Y':
+		 		 this.dmg = d.roll(1, 6);
 		 		 break;
 		 	 case 'S':
 		 		 this.dmg = d.roll(1,3);
@@ -248,7 +238,7 @@ public class Enemy extends Unit{
 		 			this.dmg = d.roll(1, 8);
 		 		 } else if(chance == 1) {
 		 			this.dmg = d.roll(1, 8);	
-		 		 } else if(chance == 2) {
+		 		 } else {
 		 			this.dmg = d.roll(2, 6);
 		 		 }
 		 		 break;
@@ -264,18 +254,6 @@ public class Enemy extends Unit{
 		 		 break;
 		 	 case 'V':
 		 		 this.dmg = d.roll(1, 10); //+drains maxHP
-		 		 break;
-		 	 case 'W':
-		 		 this.dmg = d.roll(1,6); //+drains exp
-		 		 break;
-		 	 case 'X':
-		 		 this.dmg = d.roll(4, 4); //imitates object
-		 		 break;
-		 	 case 'Y':
-		 		 this.dmg = d.roll(1,6);
-		 		 break;
-		 	 case 'Z':
-		 		 this.dmg = d.roll(1, 8);
 		 		 break;
 		 	 default:
 				 this.dmg = d.roll(1,2);
@@ -295,10 +273,9 @@ public class Enemy extends Unit{
 		
 		this.name = nme;
 		this.val = symb;
-		this.hp = d.roll(lvl, 8);
 		this.level = lvl;
+		this.hp = d.roll(lvl, 8);
 		this.armor = arm;
-		this.df = getDMG() + lvl;
 		this.xp = exp;
 		this.trs = treas;
 	}

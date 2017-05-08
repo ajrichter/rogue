@@ -647,6 +647,22 @@ public class Level {
 		System.out.println("No Move");
 		return 2;
 	}
+	
+	/*
+	 * step_ok(ch)
+{
+    switch (ch)
+    {
+	case ' ':
+	case '|':
+	case '-':
+	case SECRETDOOR:
+	    return FALSE;
+	default:
+	    return (!isalpha(ch));
+    }
+}
+	 */
 
 	private boolean validMove(char c) {
 		return (c == ':' || c == '.' || c == '+' || c == '#' || c == '!' || c == '/' || c == ')' || c == ']' || c == '=' || c == '?' || c == '*'); //The player can step on any item, even if the player's inventory is full 
@@ -655,8 +671,6 @@ public class Level {
 	private boolean isItem(char c) {
 		return (c == ':' || c == '!' || c == '/' || c == ']' || c == '?' || c == ')' || c == '=');
 	}
-
-
 
 	/**
 	 * checks if unit is currently in a room

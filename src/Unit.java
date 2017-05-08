@@ -9,7 +9,7 @@ public class Unit {
 	protected String name;
 	protected char val;
 	protected int level, xp, hp, maxHP, armor, maxStrength;
-	protected int hunger, maxHunger, strength, maxArmor, df;
+	protected int hunger, maxHunger, strength, maxArmor;
 	protected boolean dead;
 	protected Point p;
 
