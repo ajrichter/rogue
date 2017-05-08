@@ -6,14 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
-
-
-
-
-
-//import RougeView.ViewUpdate;
-
 public class Controller extends JFrame implements KeyListener {
 	
     private JLabel label;
@@ -27,14 +19,6 @@ public class Controller extends JFrame implements KeyListener {
     public Controller(String s) {
         super(s);
         System.out.println("Controller Constructor called");
-        /*JPanel p = new JPanel();
-        label = new JLabel("Key Listener!");
-        p.add(label);
-        add(p);
-        addKeyListener(this);
-        setSize(200, 100);
-        setVisible(true);
-        */
         
         narration = false;
         frame= new JFrame();

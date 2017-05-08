@@ -9,9 +9,7 @@ public class Food extends Item {
 		this.boardName = ':';
 		this.getFood();
 	}
-	
-	
-	
+		
 	public void getFood()
 	{
 	

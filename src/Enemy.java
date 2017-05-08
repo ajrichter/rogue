@@ -17,13 +17,7 @@ public class Enemy extends Unit{
 	}
 	
 	/*
-	 * All these notes are not as good as the ones here:
 	 * https://nethackwiki.com/wiki/Rogue_(game)
-	 * 
-	 * Which I emailed and implemented correctly
-	 * 
-	 * Why was HP not implemented correctly?
-	 * 
 	 * 
 		Refer to this for information
 		http://www.the-spoiler.com/ADVENTURE/Computer.systems/rogue.2.html
@@ -299,8 +293,8 @@ public class Enemy extends Unit{
 	public void setStat(String nme, char symb, int lvl, int arm, int exp, int treas) {
 		DiceRoller d = new DiceRoller();
 		
-		this.val = symb;
 		this.name = nme;
+		this.val = symb;
 		this.hp = d.roll(lvl, 8);
 		this.level = lvl;
 		this.armor = arm;

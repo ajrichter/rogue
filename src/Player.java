@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 /*
+ * use method in Item should be overridden by each item
+ * And removed from players inventory, also
 	Has timers for different things
 	Health goes up with each Move
 	Move method is for health increase and stats decrease
@@ -10,8 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Player extends Unit{
 	// Haha what the hell is this
-	protected boolean hasA;
-	private boolean hasW;
+	protected boolean hasA, hasW;
 	protected int gold, nexp, steps, hunger;	//changed to protected to allow access to gold
 	private static Player play;
 	protected ArrayList <Item> items;
@@ -31,8 +32,8 @@ public class Player extends Unit{
 		this.armor=3;
 		this.nexp = 20;
 		this.steps = 0;
-		this.maxHunger = 800;
-		this.hunger = 200;
+		this.maxHunger = 1000;
+		this.hunger = this.maxHunger;
 		DiceRoller d= new DiceRoller();
 		this.strength = d.roll(3, 6);
 		this.maxHP = this.hp = d.roll(4, 6);
@@ -125,6 +126,8 @@ public class Player extends Unit{
 	}
 
 	/*
+	 * Hunger goes down too fast: this needs to be fixed 
+	 * 
 		Regenerate HP
 		Check LevelUp
 		Check Hunger
@@ -142,8 +145,7 @@ public class Player extends Unit{
 
 		if(xp == nexp)
 			levelUp();
-
-		hunger--;
+			hunger--;
 		}
 		
 		if(hunger == 50)
@@ -160,6 +162,7 @@ public class Player extends Unit{
 
 	/*
 	 * This should be sent to the narration
+	 * "Welcome to Level X!"
 	 */
 	public void levelUp() {
 		nexp = nexp * 2;
@@ -169,5 +172,4 @@ public class Player extends Unit{
 	public int getGold() {
 		return this.gold;
 	}
-
 }

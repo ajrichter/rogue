@@ -4,13 +4,10 @@ import java.awt.Point;
 	TODO:
 	Move
 	isDead
-	How are stats used?
 */
 public class Unit {
-	//  representation on the board
 	protected String name;
 	protected char val;
-	// Statistics for the Unit
 	protected int level, xp, strength, hp, maxHP, armor, maxHunger;
 	protected boolean dead;
 	protected Point p;
@@ -19,7 +16,7 @@ public class Unit {
 	// Clearly not dead as it has just been constructed!
 	public Unit() {
 		this.dead = false;
-		p = new Point();
+		this.p = new Point();
 	}
 
 	public boolean isEnemy(){
