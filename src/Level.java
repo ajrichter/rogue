@@ -727,7 +727,21 @@ public class Level {
 				}
 				//gonna need a way to hide enemy when they enter hallway too!
 			} else {
-				playerFloor[yPos][xPos] = '.';
+				//it would probably look something like this
+				boolean seePlayer = false;
+				//hides everything when player not in room
+				for(int i = 0; i < 3; i++) {
+					for(int j = 0; j < 3; j++) {
+						if(playerFloor[yPos + i - 1][xPos + i - 1] == '@') {
+							seePlayer = true;
+						}
+					}
+				}
+				if(seePlayer) {
+					//do nothing
+				} else {
+					playerFloor[yPos][xPos] = '.';
+				}
 			}
 		}
 	}
