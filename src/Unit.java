@@ -8,7 +8,8 @@ import java.awt.Point;
 public class Unit {
 	protected String name;
 	protected char val;
-	protected int level, xp, maxStrength, hp, maxHP, armor, maxHunger, strength, maxArmor, hunger;
+	protected int level, xp, hp, maxHP, armor, maxStrength;
+	protected int hunger, maxHunger, strength, maxArmor, df;
 	protected boolean dead;
 	protected Point p;
 

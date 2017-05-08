@@ -24,10 +24,12 @@ public class Enemy extends Unit{
 		
 		Footnote: setStat(Name, Symbol, Level, Armor, XP, TrsChance) as of 4/13/17
 					health is automatically set in the method
+		
+		setStat(Name, Symbol, Level, Armor, XP, TrsChance)
 	*/
 	private void genMon(int lvl, int pl){
 		DiceRoller d= new DiceRoller();
-		switch (d.roll(1, 6)) {
+		switch (d.roll(1, 26)) {
 		   case 1: 	setStat("Aquator", 'A', 5, 2, 20, 0);
 					//this.dmg = 0;
 					break;
@@ -282,16 +284,13 @@ public class Enemy extends Unit{
 		return this.dmg;
 	}
 
-	/**
-	 * Updated on: 4/13/17
-	 * 
-	 * Things to add:
+	/*Things to add:
 	 * 	flag/type
-	 *	armor
-	 *	loot item (gold for leprechaun)
-	 *	range
+	 *		armor
+	 *		loot item (gold for leprechaun)
+	 *		range
 	 */
-	public void setStat(String nme, char symb, int lvl, int arm, int exp, int treas) {
+	private void setStat(String nme, char symb, int lvl, int arm, int exp, int treas) {
 		DiceRoller d = new DiceRoller();
 		
 		this.name = nme;
@@ -299,7 +298,7 @@ public class Enemy extends Unit{
 		this.hp = d.roll(lvl, 8);
 		this.level = lvl;
 		this.armor = arm;
-		//this.df = lvl;	//remove this later, added here in case other areas use df
+		this.df = getDMG() + lvl;
 		this.xp = exp;
 		this.trs = treas;
 	}
