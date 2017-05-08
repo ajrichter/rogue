@@ -417,6 +417,7 @@ public class Level {
 				if(isSeen[y][x]) {
 					pfloor[y][x] = floor[y][x];
 				}
+				hideEnemy(pfloor, x, y);
 			}
 		}
 
@@ -449,7 +450,7 @@ public class Level {
 	}
 
 
-	//Updates the player's stats after equiping or consuming an item
+	//Updates the er's stats after equiping or consuming an item
 	public int updatePlayerStatsAfterEquip(int itemNum) {
 		narration = "";	
 		if (play.items.size() >= itemNum)
@@ -705,6 +706,32 @@ public class Level {
 		}
 	}
 
+	private void hideRoomEnemy(char[][] playerFloor) {
+		for(int i = 0; i < rs.length; i++) {
+			if(isInRoom(play)) {
+				
+			}
+		}
+	}
+	
+	
+	private void hideEnemy(char[][] playerFloor, int xPos, int yPos) {
+		if(Character.isUpperCase(playerFloor[yPos][xPos])) {
+			if(isInRoom(play)) {
+				//hides enemy in rooms that player aren't in
+				Rm temp = getCurRoom(play);
+				if(yPos > temp.y1 && yPos < temp.y2 && xPos > temp.x1 && xPos < temp.x2) {
+					//do nothing
+				} else {
+					playerFloor[yPos][xPos] = '.';
+				}
+				//gonna need a way to hide enemy when they enter hallway too!
+			} else {
+				playerFloor[yPos][xPos] = '.';
+			}
+		}
+	}
+	
 	/*
 	 * 0 1 2
 	 * 3 @ 5
