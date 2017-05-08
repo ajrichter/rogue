@@ -430,7 +430,7 @@ public class Level {
 	public int throwItem(int itemNum, Player u, int[] dir) {
 		narration = "";
 		Point a = u.p;
-		if (play.items.size() >= itemNum)
+		if (play.inventory.getInventorySpace() > itemNum)
 		{
 			if (floor[a.y + dir[1]][a.x + dir[0]] != '.') {
 				narration = "Something is in the way. You need to choose a different spot for throwing.";
@@ -453,7 +453,7 @@ public class Level {
 	//Updates the er's stats after equiping or consuming an item
 	public int updatePlayerStatsAfterEquip(int itemNum) {
 		narration = "";	
-		if (play.items.size() >= itemNum)
+		if (play.inventory.getInventorySpace() > itemNum)
 		{
 			Item item = play.items.get(itemNum);
 			narration = "You" + item.getUseMessage();

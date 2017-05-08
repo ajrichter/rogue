@@ -7,7 +7,9 @@ public class Inventory {
 	
 	private LinkedList<Item> inventory;
 	private LinkedList<Character> invChar;
-	private int maxInventorySize = 5;
+	private final int maxInventorySize = 5;
+	private int inventorySize = 5;
+	private int itemsInInventory = 0;
 	
 	public Inventory() {
 		this.inventory = new LinkedList<Item>();
@@ -15,21 +17,25 @@ public class Inventory {
 	}
 	
 	public void removeItem(Item toRemove) {
-		maxInventorySize++;
+		if (inventorySize != maxInventorySize) {
+		inventorySize++;
+		itemsInInventory--;
 		inventory.remove(toRemove);
+		}
 	}
 	
 	public int getInventorySpace() {
-		return maxInventorySize;
+		return itemsInInventory;
 	}
 	
 	
 	
 	public boolean addItem(Item toAdd) { 
-		if (maxInventorySize != 0) { 
+		if (inventorySize != 0) { 
 			inventory.add(toAdd);
 			//invChar.add(toAdd.boardName);
-			maxInventorySize--;
+			inventorySize--;
+			itemsInInventory++;
 			return true;
 		}
 		else {

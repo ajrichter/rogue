@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Player extends Unit{
 	// Haha what the hell is this
 	protected boolean hasA, hasW;
-	protected int gold, nexp, steps, hunger;	//changed to protected to allow access to gold
+	protected int gold, nexp, steps;	//changed to protected to allow access to gold
 	private static Player play;
 	protected ArrayList <Item> items;
 	
@@ -30,12 +30,15 @@ public class Player extends Unit{
 		this.xp=0;
 		this.level=1;
 		this.armor=3;
+		this.maxArmor = 20;
 		this.nexp = 20;
 		this.steps = 0;
 		this.maxHunger = 1000;
 		this.hunger = this.maxHunger;
 		DiceRoller d= new DiceRoller();
+		this.maxStrength = 20;
 		this.strength = d.roll(3, 6);
+		
 		this.maxHP = this.hp = d.roll(4, 6);
 		this.name=s;
 		inventory = new Inventory();
@@ -47,36 +50,45 @@ public class Player extends Unit{
 	public void useItem(Item item) {
 		switch (item.getItemType()) {
 		case "Armor":
+			if (this.armor + item.getArmorProtection() < this.maxArmor)
+			{
 			this.armor += item.getArmorProtection();
-			//narrationMessage = play.name + item.getUseMessage();
-			inventory.removeItem(item);
+			}
+			else {
+			this.armor = this.maxArmor;	
+			}
 			break;
 		case "Food":
+			if (this.hunger + item.getPlayerHunger() < this.maxHunger)
+			{
 			this.hunger += item.getPlayerHunger();
-			//narrationMessage = play.name + " ate " + this.name;
-			//System.out.println("Player strength: " + strength);
-			inventory.removeItem(item);
+			}
+			else {
+			this.hunger = this.maxHunger;	
+			}
 			break;
 		case "Weapon":
+			if (this.strength + item.getPlayerStrength() < this.maxStrength)
+			{
 			this.strength += item.getDamageFromWeapon();
-			inventory.removeItem(item);
+			}
+			else {
+			this.strength = this.maxStrength;	
+			}
+			
 			break;
 		case "Ring":
 			//narrationMessage = play.name + item.getUseMessage();
 			this.strength += item.getPlayerStrength();
-			inventory.removeItem(item);
 			break;
 		case "Potions":
 			//narrationMessage = play.name + item.getUseMessage();
 			this.strength += item.getPlayerStrength();
-			inventory.removeItem(item);
 			break;
 		case "Scrolls":
 			//narrationMessage = play.name + item.getUseMessage();
-			inventory.removeItem(item);
 			break;
 		case "Wand":
-			inventory.removeItem(item);
 			//narrationMessage = play.name + item.getUseMessage();
 			break;
 		
@@ -84,24 +96,6 @@ public class Player extends Unit{
 		}
 	}		
 
-	public void unequipItem(Item item) {
-		switch (item.getItemType()) {
-		case "Armor":
-			this.armor -= item.getArmorProtection();
-			narrationMessage = play.name + item.getTakeOffMessage();
-			break;
-		case "Ring":
-			narrationMessage = play.name + item.getTakeOffMessage();
-			this.strength -= item.getPlayerStrength();
-			break;
-		case "Wand":	
-			narrationMessage = play.name + item.getTakeOffMessage();
-			break;
-		
-		
-		}
-		
-}
 
 	public void dropItem(Item item) {
 		inventory.removeItem(item);
@@ -121,7 +115,7 @@ public class Player extends Unit{
 		String[] temp= new String[2];
 		temp[0]= "Level: " + this.level + " HP: " +this.hp+ " ("+this.maxHP+") "+
 		" Hunger: "+this.hunger+ " (" + this.maxHunger + ") Armor: "+ this.armor+
-		 " Gold: "+ this.gold + " Exp: " + this.xp + " Str:" + this.strength + " (" + this.strength + ")";
+		 " Gold: "+ this.gold + " Exp: " + this.xp + " Str:" + this.maxStrength + " (" + this.maxStrength + ")";
 		return temp;
 	}
 

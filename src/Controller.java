@@ -176,6 +176,7 @@ public class Controller extends JFrame implements KeyListener {
 			
 			if (equipItem == true)
 			{
+				
 			if (key == KeyEvent.VK_0)
 			{
 				int update = game.equipOrConsumeItem(0);
@@ -200,8 +201,7 @@ public class Controller extends JFrame implements KeyListener {
 			{
 				int update = game.equipOrConsumeItem(4);
 				updateView(update);
-			}
-				
+			}	
 			}
 				
 				
@@ -224,6 +224,7 @@ public class Controller extends JFrame implements KeyListener {
 			
 			if (dropItem == true)
 			{
+			
 				if (key == KeyEvent.VK_0)
 				{
 					int update = game.throwItem(0);
@@ -249,7 +250,7 @@ public class Controller extends JFrame implements KeyListener {
 					int update = game.throwItem(4);
 					updateView(update);
 				}
-		
+			
 			}
 			
 			
@@ -295,6 +296,8 @@ public class Controller extends JFrame implements KeyListener {
 		System.out.println(update);
 		if(update == 9 || update==1 || update == 3 || update == 4 || update == 5 || update == 6 || update == 7 || update == 10){
 			view.updateNaration(game.narration);
+			this.dropItem = false;
+			this.equipItem =false;
 			if(update == 1 || update == 5 || update == 6 || update == 7 || update == 9 || update == 10){
 				narration = true;
 			} 
