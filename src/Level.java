@@ -56,6 +56,8 @@ public class Level {
 	protected Player play;
 	protected int hits;
 	protected String narration;
+	
+	protected boolean onStairs;
 
 	/* Room */
 	public class Rm {
@@ -145,6 +147,8 @@ public class Level {
 		spawnStair();
 
 		narration = "";
+		
+		onStairs = false;
 
 		System.out.println("Level Constructor Finished.");
 	}
@@ -528,6 +532,7 @@ public class Level {
 	 * Call new method moveAllMonsters();
 	 */
 	public int moveUnit(Player u, int[] dir) {
+		onStairs = false;
 		Point a = u.p;
 
 
@@ -635,6 +640,7 @@ public class Level {
 			}
 		}
 		if(c == stair.sym) {
+			onStairs = true;
 			return 6;
 		}
 

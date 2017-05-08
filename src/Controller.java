@@ -55,10 +55,18 @@ public class Controller extends JFrame implements KeyListener {
 			//TODO
 			if (key == KeyEvent.VK_SLASH) {
 				//Tells what the next character you type is
-			} else if (e.isShiftDown() && key == 46) {
+			} else if (e.isShiftDown() && key == KeyEvent.VK_COMMA) {
 				System.out.println("Time to Descend The Stairs!");
 				// This should respawn you in a new level
-				game.descend();
+				if(game.level.onStairs) {
+					game.descend();
+				}
+				updateView(12);
+			} else if (e.isShiftDown() && key == KeyEvent.VK_PERIOD) {
+				System.out.println("Time to Ascend The Stairs!");
+				// This should respawn you in a new level
+				game.ascend();
+				updateView(12);
 			} else if (key == KeyEvent.VK_H || key == KeyEvent.VK_LEFT) {
 				int[] left = {-1,0};
 				System.out.println("left");

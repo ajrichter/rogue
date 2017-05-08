@@ -43,18 +43,6 @@ public class GamePlay {
 		narration = "";
 	}
 	
-	public void climbStairs() {
-		if(hasAmulet==true) {
-			
-			//dungeon.currLevel--;
-			//if (dungeon.currLevel==-1) {
-				//View.printVictoryScreen();
-			//}
-		} else {
-			//dungeon.currLevel++;
-		}
-	}
-	
 	public boolean checkWin() {
 		
 		if (hasAmulet==true /*&& dungeon.currLevel==-1*/) {
@@ -62,35 +50,6 @@ public class GamePlay {
 		}
 		return false;
 	}
-	
-	//resolves attack. returns 0 if nobody died, 1 if defender died, 2 if attacker died
-	/*public void unitAttack(Unit attacker, Unit defender) {
-		
-		String text= "";
-		int[] attack = attacker.fight();
-		
-		if(attack[0]>=defender.getArmor()){
-			defender.takeDamage(attack[1]);
-			text= attacker.getName() + " hit " + defender.getName()+ " for " +attack[1]+ " damage";
-			if(defender.isDead()){
-				//Item i=((Enemy) defender).dropTreasure();
-				//drop item
-				//if(i!=null){
-				//	level.addItem(i, this.level.unitLocation(defender));
-			//	}
-				text=attacker.getName() + " hit " + defender.getName()+ " for " +attack[1]+ " damage and defeated it!";
-				this.level.removeUnit(defender);
-			}
-		}else{
-			text= attacker.getName()+ " missed "+ defender.getName();
-		}
-		
-		
-		this.view.updateNaration(text);
-	}*/
-	
-	
-	
 	
 	public int throwItem(int itemNum) {
 		
@@ -131,9 +90,11 @@ public class GamePlay {
 		
 		int x=level.moveUnit(level.play, direction);
 		if(x==6){
-			Level l = new Level(level.numLevel++, play);
-			dungeon.add(l);
-			this.level = l;
+			if(hasAmulet) {
+				ascend();
+			} else {
+				descend();
+			}
 		} else if(x==1){
 			update=1;
 			narration=level.narration;
@@ -157,6 +118,12 @@ public class GamePlay {
 		return update;
 		
 		//Add randomly move enemy
+	}
+	
+	public void ascend(){
+		if(level.numLevel>0) {
+			this.level = dungeon.get(level.numLevel--);
+		}
 	}
 	
 	public void descend(){
