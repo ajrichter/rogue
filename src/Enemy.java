@@ -163,13 +163,14 @@ public class Enemy extends Unit{
 		 		 }
 				 break;
 		 	 case 'D':
-				 //alternative way
-		 		 int[] atk = {d.roll(1,8), d.roll(1,8), d.roll(3,10)};
 		 		 chance = ThreadLocalRandom.current().nextInt(0, 2 + 1);
-		 		 this.dmg = atk[chance];
-		 		 //not sure if we can do this since different monsters have # of atk patterns
-		 		 //and the elements in the array might not be randomized everytime
-		 		 //unless we reinitialize it everytime
+		 		 if(chance == 0) {
+		 			this.dmg = d.roll(1,8);
+		 		 } else if(chance == 1) {
+		 			this.dmg = d.roll(1,8);
+		 		 } else if(chance == 2) {
+		 			this.dmg = d.roll(3,10);	
+		 		 }
 		 		 
 				 break;
 		 	 case 'E':
