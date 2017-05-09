@@ -1,4 +1,8 @@
-
+/*
+ * Needs to get refactored a lot!
+ * Working on move still...
+ * Enemy/Player are ready for fight 
+ */
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.awt.Point;
@@ -8,42 +12,23 @@ import java.util.Map;
 
 
 public class Level {
-	/* Definitions */
 	protected final int MAXROOMS = 9;
-
-	/* Class Variables */
 	protected int numLevel;
-	/* Making rooms */
-	// Number of Rooms
 	protected int numR;
 	/*Tells you what to put down after you leave a space */
 	protected char last;
 	protected boolean inside;
 	protected boolean door;
-	// The full floor
 	protected char[][] floor;
-	// Visible part of the floor
 	protected boolean[][] isSeen;
-	// Array of Rooms Existence
 	protected boolean[] rb;
-	// Array of Rooms
 	protected Rm[] rs;
-
 	protected String itemNames;
-	// Array of item displays
-
 	protected int itemX = 0;
 	protected int itemY = 0;
-
-	// position of stair, 2 elements, stair[0] = x, stair[1] = y
-	//protected int[] stair;
 	protected Stairs stair;
+	protected Point amulet;
 
-	//gold
-	//protected Gold[] gold;
-
-	/* Spawning Enemies and Items */
-	// List of enemies
 	private ArrayList<Enemy> enemies;
 
 	private ArrayList<Item> items;
@@ -118,7 +103,6 @@ public class Level {
 		enemies = new ArrayList<Enemy>();
 		items = new ArrayList<Item>();
 
-
 		itemPos = new HashMap <Character, Item>();
 
 		for (int i = 0; i < 6; i++) {
@@ -149,8 +133,14 @@ public class Level {
 		narration = "";
 		
 		onStairs = false;
+		
+		/* What we have been waiting for! */
+		if(numLevel == 25){
+			amulet = findS();
+			floor[amulet.y][amulet.x] = ',';
+		}
 
-		System.out.println("Level Constructor Finished.");
+		System.out.println("Level Constructed.");
 	}
 
 	/*
@@ -357,7 +347,7 @@ public class Level {
 
 
 	private void makeEnemy() {
-		Enemy e = new Enemy();
+		Enemy e = new Enemy(numLevel, play.level);
 		Point spot = findS();
 		e.p = spot;
 		enemies.add(e);
@@ -512,31 +502,14 @@ public class Level {
 	}
 
 
-	/*
-	 * Should return a String to narrate for you
-	 * 2 Strings for Monster and Player Attack
-	 * 
+	/* 
+	 * Return Narration String
 	 * Returns: 0 = moved 1 = fighting 2 = cant move
-	 * Fight Monsters
-	 * Get Items
-	 * 
-	 * Assumes Unit is Player
-	 * Need to fix isSeen array so it changes for player
-	 * if #/ first + then make all squares around @ seen if
-	 * second + then make room seen if . then nothing
-	 * 
-	 * add to the bottom of this a random move for all enemies
-	 * Iterate over the arraylist and then do a random
-	 * move between 1 and 0 in each direction.
-	 * Simple enough!
 	 * Call new method moveAllMonsters();
 	 */
 	public int moveUnit(Player u, int[] dir) {
 		onStairs = false;
 		Point a = u.p;
-
-
-
 		/* Bounds check*/
 		if ((a.x + dir[0]) < 0 || (a.y + dir[1]) < 0 || (a.y + dir[1]) > 23 || (a.x + dir[0]) > 79) {
 			System.out.println("You are trying to move out of bounds. Very Bad!");

@@ -2,19 +2,15 @@ import java.awt.Point;
 
 /*
 	TODO:
-	Move
 	isDead
 */
 public class Unit {
 	protected String name;
 	protected char val;
-	protected int level, xp, hp, maxHP, armor, maxStrength;
-	protected int hunger, maxHunger, strength, maxArmor;
+	protected int level, xp, hp, maxHP, armor, maxStrength, hunger, maxHunger, strength, maxArmor;
 	protected boolean dead;
 	protected Point p;
 
-	// All done in Subclasses
-	// Clearly not dead as it has just been constructed!
 	public Unit() {
 		this.dead = false;
 		this.p = new Point();
@@ -23,31 +19,14 @@ public class Unit {
 	public boolean isEnemy(){
 		return !(this.val == '@');
 	}
-	
-	public void setP(int x, int y){
-		p.setLocation(x,  y);
-	}
-	
-	public Point getP(){
-		return p;
-	}
 
 	// Returns the Unit's character representation
 	public String toString(){
 		return " " + val;
 	}
-	
-	public char getVal(){
-		return val;
-	}
 
 	public String getName(){
 		return name;
-	}
-
-	// Returns the armor value.
-	public int getArmor(){
-		return armor;
 	}
 
 	// Lowers a Unit's HP from a fight.
@@ -68,9 +47,5 @@ public class Unit {
 			attack[1]=0;
 		}
 		return attack;
-	}
-
-	public boolean isDead() {
-		return dead;
 	}
 }
