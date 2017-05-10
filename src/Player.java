@@ -30,6 +30,9 @@ public class Player extends Unit {
 		d = new DiceRoller();
 	}
 	
+	/*
+	 * Edit this to include armor etc.
+	 */
 	public int attack(){
 		return d.rollDie(4);
 	}

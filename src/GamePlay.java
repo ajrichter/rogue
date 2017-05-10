@@ -118,7 +118,9 @@ public class GamePlay {
 		
 		//Add randomly move enemy
 	}
-	
+	/* Player needs to get spawned
+	 * And enemies recreated
+	 */
 	public void ascend(){
 		if(level.numLevel>0) {
 			this.level = dungeon.get(level.numLevel--);

@@ -6,9 +6,7 @@ public class Enemy extends Unit{
 
 	public Enemy(int level, int plevel) {
 		super();
-		System.out.println("why?");
 		d = new DiceRoller();
-		System.out.println("about to gen");
 		this.genMon(level, plevel);
 	}
 	
@@ -67,10 +65,9 @@ public class Enemy extends Unit{
 		    default:setStat("zombie", 'Z', 2, 8, 6, 0);
 				    break;
 		}
-		System.out.println("Try " + this.val);
 		if(this.level > (lvl + pl))
 			this.genMon(lvl, pl);
-		System.out.println("Spawn " + this.val + " with val " + this.level);
+		System.out.println("Spawned a level " + this.level + " " + this.val);
 	}
 	
 	public int getDMG(){
