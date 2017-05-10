@@ -15,7 +15,11 @@ public class GenItem {
 	private String dropMessage = "";
 	private String pickUpMessage = "";
 	private String takeOffMessage = "";
-
+	private int playerStrength = 0;
+	private int playerHP = 0;
+	private int maxPlayerHP = 0; 
+	private int playerXP = 0;
+	
 	public GenItem () {
 
 	}
@@ -70,7 +74,7 @@ public class GenItem {
 	public void genItem()
 	{
 		int num = getProbabilityOfItem();
-		switch (num) { 
+		switch (7) { 
 		case 1: this.typeItem = "Armor";
 		Armor a = new Armor();
 		a.getArmor();
@@ -140,6 +144,10 @@ public class GenItem {
 		p.getPotion();
 		this.boardName = p.boardName;
 		this.itemName = p.name;
+		this.playerStrength = p.playerStrength;
+		this.playerHP = p.playerHP;
+		this.maxPlayerHP = p.maxPlayerHP;
+		this.playerXP = p.playerXP;
 		this.useMessage = " drank the " + this.itemName + " potion." + p.eMessage;
 		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
 		this.pickUpMessage = " picked up the " + this.itemName + " Potion.";
@@ -193,7 +201,22 @@ public class GenItem {
 		return this.protection;
 	}
 
-
+	public int getMaxPlayerHP() {
+		return this.maxPlayerHP;
+	}
+	
+	public int getPlayerHP() {
+		return this.playerHP;
+	}
+	
+	public int getPlayerStrength() {
+		return this.playerStrength;
+	}
+	
+	public int getPlayerXP() {
+		return this.playerXP;
+	}
+	
 
 }
 

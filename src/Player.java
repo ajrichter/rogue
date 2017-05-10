@@ -38,7 +38,8 @@ public class Player extends Unit {
 	}
 
 	public void useItem(Item item) {
-		switch (item.getItemType()) {
+		//switch (item.getItemType()) {
+		switch ("Potions") {
 		case "Armor":
 			if (this.armor + item.getArmorProtection() < this.maxArmor) {
 				this.armor += item.getArmorProtection();
@@ -66,8 +67,27 @@ public class Player extends Unit {
 			this.strength += item.getPlayerStrength();
 			break;
 		case "Potions":
+			if (this.hp + item.getPlayerHP() < this.maxHP)
+			{
+				this.hp += item.getPlayerHP();
+			}
+			else {
+				this.maxHP += 1;
+				this.hp = this.maxHP;
+			}
+			
+			if (this.strength + item.getPlayerStrength() < this.maxStrength)
+			{
+				this.strength += item.getPlayerStrength();
+			}
+			else {
+				this.maxStrength += 1;
+				this.strength = this.maxStrength;
+			}
+			this.xp += item.getPlayerXP();
+			
+			
 			// narrationMessage = play.name + item.getUseMessage();
-			this.strength += item.getPlayerStrength();
 			break;
 		case "Scrolls":
 			// narrationMessage = play.name + item.getUseMessage();

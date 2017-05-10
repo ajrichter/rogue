@@ -36,7 +36,8 @@ public class Level {
 	private Map<Character, Item> itemPos; // Maps each item to an item Position
 	private int p; // armor protection for player
 	private int h; // hunger for player
-
+	private int hp; //health for player
+	private int strength; //player's strength
 	protected Player play;
 	protected int hits;
 	protected String narration;
@@ -400,11 +401,7 @@ public class Level {
 		if (play.inventory.getInventorySpace() > itemNum) {
 			Item item = play.items.get(itemNum);
 			narration = "You" + item.getUseMessage();
-
-			play.useItem(item);
-
-			p += play.armor;
-			h += play.hunger;
+			play.useItem(item);		
 			play.items.remove(item);
 			play.inventory.removeItem(item);
 		} else {

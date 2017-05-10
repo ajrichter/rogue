@@ -23,6 +23,7 @@ public class Item {
 	protected int playerHealth;
 	protected int playerHP;
 	protected int maxPlayerHP;
+	protected int playerXP;
 	protected String eMessage; //Message for using or equiping
 	protected String dMessage; //Message for dropping
 	protected String pMessage; //Message for picking up item
@@ -73,9 +74,19 @@ public class Item {
 			this.armorProtection = generate.getArmorProtection();
 		}
 		
+			this.maxPlayerHP = generate.getMaxPlayerHP();
+			this.playerHP = generate.getPlayerHP();
+			this.playerStrength = generate.getPlayerStrength();
+			this.playerXP = generate.getPlayerXP();
+			
 		return generate;
 	}
 
+	
+	public int getPlayerXP() {
+		return playerXP;
+	}
+	
 	
 	public String getUseMessage() {
 		return eMessage;
@@ -126,6 +137,11 @@ public class Item {
 	public int getPlayerHunger() {
 		return playerHunger;
 	}
+
+	public int getPlayerHP() {
+		return playerHP;
+	}
+	
 
 
 
