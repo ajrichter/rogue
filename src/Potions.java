@@ -91,11 +91,21 @@ public class Potions extends Item {
 //			Confusion	7	Confuses the player for 19-21 turns
 			case 2: this.name = "Poison";
 			this.eMessage = "You feel very sick now.";
+			DiceRoller loseS = new DiceRoller();
+			this.playerStrength -= loseS.rollDie(3);
 			//Poison	8	Reduces strength by 1-3 points.
 			break;
 			
 			case 3: this.name = "Healing";
 			this.eMessage = "You begin to feel better.";
+			DiceRoller gainHP = new DiceRoller();
+			if (this.playerHP == this.maxPlayerHP)
+			{
+				maxPlayerHP += 1;
+			}
+			else {
+			this.playerHP += gainHP.roll(1,5); 
+			}
 			//Healing	13	Heals 1df per character level. Increase max HP by 1 if you are at full health.
 			break;
 			
@@ -129,6 +139,16 @@ public class Potions extends Item {
 			
 			case 9: this.name = "Extra Healing";
 			this.eMessage = "You begin to feel much better.";
+			DiceRoller extraHP = new DiceRoller();
+			this.playerHP += extraHP.rollDie(8); 
+			
+			
+			
+			if (this.playerHP == this.maxPlayerHP)
+			{
+				this.maxPlayerHP+=1;
+			}
+	
 			//			Extra healing	5	Heals 1d8 per character level. Increase max HP by 1, or by 2 if you are at full health.
 			break;
 			
@@ -139,7 +159,11 @@ public class Potions extends Item {
 			
 			case 11: this.name = "Restore Strength";
 			this.eMessage = "Hey, this tastes great.  It make you feel warm all over.";
-//			Restore strength	13	Hey, this tastes great. It make you feel warm all over. Restores strength to maximum.
+			
+			
+			
+			
+			//			Restore strength	13	Hey, this tastes great. It make you feel warm all over. Restores strength to maximum.
 			break;
 			
 			case 12: this.name = "Blindness";

@@ -22,6 +22,7 @@ public class Item {
 	protected int playerStrength;
 	protected int playerHealth;
 	protected int playerHP;
+	protected int maxPlayerHP;
 	protected String eMessage; //Message for using or equiping
 	protected String dMessage; //Message for dropping
 	protected String pMessage; //Message for picking up item
