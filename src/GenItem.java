@@ -19,6 +19,11 @@ public class GenItem {
 	private int playerHP = 0;
 	private int maxPlayerHP = 0; 
 	private int playerXP = 0;
+	private boolean restoreStrength = false;
+	private boolean healing = false;
+	private boolean extraHealing = false;
+	private boolean hallucination = false;
+	
 	
 	public GenItem () {
 
@@ -148,6 +153,10 @@ public class GenItem {
 		this.playerHP = p.playerHP;
 		this.maxPlayerHP = p.maxPlayerHP;
 		this.playerXP = p.playerXP;
+		this.restoreStrength = p.restoreStrength;
+		this.extraHealing = p.extraHealing;
+		this.healing = p.healing;
+		this.hallucination = p.hallucination;
 		this.useMessage = " drank the " + this.itemName + " potion." + p.eMessage;
 		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
 		this.pickUpMessage = " picked up the " + this.itemName + " Potion.";
@@ -160,6 +169,24 @@ public class GenItem {
 		}
 	}
 
+	public boolean getHallucination() {
+		return this.hallucination;
+	}
+	
+	
+	public boolean getHealing() {
+		return this.healing;
+	}
+	
+	public boolean getExtraHealing() {
+		return this.extraHealing;
+	}
+	
+	public boolean isRestoreStrength() {
+		return this.restoreStrength;
+	}
+	
+	
 	public String getTypeItem() {
 		return this.typeItem;
 	}

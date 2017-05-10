@@ -34,10 +34,8 @@ public class Level {
 
 	private ArrayList<Item> items;
 	private Map<Character, Item> itemPos; // Maps each item to an item Position
-	private int p; // armor protection for player
-	private int h; // hunger for player
-	private int hp; //health for player
-	private int strength; //player's strength
+	private boolean hallucination = false;
+	
 	protected Player play;
 	protected int hits;
 	protected String narration;
@@ -401,7 +399,17 @@ public class Level {
 		if (play.inventory.getInventorySpace() > itemNum) {
 			Item item = play.items.get(itemNum);
 			narration = "You" + item.getUseMessage();
-			play.useItem(item);		
+			play.useItem(item);
+			if (play.hallucination == true)
+			{
+				for (int i = 0; i < items.size(); i ++)
+				{
+				items.get(i).name = "Stuff!";	
+				enemies.get(i).name = "Mr. Nice guy";	
+				}
+				
+			}
+			
 			play.items.remove(item);
 			play.inventory.removeItem(item);
 		} else {

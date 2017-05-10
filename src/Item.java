@@ -29,6 +29,11 @@ public class Item {
 	protected String pMessage; //Message for picking up item
 	protected String uMessage; //Message for taking off equiptment
 	private GenItem generate;
+	protected boolean restoreStrength = false;
+	protected boolean extraHealing = false;
+	protected boolean healing = false;
+	
+	
 	protected boolean monsterHaste = false; //item from wand
 	protected boolean monsterDetection = false; //item from potion
 	protected boolean monsterInvisable = false; //item from wand
@@ -78,13 +83,34 @@ public class Item {
 			this.playerHP = generate.getPlayerHP();
 			this.playerStrength = generate.getPlayerStrength();
 			this.playerXP = generate.getPlayerXP();
+			this.restoreStrength = generate.isRestoreStrength();
+			this.extraHealing = generate.getExtraHealing();
+			this.healing = generate.getHealing();
+			this.hallucination = generate.getHallucination();
 			
 		return generate;
 	}
 
+	public boolean getHallucination() {
+		return hallucination;
+	}
+	
+	
+	public boolean getHealing() {
+		return healing;
+	}
+	
+	public boolean getExtraHealing() {
+		return extraHealing;
+	}
+	
 	
 	public int getPlayerXP() {
 		return playerXP;
+	}
+	
+	public boolean restoreStrength() {
+		return restoreStrength;
 	}
 	
 	

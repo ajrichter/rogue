@@ -97,12 +97,10 @@ public class Ring extends Item {
 			switch (num)
 			{
 			case 1: this.name = "Protection";
-			this.armorProtection = 1;
 //			protection	9	Adds to defense and magical saving throws
 			break;
 			
 			case 2: this.name = "Strength";
-			this.playerStrength = 1;
 //			Add strength	9	Adds to strength
 			break;
 			

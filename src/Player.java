@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Player extends Unit {
-	protected boolean hasA, hasW;
+	protected boolean hasA, hasW, hallucination;
 	protected int gold, nexp, steps;
 	protected ArrayList<Item> items;
 	protected Inventory inventory;
@@ -29,7 +29,7 @@ public class Player extends Unit {
 		items = new ArrayList<Item>();
 		d = new DiceRoller();
 	}
-	
+
 	/*
 	 * Edit this to include armor etc.
 	 */
@@ -67,26 +67,44 @@ public class Player extends Unit {
 			this.strength += item.getPlayerStrength();
 			break;
 		case "Potions":
-			if (this.hp + item.getPlayerHP() < this.maxHP)
+			if (item.getExtraHealing() || item.getHealing())
 			{
-				this.hp += item.getPlayerHP();
+				if (this.hp + item.getPlayerHP() < this.maxHP)
+				{
+					this.hp += item.getPlayerHP();
+				}
+				else {
+					if (item.getHealing()) {
+						this.maxHP += 1;
+					}
+					if (item.getExtraHealing()) {
+						DiceRoller dice = new DiceRoller();
+						this.maxHP += dice.rollDie(2);	
+					}
+
+					this.hp = this.maxHP;
+				}
 			}
-			else {
-				this.maxHP += 1;
-				this.hp = this.maxHP;
+
+
+
+			if (item.restoreStrength())
+			{
+				this.strength = this.maxStrength;
 			}
-			
+
+			this.hallucination = item.getHallucination();
+
 			if (this.strength + item.getPlayerStrength() < this.maxStrength)
 			{
 				this.strength += item.getPlayerStrength();
 			}
 			else {
-				this.maxStrength += 1;
 				this.strength = this.maxStrength;
 			}
 			this.xp += item.getPlayerXP();
-			
-			
+
+
 			// narrationMessage = play.name + item.getUseMessage();
 			break;
 		case "Scrolls":

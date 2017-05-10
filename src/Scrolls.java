@@ -121,7 +121,7 @@ public class Scrolls extends Item {
 		break;
 
 		case 4: this.name = "Sleep";
-		//		Sleep	3	Sleepts reader for 4-8 turns.
+		//		Sleep	3	Sleeps reader for 4-8 turns.
 		this.eMessage = "You fall asleep";
 		break;
 
