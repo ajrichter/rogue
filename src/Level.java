@@ -122,8 +122,6 @@ public class Level {
 			amulet = findS();
 			floor[amulet.y][amulet.x] = ',';
 		}
-
-		System.out.println("Level Works.");
 	}
 
 	/*
@@ -566,6 +564,7 @@ public class Level {
 		e.hp -= patk;
 		if(e.hp <= 0){
 			floor[e.p.y][e.p.x] = '.';
+			System.out.println("adding xp me " + play.xp + " enemy " + e.xp);
 			play.xp += e.xp;
 			n = "You defeated the " + e.name + "!";
 			enemies.remove(e);

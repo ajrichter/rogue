@@ -39,7 +39,6 @@ public class GamePlay {
 		level = new Level(0, play);
 		dungeon = new ArrayList<Level>();
 		dungeon.add(level);
-		System.out.println("Gameplay Constructor called");
 		narration = "";
 	}
 	
