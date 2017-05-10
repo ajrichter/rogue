@@ -13,7 +13,7 @@ public class Unit {
 
 	public Unit() {
 		this.dead = false;
-		this.p = new Point();
+		p = new Point();
 	}
 
 	public boolean isEnemy(){

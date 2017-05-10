@@ -22,7 +22,7 @@ public class GamePlay {
 	public GamePlay() {
         System.out.println("Gameplay Constructor called");
         String s = "John Dooley";
-		switch (ThreadLocalRandom.current().nextInt(0, 3 + 1)) {
+		switch (ThreadLocalRandom.current().nextInt(0, 4 + 1)) {
 			case 0: s = "Myra";
 				break;
 			case 1: s = "Ink";
@@ -44,7 +44,6 @@ public class GamePlay {
 	}
 	
 	public boolean checkWin() {
-		
 		if (hasAmulet==true /*&& dungeon.currLevel==-1*/) {
 			return true;
 		}

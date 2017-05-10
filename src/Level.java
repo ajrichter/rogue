@@ -89,6 +89,9 @@ public class Level {
 		floor = new char[24][80];
 		rb = new boolean[9];
 		rs = new Rm[9];
+		play = pp;
+		
+		/* No reason for this */
 		stair = new Stairs();
 
 		/* set everything to 0, which means empty */
@@ -118,7 +121,6 @@ public class Level {
 		/*
 		 * Spawn Player and Light up its room. Use %|/ 3 to find the room
 		 */
-		play = pp;
 		spawnP();
 		last  = '.';
 		hits = 0;
@@ -340,13 +342,8 @@ public class Level {
 		itemPos.put(c, i);
 	}
 
-
-
-
-
-
-
 	private void makeEnemy() {
+		System.out.println(play.level);
 		Enemy e = new Enemy(numLevel, play.level);
 		Point spot = findS();
 		e.p = spot;
