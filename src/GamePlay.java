@@ -18,6 +18,7 @@ public class GamePlay {
 	Level level;
 	private String[] lines = new String[10];
 	String narration;
+	String narration2;
 	
 	public GamePlay() {
         System.out.println("Gameplay Constructor called");
@@ -40,6 +41,7 @@ public class GamePlay {
 		dungeon = new ArrayList<Level>();
 		dungeon.add(level);
 		narration = "";
+		narration2 = "";
 	}
 	
 	public boolean checkWin() {
@@ -96,6 +98,7 @@ public class GamePlay {
 		} else if(x==1){
 			update=1;
 			narration=level.narration;
+			narration2=level.narration2;
 		} else if(x == 3) {
 			update = 3;
 			narration = level.narration;

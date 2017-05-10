@@ -16,12 +16,14 @@ public class Controller extends JFrame implements KeyListener {
 	private Item[] items;
 	private boolean equipItem = false;
 	private boolean dropItem = false;
+	private boolean nextNarration; //if there is a second narration in the series
 
 	public Controller(String s) {
 		super(s);
 		System.out.println("Controller Constructor called");
 
 		narration = false;
+		
 		frame = new JFrame();
 		frame.setSize(1000, 500);
 		frame.setMinimumSize(new Dimension(1000, 400));
@@ -44,8 +46,18 @@ public class Controller extends JFrame implements KeyListener {
 		int key = e.getKeyCode();
 
 		if (key == KeyEvent.VK_SPACE) {
-			narration = false;
-			view.updateNaration("");
+			if (nextNarration == true) {
+				if(!game.narration2.equals("")) {
+					view.updateNaration(game.narration2);
+				} else {
+					narration = false;
+					view.updateNaration("");
+				}
+				nextNarration = false;	
+			} else {
+				narration = false;
+				view.updateNaration("");
+			}
 			frame.repaint();
 		}
 
@@ -273,6 +285,9 @@ public class Controller extends JFrame implements KeyListener {
 			this.equipItem = false;
 			if (update == 1 || update == 5 || update == 6 || update == 7 || update == 9 || update == 10) {
 				narration = true;
+			}
+			if (update == 1) {
+				nextNarration = true;
 			}
 		} else {
 			view.updateNaration("");

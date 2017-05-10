@@ -40,6 +40,7 @@ public class Level {
 	protected Player play;
 	protected int hits;
 	protected String narration;
+	protected String narration2;
 
 	protected boolean onStairs;
 
@@ -114,6 +115,7 @@ public class Level {
 		floor[stairs.y][stairs.x] = STAIR;
 
 		narration = "";
+		narration2 = "";
 
 		onStairs = false;
 
@@ -455,8 +457,8 @@ public class Level {
 		if (Character.isUpperCase(c) && c != STAIR) {
 			for (Enemy e : enemies) {
 				if (e.p.x == a.x + dir[0] && e.p.y == a.y + dir[1]) {
-					narration = fight(e);
-					break;
+					fight(e);
+					return 1;
 				}
 			}
 			hits++;
@@ -562,20 +564,22 @@ public class Level {
 		String n = "";
 		int patk = play.attack();
 		e.hp -= patk;
+		narration = "You hit the " + e.name + " for " + patk + " damage!";
 		if(e.hp <= 0){
 			floor[e.p.y][e.p.x] = '.';
 			System.out.println("adding xp me " + play.xp + " enemy " + e.xp);
 			play.xp += e.xp;
-			n = "You defeated the " + e.name + "!";
+			narration = "You defeated the " + e.name + "!";
+			narration2 = "";
 			enemies.remove(e);
 		} else {
 			/* fight back */
 			int eatk  = e.getDMG();
 			play.hp -= eatk;
-			n = "The " + e.name + " attacked you!";
+			narration2 = "The " + e.name + " attacked you for " + eatk + " damage!";
 			
 			if(play.hp <= 0)
-				n = "Sorry. You died!";
+				narration2 = "Sorry. You died!";
 		}
 		return n;
 	}
