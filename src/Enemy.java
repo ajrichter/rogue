@@ -67,7 +67,6 @@ public class Enemy extends Unit{
 		}
 		if(this.level > (lvl + pl))
 			this.genMon(lvl, pl);
-		System.out.println("Spawned a level " + this.level + " " + this.val);
 	}
 	
 	public int getDMG(){

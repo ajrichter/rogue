@@ -458,6 +458,7 @@ public class Level {
 			for (Enemy e : enemies) {
 				if (e.p.x == a.x + dir[0] && e.p.y == a.y + dir[1]) {
 					narration = fight(e);
+					break;
 				}
 			}
 			hits++;
@@ -564,9 +565,10 @@ public class Level {
 		int patk = play.attack();
 		e.hp -= patk;
 		if(e.hp <= 0){
-			enemies.remove(e);
 			floor[e.p.y][e.p.x] = '.';
-			n = "You defeated the " + e.name + "!"; 
+			play.xp += e.xp;
+			n = "You defeated the " + e.name + "!";
+			enemies.remove(e);
 		} else {
 			/* fight back */
 			int eatk  = e.getDMG();
