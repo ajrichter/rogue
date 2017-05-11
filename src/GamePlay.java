@@ -86,34 +86,30 @@ public class GamePlay {
 		 * I changed this to work with Level
 		 * Player needs to be shared between Level and GamePlay
 		 */
-		if (!gameOver) {
-		
-		int x=level.moveUnit(level.play, direction);
-		if(x==6){
-			if(hasAmulet) {
-				ascend();
-			} else {
-				descend();
+			if (!gameOver) {
+			int x=level.moveUnit(level.play, direction);
+			if(x==6){
+				if(hasAmulet) {
+					ascend();
+				} else {
+					descend();
+				}
+			} else if(x==1){
+				update=1;
+				narration=level.narration;
+				narration2=level.narration2;
+			} else if(x == 3) {
+				update = 3;
+				narration = level.narration;
+			} else if (x == 9) {
+				update = 9;
+				narration = level.narration;
+			} else if (x == 10) {
+				update = 10;
+				narration = level.narration;
+				gameOver = true;
 			}
-		} else if(x==1){
-			update=1;
-			narration=level.narration;
-			narration2=level.narration2;
-		} else if(x == 3) {
-			update = 3;
-			narration = level.narration;
-		}
-		else if (x == 9)
-		{
-			update = 9;
-			narration = level.narration;
-		}
-		else if (x == 10)
-		{
-			update = 10;
-			narration = level.narration;
-			gameOver = true;
-		}
+			level.moveEnemy();
 		}
 		
 		return update;

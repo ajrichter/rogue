@@ -531,11 +531,18 @@ public class Level {
 			// Picking up gold
 			// last one checks if gold has already been picked up - in case
 			// enemy can drop gold (instead of transfer)
-			if (c == '*' && isInRoom(u) && getCurRoom(u).goldVal != 0) {
+			//   from the source code i think gold can only spawn in room (and maybe drop)
+			//	 isInRoom should be used to replace last with '.' 
+			//	 if !isInRoom then last = '#'
+			if (c == '*' && getCurRoom(u).goldVal != 0) {
 				u.gold += getCurRoom(u).goldVal;
 				narration = "You've picked up " + getCurRoom(u).goldVal + " gold";
 				getCurRoom(u).goldVal = 0;
-				last = '.';
+				if(isInRoom(u)) {
+					last = '.';
+				} else {
+					last = '#';
+				}
 
 				System.out.println("Moved Successfully and Picked Up Some Gold");
 				return 3;
@@ -582,7 +589,7 @@ public class Level {
 		e.hp -= patk;
 		narration = "You hit the " + e.name + " for " + patk + " damage!";
 		if(e.hp <= 0){
-			floor[e.p.y][e.p.x] = '.';
+			floor[e.p.y][e.p.x] = e.lastChar;	//replaces with wherever enemy was
 			System.out.println("adding xp me " + play.xp + " enemy " + e.xp);
 			play.xp += e.xp;
 			narration = "You defeated the " + e.name + "!";
@@ -604,6 +611,14 @@ public class Level {
 		/*
 		 * switch (c) { case ' ': case '|': case '-': return false; default:
 		 * return !(Character.isUpperCase(c)); }
+		 * 
+		 * use
+		 * if(c == 'EMPTY' || c == '|' || c == '-')
+		 * 	return false;
+		 * 
+		 * return true
+		 * 
+		 * something like that?
 		 */
 		return (c == ':' || c == '.' || c == '+' || c == '#' || c == '!' || c == '/' || c == ')' || c == ']' || c == '='
 				|| c == '?' || c == '*');
@@ -666,24 +681,20 @@ public class Level {
 			}
 		}
 	}
-
-	private void hideRoomEnemy(char[][] playerFloor) {
-		for (int i = 0; i < rs.length; i++) {
-			if (isInRoom(play)) {
-
-			}
-		}
-	}
-
+	
+	/**
+	 * hide enemies in rooms that player aren't in
+	 */
 	private void hideEnemy(char[][] playerFloor, int xPos, int yPos) {
 		if (Character.isUpperCase(playerFloor[yPos][xPos])) {
 			if (isInRoom(play)) {
 				// hides enemy in rooms that player aren't in
 				Rm temp = getCurRoom(play);
 				if (yPos > temp.y1 && yPos < temp.y2 && xPos > temp.x1 && xPos < temp.x2) {
+					return;
 					// do nothing
 				} else {
-					playerFloor[yPos][xPos] = '.';
+					playerFloor[yPos][xPos] = subEnemyChar(xPos, yPos);
 				}
 				// gonna need a way to hide enemy when they enter hallway too!
 			} else {
@@ -698,10 +709,67 @@ public class Level {
 					}
 				}
 				if (seePlayer) {
+					return;
 					// do nothing
 				} else {
-					playerFloor[yPos][xPos] = '.';
+					playerFloor[yPos][xPos] = subEnemyChar(xPos, yPos);
 				}
+			}
+		}
+	}
+	
+	/**
+	 * used when enemies step into hallway or on door and player can't see them
+	 */
+	private char subEnemyChar(int xPos, int yPos) {
+		for(int i = 0; i < rs.length; i++) {
+			if(isItem(floor[yPos][xPos])) {
+				return floor[yPos][xPos];
+			}
+			
+			if(rb[i] && yPos > rs[i].y1 && yPos < rs[i].y2 && xPos > rs[i].x1 && xPos < rs[i].x2) {
+				//within a room excluding doors/walls
+				return '.';
+			} else if (rb[i] && yPos >= rs[i].y1 && yPos <= rs[i].y2 && xPos >= rs[i].x1 && xPos <= rs[i].x2) {
+				//within a room including doors/walls
+				return '+';
+			}
+		}
+		
+		//not in room
+		return '#';
+	}
+	
+	/**
+	 * Move random enemy
+	 */
+	protected void moveEnemy() {
+		//go through enemies arraylist
+		for (int i = 0; i < enemies.size(); i++) {
+			int[] dir = {0, 0};
+			Point a = (enemies.get(i)).p;
+			char c = '|';
+			
+			//TODO: Enemies can move on item and when that happens that grid doesn't become '.'
+			//		 but rather whatever the item was
+			//		 !isItem(c) was added as a quick fix REMOVE THIS LATER
+			while(!validMove(c) || isItem(c) || c == '*') {
+				dir[1] = ThreadLocalRandom.current().nextInt(-1, 1 + 1);
+				dir[0] = ThreadLocalRandom.current().nextInt(-1, 1 + 1);
+				
+				c = floor[a.y + dir[1]][a.x + dir[0]];
+			}
+			
+			if(enemies.get(i).type.contains('M')) {
+				floor[a.y][a.x] = enemies.get(i).lastChar;
+				enemies.get(i).lastChar = c;
+
+				a.setLocation(a.x + dir[0], a.y + dir[1]);
+				floor[a.y][a.x] = (enemies.get(i)).val;
+			
+				System.out.println(enemies.get(i).name + " has moved");
+			} else {
+				System.out.println(enemies.get(i).name + " has not moved");
 			}
 		}
 	}
