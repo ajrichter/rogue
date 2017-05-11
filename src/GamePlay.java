@@ -19,74 +19,74 @@ public class GamePlay {
 	private String[] lines = new String[10];
 	String narration;
 	String narration2;
-	
+
 	public GamePlay() {
-        System.out.println("Gameplay Constructor called");
-        String s = "John Dooley";
+		System.out.println("Gameplay Constructor called");
+		String s = "John Dooley";
 		switch (ThreadLocalRandom.current().nextInt(0, 4 + 1)) {
-			case 0: s = "Myra";
-				break;
-			case 1: s = "Ink";
-				break;
-			case 2: s = "Harry";
-				break;
-			case 3: s = "Andrew";
-				break;
-			default: s = "John Dooley";
-				break;
+		case 0: s = "Myra";
+		break;
+		case 1: s = "Ink";
+		break;
+		case 2: s = "Harry";
+		break;
+		case 3: s = "Andrew";
+		break;
+		default: s = "John Dooley";
+		break;
 		}
-        play = new Player(s);
-		
+		play = new Player(s);
+
 		level = new Level(0, play);
 		dungeon = new ArrayList<Level>();
 		dungeon.add(level);
 		narration = "";
 		narration2 = "";
 	}
-	
+
 	public boolean checkWin() {
 		if (hasAmulet==true /*&& dungeon.currLevel==-1*/) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public int throwItem(int itemNum) {
-		
+
 		int [] dir = {0, 1};
 		int update = level.throwItem(itemNum, play, dir);
 		narration = level.narration;
 		return update;
 	}
-	
-	
+
+
 	public int equipOrConsumeItem(int itemNum) {
-		
+
 		int update = level.updatePlayerStatsAfterEquip(itemNum);
 		narration = level.narration; 
 		return update;
 	}
-	
-	
-	
-	
+
+
+
+
 	public int printInventory()
 	{
 		int update = level.printInventory();
 		narration = level.narration;
 		return update;
 	}
-	
-	
-	
+
+
+
 	public int move(int[] direction) {
 		int update=0;
-		
+
 		/* 
 		 * I changed this to work with Level
 		 * Player needs to be shared between Level and GamePlay
 		 */
-			if (!gameOver) {
+		if (!gameOver) {
 			int x=level.moveUnit(level.play, direction);
 			if(x==6){
 				if(hasAmulet) {
@@ -111,9 +111,9 @@ public class GamePlay {
 			}
 			level.moveEnemy();
 		}
-		
+
 		return update;
-		
+
 		//Add randomly move enemy
 	}
 	/* Player needs to get spawned
@@ -124,13 +124,13 @@ public class GamePlay {
 			this.level = dungeon.get(level.numLevel--);
 		}
 	}
-	
+
 	public void descend(){
 		Level l = new Level(level.numLevel++, play);
 		dungeon.add(l);
 		this.level = l;
 	}
-	
+
 	public void saveGame(String[] test) {
 		lines[0]+= "i am testing";
 		lines [5] += "all of this a test";
@@ -144,24 +144,24 @@ public class GamePlay {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	/*public static void main(String[] args) {
-		
+
 		GamePlay game = new GamePlay();
 		String[] dyingnoises = new String[4];
 		game.saveGame(dyingnoises); 
-		
+
 		//creates needed instances
 		game.play = new Player();
 		game.view= new RougeView();
 		game.level= new Level(game.play);
-		
+
 		//makes a board
 		view.updateBoard(game.level.getSeenFloor());
 		view.updateStats(game.play.playerStats());
 		view.nextTurn();
-		
+
 		//makes controller
 		Controller c= new Controller("cat");
 		c.sendInfo(game,view);

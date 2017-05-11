@@ -24,6 +24,7 @@ public class GenItem {
 	private boolean extraHealing = false;
 	private boolean hallucination = false;
 	private boolean invisible = false;
+	private boolean hasteSelf = false;
 	
 	public GenItem () {
 
@@ -147,6 +148,7 @@ public class GenItem {
 		case 7: this.typeItem = "Potion";
 		Potions p = new Potions();
 		p.getPotion();
+		
 		this.boardName = p.boardName;
 		this.itemName = p.name;
 		this.playerStrength = p.playerStrength;
@@ -161,6 +163,7 @@ public class GenItem {
 		this.useMessage = " drank the " + this.itemName + " potion." + p.eMessage;
 		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
 		this.pickUpMessage = " picked up the " + this.itemName + " Potion.";
+		this.hasteSelf = p.hasteSelf;
 		break;
 		default:
 			this.typeItem = "NOP";
@@ -170,6 +173,11 @@ public class GenItem {
 		}
 	}
 
+	
+	public boolean getHasteSelf() {
+		return this.hasteSelf;
+	}
+	
 	public boolean getInvisible() {
 		return this.invisible;
 	}

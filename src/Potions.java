@@ -81,7 +81,7 @@ public class Potions extends Item {
 	public void getPotion()
 	{
 		int num = getPotionCase();
-		switch (12)
+		switch (10)
 		{
 		case 1: this.name = "Confusion";
 		this.eMessage = "Wait, what's going on here. Huh? What? Who?";
@@ -143,6 +143,7 @@ public class Potions extends Item {
 
 		case 10: this.name = "Haste Self";
 		this.eMessage = "You feel yourself moving much faster.";
+		this.hasteSelf = true;
 		//			Haste self	5	Hastens player for 4-8 turns.
 		break;
 
