@@ -34,7 +34,7 @@ public class Level {
 
 	private ArrayList<Item> items;
 	private Map<Character, Item> itemPos; // Maps each item to an item Position
-	private boolean hallucination = false;
+
 	
 	protected Player play;
 	protected int hits;
@@ -55,6 +55,7 @@ public class Level {
 
 			if (ThreadLocalRandom.current().nextInt(1, 100 + 1) < 5)
 				isDark = true;
+			
 		}
 
 		private void set(int x, int y) {
@@ -409,6 +410,16 @@ public class Level {
 				}
 				
 			}
+			if (play.blindness == true)
+			{
+				for (int i = 0; i < numR; i++)
+				{
+					rs[i].isDark = true;
+				}
+				
+				
+			}
+			
 			
 			play.items.remove(item);
 			play.inventory.removeItem(item);

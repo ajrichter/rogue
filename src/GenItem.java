@@ -23,7 +23,7 @@ public class GenItem {
 	private boolean healing = false;
 	private boolean extraHealing = false;
 	private boolean hallucination = false;
-	
+	private boolean invisible = false;
 	
 	public GenItem () {
 
@@ -157,6 +157,7 @@ public class GenItem {
 		this.extraHealing = p.extraHealing;
 		this.healing = p.healing;
 		this.hallucination = p.hallucination;
+		this.invisible = p.blindness;
 		this.useMessage = " drank the " + this.itemName + " potion." + p.eMessage;
 		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
 		this.pickUpMessage = " picked up the " + this.itemName + " Potion.";
@@ -169,6 +170,11 @@ public class GenItem {
 		}
 	}
 
+	public boolean getInvisible() {
+		return this.invisible;
+	}
+	
+	
 	public boolean getHallucination() {
 		return this.hallucination;
 	}

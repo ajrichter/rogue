@@ -81,7 +81,7 @@ public class Potions extends Item {
 	public void getPotion()
 	{
 		int num = getPotionCase();
-		switch (5)
+		switch (12)
 		{
 		case 1: this.name = "Confusion";
 		this.eMessage = "Wait, what's going on here. Huh? What? Who?";
@@ -154,6 +154,7 @@ public class Potions extends Item {
 
 		case 12: this.name = "Blindness";
 		this.eMessage = "A cloak of darkness falls around you.";
+		blindness = true;
 		//			Blindness	5	Blinds player for 807-892 turns
 		break;
 

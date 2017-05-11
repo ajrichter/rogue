@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Player extends Unit {
-	protected boolean hasA, hasW, hallucination;
+	protected boolean hasA, hasW, hallucination, blindness;
 	protected int gold, nexp, steps;
 	protected ArrayList<Item> items;
 	protected Inventory inventory;
@@ -86,7 +86,7 @@ public class Player extends Unit {
 				}
 			}
 
-
+			this.blindness = item.getBlindness(); 
 
 			if (item.restoreStrength())
 			{
