@@ -81,7 +81,7 @@ public class Potions extends Item {
 	public void getPotion()
 	{
 		int num = getPotionCase();
-		switch (num)
+		switch (10)
 		{
 		case 1: this.name = "Confusion";
 		this.eMessage = "Wait, what's going on here. Huh? What? Who?";
@@ -118,7 +118,7 @@ public class Potions extends Item {
 		break;
 
 		case 6: this.name = "Levitation";
-		this.levitation = true;
+		this.levitation = true; //The enemy will be 10% less likely to hit the player
 		this.eMessage = "You're flying!";
 		break;
 

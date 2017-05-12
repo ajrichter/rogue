@@ -408,8 +408,7 @@ public class Level {
 			play.useItem(item);
 			if (play.hallucination == true) {
 				for (int i = 0; i < items.size(); i++) {
-					items.get(i).name = "Stuff!";
-					enemies.get(i).name = "Mr. Nice guy";
+					enemies.get(i).name = "Mr Nice Guy";
 				}
 
 			}
@@ -497,7 +496,7 @@ public class Level {
 				return 1;
 			}
 			return 1;
-		} else if (validMove(c) || levitationMove(c)) {
+		} else if (validMove(c)) {
 			if (isItem(c)) {
 				if (play.inventory.addItem(itemPos.get(c)) == false) {
 					narration = "Can't add item. Inventory is full.";
@@ -641,9 +640,6 @@ public class Level {
 		return (c == '.' || c == '#');
 	}
 
-	private boolean levitationMove(char c) {
-		return (!isItem(c) && c != '%' && levitation == true);
-	}
 
 	private boolean validMove(char c) {
 		return (c == '.' || c == '#' || c == '+' || c == '*' || isItem(c));
