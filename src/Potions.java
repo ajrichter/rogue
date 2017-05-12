@@ -81,7 +81,7 @@ public class Potions extends Item {
 	public void getPotion()
 	{
 		int num = getPotionCase();
-		switch (6)
+		switch (5)
 		{
 		case 1: this.name = "Confusion";
 		this.eMessage = "Wait, what's going on here. Huh? What? Who?";

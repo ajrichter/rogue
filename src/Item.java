@@ -34,7 +34,7 @@ public class Item {
 	protected boolean healing = false;
 	protected boolean blindness = false;
 	protected boolean hasteSelf = false;
-	
+	protected boolean light = false;
 	protected boolean monsterHaste = false; //item from wand
 	protected boolean monsterDetection = false; //item from potion
 	protected boolean monsterInvisable = false; //item from wand
@@ -91,9 +91,15 @@ public class Item {
 			this.blindness = generate.getInvisible();
 			this.hasteSelf = generate.getHasteSelf();
 			this.levitation = generate.getLevitation();
+			this.light = generate.getLight();
 		return generate;
 	}
 
+	
+	public boolean getLight() {
+		return light;
+	}
+	
 	
 	public boolean getLevitation() {
 		return levitation;

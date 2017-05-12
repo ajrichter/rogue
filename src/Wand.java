@@ -79,9 +79,10 @@ public class Wand extends Item {
 		{
 			DiceRoller d = new DiceRoller();
 			int num = generateWandNumber();
-			switch (num) {
+			switch (1) {
 			case 1: this.name = "Light";
-//			Light	12	Has 10-19 charges. Illuminates the room.
+			this.light = true;
+			
 			break;
 			
 			case 2: this.name = "Invisability";

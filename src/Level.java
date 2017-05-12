@@ -30,6 +30,7 @@ public class Level {
 	private final char STAIR = '%';
 	private boolean hasteSelf = false;
 	private boolean levitation = false;
+	private boolean light = false;
 	protected Point amulet;
 
 	private ArrayList<Enemy> enemies;
@@ -418,9 +419,14 @@ public class Level {
 			if (play.hasteSelf == true)
 			{
 				this.hasteSelf = true;
-				
 			}
 			
+			if (play.light == true)
+			{
+				this.light = true;
+			}
+				
+				
 			if (play.levitation == true)
 			{
 				this.levitation = true;
@@ -531,6 +537,11 @@ public class Level {
 			}
 			
 			
+			if (getCurRoom(u).isDark && isInRoom(u) && light == true)
+			{
+				getCurRoom(u).isDark = false;
+			}
+			
 			// shows everything if room is not dark, shows surrounding area if
 			// it is dark
 			if (isInRoom(u) && !(getCurRoom(u).isDark)) {
@@ -538,6 +549,7 @@ public class Level {
 
 			} else {// otherwise room is dark
 				makeDark(getCurRoom(u));
+				
 			}
 			// quick fix, make every dark room dark again instead of the one
 			// you've just left

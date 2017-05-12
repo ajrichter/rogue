@@ -26,6 +26,7 @@ public class GenItem {
 	private boolean invisible = false;
 	private boolean hasteSelf = false;
 	private boolean levitation = false;
+	private boolean light = false;
 	
 	public GenItem () {
 
@@ -144,6 +145,7 @@ public class GenItem {
 		this.useMessage = " equiped the " + this.itemName + " Wand.";
 		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
 		this.pickUpMessage = " picked up the " + this.itemName + " Wand.";
+		this.light = wand.light;
 		break;
 
 		case 7: this.typeItem = "Potion";
@@ -175,6 +177,10 @@ public class GenItem {
 		}
 	}
 
+	public boolean getLight() {
+		return this.light;
+	}
+	
 	
 	public boolean getLevitation() {
 		return this.levitation;
