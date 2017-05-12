@@ -90,9 +90,16 @@ public class Item {
 			this.hallucination = generate.getHallucination();
 			this.blindness = generate.getInvisible();
 			this.hasteSelf = generate.getHasteSelf();
+			this.levitation = generate.getLevitation();
 		return generate;
 	}
 
+	
+	public boolean getLevitation() {
+		return levitation;
+	}
+	
+	
 	public boolean getHasteSelf() {
 		return hasteSelf;
 	}

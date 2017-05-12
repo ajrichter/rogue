@@ -25,6 +25,7 @@ public class GenItem {
 	private boolean hallucination = false;
 	private boolean invisible = false;
 	private boolean hasteSelf = false;
+	private boolean levitation = false;
 	
 	public GenItem () {
 
@@ -164,6 +165,7 @@ public class GenItem {
 		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
 		this.pickUpMessage = " picked up the " + this.itemName + " Potion.";
 		this.hasteSelf = p.hasteSelf;
+		this.levitation = p.levitation;
 		break;
 		default:
 			this.typeItem = "NOP";
@@ -173,6 +175,10 @@ public class GenItem {
 		}
 	}
 
+	
+	public boolean getLevitation() {
+		return this.levitation;
+	}
 	
 	public boolean getHasteSelf() {
 		return this.hasteSelf;

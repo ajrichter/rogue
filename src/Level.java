@@ -29,6 +29,7 @@ public class Level {
 	protected Point stairs;
 	private final char STAIR = '%';
 	private boolean hasteSelf = false;
+	private boolean levitation = false;
 	protected Point amulet;
 
 	private ArrayList<Enemy> enemies;
@@ -420,6 +421,11 @@ public class Level {
 				
 			}
 			
+			if (play.levitation == true)
+			{
+				this.levitation = true;
+			}
+			
 			if (play.blindness == true)
 			{
 				for (int i = 0; i < numR; i++)
@@ -495,7 +501,7 @@ public class Level {
 				return 1;
 			}
 			return 1;
-		} else if (validMove(c)) {
+		} else if (validMove(c) || levitationMove(c)) {
 			if (isItem(c)) {
 				if (play.inventory.addItem(itemPos.get(c)) == false) {
 					narration = "Can't add item. Inventory is full.";
@@ -635,8 +641,10 @@ public class Level {
 		return (c == '.' || c == '#');
 	}
 	
-
-	
+	private boolean levitationMove(char c)
+	{
+	return (!isItem(c) && c != '%' && levitation == true);	
+	}
 	
 	private boolean validMove(char c) {
 		/*

@@ -81,7 +81,7 @@ public class Potions extends Item {
 	public void getPotion()
 	{
 		int num = getPotionCase();
-		switch (10)
+		switch (6)
 		{
 		case 1: this.name = "Confusion";
 		this.eMessage = "Wait, what's going on here. Huh? What? Who?";
@@ -118,6 +118,8 @@ public class Potions extends Item {
 		break;
 
 		case 6: this.name = "Levitation";
+		this.levitation = true;
+		this.eMessage = "You're flying!";
 		break;
 
 		case 7: this.name = "See Invisiable";
@@ -159,14 +161,15 @@ public class Potions extends Item {
 		//			Blindness	5	Blinds player for 807-892 turns
 		break;
 
-		case 13: this.name = "Raise level"; 
+		case 13: this.name = "Magic Detection"; 
+
+		break;		
+
+		case 14: this.name = "Raise Level";
 		this.eMessage = "You suddenly feel much more skillful";
 		this.playerXP += 1; 
 		//					Raise level	2	Increases experience level by 1.
-		break;		
-
-		case 14: this.name = "NOP";
-		this.eMessage = "This potion tastes extremely dull.";
+		
 		break;
 
 		default: this.name = "NOP";
