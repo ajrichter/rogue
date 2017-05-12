@@ -369,10 +369,12 @@ public class Level {
 				if (isSeen[y][x]) {
 					pfloor[y][x] = floor[y][x];
 				}
-				hideEnemy(pfloor, x, y);
+				
 			}
 		}
 
+		hideEnemy(pfloor);
+		
 		return pfloor;
 	}
 
@@ -663,14 +665,8 @@ public class Level {
 	private boolean isInRoom(Unit u) {
 		Point a = u.p;
 		for (int i = 0; i < rs.length; i++) {
-			if (rb[i]) {
-				for (int scanX = rs[i].x1; scanX <= rs[i].x2; scanX++) {
-					for (int scanY = rs[i].y1; scanY <= rs[i].y2; scanY++) {
-						if (rb[i] && a.x == scanX && a.y == scanY) {
-							return true;
-						}
-					}
-				}
+			if (rb[i] && a.x >= rs[i].x1 && a.x <= rs[i].x2 && a.y >= rs[i].y1 && a.y <= rs[i].y2) {
+				return true;
 			}
 		}
 		return false;
@@ -682,18 +678,14 @@ public class Level {
 	private Rm getCurRoom(Unit u) {
 		Point a = u.p;
 		for (int i = 0; i < rs.length; i++) {
-			if (rb[i]) {
-				for (int scanX = rs[i].x1; scanX <= rs[i].x2; scanX++) {
-					for (int scanY = rs[i].y1; scanY <= rs[i].y2; scanY++) {
-						if (rb[i] && a.x == scanX && a.y == scanY) {
-							return rs[i];
-						}
-					}
-				}
+			if (rb[i] && a.x >= rs[i].x1 && a.x <= rs[i].x2 && a.y >= rs[i].y1 && a.y <= rs[i].y2) {
+				return rs[i];
 			}
 		}
 
 		// never used, need it here to prevent compilation err
+		// actually might want to look back at this, what happens if you're not in room?
+		// it'll just give you this empty room with no bounds whatsoever?
 		Rm room = new Rm();
 		return room;
 	}
@@ -714,7 +706,37 @@ public class Level {
 	/**
 	 * hide enemies in rooms that player aren't in
 	 */
-	private void hideEnemy(char[][] playerFloor, int xPos, int yPos) {
+	private void hideEnemy(char[][] playerFloor) {
+		for(int i = 0; i < enemies.size(); i++) {
+			Point a = (enemies.get(i)).p;
+			if(isSeen[a.y][a.x]) {
+				if(isInRoom(play)) {
+					Rm temp = getCurRoom(play);
+					if(a.x >= temp.x1 && a.x <= temp.x2 && a.y >= temp.y1 && a.y <= temp.y2) {
+						return;	//do nothing
+					} else {
+						//add in an if statement with isSeen somewhere here
+						playerFloor[a.y][a.x] = enemies.get(i).lastChar;
+					}
+				} else {
+					boolean seePlayer = false;
+					for (int j = 0; j < 3; j++) {
+						for (int k = 0; k < 3; k++) {
+							if(floor[a.y + i - 1][a.x + i - 1] == play.val) {
+								seePlayer = true;
+								System.out.println(enemies.get(i).name + " can see Player");
+							}
+						}
+					}
+					if(seePlayer) {
+						return;
+					} else {
+						playerFloor[a.y][a.x] = enemies.get(i).lastChar;
+					}
+				}
+			}
+		}
+		/*
 		if (Character.isUpperCase(playerFloor[yPos][xPos])) {
 			if (isInRoom(play)) {
 				// hides enemy in rooms that player aren't in
@@ -745,28 +767,7 @@ public class Level {
 				}
 			}
 		}
-	}
-	
-	/**
-	 * used when enemies step into hallway or on door and player can't see them
-	 */
-	private char subEnemyChar(int xPos, int yPos) {
-		for(int i = 0; i < rs.length; i++) {
-			if(isItem(floor[yPos][xPos])) {
-				return floor[yPos][xPos];
-			}
-			
-			if(rb[i] && yPos > rs[i].y1 && yPos < rs[i].y2 && xPos > rs[i].x1 && xPos < rs[i].x2) {
-				//within a room excluding doors/walls
-				return '.';
-			} else if (rb[i] && yPos >= rs[i].y1 && yPos <= rs[i].y2 && xPos >= rs[i].x1 && xPos <= rs[i].x2) {
-				//within a room including doors/walls
-				return '+';
-			}
-		}
-		
-		//not in room
-		return '#';
+		*/
 	}
 	
 	/**
@@ -782,7 +783,7 @@ public class Level {
 			//TODO: Enemies can move on item and when that happens that grid doesn't become '.'
 			//		 but rather whatever the item was
 			//		 !isItem(c) was added as a quick fix REMOVE THIS LATER
-			while(!validMove(c) || isItem(c) || c == '*') {
+			while(!validMove(c) /*|| isItem(c) || c == '*'*/) {
 				dir[1] = ThreadLocalRandom.current().nextInt(-1, 1 + 1);
 				dir[0] = ThreadLocalRandom.current().nextInt(-1, 1 + 1);
 				

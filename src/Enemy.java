@@ -12,7 +12,6 @@ public class Enemy extends Unit{
 		d = new DiceRoller();
 		this.genMon(level, plevel);
 		this.lastChar = '.';
-		//this.type = new ArrayList<Character>();
 	}
 	
 	private void genMon(int lvl, int pl){
