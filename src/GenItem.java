@@ -1,25 +1,58 @@
-
-
-
-
 import java.util.Random;
 
+/**
+ * 
+ * 
+ * @author Harry Carpenter, hhcarpenter@knox.edu
+ *
+ */
+
+
+
 public class GenItem {
+	//Scroll Items:
 	private boolean identifyScroll = false;
 	private boolean identifyWandOrRing = false;
 	private boolean foodDetection = false;
 	private boolean identifyPotion = false;
 	private boolean identifyArmor = false;
 	private boolean identifyWeapon =false;
-	private boolean monsterDetection = false;
-	private boolean magicDetection = false;
+	
+	//Potion Items:
+	private boolean restoreStrength = false;
+	private boolean healing = false;
+	private boolean extraHealing = false;
+	private boolean hallucination = false;
+	private boolean blindness = false;
+	private boolean hasteSelf = false;
+	private boolean levitation = false;
+	
+	//Ring Items:
+	private int gold = 0;
+	
+	//Wand Items:
+	private boolean light = false;
+	private boolean monsterInvisible = false;
+	
+	//Food Items:
+	private int hunger = 0;
+	
+	//Armor Items:
+	private int protection = 0;
+	
+	//Weapon Items:
+	private int weaponDamage = 0;
+	
+	
+	
+
 	
 	private String typeItem;
 	private String itemName;	
-	private int protection = 0;
-	private int hunger = 0;
+	
+	
 	private Character boardName;
-	private int weaponDamage;
+	
 	private String useMessage = "";
 	private String dropMessage = "";
 	private String pickUpMessage = "";
@@ -28,15 +61,8 @@ public class GenItem {
 	private int playerHP = 0;
 	private int maxPlayerHP = 0; 
 	private int playerXP = 0;
-	private boolean restoreStrength = false;
-	private boolean healing = false;
-	private boolean extraHealing = false;
-	private boolean hallucination = false;
-	private boolean blindness = false;
-	private boolean hasteSelf = false;
-	private boolean levitation = false;
-	private boolean light = false;
-	private boolean monsterInvisible = false;
+
+
 	
 	public GenItem () {
 
@@ -92,7 +118,7 @@ public class GenItem {
 	public void genItem()
 	{
 		int num = getProbabilityOfItem();
-		switch (6) { 
+		switch (num) { 
 		case 1: this.typeItem = "Armor";
 		Armor a = new Armor();
 		a.getArmor();
@@ -100,7 +126,7 @@ public class GenItem {
 		this.boardName = a.boardName;
 		this.itemName = a.name;
 		this.pickUpMessage = " picked up armor.";
-		this.useMessage = " use " + a.name;
+		this.useMessage = " use " + a.name + " " + this.typeItem;
 		this.dropMessage = " dropped armor on the floor.";
 		break;
 
@@ -111,7 +137,7 @@ public class GenItem {
 		this.itemName = w.name;
 		this.boardName = w.boardName;
 		this.pickUpMessage = " picked up weapon.";
-		this.useMessage = " use " + w.name;
+		this.useMessage = " use " + w.name + " " + this.typeItem;
 		this.dropMessage = " dropped weapon on the floor.";
 		break;
 
@@ -133,7 +159,7 @@ public class GenItem {
 		this.boardName = ring.boardName;
 		this.itemName = ring.name;
 		this.pickUpMessage = " picked up ring.";
-		this.useMessage = " use " + this.itemName;
+		this.useMessage = " put on " + this.itemName + " " + this.typeItem + ". ";
 		this.dropMessage = " dropped ring on the floor.";
 		break;
 
@@ -143,7 +169,7 @@ public class GenItem {
 		this.boardName = scroll.boardName;
 		this.itemName = scroll.name;
 		this.pickUpMessage = " picked up scroll.";
-		this.useMessage = " read " + scroll.name;
+		this.useMessage = " read " + this.itemName + " " + this.typeItem + ". ";
 		this.dropMessage = " dropped scroll on the floor.";
 		this.identifyPotion =scroll.identifyPotion;
 		this.identifyArmor = scroll.identifyArmor;
@@ -159,7 +185,7 @@ public class GenItem {
 		this.boardName = wand.boardName;
 		this.itemName = wand.name;
 		this.pickUpMessage = " picked up wand.";
-		this.useMessage = " use " + this.itemName;
+		this.useMessage = " use " + this.itemName + " " + this.typeItem + ". ";
 		this.dropMessage = " dropped wand on the floor.";
 		this.weaponDamage = wand.damage;
 		this.light = wand.light;
@@ -174,7 +200,6 @@ public class GenItem {
 		this.itemName = p.name;
 		this.playerStrength = p.playerStrength;
 		this.playerHP = p.playerHP;
-		this.maxPlayerHP = p.maxPlayerHP;
 		this.playerXP = p.playerXP;
 		this.restoreStrength = p.restoreStrength;
 		this.extraHealing = p.extraHealing;
@@ -182,10 +207,8 @@ public class GenItem {
 		this.hallucination = p.hallucination;
 		this.blindness = p.blindness;
 		this.pickUpMessage = " picked up potion.";
-		this.useMessage = " drank " + p.name;
+		this.useMessage = " drink " + this.itemName + " " + this.typeItem + ". " + p.eMessage;
 		this.dropMessage = " dropped wand on the floor.";
-		this.magicDetection = p.magicDetection;
-		this.monsterDetection = p.monsterDetection;
 		this.hasteSelf = p.hasteSelf;
 		this.levitation = p.levitation;
 		break;
@@ -197,13 +220,6 @@ public class GenItem {
 		}
 	}
 
-	public boolean monsterDetection() {
-		return monsterDetection;
-	}
-	
-	public boolean magicDetection() {
-		return magicDetection;
-	}
 	
 	public boolean identifyWeapon() {
 		return this.identifyWeapon;

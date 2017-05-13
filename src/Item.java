@@ -3,12 +3,13 @@ import java.awt.Point;
 
 /**
  * 
- * @author Harry
+ * @author Harry Carpenter, hhcarpenter@knox.edu
  *
  */
 
 public class Item {
 
+	//Scroll Variables:
 	protected boolean identifyWandOrRing = false;
 	protected boolean identifyPotion = false;
 	protected boolean identifyWeapon = false;
@@ -16,45 +17,61 @@ public class Item {
 	protected boolean identifyArmor = false;
 	protected boolean identifyScroll = false;
 	protected boolean magicDetection = false;
-	
-	
-	protected int playerHunger;
-	protected int ringProtection;
-	public Point p;
-	protected char boardName;
-	protected String name; // name of item
-	protected String typeItem; // armor,equipment,ring,food,
-	protected int damage;
-	protected int armorProtection;
-	protected int playerStrength;
-	protected int playerHealth;
-	protected int playerHP;
-	protected int maxPlayerHP;
-	protected int playerXP;
-	protected String eMessage; // Message for using or equiping
-	protected String dMessage; // Message for dropping
-	protected String pMessage; // Message for picking up item
-	protected String uMessage; // Message for taking off equiptment
-	protected GenItem generate;
+
+	//Potion Variables:
+	protected boolean hallucination = false;
+	protected boolean levitation = false; 
+	protected boolean seeInvisable = false; 
 	protected boolean restoreStrength = false;
 	protected boolean extraHealing = false;
 	protected boolean healing = false;
 	protected boolean blindness = false;
 	protected boolean hasteSelf = false;
+	protected boolean monsterDetection = false; 
+
+	//Wand Variables:
 	protected boolean light = false;
-	protected boolean monsterHaste = false; // item from wand
-	protected boolean monsterDetection = false; // item from potion
-	protected boolean monsterInvisible = false; // item from wand
-	protected boolean hallucination = false; // item from potion
-	protected boolean levitation = false; // item from potion
-	protected boolean seeInvisable = false; // item from potion
-	protected boolean polyMorph = false;
-	protected boolean slowMonster = false;
-	protected boolean sustainStrength = false; // Item from ring
-	protected boolean aggregateMonster = false; // Item from ring
-	protected boolean maintainArmor = false; // Item from ring
-	protected boolean isStealth = false; // Item from ring
-	protected boolean cancellation = false; // Item from wand
+	protected boolean monsterHaste = false;
+	protected boolean monsterInvisible = false; 
+
+	//Food Variables:
+	protected int playerHunger;
+
+
+	//Armor Variables:
+	protected int armorProtection;
+
+	//Ring Variables:
+	protected boolean sustainStrength = false; 
+	protected boolean aggregateMonster = false;
+	protected boolean maintainArmor = false; 
+	protected int gold = 0; 
+
+
+
+
+	//Item Variables:
+	public Point p;
+	protected char boardName;
+	protected String name; 
+	protected String typeItem;
+	protected int damage;
+	protected String eMessage; 
+	protected String dMessage;
+	protected String pMessage; 
+	protected int playerStrength;
+	protected int playerHealth;
+	protected int playerHP;
+	protected int playerXP;
+	protected GenItem generate;
+
+
+
+
+
+
+
+
 
 	public Item() {
 		generate = new GenItem();
@@ -63,20 +80,32 @@ public class Item {
 
 	public GenItem generateItem() {
 		generate.genItem();
+
+		//Item Variable declarations:
 		this.typeItem = generate.getTypeItem();
 		this.name = generate.getName();
 		this.boardName = generate.getBoardName();
 		this.eMessage = generate.getEquiptOrUseMessage();
-		this.uMessage = generate.getTakeOffMessage();
 		this.pMessage = generate.getPickUpMessage();
 		this.dMessage = generate.getDropMessage();
+
+
+		//Food Variable declarations:
 		this.playerHunger = generate.getHunger();
+
+
+		//Weapon Variable declarations:
 		this.damage = generate.getWeaponDamage();
+
+		//Armor Variable declarations:
 		this.armorProtection = generate.getArmorProtection();
-		this.maxPlayerHP = generate.getMaxPlayerHP();
+
 		this.playerHP = generate.getPlayerHP();
 		this.playerStrength = generate.getPlayerStrength();
 		this.playerXP = generate.getPlayerXP();
+
+
+		//Potion Variable Declarations:
 		this.restoreStrength = generate.isRestoreStrength();
 		this.extraHealing = generate.getExtraHealing();
 		this.healing = generate.getHealing();
@@ -84,60 +113,63 @@ public class Item {
 		this.blindness = generate.getInvisible();
 		this.hasteSelf = generate.getHasteSelf();
 		this.levitation = generate.getLevitation();
+
+		//Wand Varaible Declarations:
 		this.light = generate.getLight();
 		this.monsterInvisible = generate.monsterInvisible();
+
+		//Scroll Variable Declarations:
 		this.identifyScroll = generate.identifyScrolls();
 		this.identifyArmor = generate.identifyArmor();
 		this.identifyPotion = generate.identifyPotions();
 		this.identifyWandOrRing = generate.identifyWand() || generate.identifyRing();
 		this.foodDetection = generate.identifyFood();
 		this.identifyWeapon = generate.identifyWeapon();
-		this.magicDetection = generate.magicDetection();
-		this.monsterDetection = generate.monsterDetection();
-		
+
+
 		return generate;
 	}
 
 	public boolean monsterDetection() {
 		return this.monsterDetection;
 	}
-	
-	
+
+
 	public boolean magicDetection() {
 		return this.magicDetection;
 	}
-	
-	
+
+
 	public boolean identifyScoll() {
 		return this.identifyScroll;
 	}
-	
+
 	public boolean identifyWeapon() {
 		return this.identifyWeapon;
 	}
-	
+
 	public boolean idenitfyWandOrRing() {
 		return this.identifyWandOrRing;
 	}
-	
+
 	public boolean identifyFood() {
 		return this.foodDetection;
 	}
-	
+
 	public boolean identifyPotions() {
 		return this.identifyPotion;
 	}
-	
+
 	public boolean identifyArmor() {
 		return this.identifyArmor;
 	}
-	
-	
+
+
 	public boolean monsterInvisible() {
 		return monsterInvisible;
 	}
-	
-	
+
+
 	public boolean getLight() {
 		return light;
 	}
@@ -176,10 +208,6 @@ public class Item {
 
 	public String getUseMessage() {
 		return eMessage;
-	}
-
-	public String getTakeOffMessage() {
-		return uMessage;
 	}
 
 	public String getDropMessage() {

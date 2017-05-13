@@ -73,79 +73,94 @@ public class Wand extends Item {
 		}
 	}
 	
-
+	public boolean itemsImplemented(int num) //Update this every time you implement a new item!
+	{
+		if (num == 1 || num == 2 || num == 4 || num == 6 || num == 14)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
+	public int getImplementedItems()
+	{
+		int num = generateWandNumber();
+		while (!itemsImplemented(num)) {
+			num = generateWandNumber();
+		}
+		return num;
+	}
+
 		public void getWand()
 		{
 			DiceRoller d = new DiceRoller();
-			int num = generateWandNumber();
-			switch (4) {
-			case 1: this.name = "Light";
+			int num = getImplementedItems();
+			switch (num) {
+			case 1: this.name = "Light"; //Implemented
 			this.light = true;
 			
 			break;
 			
-			case 2: this.name = "Invisability";
+			case 2: this.name = "Invisability"; //Implemented
 			this.monsterInvisible = true;
 //			Invisibility	6	Makes a monster invisible.
 			break;
 			
 			
-			case 3: this.name = "Drain";
+			case 3: this.name = "Drain"; //Not Implemented
 //			Drain life	9	Drains half of the hero's hp, then removes the same amount of health evenly from visible monsters.
 			break;
 			
-			case 4: this.name = "Missle";
+			case 4: this.name = "Missle"; //Implemented
 	
 			this.damage = d.rollDie(4); 
 //			Magic missile	10	Inflicts 1d4 damage on a single target.
 			break;
 
 			
-			case 5: this.name = "Haste";
+			case 5: this.name = "Haste"; //Not Implemented
 			this.monsterHaste = true;
 //			Haste monster	10	Hastens a monster.
 			break;
 			
-			case 6: this.name = "Lightning";
-			//this.damage = 6 * d.rollDie(6);
+			case 6: this.name = "Lightning"; //Implemented
+			this.damage = 6 * d.rollDie(6);
 //			Lightning	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls.
 			break;
 			
-			case 7: this.name = "Fire"; 
+			case 7: this.name = "Fire"; //Not Implemented 
 			this.damage = 6 * d.rollDie(6);
-//	Fire	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Dragons are immune.
+			//	Fire	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Dragons are immune.
 			break;
 			
-			case 8: this.name = "Cold";
+			case 8: this.name = "Cold"; //Not Implemented
 			this.damage = 6 * d.rollDie(6);
 			//			Cold	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Yetis are immune.
 			break;
 			
-			case 9: this.name = "Polymorph";
-			this.polyMorph = true;
-			
+			case 9: this.name = "Polymorph"; //Not Implemented
+			//Polymorph	15	Changes a monster type.
 			break;
 			
-			case 10: this.name = "Slow Monster";
-			this.slowMonster = true;
+			case 10: this.name = "Slow Monster"; //Not Implemented
 //					Slow monster	11	Slows a monster.
 			break;
 			
-			case 11: this.name = "Cancellation"; 
-			this.cancellation = true;
+			case 11: this.name = "Cancellation"; //Not Implemented
 			//					Cancellation	5	Supresses monster's special abilities.
 			break;
 			
-			case 12: this.name = "Teleport Away"; 
+			case 12: this.name = "Teleport Away"; //Not Implemented 
 //					Teleport away	6	Teleports a monster randomly on the map.
 			break;
 			
-			case 13: this.name = "Teleport To";
+			case 13: this.name = "Teleport To"; //Not Implemented
 //					Teleport to	6	Causes the monster to teleport next to the player.
 			break;
 				
-			case 14: this.name = "Fake";
+			case 14: this.name = "Fake"; //Implemented
 //			Nothing	1	Doesn't do anything.
 			break;
 					
