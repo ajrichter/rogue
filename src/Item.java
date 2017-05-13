@@ -55,7 +55,7 @@ public class Item {
 	protected char boardName;
 	protected String name; 
 	protected String typeItem;
-	protected int damage;
+	protected int strengthFromWeapons;
 	protected String eMessage; 
 	protected String dMessage;
 	protected String pMessage; 
@@ -88,22 +88,22 @@ public class Item {
 		this.eMessage = generate.getEquiptOrUseMessage();
 		this.pMessage = generate.getPickUpMessage();
 		this.dMessage = generate.getDropMessage();
-
+		this.playerHP = generate.getPlayerHP();
+		this.playerStrength = generate.getPlayerStrength();
+		this.playerXP = generate.getPlayerXP();
 
 		//Food Variable declarations:
 		this.playerHunger = generate.getHunger();
 
 
 		//Weapon Variable declarations:
-		this.damage = generate.getWeaponDamage();
+		this.strengthFromWeapons = generate.getWeaponStrength();
 
 		//Armor Variable declarations:
 		this.armorProtection = generate.getArmorProtection();
 
-		this.playerHP = generate.getPlayerHP();
-		this.playerStrength = generate.getPlayerStrength();
-		this.playerXP = generate.getPlayerXP();
-
+		//Ring Variable declarions:
+		this.gold = generate.getGold(); 
 
 		//Potion Variable Declarations:
 		this.restoreStrength = generate.isRestoreStrength();
@@ -234,8 +234,8 @@ public class Item {
 		return armorProtection;
 	}
 
-	public int getDamageFromWeapon() {
-		return damage;
+	public int getWeaponStrength() {
+		return strengthFromWeapons;
 	}
 
 	public int getPlayerStrength() {

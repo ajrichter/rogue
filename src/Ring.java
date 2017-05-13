@@ -133,7 +133,6 @@ public class Ring extends Item {
 			
 			case 5: this.name = "See Invisible"; //Not implemented 
 			//See invisible
-			this.seeInvisable = true;
 			break;
 			
 			case 6: this.name = "Adornment"; //Implemented
@@ -142,7 +141,6 @@ public class Ring extends Item {
 			
 			case 7: this.name = "Aggravate Monster"; //Not implemented
 			//Aggravate monster	10	Cursed. Causes monsters to attack more agressively.
-			this.aggregateMonster = true;
 			break;
 			
 			case 8: this.name = "Dexterity"; //Not implemented
@@ -150,10 +148,12 @@ public class Ring extends Item {
 			break;
 			
 			case 9: this.name = "Increase Damage"; //Implemented
+			this.strengthFromWeapons = 1; 
 			//Increase damage	8	Increases weapon damage.
 			break;
 			
 			case 10: this.name = "Regeneration"; //Implemented
+			this.playerHP += 1;
 			//Regeneration	4	Heals 1 hp per turn
 			break;
 			

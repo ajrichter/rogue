@@ -115,7 +115,7 @@ public class Wand extends Item {
 			
 			case 4: this.name = "Missle"; //Implemented
 	
-			this.damage = d.rollDie(4); 
+			this.strengthFromWeapons = d.rollDie(4); 
 //			Magic missile	10	Inflicts 1d4 damage on a single target.
 			break;
 
@@ -126,17 +126,17 @@ public class Wand extends Item {
 			break;
 			
 			case 6: this.name = "Lightning"; //Implemented
-			this.damage = 6 * d.rollDie(6);
+			this.strengthFromWeapons = 6 * d.rollDie(6);
 //			Lightning	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls.
 			break;
 			
 			case 7: this.name = "Fire"; //Not Implemented 
-			this.damage = 6 * d.rollDie(6);
+			this.strengthFromWeapons = 6 * d.rollDie(6);
 			//	Fire	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Dragons are immune.
 			break;
 			
 			case 8: this.name = "Cold"; //Not Implemented
-			this.damage = 6 * d.rollDie(6);
+			this.strengthFromWeapons = 6 * d.rollDie(6);
 			//			Cold	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Yetis are immune.
 			break;
 			

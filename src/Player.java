@@ -57,7 +57,7 @@ public class Player extends Unit {
 			break;
 		case "Weapon":
 			if (this.strength + item.getPlayerStrength() < this.maxStrength) {
-				this.strength += item.getDamageFromWeapon();
+				this.strength += item.getPlayerStrength();
 			} else {
 				this.strength = this.maxStrength;
 				this.maxStrength +=1;
@@ -65,8 +65,15 @@ public class Player extends Unit {
 
 			break;
 		case "Ring":
-			// narrationMessage = play.name + item.getUseMessage();
-			this.strength += item.getPlayerStrength();
+			this.gold += item.gold;
+			this.hp += item.getPlayerHP();
+			
+			if (this.strength + item.getWeaponStrength() < this.maxStrength) {
+				this.strength += item.getWeaponStrength();
+			} else {
+				this.strength = this.maxStrength;
+				this.maxStrength +=1;
+			}
 			break;
 		case "Potions":
 			if (item.getExtraHealing() || item.getHealing())
@@ -125,7 +132,7 @@ public class Player extends Unit {
 		case "Wand":
 			this.light = item.getLight();
 			if (this.strength + item.getPlayerStrength() < this.maxStrength) {
-				this.strength += item.getDamageFromWeapon();
+				this.strength += item.getWeaponStrength();
 			} else {
 
 				this.strength = this.maxStrength;

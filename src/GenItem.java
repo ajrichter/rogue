@@ -133,7 +133,7 @@ public class GenItem {
 		case 2: this.typeItem = "Weapon";
 		Weapon w = new Weapon();
 		w.getWeapon();
-		this.weaponDamage = w.damage;
+		this.weaponDamage = w.strengthFromWeapons;
 		this.itemName = w.name;
 		this.boardName = w.boardName;
 		this.pickUpMessage = " picked up weapon.";
@@ -161,6 +161,10 @@ public class GenItem {
 		this.pickUpMessage = " picked up ring.";
 		this.useMessage = " put on " + this.itemName + " " + this.typeItem + ". ";
 		this.dropMessage = " dropped ring on the floor.";
+		this.gold = ring.gold;
+		this.weaponDamage = ring.strengthFromWeapons;
+		this.playerStrength = ring.playerStrength;
+		this.playerHP = ring.getPlayerHP(); 
 		break;
 
 		case 5: this.typeItem = "Scroll";
@@ -187,7 +191,7 @@ public class GenItem {
 		this.pickUpMessage = " picked up wand.";
 		this.useMessage = " use " + this.itemName + " " + this.typeItem + ". ";
 		this.dropMessage = " dropped wand on the floor.";
-		this.weaponDamage = wand.damage;
+		this.weaponDamage = wand.strengthFromWeapons;
 		this.light = wand.light;
 		this.monsterInvisible = wand.monsterInvisible;
 		
@@ -220,6 +224,9 @@ public class GenItem {
 		}
 	}
 
+	public int getGold() {
+		return this.gold;
+	}
 	
 	public boolean identifyWeapon() {
 		return this.identifyWeapon;
@@ -321,7 +328,7 @@ public class GenItem {
 	}
 
 
-	public int getWeaponDamage() {
+	public int getWeaponStrength() {
 		return this.weaponDamage;
 	}
 
