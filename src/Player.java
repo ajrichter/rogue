@@ -1,9 +1,8 @@
 import java.util.ArrayList;
 
 public class Player extends Unit {
-	protected boolean hasA, hasW, hallucination, blindness, hasteSelf, levitation, light, monsterInvisible;
-	protected boolean identifyWandRing, identifyPotion, idenitfyWeapon, identifyArmor, foodDetection, identifyScroll;
-	
+	protected boolean hasA, hasW, hallucination, blindness, hasteSelf, levitation, light, monsterInvisible, monsterDetection, magicDetection = false;
+	protected boolean identifyWandRing, identifyPotion, idenitfyWeapon, identifyArmor, foodDetection, identifyScroll = false;
 	protected int gold, nexp, steps;
 	protected ArrayList<Item> items;
 	protected Inventory inventory;
@@ -40,7 +39,7 @@ public class Player extends Unit {
 	}
 
 	public void useItem(Item item) {
-	
+
 		switch (item.getItemType()) {
 		case "Armor":
 			if (this.armor + item.getArmorProtection() < this.maxArmor) {
@@ -61,6 +60,7 @@ public class Player extends Unit {
 				this.strength += item.getDamageFromWeapon();
 			} else {
 				this.strength = this.maxStrength;
+				this.maxStrength +=1;
 			}
 
 			break;
@@ -91,7 +91,8 @@ public class Player extends Unit {
 			this.blindness = item.getBlindness(); 
 			this.hasteSelf = item.getHasteSelf();
 			this.levitation = item.getLevitation();
-
+			this.monsterDetection = item.monsterDetection();
+			this.magicDetection = item.magicDetection();
 
 			if (item.restoreStrength())
 			{
@@ -110,7 +111,7 @@ public class Player extends Unit {
 			this.xp += item.getPlayerXP();
 
 
-		
+
 			break;
 		case "Scroll":
 			this.idenitfyWeapon = item.identifyWeapon();
@@ -119,12 +120,19 @@ public class Player extends Unit {
 			this.identifyScroll = item.identifyScoll();
 			this.identifyWandRing = item.idenitfyWandOrRing();
 			this.foodDetection = item.identifyFood();
-			
+
 			break;
 		case "Wand":
 			this.light = item.getLight();
+			if (this.strength + item.getPlayerStrength() < this.maxStrength) {
+				this.strength += item.getDamageFromWeapon();
+			} else {
+
+				this.strength = this.maxStrength;
+				this.maxStrength += 1;
+			}
 			this.monsterInvisible = item.monsterInvisible();
-			
+
 			break;
 
 		}

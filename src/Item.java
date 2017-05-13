@@ -15,6 +15,8 @@ public class Item {
 	protected boolean foodDetection = false;
 	protected boolean identifyArmor = false;
 	protected boolean identifyScroll = false;
+	protected boolean magicDetection = false;
+	
 	
 	protected int playerHunger;
 	protected int ringProtection;
@@ -68,16 +70,9 @@ public class Item {
 		this.uMessage = generate.getTakeOffMessage();
 		this.pMessage = generate.getPickUpMessage();
 		this.dMessage = generate.getDropMessage();
-
-		if (this.typeItem.equals("Food")) {
-			this.playerHunger = generate.getHunger();
-		} else if (this.typeItem.equals("Weapon")) {
-			this.damage = generate.getWeaponDamage();
-
-		} else if (this.typeItem.equals("Armor")) {
-			this.armorProtection = generate.getArmorProtection();
-		}
-
+		this.playerHunger = generate.getHunger();
+		this.damage = generate.getWeaponDamage();
+		this.armorProtection = generate.getArmorProtection();
 		this.maxPlayerHP = generate.getMaxPlayerHP();
 		this.playerHP = generate.getPlayerHP();
 		this.playerStrength = generate.getPlayerStrength();
@@ -97,10 +92,22 @@ public class Item {
 		this.identifyWandOrRing = generate.identifyWand() || generate.identifyRing();
 		this.foodDetection = generate.identifyFood();
 		this.identifyWeapon = generate.identifyWeapon();
+		this.magicDetection = generate.magicDetection();
+		this.monsterDetection = generate.monsterDetection();
 		
 		return generate;
 	}
 
+	public boolean monsterDetection() {
+		return this.monsterDetection;
+	}
+	
+	
+	public boolean magicDetection() {
+		return this.magicDetection;
+	}
+	
+	
 	public boolean identifyScoll() {
 		return this.identifyScroll;
 	}

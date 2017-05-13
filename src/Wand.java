@@ -79,7 +79,7 @@ public class Wand extends Item {
 		{
 			DiceRoller d = new DiceRoller();
 			int num = generateWandNumber();
-			switch (2) {
+			switch (4) {
 			case 1: this.name = "Light";
 			this.light = true;
 			

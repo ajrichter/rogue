@@ -58,7 +58,7 @@ public class RougeView {
 		
 		protected char[][] board= new char[0][0];
 		protected String naration="";
-		protected String[] stats;
+		protected String[] stats = new String[0];
 		//protected List<Item> inventory;
 		protected boolean showInventory; //if the board is showing inventory
 		

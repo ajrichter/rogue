@@ -102,7 +102,7 @@ public class Scrolls extends Item {
 		int num = generateNumberScrolls();
 	
 
-		switch (10)
+		switch (num)
 		{
 		case 1: this.name = "Moster Confusion";
 		this.eMessage = "Your hands begin to glow red";
