@@ -28,13 +28,11 @@ public class Level {
 	protected int itemY = 0;
 	protected Point stairs;
 	protected final char STAIR = '%';
-	private boolean hasteSelf = false;
-	private boolean levitation = false;
-	private boolean light = false;
-	private boolean monsterInvisible = false;
 	protected Point amulet;
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Item> items;
+	
+	
 	/*
 	 * This is a bad way to do it. Could be a map from Point to integer i.e. the
 	 * points map to the index in the arraylist of items But, how can you remove
@@ -390,7 +388,7 @@ public class Level {
 			} else {
 				Item item = play.items.get(itemNum);
 				narration = "You" + item.getDropMessage();
-				floor[a.y + dir[1]][a.x + dir[0]] = item.boardName;
+				floor[a.y + dir[1]][a.x + dir[0]] = item.getBoardName();
 				play.items.remove(item);
 				play.inventory.removeItem(item);
 			}
@@ -405,8 +403,10 @@ public class Level {
 		narration = "";
 		if (play.inventory.getInventorySpace() > itemNum) {
 			Item item = play.items.get(itemNum);
-			narration = "You" + item.getUseMessage();
 			play.useItem(item);
+			narration = "You" + item.getUseMessage();
+			
+			
 			if (play.hallucination == true) {
 				for (int i = 0; i < enemies.size(); i++) {
 					enemies.get(i).name = "Mr Nice Guy";
@@ -426,17 +426,7 @@ public class Level {
 				
 			}
 			
-			if (play.hasteSelf == true) {
-				this.hasteSelf = true;
-			}
-
-			if (play.light == true) {
-				this.light = true;
-			}
-
-			if (play.levitation == true) {
-				this.levitation = true;
-			}
+	
 
 			if (play.blindness == true) {
 				for (int i = 0; i < numR; i++) {
@@ -466,12 +456,36 @@ public class Level {
 
 		int count = 0;
 		for (Item i : play.items) {
-			if (!i.typeItem.equalsIgnoreCase("Food")) {
+				System.out.println(play.identifyScroll);
 				narration += count + " ";
-				narration += i.name + " " + i.typeItem;
-			} else {
+				if (play.idenitfyWeapon == true && (i.getItemType().equalsIgnoreCase("Weapon")))
+				{
+					narration += i.getItemName() + " " + i.getItemType();
+				}
+				if (play.identifyScroll == true && (i.getItemType().equalsIgnoreCase("Scroll")))
+				{
+					narration += i.name + " " + i.getItemType();
+				}
+				if (play.identifyPotion == true && (i.getItemType().equalsIgnoreCase("Potions")))
+				{
+					narration += i.getItemName() + " " + i.getItemType();
+				}
+				if (play.foodDetection == true && (i.getItemType().equalsIgnoreCase("Food")))
+				{
+					narration += i.getItemName() + " " + i.getItemType();
+				}
+				if (play.identifyArmor == true && (i.getItemType().equalsIgnoreCase("Armor")))
+				{
+					narration += i.getItemName() + " " + i.getItemType();
+				}
+				if (play.identifyWandRing == true && (i.getItemType().equalsIgnoreCase("Ring")|| i.getItemType().equalsIgnoreCase("Wand")))
+				{
+					narration += i.getItemName() + " " + i.getItemType();
+				}
+					
+			 else {
 				narration += count + " ";
-				narration += i.name;
+				narration += i.typeItem;
 			}
 			count++;
 			if (count != play.items.size())
@@ -514,7 +528,38 @@ public class Level {
 				if (play.inventory.addItem(itemPos.get(c)) == false) {
 					narration = "Can't add item. Inventory is full.";
 				} else {
+					Item temp = itemPos.get(c);
 					narration = "You" + " " + itemPos.get(c).getPickUpMessage();
+					System.out.println(play.identifyScroll);
+					if (play.idenitfyWeapon == true && (temp.getItemType().equalsIgnoreCase("Weapon")))
+					{
+						narration += " You identified " + temp.getItemName();
+					}
+					if (play.identifyScroll == true && (temp.getItemType().equalsIgnoreCase("Scroll")))
+					{
+						System.out.println("Reached!");
+						narration += " You identified " + temp.getItemName();
+					}
+					if (play.identifyPotion == true && (temp.getItemType().equalsIgnoreCase("Potions")))
+					{
+						narration += " You identified " + temp.getItemName();
+					}
+					if (play.foodDetection == true && (temp.getItemType().equalsIgnoreCase("Food")))
+					{
+						narration += " You identified " + temp.getItemName();
+					}
+					if (play.identifyArmor == true && (temp.getItemType().equalsIgnoreCase("Armor")))
+					{
+						narration += " You identified " + temp.getItemName();
+					}
+					if (play.identifyWandRing == true && (temp.getItemType().equalsIgnoreCase("Ring")|| temp.getItemType().equalsIgnoreCase("Wand")))
+					{
+						narration += " You identified " + temp.getItemName();
+					}
+					
+					
+					
+					
 					play.items.add(itemPos.get(c));
 					floor[a.y + dir[1]][a.x + dir[0]] = '.';
 				}
@@ -528,7 +573,7 @@ public class Level {
 			floor[a.y][a.x] = '@';
 
 			// if (this.hasteSelf == true && validMove(c) && isNoBarrier(c))
-			if (this.hasteSelf == true && validMove(c) && isNoBarrier(floor[a.y - 1][a.x])
+			if (play.hasteSelf == true && validMove(c) && isNoBarrier(floor[a.y - 1][a.x])
 					&& isNoBarrier(floor[a.y - 1][a.x - 1]) && isNoBarrier(floor[a.y - 1][a.x + 1])
 					&& isNoBarrier(floor[a.y][a.x - 1]) && isNoBarrier(floor[a.y][a.x + 1])
 					&& isNoBarrier(floor[a.y + 1][a.x - 1]) && isNoBarrier(floor[a.y + 1][a.x])
@@ -540,7 +585,7 @@ public class Level {
 				floor[a.y][a.x] = '@';
 			}
 
-			if (getCurRoom(u).isDark && isInRoom(u) && light == true) {
+			if (getCurRoom(u).isDark && isInRoom(u) && play.light == true) {
 				getCurRoom(u).isDark = false;
 			}
 

@@ -9,6 +9,13 @@ import java.awt.Point;
 
 public class Item {
 
+	protected boolean identifyWandOrRing = false;
+	protected boolean identifyPotion = false;
+	protected boolean identifyWeapon = false;
+	protected boolean foodDetection = false;
+	protected boolean identifyArmor = false;
+	protected boolean identifyScroll = false;
+	
 	protected int playerHunger;
 	protected int ringProtection;
 	public Point p;
@@ -26,7 +33,7 @@ public class Item {
 	protected String dMessage; // Message for dropping
 	protected String pMessage; // Message for picking up item
 	protected String uMessage; // Message for taking off equiptment
-	private GenItem generate;
+	protected GenItem generate;
 	protected boolean restoreStrength = false;
 	protected boolean extraHealing = false;
 	protected boolean healing = false;
@@ -84,9 +91,41 @@ public class Item {
 		this.levitation = generate.getLevitation();
 		this.light = generate.getLight();
 		this.monsterInvisible = generate.monsterInvisible();
+		this.identifyScroll = generate.identifyScrolls();
+		this.identifyArmor = generate.identifyArmor();
+		this.identifyPotion = generate.identifyPotions();
+		this.identifyWandOrRing = generate.identifyWand() || generate.identifyRing();
+		this.foodDetection = generate.identifyFood();
+		this.identifyWeapon = generate.identifyWeapon();
+		
 		return generate;
 	}
 
+	public boolean identifyScoll() {
+		return this.identifyScroll;
+	}
+	
+	public boolean identifyWeapon() {
+		return this.identifyWeapon;
+	}
+	
+	public boolean idenitfyWandOrRing() {
+		return this.identifyWandOrRing;
+	}
+	
+	public boolean identifyFood() {
+		return this.foodDetection;
+	}
+	
+	public boolean identifyPotions() {
+		return this.identifyPotion;
+	}
+	
+	public boolean identifyArmor() {
+		return this.identifyArmor;
+	}
+	
+	
 	public boolean monsterInvisible() {
 		return monsterInvisible;
 	}

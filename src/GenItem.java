@@ -5,6 +5,14 @@
 import java.util.Random;
 
 public class GenItem {
+	private boolean identifyScroll = false;
+	private boolean identifyWandOrRing = false;
+	private boolean indentifyRingOrWand = false;
+	private boolean foodDetection = false;
+	private boolean identifyPotion = false;
+	private boolean identifyArmor = false;
+	private boolean identifyWeapon =false;
+	
 	private String typeItem;
 	private String itemName;	
 	private int protection = 0;
@@ -83,16 +91,20 @@ public class GenItem {
 	public void genItem()
 	{
 		int num = getProbabilityOfItem();
-		switch (6) { 
+		switch (num) { 
 		case 1: this.typeItem = "Armor";
 		Armor a = new Armor();
 		a.getArmor();
 		this.protection = a.armorProtection;
 		this.boardName = a.boardName;
 		this.itemName = a.name;
-		this.pickUpMessage = " picked up the " + this.itemName + " Armor with a protection of " + this.protection + " points.";
-		this.useMessage = " equpted " + this.itemName + " Armor with " + this.protection + " protection!";
-		this.dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
+		this.pickUpMessage = " picked up armor.";
+		this.useMessage = " equiped armor";
+		this.dropMessage = " dropped armor on the floor.";
+		
+//		this.pickUpMessage = " picked up the " + this.itemName + " Armor with a protection of " + this.protection + " points.";
+//		this.useMessage = " equpted " + this.itemName + " Armor with " + this.protection + " protection!";
+//		this.dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
 		break;
 
 		case 2: this.typeItem = "Weapon";
@@ -101,9 +113,14 @@ public class GenItem {
 		this.weaponDamage = w.damage;
 		this.itemName = w.name;
 		this.boardName = w.boardName;
-		this.useMessage = " equipted the " + this.itemName + " with a damage of " + this.weaponDamage;
-		this.dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
-		this.pickUpMessage = " picked up the " + this.itemName + " with a damage of " + this.weaponDamage + " points.";
+		this.pickUpMessage = " picked up weapon.";
+		this.useMessage = " equiped weapon";
+		this.dropMessage = " dropped weapon on the floor.";
+		
+		
+//		this.useMessage = " equipted the " + this.itemName + " with a damage of " + this.weaponDamage;
+//		this.dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
+//		this.pickUpMessage = " picked up the " + this.itemName + " with a damage of " + this.weaponDamage + " points.";
 		break;
 
 		case 3: this.typeItem = "Food";
@@ -112,9 +129,14 @@ public class GenItem {
 		this.hunger = food.playerHunger;
 		this.boardName = food.boardName;
 		this.itemName = food.name;
-		this.pickUpMessage = " picked up " + this.itemName + ". It contains " + this.hunger + " calories.";
-		this.useMessage = " ate a " + food.name;
-		this .dropMessage = " dropped the " + this.itemName + " on the floor.";
+		this.pickUpMessage = " picked up food.";
+		this.useMessage = " equiped food.";
+		this.dropMessage = " dropped food on the floor.";
+		
+		
+//		this.pickUpMessage = " picked up " + this.itemName + ". It contains " + this.hunger + " calories.";
+//		this.useMessage = " ate a " + food.name;
+//		this .dropMessage = " dropped the " + this.itemName + " on the floor.";
 		break;
 
 
@@ -123,9 +145,15 @@ public class GenItem {
 		ring.getRing();
 		this.boardName = ring.boardName;
 		this.itemName = ring.name;
-		this.useMessage = " put the " + this.itemName + " ring on your finger."; 
-		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
-		this.pickUpMessage = " picked up " + this.itemName + " Ring.";
+		this.pickUpMessage = " picked up ring.";
+		this.useMessage = " equiped ring.";
+		this.dropMessage = " dropped ring on the floor.";
+		
+		
+		
+//		this.useMessage = " put the " + this.itemName + " ring on your finger."; 
+//		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
+//		this.pickUpMessage = " picked up " + this.itemName + " Ring.";
 		break;
 
 		case 5: this.typeItem = "Scroll";
@@ -133,9 +161,19 @@ public class GenItem {
 		scroll.getScrolls();
 		this.boardName = scroll.boardName;
 		this.itemName = scroll.name;
-		this.useMessage = " read the " + this.itemName + " Scroll.";
-		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
-		this.pickUpMessage = " picked up the " + this.itemName + " Scroll";
+		this.pickUpMessage = " picked up scroll.";
+		this.useMessage = " equiped scroll.";
+		this.dropMessage = " dropped scroll on the floor.";
+		this.identifyPotion =scroll.identifyPotion;
+		this.identifyArmor = scroll.identifyArmor;
+		this.identifyWandOrRing = scroll.identifyWandOrRing;
+		this.identifyScroll = scroll.identifyScroll;
+		this.foodDetection = scroll.foodDetection;
+		this.identifyWeapon = scroll.identifyWeapon;
+		
+//		this.useMessage = " read the " + this.itemName + " Scroll.";
+//		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
+//		this.pickUpMessage = " picked up the " + this.itemName + " Scroll";
 		break;
 
 		case 6: this.typeItem = "Wand";
@@ -143,9 +181,14 @@ public class GenItem {
 		wand.getWand();
 		this.boardName = wand.boardName;
 		this.itemName = wand.name;
-		this.useMessage = " equiped the " + this.itemName + " Wand.";
-		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
-		this.pickUpMessage = " picked up the " + this.itemName + " Wand.";
+		this.pickUpMessage = " picked up wand.";
+		this.useMessage = " equiped wand.";
+		this.dropMessage = " dropped wand on the floor.";
+		
+		
+//		this.useMessage = " equiped the " + this.itemName + " Wand.";
+//		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
+//		this.pickUpMessage = " picked up the " + this.itemName + " Wand.";
 		this.light = wand.light;
 		this.monsterInvisible = wand.monsterInvisible;
 		
@@ -166,9 +209,12 @@ public class GenItem {
 		this.healing = p.healing;
 		this.hallucination = p.hallucination;
 		this.invisible = p.blindness;
-		this.useMessage = " drank the " + this.itemName + " potion." + p.eMessage;
-		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
-		this.pickUpMessage = " picked up the " + this.itemName + " Potion.";
+		this.pickUpMessage = " picked up wand.";
+		this.useMessage = " equiped wand.";
+		this.dropMessage = " dropped wand on the floor.";
+//		this.useMessage = " drank the " + this.itemName + " potion." + p.eMessage;
+//		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
+//		this.pickUpMessage = " picked up the " + this.itemName + " Potion.";
 		this.hasteSelf = p.hasteSelf;
 		this.levitation = p.levitation;
 		break;
@@ -180,6 +226,31 @@ public class GenItem {
 		}
 	}
 
+	public boolean identifyWeapon() {
+		return this.identifyWeapon;
+	}
+	
+	public boolean identifyArmor() {
+		return this.identifyArmor;
+	}
+	
+	public boolean identifyFood() {
+		return this.foodDetection;
+	}
+	
+	public boolean identifyWand() {
+		return this.identifyWandOrRing;
+	}
+	public boolean identifyPotions() {
+		return this.identifyPotion;
+	}
+	public boolean identifyRing() {
+		return this.identifyWandOrRing;
+	}
+	public boolean identifyScrolls() {
+		return this.identifyScroll;
+	}
+	
 	
 	public boolean monsterInvisible() {
 		return this.monsterInvisible;

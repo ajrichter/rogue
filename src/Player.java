@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class Player extends Unit {
 	protected boolean hasA, hasW, hallucination, blindness, hasteSelf, levitation, light, monsterInvisible;
+	protected boolean identifyWandRing, identifyPotion, idenitfyWeapon, identifyArmor, foodDetection, identifyScroll;
+	
 	protected int gold, nexp, steps;
 	protected ArrayList<Item> items;
 	protected Inventory inventory;
@@ -38,8 +40,8 @@ public class Player extends Unit {
 	}
 
 	public void useItem(Item item) {
-		//switch (item.getItemType()) {
-		switch ("Wand") {
+	
+		switch (item.getItemType()) {
 		case "Armor":
 			if (this.armor + item.getArmorProtection() < this.maxArmor) {
 				this.armor += item.getArmorProtection();
@@ -77,7 +79,7 @@ public class Player extends Unit {
 					if (item.getHealing()) {
 						this.maxHP += 1;
 					}
-					if (item.getExtraHealing()) {
+					if (item.getHealing()) {
 						DiceRoller dice = new DiceRoller();
 						this.maxHP += dice.rollDie(2);	
 					}
@@ -89,8 +91,8 @@ public class Player extends Unit {
 			this.blindness = item.getBlindness(); 
 			this.hasteSelf = item.getHasteSelf();
 			this.levitation = item.getLevitation();
-			
-			
+
+
 			if (item.restoreStrength())
 			{
 				this.strength = this.maxStrength;
@@ -108,15 +110,21 @@ public class Player extends Unit {
 			this.xp += item.getPlayerXP();
 
 
-			// narrationMessage = play.name + item.getUseMessage();
+		
 			break;
-		case "Scrolls":
-			// narrationMessage = play.name + item.getUseMessage();
+		case "Scroll":
+			this.idenitfyWeapon = item.identifyWeapon();
+			this.identifyArmor = item.identifyArmor();
+			this.identifyPotion = item.identifyPotions();
+			this.identifyScroll = item.identifyScoll();
+			this.identifyWandRing = item.idenitfyWandOrRing();
+			this.foodDetection = item.identifyFood();
+			
 			break;
 		case "Wand":
 			this.light = item.getLight();
 			this.monsterInvisible = item.monsterInvisible();
-			// narrationMessage = play.name + item.getUseMessage();
+			
 			break;
 
 		}

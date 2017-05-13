@@ -102,7 +102,7 @@ public class Scrolls extends Item {
 		int num = generateNumberScrolls();
 	
 
-		switch (num)
+		switch (10)
 		{
 		case 1: this.name = "Moster Confusion";
 		this.eMessage = "Your hands begin to glow red";
@@ -133,6 +133,7 @@ public class Scrolls extends Item {
 		case 6: this.name = "Identify Potion";
 		//		Identify potion	10	Identifies a potion.
 		this.eMessage = "This scroll is an identify scroll";
+		this.identifyPotion = true;
 		break;
 
 
@@ -140,23 +141,27 @@ public class Scrolls extends Item {
 
 		case 7: this.name = "Identify";
 		//		Identify scroll	10	Identifies a scroll.
+		this.identifyScroll = true;
 		break;
 
 
 		case 8: this.name = "Identify Weapon";
 		//		Identify weapon	6	Identifies a weapon.
+		this.identifyWeapon = true;
 		break;
 
 
 
 		case 9: this.name = "Identify Armor";
 		//		Identify armor	7	Identifies a suit of armor.
+		this.identifyArmor = true;
 		break;
 
 
 
 		case 10: this.name = "Identify Ring, Wand or Staff"; 
 		//		Identify ring, wand or staff	10	Identifies a ring, wand or staff.
+		this.identifyWandOrRing = true;
 		break;
 
 
@@ -166,6 +171,7 @@ public class Scrolls extends Item {
 		break;
 
 		case 12: this.name = "Food detection";
+		this.foodDetection = true;
 		break;
 
 
