@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Player extends Unit {
-	protected boolean hasA, hasW, hallucination, blindness, hasteSelf, levitation, light;
+	protected boolean hasA, hasW, hallucination, blindness, hasteSelf, levitation, light, monsterInvisible;
 	protected int gold, nexp, steps;
 	protected ArrayList<Item> items;
 	protected Inventory inventory;
@@ -39,7 +39,7 @@ public class Player extends Unit {
 
 	public void useItem(Item item) {
 		//switch (item.getItemType()) {
-		switch ("Potions") {
+		switch ("Wand") {
 		case "Armor":
 			if (this.armor + item.getArmorProtection() < this.maxArmor) {
 				this.armor += item.getArmorProtection();
@@ -115,6 +115,7 @@ public class Player extends Unit {
 			break;
 		case "Wand":
 			this.light = item.getLight();
+			this.monsterInvisible = item.monsterInvisible();
 			// narrationMessage = play.name + item.getUseMessage();
 			break;
 

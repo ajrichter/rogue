@@ -31,6 +31,7 @@ public class Level {
 	private boolean hasteSelf = false;
 	private boolean levitation = false;
 	private boolean light = false;
+	private boolean monsterInvisible = false;
 	protected Point amulet;
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Item> items;
@@ -407,12 +408,24 @@ public class Level {
 			narration = "You" + item.getUseMessage();
 			play.useItem(item);
 			if (play.hallucination == true) {
-				for (int i = 0; i < items.size(); i++) {
+				for (int i = 0; i < enemies.size(); i++) {
 					enemies.get(i).name = "Mr Nice Guy";
 				}
 
 			}
 
+			if (play.monsterInvisible == true)
+			{
+				System.out.println("Reached!");
+				for (int i = 0; i < enemies.size(); i++)
+				{
+					int x = (int) enemies.get(i).p.getX();
+					int y = (int) enemies.get(i).p.getY();
+					floor[x][y] = '.';
+				}
+				
+			}
+			
 			if (play.hasteSelf == true) {
 				this.hasteSelf = true;
 			}
@@ -699,10 +712,12 @@ public class Level {
 					Rm temp = getCurRoom(play);
 					if (a.x >= temp.x1 && a.x <= temp.x2 && a.y >= temp.y1 && a.y <= temp.y2) {
 						return; // do nothing
-					} else {
+					}	
+					 else {
 						// add in an if statement with isSeen somewhere here
-						playerFloor[a.y][a.x] = enemies.get(i).lastChar;
-					}
+							playerFloor[a.y][a.x] = enemies.get(i).lastChar;
+							
+						}
 				} else {
 					boolean seePlayer = false;
 					for (int j = 0; j < 3; j++) {
@@ -710,6 +725,7 @@ public class Level {
 							if (floor[a.y + i - 1][a.x + i - 1] == play.val) {
 								seePlayer = true;
 								System.out.println(enemies.get(i).name + " can see Player");
+								
 							}
 						}
 					}

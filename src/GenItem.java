@@ -27,6 +27,7 @@ public class GenItem {
 	private boolean hasteSelf = false;
 	private boolean levitation = false;
 	private boolean light = false;
+	private boolean monsterInvisible = false;
 	
 	public GenItem () {
 
@@ -82,7 +83,7 @@ public class GenItem {
 	public void genItem()
 	{
 		int num = getProbabilityOfItem();
-		switch (7) { 
+		switch (6) { 
 		case 1: this.typeItem = "Armor";
 		Armor a = new Armor();
 		a.getArmor();
@@ -146,6 +147,8 @@ public class GenItem {
 		this .dropMessage = " dropped the " + this.itemName + " " + this.typeItem + " on the floor.";
 		this.pickUpMessage = " picked up the " + this.itemName + " Wand.";
 		this.light = wand.light;
+		this.monsterInvisible = wand.monsterInvisible;
+		
 		break;
 
 		case 7: this.typeItem = "Potion";
@@ -177,6 +180,12 @@ public class GenItem {
 		}
 	}
 
+	
+	public boolean monsterInvisible() {
+		return this.monsterInvisible;
+	}
+	
+	
 	public boolean getLight() {
 		return this.light;
 	}

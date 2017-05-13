@@ -79,14 +79,14 @@ public class Wand extends Item {
 		{
 			DiceRoller d = new DiceRoller();
 			int num = generateWandNumber();
-			switch (1) {
+			switch (2) {
 			case 1: this.name = "Light";
 			this.light = true;
 			
 			break;
 			
 			case 2: this.name = "Invisability";
-			this.monsterInvisable = true;
+			this.monsterInvisible = true;
 //			Invisibility	6	Makes a monster invisible.
 			break;
 			
