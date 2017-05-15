@@ -45,6 +45,7 @@ public class Player extends Unit {
 			if (this.armor + item.getArmorProtection() < this.maxArmor) {
 				this.armor += item.getArmorProtection();
 			} else {
+				this.maxArmor +=1;
 				this.armor = this.maxArmor;
 			}
 			break;
@@ -59,8 +60,9 @@ public class Player extends Unit {
 			if (this.strength + item.getPlayerStrength() < this.maxStrength) {
 				this.strength += item.getPlayerStrength();
 			} else {
-				this.strength = this.maxStrength;
 				this.maxStrength +=1;
+				this.strength = this.maxStrength;
+				
 			}
 
 			break;
@@ -71,8 +73,9 @@ public class Player extends Unit {
 			if (this.strength + item.getWeaponStrength() < this.maxStrength) {
 				this.strength += item.getWeaponStrength();
 			} else {
-				this.strength = this.maxStrength;
 				this.maxStrength +=1;
+				this.strength = this.maxStrength;
+				
 			}
 			break;
 		case "Potions":
@@ -113,6 +116,7 @@ public class Player extends Unit {
 				this.strength += item.getPlayerStrength();
 			}
 			else {
+				this.maxStrength += 1;
 				this.strength = this.maxStrength;
 			}
 			this.xp += item.getPlayerXP();
@@ -134,9 +138,9 @@ public class Player extends Unit {
 			if (this.strength + item.getPlayerStrength() < this.maxStrength) {
 				this.strength += item.getWeaponStrength();
 			} else {
-
-				this.strength = this.maxStrength;
 				this.maxStrength += 1;
+				this.strength = this.maxStrength;
+				
 			}
 			this.monsterInvisible = item.monsterInvisible();
 

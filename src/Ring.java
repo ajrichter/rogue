@@ -136,7 +136,7 @@ public class Ring extends Item {
 			break;
 			
 			case 6: this.name = "Adornment"; //Implemented
-			this.gold = 10;
+			this.gold += 10;
 			break;
 			
 			case 7: this.name = "Aggravate Monster"; //Not implemented
@@ -148,7 +148,7 @@ public class Ring extends Item {
 			break;
 			
 			case 9: this.name = "Increase Damage"; //Implemented
-			this.strengthFromWeapons = 1; 
+			this.strengthFromWeapons += 1; 
 			//Increase damage	8	Increases weapon damage.
 			break;
 			

@@ -97,7 +97,7 @@ public class Item {
 
 
 		//Weapon Variable declarations:
-		this.strengthFromWeapons = generate.getWeaponStrength();
+		this.playerStrength = generate.getWeaponStrength();
 
 		//Armor Variable declarations:
 		this.armorProtection = generate.getArmorProtection();

@@ -14,7 +14,7 @@ public class Food extends Item {
 	{
 	
 		DiceRoller d= new DiceRoller();
-		switch (d.rollDie(8)) { 
+		switch (d.rollDie(9)) { 
 		case 1: this.name = "Kale";
 		this.playerHunger = 400;
 		break;
@@ -39,16 +39,16 @@ public class Food extends Item {
 		this.playerHunger = 200;
 		break;
 		
-		case 7: this.name = "Steak";
+		case 7: this.name = "Lobster";
 		this.playerHunger= 800; 
 		break;		
 		
-		case 8: this.name = "Spaghetti";		
-		this.playerHunger = 300;		
+		case 8: this.name = "Steak";		
+		this.playerHunger = 1000;		
 		break;
 		
-		case 9: this.name = "Lobster";
-		this.playerHunger = 900;
+		case 9: this.name = "Slugs, Mold, and Rot";
+		this.playerHunger = -200;
 		break;
 		
 		
