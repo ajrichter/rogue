@@ -2,11 +2,12 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Enemy extends Unit {
-	private int trs, dmg;
 	private DiceRoller d;
+	private int trs, dmg;
+	protected boolean chase;
 	protected char lastChar;
 	protected ArrayList<Character> type = new ArrayList<Character>();
-
+	
 	public Enemy(int level, int plevel) {
 		super();
 		d = new DiceRoller();

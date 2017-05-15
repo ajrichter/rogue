@@ -61,9 +61,6 @@ public class Controller extends JFrame implements KeyListener {
 		}
 
 		if (narration == false) {
-			// System.out.println("key is " + key);
-			// Less is 46
-			// Shift is 16
 			// TODO
 			if (key == KeyEvent.VK_SLASH) {
 				// Tells what the next character you type is
@@ -302,7 +299,6 @@ public class Controller extends JFrame implements KeyListener {
 
 	public static void main(String[] args) {
 		Controller control = new Controller("Rogue");
-		String[] dyingnoises = new String[4];
 
 		// game.saveGame(dyingnoises);
 

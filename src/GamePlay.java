@@ -109,13 +109,11 @@ public class GamePlay {
 				gameOver = true;
 			} else if (x == 26) {
 				hasAmulet = true;
-			}
-			level.moveEnemy();
+			} 
+			level.moveEnemy(direction);
 		}
 
 		return update;
-
-		//Add randomly move enemy
 	}
 	/* Player needs to get spawned
 	 * And enemies recreated

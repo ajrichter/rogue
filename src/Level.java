@@ -33,7 +33,6 @@ public class Level {
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Item> items;
 
-
 	/*
 	 * This is a bad way to do it. Could be a map from Point to integer i.e. the
 	 * points map to the index in the arraylist of items But, how can you remove
@@ -126,6 +125,7 @@ public class Level {
 		if (numLevel == 25) {
 			amulet = findS();
 			floor[amulet.y][amulet.x] = AMULET;
+			System.out.println("Find the Amulet!");
 		}
 	}
 
@@ -371,10 +371,8 @@ public class Level {
 				if (isSeen[y][x]) {
 					pfloor[y][x] = floor[y][x];
 				}
-
 			}
 		}
-
 		hideEnemy(pfloor);
 
 		return pfloor;
@@ -399,7 +397,7 @@ public class Level {
 		return 7;
 	}
 
-	// Updates the er's stats after equiping or consuming an item
+	// Updates the player's stats after equiping or consuming an item
 	public int updatePlayerStatsAfterEquip(int itemNum) {
 		narration = "";
 		if (play.inventory.getInventorySpace() > itemNum) {
@@ -411,24 +409,20 @@ public class Level {
 					enemies.get(i).name = "Mr Nice Guy";
 				}
 
-			}			
-			if (play.monsterInvisible)
-			{
-				for (int i = 0; i < enemies.size(); i++)
-				{
-					enemies.get(i).val ='.';
+			}
+			if (play.monsterInvisible) {
+				for (int i = 0; i < enemies.size(); i++) {
+					enemies.get(i).val = '.';
 
 				}
 
 			}
 
-
-
 			if (play.blindness == true) {
 				for (int i = 0; i < rs.length; i++) {
 					System.out.println(rs[i]);
 					if (rs[i] != null) {
-					rs[i].isDark = true;
+						rs[i].isDark = true;
 					}
 				}
 
@@ -457,28 +451,23 @@ public class Level {
 		for (Item i : play.items) {
 			System.out.println(play.identifyScroll);
 			narration += count + " ";
-			if (play.idenitfyWeapon == true && (i.getItemType().equalsIgnoreCase("Weapon")))
-			{
+			if (play.idenitfyWeapon == true && (i.getItemType().equalsIgnoreCase("Weapon"))) {
 				narration += i.getItemName() + " " + i.getItemType();
 			}
-			if (play.identifyScroll == true && (i.getItemType().equalsIgnoreCase("Scroll")))
-			{
+			if (play.identifyScroll == true && (i.getItemType().equalsIgnoreCase("Scroll"))) {
 				narration += i.name + " " + i.getItemType();
 			}
-			if (play.identifyPotion == true && (i.getItemType().equalsIgnoreCase("Potions")))
-			{
+			if (play.identifyPotion == true && (i.getItemType().equalsIgnoreCase("Potions"))) {
 				narration += i.getItemName() + " " + i.getItemType();
 			}
-			if (play.foodDetection == true && (i.getItemType().equalsIgnoreCase("Food")))
-			{
+			if (play.foodDetection == true && (i.getItemType().equalsIgnoreCase("Food"))) {
 				narration += i.getItemName() + " " + i.getItemType();
 			}
-			if (play.identifyArmor == true && (i.getItemType().equalsIgnoreCase("Armor")))
-			{
+			if (play.identifyArmor == true && (i.getItemType().equalsIgnoreCase("Armor"))) {
 				narration += i.getItemName() + " " + i.getItemType();
 			}
-			if (play.identifyWandRing == true && (i.getItemType().equalsIgnoreCase("Ring")|| i.getItemType().equalsIgnoreCase("Wand")))
-			{
+			if (play.identifyWandRing == true
+					&& (i.getItemType().equalsIgnoreCase("Ring") || i.getItemType().equalsIgnoreCase("Wand"))) {
 				narration += i.getItemName() + " " + i.getItemType();
 			}
 
@@ -506,70 +495,59 @@ public class Level {
 			return 2;
 		}
 		char c = floor[a.y + dir[1]][a.x + dir[0]];
-		
-		if(u.hunger<=0) {
+
+		if (u.hunger <= 0) {
 			u.dead = true;
 			return 12;
 		}
-		
-		if(c == AMULET) {
+
+		if (c == AMULET) {
 			floor[a.y + dir[1]][a.x + dir[0]] = '@';
 			floor[a.y][a.x] = last;
 			u.p = new Point(a.x + dir[0], a.y + dir[1]);
 			last = '.';
 			return 26;
-		}
-
-		if (Character.isLetter(c)) {
+		} else if (Character.isLetter(c)) {
 			for (Enemy e : enemies) {
 				if (e.p.x == a.x + dir[0] && e.p.y == a.y + dir[1]) {
 					fight(e);
-					// haha
-					if(u.dead) {
-						return 12;
-					}
-					return 1;
+					break;
 				}
+			}
+			
+			if (u.dead) {
+				return 12;
 			}
 			return 1;
 		} else if (validMove(c)) {
 			if (isItem(c)) {
 				if (play.inventory.addItem(itemPos.get(c)) == false) {
 					narration = "Can't add item. Inventory is full.";
-					narration += " The item vanishes because of your greed."; //Didn't have time to think of a better solution
-					floor[a.y + dir[1]][a.x + dir[0]] = '.'; //Penalty for greed
-
+					narration += " The item vanishes because of your greed.";
+					floor[a.y + dir[1]][a.x + dir[0]] = '.';
 				} else {
 					Item temp = itemPos.get(c);
 					narration = "You" + " " + itemPos.get(c).getPickUpMessage();
 					System.out.println(play.identifyScroll);
-					if (play.idenitfyWeapon == true && (temp.getItemType().equalsIgnoreCase("Weapon")))
-					{
+					if (play.idenitfyWeapon && (temp.getItemType().equalsIgnoreCase("Weapon"))) {
 						narration += " You identified " + temp.getItemName();
 					}
-					if (play.identifyScroll == true && (temp.getItemType().equalsIgnoreCase("Scroll")))
-					{
+					if (play.identifyScroll && (temp.getItemType().equalsIgnoreCase("Scroll"))) {
 						narration += " You identified " + temp.getItemName();
 					}
-					if (play.identifyPotion == true && (temp.getItemType().equalsIgnoreCase("Potions")))
-					{
+					if (play.identifyPotion && (temp.getItemType().equalsIgnoreCase("Potions"))) {
 						narration += " You identified " + temp.getItemName();
 					}
-					if (play.foodDetection == true && (temp.getItemType().equalsIgnoreCase("Food")))
-					{
+					if (play.foodDetection && (temp.getItemType().equalsIgnoreCase("Food"))) {
 						narration += " You identified " + temp.getItemName();
 					}
-					if (play.identifyArmor == true && (temp.getItemType().equalsIgnoreCase("Armor")))
-					{
+					if (play.identifyArmor && (temp.getItemType().equalsIgnoreCase("Armor"))) {
 						narration += " You identified " + temp.getItemName();
 					}
-					if (play.identifyWandRing == true && (temp.getItemType().equalsIgnoreCase("Ring")|| temp.getItemType().equalsIgnoreCase("Wand")))
-					{
+					if (play.identifyWandRing && (temp.getItemType().equalsIgnoreCase("Ring")
+							|| temp.getItemType().equalsIgnoreCase("Wand"))) {
 						narration += " You identified " + temp.getItemName();
 					}
-
-
-
 
 					play.items.add(itemPos.get(c));
 					floor[a.y + dir[1]][a.x + dir[0]] = '.';
@@ -623,15 +601,6 @@ public class Level {
 					isSeen[a.y + i - 1][a.x + j - 1] = true;
 				}
 			}
-
-			// isInRoom should be remove later in case gold can spawn in hall
-			// Picking up gold
-			// last one checks if gold has already been picked up - in case
-			// enemy can drop gold (instead of transfer)
-			// from the source code i think gold can only spawn in room (and
-			// maybe drop)
-			// isInRoom should be used to replace last with '.'
-			// if !isInRoom then last = '#'
 			if (c == '*' && getCurRoom(u).goldVal != 0) {
 				u.gold += getCurRoom(u).goldVal;
 				narration = "You've picked up " + getCurRoom(u).goldVal + " gold";
@@ -654,8 +623,7 @@ public class Level {
 				return 12;
 			} else
 				return 0;
-		}
-		if (c == STAIR) {
+		} else if (c == STAIR) {
 			onStairs = true;
 			return 6;
 		}
@@ -672,6 +640,7 @@ public class Level {
 		 * Player attacks Then Enemy Then update narration? Then remove enemy
 		 * from enemies or DIE! check if enemy is in Room or not
 		 */
+		play.fight = e.fight = true;
 		String n = "";
 		int patk = play.attack();
 		e.hp -= patk;
@@ -682,6 +651,7 @@ public class Level {
 			narration = "You defeated the " + e.name + "!";
 			narration2 = "";
 			enemies.remove(e);
+			play.fight = false;
 		} else {
 			/* fight back */
 			int eatk = e.getDMG();
@@ -693,13 +663,13 @@ public class Level {
 				narration2 = "Sorry. You died!";
 			}
 		}
+		e.chase = true;
 		return n;
 	}
 
 	private boolean isNoBarrier(char c) {
 		return (c == '.' || c == '#');
 	}
-
 
 	private boolean validMove(char c) {
 		return (c == '.' || c == '#' || c == '+' || c == '*' || isItem(c));
@@ -759,8 +729,7 @@ public class Level {
 					Rm temp = getCurRoom(play);
 					if (a.x >= temp.x1 && a.x <= temp.x2 && a.y >= temp.y1 && a.y <= temp.y2) {
 						return; // do nothing
-					}	
-					else {
+					} else {
 						// add in an if statement with isSeen somewhere here
 						playerFloor[a.y][a.x] = enemies.get(i).lastChar;
 
@@ -803,30 +772,39 @@ public class Level {
 	/**
 	 * Move random enemy
 	 */
-	protected void moveEnemy() {
-		// go through enemies arraylist
-		for (int i = 0; i < enemies.size(); i++) {
-			int[] dir = { 0, 0 };
-			Point a = (enemies.get(i)).p;
-			char c = '|';
-
-			// TODO: Enemies can move on item and when that happens that grid
-			// doesn't become '.'
-			// but rather whatever the item was
-			// !isItem(c) was added as a quick fix REMOVE THIS LATER
-			while (!validMove(c) /* || isItem(c) || c == '*' */) {
-				dir[1] = ThreadLocalRandom.current().nextInt(-1, 1 + 1);
-				dir[0] = ThreadLocalRandom.current().nextInt(-1, 1 + 1);
-
-				c = floor[a.y + dir[1]][a.x + dir[0]];
+	protected void moveEnemy(int[] previous) {
+		for (Enemy e : enemies) {
+			int x1, x2, y1, y2;
+			char c = '.';
+			x1 = x2 = e.p.x;
+			y1 = y2 = e.p.y;
+			if (e.chase) {
+				/* If chase, then move to last spot of player */
+				x2 = play.p.x - previous[0];
+				y2 = play.p.y - previous[1];
+			} else if (ThreadLocalRandom.current().nextBoolean()) {
+				/* Otherwise move randomly. 50% chance. */
+				c = '|';
+				while (!validMove(c)) {
+					int move = 1;
+					if (ThreadLocalRandom.current().nextBoolean())
+						move = -1;
+					if (ThreadLocalRandom.current().nextBoolean()) {
+						x2 = e.p.x + move;
+						y2 = e.p.y;
+					} else {
+						x2 = e.p.x;
+						y2 = e.p.y + move;
+					}
+					c = floor[y2][x2];
+				}
 			}
 
-			if (enemies.get(i).type.contains('M')) {
-				floor[a.y][a.x] = enemies.get(i).lastChar;
-				enemies.get(i).lastChar = c;
-
-				a.setLocation(a.x + dir[0], a.y + dir[1]);
-				floor[a.y][a.x] = (enemies.get(i)).val;
+			if (!e.fight && e.type.contains('M')) {
+				floor[y1][x1] = e.lastChar;
+				e.lastChar = floor[y2][x2];
+				e.p.setLocation(x2, y2);
+				floor[y2][x2] = e.val;
 			}
 		}
 	}

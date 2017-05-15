@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 
 public class Player extends Unit {
-	protected boolean hasA, hasW, hallucination, blindness, hasteSelf, levitation, light, monsterInvisible, monsterDetection, magicDetection = false;
-	protected boolean identifyWandRing, identifyPotion, idenitfyWeapon, identifyArmor, foodDetection, identifyScroll = false;
+	protected boolean hasA, hasW, hallucination, blindness, hasteSelf, levitation, light, monsterInvisible,
+			monsterDetection, magicDetection = false;
+	protected boolean identifyWandRing, identifyPotion, idenitfyWeapon, identifyArmor, foodDetection,
+			identifyScroll = false;
 	protected int gold, nexp, steps;
 	protected ArrayList<Item> items;
 	protected Inventory inventory;
@@ -33,14 +35,10 @@ public class Player extends Unit {
 	/*
 	 * Edit this to include armor etc.
 	 */
-	public int attack(){
+	public int attack() {
 		return d.rollDie(4);
 	}
 
-
-	
-	
-	
 	public void useItem(Item item) {
 
 		switch (item.getItemType()) {
@@ -48,7 +46,7 @@ public class Player extends Unit {
 			if (this.armor + item.getArmorProtection() < this.maxArmor) {
 				this.armor += item.getArmorProtection();
 			} else {
-				this.maxArmor +=1;
+				this.maxArmor += 1;
 				this.armor = this.maxArmor;
 			}
 			break;
@@ -63,8 +61,8 @@ public class Player extends Unit {
 			if (this.strength + item.getWeaponStrength() < this.maxStrength) {
 				this.strength += item.getWeaponStrength();
 			} else {
-				this.maxStrength +=1;
-				this.strength = this.maxStrength;	
+				this.maxStrength += 1;
+				this.strength = this.maxStrength;
 			}
 
 			break;
@@ -72,56 +70,48 @@ public class Player extends Unit {
 			if (this.strength + item.getRingStrength() < this.maxStrength) {
 				this.strength += item.getRingStrength();
 			} else {
-				this.maxStrength +=1;
-				this.strength = this.maxStrength;	
+				this.maxStrength += 1;
+				this.strength = this.maxStrength;
 			}
 			this.gold += item.gold;
 			this.hp += item.getHPFromRing();
 			break;
 		case "Potions":
-			if (item.getExtraHealing() || item.getHealing())
-			{
-				if (this.hp + item.getHPFromPotion() < this.maxHP)
-				{
+			if (item.getExtraHealing() || item.getHealing()) {
+				if (this.hp + item.getHPFromPotion() < this.maxHP) {
 					this.hp += item.getHPFromPotion();
-				}
-				else {
+				} else {
 					if (item.getHealing()) {
 						this.maxHP += 1;
 					}
 					if (item.getHealing()) {
 						DiceRoller dice = new DiceRoller();
-						this.maxHP += dice.rollDie(2);	
+						this.maxHP += dice.rollDie(2);
 					}
 
 					this.hp = this.maxHP;
 				}
 			}
 
-			this.blindness = item.getBlindness(); 
+			this.blindness = item.getBlindness();
 			this.hasteSelf = item.getHasteSelf();
 			this.levitation = item.getLevitation();
 			this.monsterDetection = item.monsterDetection();
 			this.magicDetection = item.magicDetection();
 
-			if (item.restoreStrength())
-			{
+			if (item.restoreStrength()) {
 				this.strength = this.maxStrength;
 			}
 
 			this.hallucination = item.getHallucination();
 
-			if (this.strength + item.getPotionStrength() < this.maxStrength)
-			{
+			if (this.strength + item.getPotionStrength() < this.maxStrength) {
 				this.strength += item.getPotionStrength();
-			}
-			else {
+			} else {
 				this.maxStrength += 1;
 				this.strength = this.maxStrength;
 			}
 			this.xp += item.getPlayerXP();
-
-
 
 			break;
 		case "Scroll":
@@ -140,7 +130,7 @@ public class Player extends Unit {
 			} else {
 				this.maxStrength += 1;
 				this.strength = this.maxStrength;
-				
+
 			}
 			this.monsterInvisible = item.monsterInvisible();
 
@@ -180,7 +170,7 @@ public class Player extends Unit {
 		narrationMessage = "";
 		if (!narrationMessage.equals("You have fainted.")) {
 			steps++;
-			if (steps >= 10) {
+			if (steps >= 20) {
 				steps = 0;
 				if (hp < maxHP)
 					hp++;
