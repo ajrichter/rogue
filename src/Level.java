@@ -776,7 +776,7 @@ public class Level {
 					boolean seePlayer = false;
 					for (int j = 0; j < 3; j++) {
 						for (int k = 0; k < 3; k++) {
-							if (floor[a.y + i - 1][a.x + i - 1] == play.val) {
+							if (floor[a.y + j - 1][a.x + k - 1] == play.val) {
 								seePlayer = true;
 								System.out.println(enemies.get(i).name + " can see Player");
 
