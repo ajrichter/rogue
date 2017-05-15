@@ -13,8 +13,7 @@ public class RougeView {
 	private static ViewUpdate view;
 	
 	public void updateBoard(char[][] board){
-		view.board=board;	
-        System.out.println("Board Updated");
+		view.board=board;
 	}
 	
 	public void updateStats(String[] stats){
@@ -39,8 +38,7 @@ public class RougeView {
 	}
 	
 	public RougeView(JFrame sentFrame){
-		//width and height of frame
-        System.out.println("RogueView Constructor called");
+		// width and height
 		int x=750;
 		int y=750;
 
@@ -110,7 +108,8 @@ public class RougeView {
 				//gr.drawString("Test String",0,625);
 			}
 			if(win) {
-				
+				gr.setFont(new Font("TimesRoman", Font.PLAIN, 26)); 
+				gr.drawString("You won",0,25);
 			} if (lose) {
 				gr.setFont(new Font("TimesRoman", Font.PLAIN, 26)); 
 				gr.drawString("You lost",0,25);

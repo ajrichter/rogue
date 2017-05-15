@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GamePlay {
 	private boolean gameOver = false;
-	private boolean hasAmulet=false;
+	protected boolean hasAmulet=false;
 	Player play;
 	ArrayList<Level> dungeon;
 	Level level;
@@ -21,7 +21,6 @@ public class GamePlay {
 	String narration2;
 
 	public GamePlay() {
-		System.out.println("Gameplay Constructor called");
 		String s = "John Dooley";
 		switch (ThreadLocalRandom.current().nextInt(0, 4 + 1)) {
 		case 0: s = "Myra";
@@ -108,6 +107,8 @@ public class GamePlay {
 				update = 12;
 				//narration = level.narration;
 				gameOver = true;
+			} else if (x == 26) {
+				hasAmulet = true;
 			}
 			level.moveEnemy();
 		}
@@ -125,10 +126,14 @@ public class GamePlay {
 		}
 	}
 
+	//Can't go down any farther than level 25
 	public void descend(){
-		Level l = new Level(level.numLevel++, play);
-		dungeon.add(l);
-		this.level = l;
+		if(level.numLevel<25) {
+			System.out.println("Going down" + level.numLevel);
+			Level l = new Level(level.numLevel + 1, play);
+			dungeon.add(l);
+			this.level = l;
+		}
 	}
 
 	public void saveGame(String[] test) {

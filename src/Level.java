@@ -28,6 +28,7 @@ public class Level {
 	protected int itemY = 0;
 	protected Point stairs;
 	protected final char STAIR = '%';
+	protected final char AMULET = ',';
 	protected Point amulet;
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Item> items;
@@ -124,12 +125,12 @@ public class Level {
 		/* What we have been waiting for! */
 		if (numLevel == 25) {
 			amulet = findS();
-			floor[amulet.y][amulet.x] = ',';
+			floor[amulet.y][amulet.x] = AMULET;
 		}
 	}
 
 	/*
-	 * Connects all rooms with doors and passages.
+	 * Connects all rooms
 	 */
 	private void doors() {
 		for (int i = 0; i < MAXROOMS - 1; i++) {
@@ -510,23 +511,25 @@ public class Level {
 			u.dead = true;
 			return 12;
 		}
+		
+		if(c == AMULET) {
+			floor[a.y + dir[1]][a.x + dir[0]] = '@';
+			floor[a.y][a.x] = last;
+			u.p = new Point(a.x + dir[0], a.y + dir[1]);
+			last = '.';
+			return 26;
+		}
 
-		if (Character.isUpperCase(c) && c != STAIR) {
+		if (Character.isLetter(c)) {
 			for (Enemy e : enemies) {
 				if (e.p.x == a.x + dir[0] && e.p.y == a.y + dir[1]) {
 					fight(e);
+					// haha
 					if(u.dead) {
 						return 12;
 					}
 					return 1;
 				}
-			}
-			hits++;
-			if (hits == 3) {
-				floor[a.y + dir[1]][a.x + dir[0]] = '.';
-				hits = 0;
-				System.out.println(narration);
-				return 1;
 			}
 			return 1;
 		} else if (validMove(c)) {
@@ -639,7 +642,6 @@ public class Level {
 					last = '#';
 				}
 
-				System.out.println("Moved Successfully and Picked Up Some Gold");
 				return 3;
 			}
 			narration = "";
@@ -649,23 +651,15 @@ public class Level {
 				return 9;
 			}
 			if (narration.equalsIgnoreCase("You have fainted. Game over!")) {
-				//floor[a.y][a.x] = '.';
 				return 12;
-			}
-
-			else {
-
-				System.out.println("Moved Successfully");
+			} else
 				return 0;
-
-			}
 		}
 		if (c == STAIR) {
 			onStairs = true;
 			return 6;
 		}
 
-		System.out.println("No Move");
 		return 2;
 	}
 
@@ -683,9 +677,7 @@ public class Level {
 		e.hp -= patk;
 		narration = "You hit the " + e.name + " for " + patk + " damage!";
 		if (e.hp <= 0) {
-			floor[e.p.y][e.p.x] = e.lastChar; // replaces with wherever enemy
-			// was
-			System.out.println("adding xp me " + play.xp + " enemy " + e.xp);
+			floor[e.p.y][e.p.x] = e.lastChar;
 			play.xp += e.xp;
 			narration = "You defeated the " + e.name + "!";
 			narration2 = "";
@@ -696,9 +688,10 @@ public class Level {
 			play.hp -= eatk;
 			narration2 = "The " + e.name + " attacked you for " + eatk + " damage!";
 
-			if (play.hp <= 0)
+			if (play.hp <= 0) {
 				play.dead = true;
 				narration2 = "Sorry. You died!";
+			}
 		}
 		return n;
 	}
@@ -834,10 +827,6 @@ public class Level {
 
 				a.setLocation(a.x + dir[0], a.y + dir[1]);
 				floor[a.y][a.x] = (enemies.get(i)).val;
-
-				System.out.println(enemies.get(i).name + " has moved");
-			} else {
-				System.out.println(enemies.get(i).name + " has not moved");
 			}
 		}
 	}

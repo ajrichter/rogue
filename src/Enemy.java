@@ -126,7 +126,7 @@ public class Enemy extends Unit {
 			this.type.add('M');
 			break;
 		}
-		if (this.level > (lvl + pl))
+		if (this.level > (lvl + pl) || this.level < (pl/4))
 			this.genMon(lvl, pl);
 	}
 
