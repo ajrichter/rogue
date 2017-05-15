@@ -533,6 +533,7 @@ public class Level {
 			if (isItem(c)) {
 				if (play.inventory.addItem(itemPos.get(c)) == false) {
 					narration = "Can't add item. Inventory is full.";
+					narration += " The item vanishes because of your greed."; //Didn't have time to think of a better solution
 					floor[a.y + dir[1]][a.x + dir[0]] = '.'; //Penalty for greed
 
 				} else {
