@@ -40,8 +40,7 @@ public class GenItem {
 	//Armor Items:
 	private int protection = 0;
 	
-	//Weapon Items:
-	private int weaponDamage = 0;
+
 	
 	
 	
@@ -57,11 +56,14 @@ public class GenItem {
 	private String dropMessage = "";
 	private String pickUpMessage = "";
 	private String takeOffMessage = "";
-	private int playerStrength = 0;
+	private int weaponStrength = 0;
+	private int ringStrength = 0;
+	private int potionStrength = 0;
+	private int wandStrength = 0;
 	private int playerHP = 0;
 	private int maxPlayerHP = 0; 
 	private int playerXP = 0;
-
+	private int hpFromRing = 0;
 
 	
 	public GenItem () {
@@ -133,7 +135,7 @@ public class GenItem {
 		case 2: this.typeItem = "Weapon";
 		Weapon w = new Weapon();
 		w.getWeapon();
-		this.weaponDamage = w.strengthFromWeapons;
+		this.weaponStrength = w.weaponStrength;
 		this.itemName = w.name;
 		this.boardName = w.boardName;
 		this.pickUpMessage = " picked up weapon.";
@@ -162,9 +164,8 @@ public class GenItem {
 		this.useMessage = " put on " + this.itemName + " " + this.typeItem + ". ";
 		this.dropMessage = " dropped ring on the floor.";
 		this.gold = ring.gold;
-		this.weaponDamage = ring.strengthFromWeapons;
-		this.playerStrength = ring.playerStrength;
-		this.playerHP = ring.getPlayerHP(); 
+		this.ringStrength = ring.ringStrength;
+		this.hpFromRing = ring.hpFromRing;
 		break;
 
 		case 5: this.typeItem = "Scroll";
@@ -191,7 +192,7 @@ public class GenItem {
 		this.pickUpMessage = " picked up wand.";
 		this.useMessage = " use " + this.itemName + " " + this.typeItem + ". ";
 		this.dropMessage = " dropped wand on the floor.";
-		this.weaponDamage = wand.strengthFromWeapons;
+		this.wandStrength = wand.wandStrength;
 		this.light = wand.light;
 		this.monsterInvisible = wand.monsterInvisible;
 		
@@ -202,8 +203,8 @@ public class GenItem {
 		p.getPotion();
 		this.boardName = p.boardName;
 		this.itemName = p.name;
-		this.playerStrength = p.playerStrength;
-		this.playerHP = p.playerHP;
+		this.potionStrength = p.potionStrength;
+		this.playerHP = p.hpFromPotion;
 		this.playerXP = p.playerXP;
 		this.restoreStrength = p.restoreStrength;
 		this.extraHealing = p.extraHealing;
@@ -224,6 +225,28 @@ public class GenItem {
 		}
 	}
 
+	public int getHPFromRing() {
+		return hpFromRing;
+	}
+	
+	
+	
+	public int getWandStrength() {
+		return wandStrength;
+	}
+	
+	public int getPotionStrength() {
+		return potionStrength;
+	}
+	
+	public int getWeaponStrength() {
+		return weaponStrength;
+	}
+	
+	public int getRingStrength() {
+		return ringStrength;
+	}
+	
 	public int getGold() {
 		return this.gold;
 	}
@@ -327,11 +350,6 @@ public class GenItem {
 		return this.pickUpMessage;
 	}
 
-
-	public int getWeaponStrength() {
-		return this.weaponDamage;
-	}
-
 	public int getArmorProtection() {
 		return this.protection;
 	}
@@ -343,11 +361,7 @@ public class GenItem {
 	public int getPlayerHP() {
 		return this.playerHP;
 	}
-	
-	public int getPlayerStrength() {
-		return this.playerStrength;
-	}
-	
+		
 	public int getPlayerXP() {
 		return this.playerXP;
 	}

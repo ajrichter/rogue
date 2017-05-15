@@ -9,6 +9,12 @@ import java.awt.Point;
 
 public class Item {
 
+	//Weapon Variables:
+	protected int weaponStrength = 0;
+	
+	//Ring Variables:
+	protected int ringStrength = 0;
+	
 	//Scroll Variables:
 	protected boolean identifyWandOrRing = false;
 	protected boolean identifyPotion = false;
@@ -28,7 +34,8 @@ public class Item {
 	protected boolean blindness = false;
 	protected boolean hasteSelf = false;
 	protected boolean monsterDetection = false; 
-
+	protected int potionStrength = 0;
+	
 	//Wand Variables:
 	protected boolean light = false;
 	protected boolean monsterHaste = false;
@@ -46,7 +53,7 @@ public class Item {
 	protected boolean aggregateMonster = false;
 	protected boolean maintainArmor = false; 
 	protected int gold = 0; 
-
+	protected int hpFromRing = 0; 
 
 
 
@@ -55,13 +62,12 @@ public class Item {
 	protected char boardName;
 	protected String name; 
 	protected String typeItem;
-	protected int strengthFromWeapons;
 	protected String eMessage; 
 	protected String dMessage;
 	protected String pMessage; 
-	protected int playerStrength;
+	protected int wandStrength;
 	protected int playerHealth;
-	protected int playerHP;
+	protected int hpFromPotion;
 	protected int playerXP;
 	protected GenItem generate;
 
@@ -88,16 +94,17 @@ public class Item {
 		this.eMessage = generate.getEquiptOrUseMessage();
 		this.pMessage = generate.getPickUpMessage();
 		this.dMessage = generate.getDropMessage();
-		this.playerHP = generate.getPlayerHP();
-		this.playerStrength = generate.getPlayerStrength();
+		this.hpFromPotion = generate.getPlayerHP();
+		this.wandStrength = generate.getWandStrength();
+		this.potionStrength = generate.getPotionStrength();
+		this.ringStrength = generate.getRingStrength();
+		this.weaponStrength = generate.getWeaponStrength();
 		this.playerXP = generate.getPlayerXP();
-
+		this.hpFromRing = generate.getHPFromRing();
 		//Food Variable declarations:
 		this.playerHunger = generate.getHunger();
 
 
-		//Weapon Variable declarations:
-		this.playerStrength = generate.getWeaponStrength();
 
 		//Armor Variable declarations:
 		this.armorProtection = generate.getArmorProtection();
@@ -130,6 +137,11 @@ public class Item {
 		return generate;
 	}
 
+	public int getHPFromRing() {
+		return this.hpFromRing;
+	}
+	
+	
 	public boolean monsterDetection() {
 		return this.monsterDetection;
 	}
@@ -234,20 +246,29 @@ public class Item {
 		return armorProtection;
 	}
 
-	public int getWeaponStrength() {
-		return strengthFromWeapons;
-	}
 
-	public int getPlayerStrength() {
-		return playerStrength;
+	public int getWeaponStrength() {
+		return weaponStrength;
+	}
+	
+	public int getRingStrength() {
+		return ringStrength;
+	}
+	
+	public int getWandStrength() {
+		return wandStrength;
+	}
+	
+	public int getPotionStrength() {
+		return potionStrength;
 	}
 
 	public int getPlayerHunger() {
 		return playerHunger;
 	}
 
-	public int getPlayerHP() {
-		return playerHP;
+	public int getHPFromPotion() {
+		return hpFromPotion;
 	}
 
 }

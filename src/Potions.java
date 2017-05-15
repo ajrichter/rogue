@@ -112,7 +112,7 @@ public class Potions extends Item {
 		this.eMessage = "You feel very sick now.";
 		DiceRoller loseS = new DiceRoller();
 		int loseAmount = loseS.rollDie(3);
-		this.playerStrength -= loseAmount;
+		this.potionStrength = -loseAmount;
 		//Poison	8	Reduces strength by 1-3 points.
 		break;
 
@@ -121,7 +121,7 @@ public class Potions extends Item {
 		this.eMessage = "You begin to feel better.";
 		DiceRoller gainHP = new DiceRoller();
 		int hpGain = gainHP.rollDie(5);
-		this.playerHP += hpGain;
+		this.hpFromPotion = hpGain;
 		//Healing	13	Heals 1df per character level. Increase max HP by 1 if you are at full health.
 		break;
 
@@ -150,7 +150,7 @@ public class Potions extends Item {
 
 		case 8: this.name = "Gain Strength"; //Implemented
 		this.eMessage = "You feel stronger, now.  What bulging muscles!";
-		this.playerStrength += 1;
+		this.potionStrength = 1;
 		//Gain strength	13	Increases strength by 1.
 		break;
 
@@ -159,7 +159,7 @@ public class Potions extends Item {
 		this.eMessage = "You begin to feel much better.";
 		DiceRoller extraHP = new DiceRoller();
 		int hpExtra = extraHP.rollDie(8);
-		this.playerHP += hpExtra;
+		this.hpFromPotion = hpExtra;
 		//Extra healing	5	Heals 1d8 per character level. Increase max HP by 1, or by 2 if you are at full health.
 		break;
 
@@ -188,7 +188,7 @@ public class Potions extends Item {
 
 		case 14: this.name = "Raise Level"; //Implemented
 		this.eMessage = "You suddenly feel much more skillful";
-		this.playerXP += 1; 
+		this.playerXP = 1; 
 		//Raise level	2	Increases experience level by 1.
 
 		break;

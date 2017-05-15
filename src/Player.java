@@ -18,14 +18,13 @@ public class Player extends Unit {
 		this.xp = 0;
 		this.nexp = 10;
 		this.maxHP = this.hp = 12;
-		this.strength = 16;
+		this.maxStrength = this.strength = 20;
 		this.gold = 0;
 		this.armor = 10;
 		/* Our Stats */
 		this.maxArmor = 20;
 		this.steps = 0;
 		this.hunger = this.maxHunger = 1000;
-		this.maxStrength = 20;
 		inventory = new Inventory();
 		items = new ArrayList<Item>();
 		d = new DiceRoller();
@@ -38,6 +37,10 @@ public class Player extends Unit {
 		return d.rollDie(4);
 	}
 
+
+	
+	
+	
 	public void useItem(Item item) {
 
 		switch (item.getItemType()) {
@@ -57,33 +60,30 @@ public class Player extends Unit {
 			}
 			break;
 		case "Weapon":
-			if (this.strength + item.getPlayerStrength() < this.maxStrength) {
-				this.strength += item.getPlayerStrength();
-			} else {
-				this.maxStrength +=1;
-				this.strength = this.maxStrength;
-				
-			}
-
-			break;
-		case "Ring":
-			this.gold += item.gold;
-			this.hp += item.getPlayerHP();
-			
 			if (this.strength + item.getWeaponStrength() < this.maxStrength) {
 				this.strength += item.getWeaponStrength();
 			} else {
 				this.maxStrength +=1;
-				this.strength = this.maxStrength;
-				
+				this.strength = this.maxStrength;	
 			}
+
+			break;
+		case "Ring":
+			if (this.strength + item.getRingStrength() < this.maxStrength) {
+				this.strength += item.getRingStrength();
+			} else {
+				this.maxStrength +=1;
+				this.strength = this.maxStrength;	
+			}
+			this.gold += item.gold;
+			this.hp += item.getHPFromRing();
 			break;
 		case "Potions":
 			if (item.getExtraHealing() || item.getHealing())
 			{
-				if (this.hp + item.getPlayerHP() < this.maxHP)
+				if (this.hp + item.getHPFromPotion() < this.maxHP)
 				{
-					this.hp += item.getPlayerHP();
+					this.hp += item.getHPFromPotion();
 				}
 				else {
 					if (item.getHealing()) {
@@ -111,9 +111,9 @@ public class Player extends Unit {
 
 			this.hallucination = item.getHallucination();
 
-			if (this.strength + item.getPlayerStrength() < this.maxStrength)
+			if (this.strength + item.getPotionStrength() < this.maxStrength)
 			{
-				this.strength += item.getPlayerStrength();
+				this.strength += item.getPotionStrength();
 			}
 			else {
 				this.maxStrength += 1;
@@ -135,8 +135,8 @@ public class Player extends Unit {
 			break;
 		case "Wand":
 			this.light = item.getLight();
-			if (this.strength + item.getPlayerStrength() < this.maxStrength) {
-				this.strength += item.getWeaponStrength();
+			if (this.strength + item.getWandStrength() < this.maxStrength) {
+				this.strength += item.getWandStrength();
 			} else {
 				this.maxStrength += 1;
 				this.strength = this.maxStrength;

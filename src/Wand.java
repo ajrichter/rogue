@@ -75,7 +75,7 @@ public class Wand extends Item {
 	
 	public boolean itemsImplemented(int num) //Update this every time you implement a new item!
 	{
-		if (num == 1 || num == 2 || num == 4 || num == 6 || num == 14)
+		if (num == 1 || num == 4 || num == 6 || num == 14)
 		{
 			return true;
 		}
@@ -103,7 +103,7 @@ public class Wand extends Item {
 			
 			break;
 			
-			case 2: this.name = "Invisability"; //Implemented
+			case 2: this.name = "Invisability"; //Not Working, so we won't include it into the final version
 			this.monsterInvisible = true;
 //			Invisibility	6	Makes a monster invisible.
 			break;
@@ -115,7 +115,7 @@ public class Wand extends Item {
 			
 			case 4: this.name = "Missle"; //Implemented
 	
-			this.strengthFromWeapons = d.rollDie(4); 
+			this.wandStrength = d.rollDie(4); 
 //			Magic missile	10	Inflicts 1d4 damage on a single target.
 			break;
 
@@ -126,17 +126,17 @@ public class Wand extends Item {
 			break;
 			
 			case 6: this.name = "Lightning"; //Implemented
-			this.strengthFromWeapons = 6 * d.rollDie(6);
+			this.wandStrength = 6 * d.rollDie(6);
 //			Lightning	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls.
 			break;
 			
 			case 7: this.name = "Fire"; //Not Implemented 
-			this.strengthFromWeapons = 6 * d.rollDie(6);
+			this.wandStrength = 6 * d.rollDie(6);
 			//	Fire	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Dragons are immune.
 			break;
 			
 			case 8: this.name = "Cold"; //Not Implemented
-			this.strengthFromWeapons = 6 * d.rollDie(6);
+			this.wandStrength = 6 * d.rollDie(6);
 			//			Cold	3	Inflicts 6d6 damage for up to 6 tiles. Bounces off walls. Yetis are immune.
 			break;
 			

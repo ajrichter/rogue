@@ -119,7 +119,7 @@ public class Ring extends Item {
 			break;
 			
 			case 2: this.name = "Strength"; //Implemented
-			this.playerStrength += 1;
+			this.ringStrength = 1;
 			//Adds to strength
 			break;
 			
@@ -136,7 +136,7 @@ public class Ring extends Item {
 			break;
 			
 			case 6: this.name = "Adornment"; //Implemented
-			this.gold += 10;
+			this.gold = 10;
 			break;
 			
 			case 7: this.name = "Aggravate Monster"; //Not implemented
@@ -148,12 +148,12 @@ public class Ring extends Item {
 			break;
 			
 			case 9: this.name = "Increase Damage"; //Implemented
-			this.strengthFromWeapons += 1; 
+			this.ringStrength = 1; 
 			//Increase damage	8	Increases weapon damage.
 			break;
 			
 			case 10: this.name = "Regeneration"; //Implemented
-			this.playerHP += 1;
+			this.hpFromRing = 1;
 			//Regeneration	4	Heals 1 hp per turn
 			break;
 			
