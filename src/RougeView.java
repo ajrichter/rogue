@@ -30,6 +30,14 @@ public class RougeView {
 		frame.repaint();
 	}
 	
+	public void win(){
+		view.win=true;
+	}
+	
+	public void lose(){
+		view.lose=true;
+	}
+	
 	public RougeView(JFrame sentFrame){
 		//width and height of frame
         System.out.println("RogueView Constructor called");
@@ -61,6 +69,8 @@ public class RougeView {
 		protected String[] stats = new String[0];
 		//protected List<Item> inventory;
 		protected boolean showInventory; //if the board is showing inventory
+		protected boolean win = false;
+		protected boolean lose = false;
 		
 		
 		//Paints the Jframe with different narration, board, and stats
@@ -71,32 +81,40 @@ public class RougeView {
 			this.setBackground(Color.BLACK);
 			gr.setColor(Color.WHITE);
 			
-			//Prints naration
-			gr.setFont(new Font("TimesRoman", Font.PLAIN, 26)); 
-			gr.drawString(naration,0,25);
 			
-			//Prints the board
-			
-			gr.setFont(new Font("monospaced", Font.PLAIN, 12));
-			/*
-			for(int i=0; i<board.length; i++){
-				gr.drawChars(board[i], 0, board[i].length, 45, i*16+125);
-			}
-			*/
-			// gr.setFont(new Font("TimesRoman", Font.PLAIN, 12));
-			for(int i=0; i<board.length;i++){
-				for(int k=0; k<board[0].length;k++){
-					gr.drawString(board[i][k] + "", k*12+10, i*12+125);
+			if(!win && !lose) {
+				//Prints naration
+				gr.setFont(new Font("TimesRoman", Font.PLAIN, 26)); 
+				gr.drawString(naration,0,25);
+				
+				//Prints the board
+				
+				gr.setFont(new Font("monospaced", Font.PLAIN, 12));
+				/*
+				for(int i=0; i<board.length; i++){
+					gr.drawChars(board[i], 0, board[i].length, 45, i*16+125);
 				}
+				*/
+				// gr.setFont(new Font("TimesRoman", Font.PLAIN, 12));
+				for(int i=0; i<board.length;i++){
+					for(int k=0; k<board[0].length;k++){
+						gr.drawString(board[i][k] + "", k*12+10, i*12+125);
+					}
+				}
+				
+			
+				
+				//prints stats
+				gr.setFont(new Font("TimesRoman", Font.PLAIN, 26));
+				gr.drawString(stats[0],0,625);
+				//gr.drawString("Test String",0,625);
 			}
-			
-		
-			
-			//prints stats
-			gr.setFont(new Font("TimesRoman", Font.PLAIN, 26));
-			gr.drawString(stats[0],0,625);
-			//gr.drawString("Test String",0,625);
-			
+			if(win) {
+				
+			} if (lose) {
+				gr.setFont(new Font("TimesRoman", Font.PLAIN, 26)); 
+				gr.drawString("You lost",0,25);
+			}
 		}
 	}
 

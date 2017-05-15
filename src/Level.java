@@ -505,11 +505,19 @@ public class Level {
 			return 2;
 		}
 		char c = floor[a.y + dir[1]][a.x + dir[0]];
+		
+		if(u.hunger<=0) {
+			u.dead = true;
+			return 12;
+		}
 
 		if (Character.isUpperCase(c) && c != STAIR) {
 			for (Enemy e : enemies) {
 				if (e.p.x == a.x + dir[0] && e.p.y == a.y + dir[1]) {
 					fight(e);
+					if(u.dead) {
+						return 12;
+					}
 					return 1;
 				}
 			}
@@ -640,8 +648,8 @@ public class Level {
 				return 9;
 			}
 			if (narration.equalsIgnoreCase("You have fainted. Game over!")) {
-				floor[a.y][a.x] = '.';
-				return 10;
+				//floor[a.y][a.x] = '.';
+				return 12;
 			}
 
 			else {
@@ -688,6 +696,7 @@ public class Level {
 			narration2 = "The " + e.name + " attacked you for " + eatk + " damage!";
 
 			if (play.hp <= 0)
+				play.dead = true;
 				narration2 = "Sorry. You died!";
 		}
 		return n;

@@ -104,9 +104,9 @@ public class GamePlay {
 			} else if (x == 9) {
 				update = 9;
 				narration = level.narration;
-			} else if (x == 10) {
-				update = 10;
-				narration = level.narration;
+			} else if (x == 12) {
+				update = 12;
+				//narration = level.narration;
 				gameOver = true;
 			}
 			level.moveEnemy();

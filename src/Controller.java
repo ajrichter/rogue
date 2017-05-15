@@ -278,6 +278,9 @@ public class Controller extends JFrame implements KeyListener {
 
 	public void updateView(int update) {
 		System.out.println(update);
+		if (update == 12) {
+			view.lose();
+		}
 		if (update == 9 || update == 1 || update == 3 || update == 4 || update == 5 || update == 6 || update == 7
 				|| update == 10) {
 			view.updateNaration(game.narration);
