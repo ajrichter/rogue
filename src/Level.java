@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Level {
 	protected final int MAXROOMS = 9;
@@ -450,38 +451,45 @@ public class Level {
 		int count = 0;
 		for (Item i : play.items) {
 			System.out.println(play.identifyScroll);
-			narration += count + " ";
-			if (play.idenitfyWeapon == true && (i.getItemType().equalsIgnoreCase("Weapon"))) {
-				narration += i.getItemName() + " " + i.getItemType();
-			}
-			if (play.identifyScroll == true && (i.getItemType().equalsIgnoreCase("Scroll"))) {
-				narration += i.name + " " + i.getItemType();
-			}
-			if (play.identifyPotion == true && (i.getItemType().equalsIgnoreCase("Potions"))) {
-				narration += i.getItemName() + " " + i.getItemType();
-			}
-			if (play.foodDetection == true && (i.getItemType().equalsIgnoreCase("Food"))) {
-				narration += i.getItemName() + " " + i.getItemType();
-			}
-			if (play.identifyArmor == true && (i.getItemType().equalsIgnoreCase("Armor"))) {
-				narration += i.getItemName() + " " + i.getItemType();
-			}
-			if (play.identifyWandRing == true
-					&& (i.getItemType().equalsIgnoreCase("Ring") || i.getItemType().equalsIgnoreCase("Wand"))) {
-				narration += i.getItemName() + " " + i.getItemType();
-			}
-
-			else {
-				narration += count + " ";
-				narration += i.typeItem;
-			}
+			identifyScrollHelper(i, count);
 			count++;
-			if (count != play.items.size())
-				narration += ", ";
 		}
 
 		return 5;
 	}
+
+	public void identifyScrollHelper(Item i, int count) {
+		if (play.idenitfyWeapon == true && (i.getItemType().equalsIgnoreCase("Weapon"))) {
+			narration += i.getItemName() + " ";
+		}
+		if (play.identifyScroll == true && (i.getItemType().equalsIgnoreCase("Scroll"))) {
+			narration += i.name + " ";
+		}
+		if (play.identifyPotion == true && (i.getItemType().equalsIgnoreCase("Potions"))) {
+			narration += i.getItemName() + " ";
+		}
+		if (play.foodDetection == true && (i.getItemType().equalsIgnoreCase("Food"))) {
+			narration += i.getItemName() + " ";
+		}
+		if (play.identifyArmor == true && (i.getItemType().equalsIgnoreCase("Armor"))) {
+			narration += i.getItemName() + " ";
+		}
+		if (play.identifyWandRing == true
+				&& (i.getItemType().equalsIgnoreCase("Ring") || i.getItemType().equalsIgnoreCase("Wand"))) {
+			narration += i.getItemName() + " ";
+		}
+	
+		else {
+			narration += count + " ";
+			narration += i.typeItem;
+		}
+		if (count != play.items.size()) {
+			narration += ", ";
+		}
+	}
+	
+	
+	
 
 	/*
 	 * Return Narration String Returns: 0 = moved 1 = fighting 2 = cant move
@@ -528,27 +536,7 @@ public class Level {
 				} else {
 					Item temp = itemPos.get(c);
 					narration = "You" + " " + itemPos.get(c).getPickUpMessage();
-					System.out.println(play.identifyScroll);
-					if (play.idenitfyWeapon && (temp.getItemType().equalsIgnoreCase("Weapon"))) {
-						narration += " You identified " + temp.getItemName();
-					}
-					if (play.identifyScroll && (temp.getItemType().equalsIgnoreCase("Scroll"))) {
-						narration += " You identified " + temp.getItemName();
-					}
-					if (play.identifyPotion && (temp.getItemType().equalsIgnoreCase("Potions"))) {
-						narration += " You identified " + temp.getItemName();
-					}
-					if (play.foodDetection && (temp.getItemType().equalsIgnoreCase("Food"))) {
-						narration += " You identified " + temp.getItemName();
-					}
-					if (play.identifyArmor && (temp.getItemType().equalsIgnoreCase("Armor"))) {
-						narration += " You identified " + temp.getItemName();
-					}
-					if (play.identifyWandRing && (temp.getItemType().equalsIgnoreCase("Ring")
-							|| temp.getItemType().equalsIgnoreCase("Wand"))) {
-						narration += " You identified " + temp.getItemName();
-					}
-
+					identifyScrollHelper2(temp);
 					play.items.add(itemPos.get(c));
 					floor[a.y + dir[1]][a.x + dir[0]] = '.';
 				}
@@ -561,23 +549,7 @@ public class Level {
 			a.setLocation(a.x + dir[0], a.y + dir[1]);
 			floor[a.y][a.x] = '@';
 
-			// if (this.hasteSelf == true && validMove(c) && isNoBarrier(c))
-			if (play.hasteSelf == true && validMove(c) && isNoBarrier(floor[a.y - 1][a.x])
-					&& isNoBarrier(floor[a.y - 1][a.x - 1]) && isNoBarrier(floor[a.y - 1][a.x + 1])
-					&& isNoBarrier(floor[a.y][a.x - 1]) && isNoBarrier(floor[a.y][a.x + 1])
-					&& isNoBarrier(floor[a.y + 1][a.x - 1]) && isNoBarrier(floor[a.y + 1][a.x])
-					&& isNoBarrier(floor[a.y + 1][a.x + 1])) {
-				floor[a.y][a.x] = last;
-				last = c;
-
-				a.setLocation(a.x + dir[0], a.y + dir[1]);
-				floor[a.y][a.x] = '@';
-			}
-
-			if (getCurRoom(u).isDark && isInRoom(u) && play.light == true) {
-				getCurRoom(u).isDark = false;
-			}
-
+		
 			// shows everything if room is not dark, shows surrounding area if
 			// it is dark
 			if (isInRoom(u) && !(getCurRoom(u).isDark)) {
@@ -631,6 +603,34 @@ public class Level {
 		return 2;
 	}
 
+	
+	public void identifyScrollHelper2(Item temp) {
+		if (play.idenitfyWeapon && (temp.getItemType().equalsIgnoreCase("Weapon"))) {
+			narration += " You identified " + temp.getItemName();
+		}
+		if (play.identifyScroll && (temp.getItemType().equalsIgnoreCase("Scroll"))) {
+			narration += " You identified " + temp.getItemName();
+		}
+		if (play.identifyPotion && (temp.getItemType().equalsIgnoreCase("Potions"))) {
+			narration += " You identified " + temp.getItemName();
+		}
+		if (play.foodDetection && (temp.getItemType().equalsIgnoreCase("Food"))) {
+			narration += " You identified " + temp.getItemName();
+		}
+		if (play.identifyArmor && (temp.getItemType().equalsIgnoreCase("Armor"))) {
+			narration += " You identified " + temp.getItemName();
+		}
+		if (play.identifyWandRing && (temp.getItemType().equalsIgnoreCase("Ring")
+				|| temp.getItemType().equalsIgnoreCase("Wand"))) {
+			narration += " You identified " + temp.getItemName();
+		}
+	}
+	
+	
+	
+	
+	
+	
 	/*
 	 * Error in GamePlay: need to have a String array So that we can have two
 	 * narrations to space through
@@ -654,8 +654,30 @@ public class Level {
 			play.fight = false;
 		} else {
 			/* fight back */
-			int eatk = e.getDMG();
-			play.hp -= eatk;
+			Random r = new Random();
+			int armorLuck = 0;
+			if (play.armor >=1)
+			{
+			armorLuck = r.nextInt(play.armor);
+			}
+			else {
+			play.armor = 1;
+			armorLuck = r.nextInt(play.armor);
+		
+			}
+			
+			int eatk = e.getDMG() - armorLuck;
+			if (eatk >= 1)
+			{
+				
+				play.hp -= eatk;
+				play.armor -= eatk;
+			}	
+			else {
+				eatk = 0;
+			
+			}
+			
 			narration2 = "The " + e.name + " attacked you for " + eatk + " damage!";
 
 			if (play.hp <= 0) {

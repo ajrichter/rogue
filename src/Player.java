@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player extends Unit {
 	protected boolean hasA, hasW, hallucination, blindness, hasteSelf, levitation, light, monsterInvisible,
@@ -22,7 +23,7 @@ public class Player extends Unit {
 		this.maxHP = this.hp = 12;
 		this.maxStrength = this.strength = 20;
 		this.gold = 0;
-		this.armor = 10;
+		this.armor = 2;
 		/* Our Stats */
 		this.maxArmor = 20;
 		this.steps = 0;
@@ -36,7 +37,15 @@ public class Player extends Unit {
 	 * Edit this to include armor etc.
 	 */
 	public int attack() {
-		return d.rollDie(4);
+		Random r = new Random();
+		if (this.strength - 1 >= 1)
+		{
+		this.strength -= 1;
+		}
+		else {
+		this.strength = 1;
+		}
+		return r.nextInt(this.strength);
 	}
 
 	public void useItem(Item item) {

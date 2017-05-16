@@ -79,7 +79,7 @@ public class Potions extends Item {
 
 	public boolean methodsImplemented(int num) //Update this every time you implement a new item!
 	{		
-		if (num == 1 || num == 2 || num == 3 || num == 5 || num == 8 || num == 9 || num == 10 || num == 11 || num == 12 || num == 14)
+		if (num == 1 || num == 2 || num == 3 || num == 8 || num == 9 ||  num == 11 || num == 14)
 		{
 			return true;
 		}
@@ -130,8 +130,8 @@ public class Potions extends Item {
 		//	Monster detection	6	Reveals monsters on the map.
 		break;
 
-		case 5: this.name = "Hallucination"; //Implemented
-		this.hallucination = true;
+		case 5: this.name = "Hallucination"; //Not Implemented
+		//this.hallucination = true;
 		this.eMessage = "Is this the real life? Or is this just fantasy?";
 		//Hallucination	8	Causes hallucinations for 850 turns - can't recognize monsters or items
 		//Only works for enemies, not items
@@ -163,9 +163,9 @@ public class Potions extends Item {
 		//Extra healing	5	Heals 1d8 per character level. Increase max HP by 1, or by 2 if you are at full health.
 		break;
 
-		case 10: this.name = "Haste Self"; //Implemented
+		case 10: this.name = "Haste Self"; //Not Implemented
 		this.eMessage = "You feel yourself moving much faster.";
-		this.hasteSelf = true;
+		//this.hasteSelf = true;
 		//Haste self	5	Hastens player for 4-8 turns.
 		break;
 
@@ -175,9 +175,9 @@ public class Potions extends Item {
 		//Restore strength	13	Hey, this tastes great. It make you feel warm all over. Restores strength to maximum.
 		break;
 
-		case 12: this.name = "Blindness"; //Implemented
+		case 12: this.name = "Blindness"; //Not Implemented
 		this.eMessage = "A cloak of darkness falls around you.";
-		this.blindness = true;
+		//this.blindness = true;
 		//Blindness	5	Blinds player for 807-892 turns
 		break;
 
