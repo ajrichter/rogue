@@ -405,38 +405,12 @@ public class Level {
 			Item item = play.items.get(itemNum);
 			play.useItem(item);
 			narration = "You" + item.getUseMessage();
-			if (play.hallucination == true) {
-				for (int i = 0; i < enemies.size(); i++) {
-					enemies.get(i).name = "Mr Nice Guy";
-				}
-
-			}
-			if (play.monsterInvisible) {
-				for (int i = 0; i < enemies.size(); i++) {
-					enemies.get(i).val = '.';
-
-				}
-
-			}
-
-			if (play.blindness == true) {
-				for (int i = 0; i < rs.length; i++) {
-					System.out.println(rs[i]);
-					if (rs[i] != null) {
-						rs[i].isDark = true;
-					}
-				}
-
-			}
-
 			play.items.remove(item);
 			play.inventory.removeItem(item);
 		} else {
 			narration = "The index is too large for the inventory's size.";
 		}
 
-		// inventory.removeItem(play.items.get(0)); //removes the first item
-		// from list
 		return 6;
 	}
 
@@ -458,7 +432,7 @@ public class Level {
 		return 5;
 	}
 
-	public void identifyScrollHelper(Item i, int count) {
+	public void identifyScrollHelper(Item i, int count) { //Helper Method for Move Unit
 		if (play.idenitfyWeapon == true && (i.getItemType().equalsIgnoreCase("Weapon"))) {
 			narration += i.getItemName() + " ";
 		}
@@ -489,8 +463,29 @@ public class Level {
 	}
 	
 	
+	public boolean boundsCheck(Point a, int [] dir) { //Helper Method for MoveUnit
+		return ((a.x + dir[0]) < 0 || (a.y + dir[1]) < 0 || (a.y + dir[1]) > 23 || (a.x + dir[0]) > 79);
+	}
+
+	
+	public void inventoryAction(char c, int [] dir, Point a) //Helper methord for moveUnit
+	{
+		if (play.inventory.addItem(itemPos.get(c)) == false) {
+			narration = "Can't add item. Inventory is full.";
+			narration += " The item vanishes because of your greed.";
+			floor[a.y + dir[1]][a.x + dir[0]] = '.';
+		} else {
+			Item temp = itemPos.get(c);
+			narration = "You" + " " + itemPos.get(c).getPickUpMessage();
+			identifyScrollHelper2(temp);
+			play.items.add(itemPos.get(c));
+			floor[a.y + dir[1]][a.x + dir[0]] = '.';
+		}
+	}
 	
 
+	
+	
 	/*
 	 * Return Narration String Returns: 0 = moved 1 = fighting 2 = cant move
 	 * Call new method moveAllMonsters();
@@ -499,7 +494,7 @@ public class Level {
 		onStairs = false;
 		Point a = u.p;
 		/* Bounds check */
-		if ((a.x + dir[0]) < 0 || (a.y + dir[1]) < 0 || (a.y + dir[1]) > 23 || (a.x + dir[0]) > 79) {
+		if (boundsCheck(a, dir)) {
 			return 2;
 		}
 		char c = floor[a.y + dir[1]][a.x + dir[0]];
@@ -529,23 +524,12 @@ public class Level {
 			return 1;
 		} else if (validMove(c)) {
 			if (isItem(c)) {
-				if (play.inventory.addItem(itemPos.get(c)) == false) {
-					narration = "Can't add item. Inventory is full.";
-					narration += " The item vanishes because of your greed.";
-					floor[a.y + dir[1]][a.x + dir[0]] = '.';
-				} else {
-					Item temp = itemPos.get(c);
-					narration = "You" + " " + itemPos.get(c).getPickUpMessage();
-					identifyScrollHelper2(temp);
-					play.items.add(itemPos.get(c));
-					floor[a.y + dir[1]][a.x + dir[0]] = '.';
-				}
+				inventoryAction(c, dir, a);
 				return 3;
 			}
 
 			floor[a.y][a.x] = last;
 			last = c;
-
 			a.setLocation(a.x + dir[0], a.y + dir[1]);
 			floor[a.y][a.x] = '@';
 
@@ -573,27 +557,16 @@ public class Level {
 					isSeen[a.y + i - 1][a.x + j - 1] = true;
 				}
 			}
-			if (c == '*' && getCurRoom(u).goldVal != 0) {
-				u.gold += getCurRoom(u).goldVal;
-				narration = "You've picked up " + getCurRoom(u).goldVal + " gold";
-				getCurRoom(u).goldVal = 0;
-				if (isInRoom(u)) {
-					last = '.';
-				} else {
-					last = '#';
-				}
-
+			if (foundGold(c, u)) {
 				return 3;
 			}
+			
 			narration = "";
 			narration = play.move();
-			if (narration.equalsIgnoreCase("You should probably stop by the Gizmo.")
-					|| narration.equals("You are starving!")) {
+			if (isHungry()) {
 				return 9;
 			}
-			if (narration.equalsIgnoreCase("You have fainted. Game over!")) {
-				return 12;
-			} else
+			else
 				return 0;
 		} else if (c == STAIR) {
 			onStairs = true;
@@ -603,8 +576,38 @@ public class Level {
 		return 2;
 	}
 
+	private boolean isHungry() { //Helper Method for moveUnit
+		return (narration.equalsIgnoreCase("You should probably stop by the Gizmo.")
+				|| narration.equals("You are starving!"));
+	}
 	
-	public void identifyScrollHelper2(Item temp) {
+	
+	
+	private boolean foundGold(char c, Player u) //Helper Method for moveUnit
+	{
+		if (c == '*' && getCurRoom(u).goldVal != 0) {
+			u.gold += getCurRoom(u).goldVal;
+			narration = "You've picked up " + getCurRoom(u).goldVal + " gold";
+			getCurRoom(u).goldVal = 0;
+			if (isInRoom(u)) {
+				last = '.';
+			} else {
+				last = '#';
+			}
+
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+		
+	}
+	
+	
+	
+	
+	private void identifyScrollHelper2(Item temp) {
 		if (play.idenitfyWeapon && (temp.getItemType().equalsIgnoreCase("Weapon"))) {
 			narration += " You identified " + temp.getItemName();
 		}

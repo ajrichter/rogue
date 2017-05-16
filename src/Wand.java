@@ -104,7 +104,7 @@ public class Wand extends Item {
 			break;
 			
 			case 2: this.name = "Invisability"; //Not Working, so we won't include it into the final version
-			this.monsterInvisible = true;
+			//this.monsterInvisible = true;
 //			Invisibility	6	Makes a monster invisible.
 			break;
 			
