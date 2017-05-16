@@ -706,9 +706,7 @@ public class Level {
 	}
 
 	/**
-	 * there might be a problem with this if it erases items and monster (and
-	 * maybe player) in the room to make it dark again, shouldn't happen since
-	 * you're using boolean and not directly changing the board itself
+	 * hides the floor unless it is within vision range of the player 
 	 */
 	private void makeDark(Rm curRoom) {
 		for (int x = (curRoom.x1 + 1); x < curRoom.x2; x++) {
@@ -726,13 +724,10 @@ public class Level {
 			Point a = (enemies.get(i)).p;
 			if (isSeen[a.y][a.x]) {
 				if (isInRoom(play) && play.monsterInvisible != true) {
-					Rm temp = getCurRoom(play);
-					if (a.x >= temp.x1 && a.x <= temp.x2 && a.y >= temp.y1 && a.y <= temp.y2) {
-						return; // do nothing
+					if (getCurRoom(play).equals(getCurRoom(enemies.get(i)))) {
+						// do nothing
 					} else {
-						// add in an if statement with isSeen somewhere here
 						playerFloor[a.y][a.x] = enemies.get(i).lastChar;
-
 					}
 				} else {
 					boolean seePlayer = false;
@@ -746,27 +741,14 @@ public class Level {
 						}
 					}
 					if (seePlayer) {
-						return;
+						//do nothing
 					} else {
 						playerFloor[a.y][a.x] = enemies.get(i).lastChar;
 					}
 				}
+				
 			}
 		}
-		/*
-		 * if (Character.isUpperCase(playerFloor[yPos][xPos])) { if
-		 * (isInRoom(play)) { // hides enemy in rooms that player aren't in Rm
-		 * temp = getCurRoom(play); if (yPos > temp.y1 && yPos < temp.y2 && xPos
-		 * > temp.x1 && xPos < temp.x2) { return; // do nothing } else {
-		 * playerFloor[yPos][xPos] = subEnemyChar(xPos, yPos); } // gonna need a
-		 * way to hide enemy when they enter hallway too! } else { // it would
-		 * probably look something like this boolean seePlayer = false; // hides
-		 * everything when player not in room for (int i = 0; i < 3; i++) { for
-		 * (int j = 0; j < 3; j++) { if (playerFloor[yPos + i - 1][xPos + i - 1]
-		 * == '@') { seePlayer = true; } } } if (seePlayer) { return; // do
-		 * nothing } else { playerFloor[yPos][xPos] = subEnemyChar(xPos, yPos);
-		 * } } }
-		 */
 	}
 
 	/**
