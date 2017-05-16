@@ -75,7 +75,7 @@ public class Wand extends Item {
 	
 	public boolean itemsImplemented(int num) //Update this every time you implement a new item!
 	{
-		if (num == 1 || num == 4 || num == 6 || num == 14)
+		if (num == 4 || num == 6 || num == 14)
 		{
 			return true;
 		}
@@ -98,8 +98,8 @@ public class Wand extends Item {
 			DiceRoller d = new DiceRoller();
 			int num = getImplementedItems();
 			switch (num) {
-			case 1: this.name = "Light"; //Implemented
-			this.light = true;
+			case 1: this.name = "Light"; //Not Implemented
+			//this.light = true;
 			
 			break;
 			

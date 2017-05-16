@@ -16,7 +16,7 @@ public class RougeView {
 		view.board=board;
 	}
 	
-	public void updateStats(String[] stats){
+	public void updateStats(String stats){
 		view.stats=stats;
 	}
 	
@@ -64,7 +64,7 @@ public class RougeView {
 		
 		protected char[][] board= new char[0][0];
 		protected String naration="";
-		protected String[] stats = new String[0];
+		protected String stats = new String();
 		//protected List<Item> inventory;
 		protected boolean showInventory; //if the board is showing inventory
 		protected boolean win = false;
@@ -104,7 +104,7 @@ public class RougeView {
 				
 				//prints stats
 				gr.setFont(new Font("TimesRoman", Font.PLAIN, 26));
-				gr.drawString(stats[0],0,625);
+				gr.drawString(stats,0,625);
 				//gr.drawString("Test String",0,625);
 			}
 			if(win) {

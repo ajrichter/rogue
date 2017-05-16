@@ -40,7 +40,7 @@ public class Player extends Unit {
 		Random r = new Random();
 		if (this.strength - 1 >= 1)
 		{
-		this.strength -= 1;
+		this.strength--;
 		}
 		else {
 		this.strength = 1;
@@ -55,7 +55,7 @@ public class Player extends Unit {
 			if (this.armor + item.getArmorProtection() < this.maxArmor) {
 				this.armor += item.getArmorProtection();
 			} else {
-				this.maxArmor += 1;
+				this.maxArmor++;
 				this.armor = this.maxArmor;
 			}
 			break;
@@ -70,7 +70,7 @@ public class Player extends Unit {
 			if (this.strength + item.getWeaponStrength() < this.maxStrength) {
 				this.strength += item.getWeaponStrength();
 			} else {
-				this.maxStrength += 1;
+				this.maxStrength++;
 				this.strength = this.maxStrength;
 			}
 
@@ -79,7 +79,7 @@ public class Player extends Unit {
 			if (this.strength + item.getRingStrength() < this.maxStrength) {
 				this.strength += item.getRingStrength();
 			} else {
-				this.maxStrength += 1;
+				this.maxStrength++;
 				this.strength = this.maxStrength;
 			}
 			this.gold += item.gold;
@@ -91,7 +91,7 @@ public class Player extends Unit {
 					this.hp += item.getHPFromPotion();
 				} else {
 					if (item.getHealing()) {
-						this.maxHP += 1;
+						this.maxHP++;
 					}
 					if (item.getHealing()) {
 						DiceRoller dice = new DiceRoller();
@@ -137,7 +137,7 @@ public class Player extends Unit {
 			if (this.strength + item.getWandStrength() < this.maxStrength) {
 				this.strength += item.getWandStrength();
 			} else {
-				this.maxStrength += 1;
+				this.maxStrength++;
 				this.strength = this.maxStrength;
 
 			}
@@ -162,11 +162,11 @@ public class Player extends Unit {
 		inventory.listInventory();
 	}
 
-	public String[] playerStats() {
-		String[] temp = new String[2];
-		temp[0] = "Level: " + this.level + " HP: " + this.hp + " (" + this.maxHP + ") " + " Hunger: " + this.hunger
+	public String playerStats() {
+		String temp = "";
+		temp = "Level: " + this.level + " HP: " + this.hp + " (" + this.maxHP + ") " + " Hunger: " + this.hunger
 				+ " (" + this.maxHunger + ") Armor: " + this.armor + " Gold: " + this.gold + " Exp: " + this.xp
-				+ " Str:" + this.maxStrength + " (" + this.maxStrength + ")";
+				+ " Str:" + this.strength + " (" + this.maxStrength + ")";
 		return temp;
 	}
 

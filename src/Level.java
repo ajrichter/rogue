@@ -483,7 +483,7 @@ public class Level {
 			narration += count + " ";
 			narration += i.typeItem;
 		}
-		if (count != play.items.size()) {
+		if (count != play.items.size()-1) {
 			narration += ", ";
 		}
 	}
@@ -671,7 +671,7 @@ public class Level {
 			{
 				
 				play.hp -= eatk;
-				play.armor -= eatk;
+				play.armor -= 1;
 			}	
 			else {
 				eatk = 0;
@@ -689,9 +689,6 @@ public class Level {
 		return n;
 	}
 
-	private boolean isNoBarrier(char c) {
-		return (c == '.' || c == '#');
-	}
 
 	private boolean validMove(char c) {
 		return (c == '.' || c == '#' || c == '+' || c == '*' || isItem(c));
@@ -745,7 +742,7 @@ public class Level {
 		for (int i = 0; i < enemies.size(); i++) {
 			Point a = (enemies.get(i)).p;
 			if (isSeen[a.y][a.x]) {
-				if (isInRoom(play) && play.monsterInvisible != true) {
+				if (isInRoom(play)) {
 					if (getCurRoom(play).equals(getCurRoom(enemies.get(i)))) {
 						// do nothing
 					} else {
