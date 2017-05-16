@@ -2,7 +2,11 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.File;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -37,11 +41,40 @@ public class RougeView {
 		view.lose=true;
 	}
 	
+	
+	public void playSong() {
+		try {
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/Fantasy.wav").getAbsoluteFile());
+	        //From: https://www.dl-sounds.com/royalty-free/category/game-film/video-game/
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(audioInputStream);
+	        clip.loop(Clip.LOOP_CONTINUOUSLY);
+	        clip.start();
+	    } catch(Exception ex) {
+	        System.out.println("Error with playing sound.");
+	        ex.printStackTrace();
+	    }
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 	public RougeView(JFrame sentFrame){
+		playSong();
+	
+		
+		
+		
+		
 		// width and height
 		int x=750;
 		int y=750;
 
+		
 		//creates the new painter
 		frame= sentFrame;
 		frame.setVisible(true);
@@ -54,9 +87,7 @@ public class RougeView {
 		frame.setSize(x,y);
 		frame.setIconImage(new ImageIcon(ClassLoader.getSystemResource(
 		            "Frogger.gif")).getImage());
-		
-		
-		
+	
 	}
 	
 	//does all of the painting

@@ -158,9 +158,6 @@ public class Player extends Unit {
 		return narrationMessage;
 	}
 
-	public void inventoryString() {
-		inventory.listInventory();
-	}
 
 	public String playerStats() {
 		String temp = "";

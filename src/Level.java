@@ -126,7 +126,6 @@ public class Level {
 		if (numLevel == 25) {
 			amulet = findS();
 			floor[amulet.y][amulet.x] = AMULET;
-			System.out.println("Find the Amulet!");
 		}
 	}
 
@@ -301,12 +300,18 @@ public class Level {
 	 * Need to store the Item Point Public not protected
 	 */
 	private void makeItem() {
+		ArrayList <String> itemStrings = new ArrayList <String>();
+		for (Item i: items) {
+			itemStrings.add(i.name);
+		}
+		
 		Item i = new Item();
 		Point spot = findS();
 		i.generateItem();
 		itemY = spot.y;
 		itemX = spot.x;
-
+		
+		if (!itemStrings.contains(itemStrings))
 		items.add(i);
 		floor[itemY][itemX] = i.getBoardName();
 		char c = floor[itemY][itemX];
@@ -424,7 +429,6 @@ public class Level {
 
 		int count = 0;
 		for (Item i : play.items) {
-			System.out.println(play.identifyScroll);
 			identifyScrollHelper(i, count);
 			count++;
 		}
@@ -757,7 +761,6 @@ public class Level {
 						for (int k = 0; k < 3; k++) {
 							if (floor[a.y + j - 1][a.x + k - 1] == play.val) {
 								seePlayer = true;
-								System.out.println(enemies.get(i).name + " can see Player");
 
 							}
 						}

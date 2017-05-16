@@ -2,6 +2,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -297,9 +302,13 @@ public class Controller extends JFrame implements KeyListener {
 		view.nextTurn();
 	}
 
+	
+	
+	
+	
 	public static void main(String[] args) {
 		Controller control = new Controller("Rogue");
-
+		
 		// game.saveGame(dyingnoises);
 
 		// makes a board

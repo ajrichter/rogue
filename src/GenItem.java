@@ -213,7 +213,7 @@ public class GenItem {
 		this.blindness = p.blindness;
 		this.pickUpMessage = " picked up potion.";
 		this.useMessage = " drink " + this.itemName + " " + this.typeItem + ". " + p.eMessage;
-		this.dropMessage = " dropped wand on the floor.";
+		this.dropMessage = " dropped potion on the floor.";
 		this.hasteSelf = p.hasteSelf;
 		this.levitation = p.levitation;
 		break;
