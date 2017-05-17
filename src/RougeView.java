@@ -44,8 +44,8 @@ public class RougeView {
 	
 	public void playSong() {
 		try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/Fantasy.wav").getAbsoluteFile());
-	        //From: https://www.dl-sounds.com/royalty-free/category/game-film/video-game/
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/01-intro.wav").getAbsoluteFile());
+	        //Legend of Zelda (NES), Kohi Kondo
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.loop(Clip.LOOP_CONTINUOUSLY);
