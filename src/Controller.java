@@ -53,6 +53,7 @@ public class Controller extends JFrame implements KeyListener {
 			if (nextNarration == true) {
 				if(!game.narration2.equals("")) {
 					view.updateNaration(game.narration2);
+					narration = false;
 				} else {
 					narration = false;
 					view.updateNaration("");
