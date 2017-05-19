@@ -272,7 +272,7 @@ public class Controller extends JFrame implements KeyListener {
 			}
 		}
 
-		view.updateStats(game.play.playerStats());
+		view.updateStats(game.level.stats());
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -314,7 +314,7 @@ public class Controller extends JFrame implements KeyListener {
 
 		// makes a board
 		control.view.updateBoard(control.game.level.getFloor());
-		control.view.updateStats(control.game.play.playerStats());
+		control.view.updateStats(control.game.level.stats());
 		control.view.nextTurn();
 
 		// makes controller

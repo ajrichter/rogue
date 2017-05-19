@@ -823,4 +823,9 @@ public class Level {
 			}
 		}
 	}
+	
+	public String stats(){
+		int x = this.numLevel + 1;
+		return "Level: " +  x + play.pStats();
+	}
 }

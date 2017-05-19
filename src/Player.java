@@ -158,14 +158,11 @@ public class Player extends Unit {
 		return narrationMessage;
 	}
 
-
-	public String playerStats() {
-		String temp = "";
-		temp = "Level: " + this.level + " HP: " + this.hp + " (" + this.maxHP + ") " + " Hunger: " + this.hunger
-				+ " (" + this.maxHunger + ") Armor: " + this.armor + " Gold: " + this.gold + " Exp: " + this.xp
-				+ " Str:" + this.strength + " (" + this.maxStrength + ")";
-		return temp;
+	/*  Level: 1  Gold: 0      Hp: 12(12)  Str: 16(16)  Arm: 4   Exp: 1/0  */
+	public String pStats() {
+		return " Gold: " + this.gold +  " HP: " + this.hp + " (" + this.maxHP + ") " + " Str:" + this.strength + " (" + this.maxStrength + ")" + " Armor: " + this.armor + " Exp: " + this.level + "/" + this.xp;
 	}
+	
 
 	/*
 	 * Hunger goes down too fast: this needs to be fixed

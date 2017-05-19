@@ -13,7 +13,7 @@ Sprints | Tasks
 7 | Enemy Visibility
 8 | Fight and Narration
 9 | Bug Fixing
-10 | TBA 
+10 | Presentation and  
 
 Bugs:
 - [ ] Stairs
