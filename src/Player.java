@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Player extends Unit {
 	protected boolean hasA, hasW, hallucination, blindness, hasteSelf, levitation, light, monsterInvisible,
@@ -206,6 +207,9 @@ public class Player extends Unit {
 	public void levelUp() {
 		nexp = nexp * 2;
 		level++;
+		int nextHP = ThreadLocalRandom.current().nextInt(4, 10 + 1);
+		this.maxHP += nextHP;
+		this.hp += nextHP/2;
 	}
 
 	public int getGold() {
