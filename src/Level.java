@@ -101,7 +101,7 @@ public class Level {
 		// initialize to false
 		for (int y = 0; y < 24; y++)
 			for (int x = 0; x < 80; x++)
-				isSeen[y][x] = true;
+				isSeen[y][x] = false;
 
 		/*
 		 * Spawn Player and Light up its room. Use %|/ 3 to find the room
@@ -126,7 +126,7 @@ public class Level {
 		if (numLevel == 25) {
 			amulet = findS();
 			floor[amulet.y][amulet.x] = AMULET;
-			System.out.print("The Amulet has spawned at x = " + amulet.x + " y = " + amulet.y);
+			//System.out.print("The Amulet has spawned at x = " + amulet.x + " y = " + amulet.y);
 		}
 	}
 
