@@ -11,6 +11,7 @@ public class Player extends Unit {
 	protected Inventory inventory;
 	private String narrationMessage = "";
 	private DiceRoller d;
+	private String hungerLevel;
 
 	public Player(String s) {
 		super();
@@ -21,7 +22,7 @@ public class Player extends Unit {
 		this.xp = 0;
 		this.nexp = 10;
 		this.maxHP = this.hp = 12;
-		this.maxStrength = this.strength = 20;
+		this.maxStrength = this.strength = 16;
 		this.gold = 0;
 		this.armor = 2;
 		/* Our Stats */
@@ -31,6 +32,7 @@ public class Player extends Unit {
 		inventory = new Inventory();
 		items = new ArrayList<Item>();
 		d = new DiceRoller();
+		this.hungerLevel = "";
 	}
 
 	/*
@@ -40,7 +42,7 @@ public class Player extends Unit {
 		Random r = new Random();
 		if (this.strength - 1 >= 1)
 		{
-		this.strength--;
+		//this.strength--;
 		}
 		else {
 		this.strength = 1;
@@ -160,7 +162,7 @@ public class Player extends Unit {
 
 	/*  Level: 1  Gold: 0      Hp: 12(12)  Str: 16(16)  Arm: 4   Exp: 1/0  */
 	public String pStats() {
-		return " Gold: " + this.gold +  " HP: " + this.hp + " (" + this.maxHP + ") " + " Str:" + this.strength + " (" + this.maxStrength + ")" + " Armor: " + this.armor + " Exp: " + this.level + "/" + this.xp;
+		return " Gold: " + this.gold +  " HP: " + this.hp + " (" + this.maxHP + ") " + " Str:" + this.strength + " (" + this.maxStrength + ")" + " Armor: " + this.armor + " Exp: " + this.level + "/" + this.xp + "  " + this.hungerLevel;
 	}
 	
 
@@ -184,13 +186,16 @@ public class Player extends Unit {
 			hunger--;
 		}
 
-		if (hunger == 100)
+		if (hunger == 250) {
 			narrationMessage = "You should probably stop by the Gizmo.";
-		else if (hunger == 50)
+			this.hungerLevel = "Hungry";
+		} else if (hunger == 100) {
 			narrationMessage = "You are starving!";
-		else if (hunger == 0)
+			this.hungerLevel = "Starving";
+		} else if (hunger == 0) {
 			narrationMessage = "You have fainted.";
-
+			this.hungerLevel = "Fainted";
+		}
 		return narrationMessage;
 
 	}
