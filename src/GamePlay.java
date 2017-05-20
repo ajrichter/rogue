@@ -89,7 +89,11 @@ public class GamePlay {
 				if(hasAmulet) {
 					ascend();
 				} else {
-					descend();
+					if(!hasAmulet && level.numLevel < 25) {
+						descend();
+					} else {
+						System.out.println("You've reached the last floor! Find the Amulet!");
+					}
 				}
 			} else if(x==1){
 				update=1;

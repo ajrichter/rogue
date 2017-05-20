@@ -101,7 +101,7 @@ public class Level {
 		// initialize to false
 		for (int y = 0; y < 24; y++)
 			for (int x = 0; x < 80; x++)
-				isSeen[y][x] = false;
+				isSeen[y][x] = true;
 
 		/*
 		 * Spawn Player and Light up its room. Use %|/ 3 to find the room
@@ -126,6 +126,7 @@ public class Level {
 		if (numLevel == 25) {
 			amulet = findS();
 			floor[amulet.y][amulet.x] = AMULET;
+			System.out.print("The Amulet has spawned at x = " + amulet.x + " y = " + amulet.y);
 		}
 	}
 
@@ -243,30 +244,14 @@ public class Level {
 	}
 
 	private void spawnP() {
-		/*
-		 * I don't think the code commented here is used at all (moved to method
-		 * findS() Point rd = new Point(); int roomN =
-		 * ThreadLocalRandom.current().nextInt(0, 8 + 1); while (!rb[roomN])
-		 * roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
-		 * 
-		 * Rm r = rs[roomN]; char c = '0'; while (c != '.') { rd.x =
-		 * ThreadLocalRandom.current().nextInt(r.x1 + 1, r.x2); rd.y =
-		 * ThreadLocalRandom.current().nextInt(r.y1 + 1, r.y2); c =
-		 * floor[rd.y][rd.x]; }
-		 */
-
 		play.p = findS();
 		floor[play.p.y][play.p.x] = play.val;
 		inside = true;
 
-		// assuming you can get spawned inside a dark room, if yes use this
-		// if not then change up the spawn room selection above to include
-		// rs[roomN].isDark in the statement
 		if (!getCurRoom(play).isDark) {
 			seeRm(getCurRoom(play));
 		} else {
-			// simply draw the outline of the room
-			// shows squares around player
+			// only draw outline of the room and show squares around player
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
 					isSeen[(play.p.y) + i - 1][(play.p.x) + j - 1] = true;
