@@ -42,21 +42,21 @@ public class RougeView {
 	}
 	
 	
-//	public void playSong() {
-//		try {
-//	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/01-intro.wav").getAbsoluteFile());
-//	        //Legend of Zelda (NES), Kohi Kondo
-//	        Clip clip = AudioSystem.getClip();
-//	        clip.open(audioInputStream);
-//	        clip.loop(Clip.LOOP_CONTINUOUSLY);
-//	        clip.start();
-//	    } catch(Exception ex) {
-//	        System.out.println("Error with playing sound.");
-//	        ex.printStackTrace();
-//	    }
-//		
-//		
-//	}
+	public void playSong() {
+		try {
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/01-intro.wav").getAbsoluteFile());
+	        //Legend of Zelda (NES), Kohi Kondo
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(audioInputStream);
+	        clip.loop(Clip.LOOP_CONTINUOUSLY);
+	        clip.start();
+	    } catch(Exception ex) {
+	        System.out.println("Error with playing sound.");
+	        ex.printStackTrace();
+	    }
+		
+		
+	}
 	
 	
 	
@@ -64,7 +64,7 @@ public class RougeView {
 	
 	
 	public RougeView(JFrame sentFrame){
-		//playSong();
+		playSong();
 	
 		
 		
