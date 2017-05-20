@@ -749,29 +749,22 @@ public class Level {
 		for (int i = 0; i < enemies.size(); i++) {
 			Point a = (enemies.get(i)).p;
 			if (isSeen[a.y][a.x]) {
-				if (isInRoom(play)) {
-					if (getCurRoom(play).equals(getCurRoom(enemies.get(i)))) {
-						// do nothing
-					} else {
-						playerFloor[a.y][a.x] = enemies.get(i).lastChar;
-					}
-				} else {
-					boolean seePlayer = false;
-					for (int j = 0; j < 3; j++) {
-						for (int k = 0; k < 3; k++) {
-							if (floor[a.y + j - 1][a.x + k - 1] == play.val) {
-								seePlayer = true;
+				boolean seePlayer = false;
+				for (int j = 0; j < 3; j++) {
+					for(int k = 0; k < 3; k++) {
+						if (floor[a.y + j - 1][a.x + k - 1] == play.val) {
+							seePlayer = true;
 
-							}
 						}
 					}
-					if (seePlayer) {
-						//do nothing
-					} else {
-						playerFloor[a.y][a.x] = enemies.get(i).lastChar;
-					}
 				}
-				
+				if (seePlayer) {
+					//do nothing
+				} else if (isInRoom(play) && getCurRoom(play).equals(getCurRoom(enemies.get(i)))){
+					//do nothing
+				} else {
+					playerFloor[a.y][a.x] = enemies.get(i).lastChar;
+				}
 			}
 		}
 	}
