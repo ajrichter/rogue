@@ -7,7 +7,7 @@ public class Enemy extends Unit {
 	protected boolean chase;
 	protected char lastChar;
 	protected ArrayList<Character> type = new ArrayList<Character>();
-	
+
 	public Enemy(int level, int plevel) {
 		super();
 		d = new DiceRoller();

@@ -1,38 +1,33 @@
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+
+
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+
+
 
 public class Controller extends JFrame implements KeyListener {
 
-	private JLabel label;
+
 	private GamePlay game;
 	private RougeView view;
 	public static JFrame frame;
 	public boolean narration;
-	private Item[] items;
 	private boolean equipItem = false;
 	private boolean dropItem = false;
 	private boolean nextNarration; //if there is a second narration in the series
 	public boolean ascend = false;
-	
+
 	public Controller(String s) {
 		super(s);
 
 		narration = false;
-		
+
 		frame = new JFrame();
 		frame.setSize(1000, 500);
 		frame.setMinimumSize(new Dimension(1000, 400));
-		Graphics gr = frame.getGraphics();
 		frame.addKeyListener(this);
 		frame.setVisible(true);
 
@@ -282,11 +277,11 @@ public class Controller extends JFrame implements KeyListener {
 	public void updateView(int update) {
 		if (update == 14) {
 			game.dungeon.get(game.level.numDungeons-1).spawnP();
-			
+
 		}
-		
-		
-		
+
+
+
 		if (update == 12) {
 			view.lose();
 		}
@@ -298,11 +293,11 @@ public class Controller extends JFrame implements KeyListener {
 			view.updateNaration(game.narration);
 			this.dropItem = false;
 			this.equipItem = false;
-			
+
 			if (update == 1 || update == 5 || update == 6 || update == 7 || update == 9 || update == 10 || update == 26) {
 				narration = true;
 			}
-		
+
 			if (update == 1) {
 				nextNarration = true;
 			}
@@ -313,14 +308,12 @@ public class Controller extends JFrame implements KeyListener {
 		view.nextTurn();
 	}
 
-	
-	
-	
-	
+
+
+
+
 	public static void main(String[] args) {
 		Controller control = new Controller("Rogue");
-		
-		// game.saveGame(dyingnoises);
 
 		// makes a board
 		control.view.updateBoard(control.game.level.getFloor());

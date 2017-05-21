@@ -1,12 +1,5 @@
 import java.util.Random;
 
-/**
- * 
- * 
- * @author Harry Carpenter, hhcarpenter@knox.edu
- *
- */
-
 
 
 public class GenItem {

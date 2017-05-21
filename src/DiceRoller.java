@@ -9,7 +9,7 @@ public class DiceRoller {
 			Returns a pseudorandom int value between the specified origin (inclusive)
 			and the specified bound (exclusive).
 		int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
-	*/
+	 */
 	public int rollDie(int sides) {
 		return ThreadLocalRandom.current().nextInt(1, sides + 1);
 	}

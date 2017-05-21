@@ -34,8 +34,8 @@ public class Level {
 	protected Point amulet;
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Item> items;
-	
-	
+
+
 	/*
 	 * This is a bad way to do it. Could be a map from Point to integer i.e. the
 	 * points map to the index in the arraylist of items But, how can you remove
@@ -132,9 +132,9 @@ public class Level {
 		}
 	}
 
-	
-	
-	
+
+
+
 	/*
 	 * Connects all rooms
 	 */
@@ -294,15 +294,15 @@ public class Level {
 		for (Item i: items) {
 			itemStrings.add(i.name);
 		}
-		
+
 		Item i = new Item();
 		Point spot = findS();
 		i.generateItem();
 		itemY = spot.y;
 		itemX = spot.x;
-		
+
 		if (!itemStrings.contains(itemStrings))
-		items.add(i);
+			items.add(i);
 		floor[itemY][itemX] = i.getBoardName();
 		char c = floor[itemY][itemX];
 
@@ -446,23 +446,23 @@ public class Level {
 				&& (i.getItemType().equalsIgnoreCase("Ring") || i.getItemType().equalsIgnoreCase("Wand"))) {
 			narration += i.getItemName() + " ";
 		}
-	
+
 		else {
 			narration += i.typeItem + " ";
 			narration += count;
-			
+
 		}
 		if (count != play.items.size()-1) {
 			narration += ", ";
 		}
 	}
-	
-	
+
+
 	public boolean boundsCheck(Point a, int [] dir) { //Helper Method for MoveUnit
 		return ((a.x + dir[0]) < 0 || (a.y + dir[1]) < 0 || (a.y + dir[1]) > 23 || (a.x + dir[0]) > 79);
 	}
 
-	
+
 	public void inventoryAction(char c, int [] dir, Point a) //Helper methord for moveUnit
 	{
 		if (play.inventory.addItem(itemPos.get(c)) == false) {
@@ -513,7 +513,7 @@ public class Level {
 					break;
 				}
 			}
-			
+
 			if (u.dead) {
 				return 12;
 			}
@@ -529,7 +529,7 @@ public class Level {
 			a.setLocation(a.x + dir[0], a.y + dir[1]);
 			floor[a.y][a.x] = '@';
 
-		
+
 			// shows everything if room is not dark, shows surrounding area if
 			// it is dark
 			if (isInRoom(u) && !(getCurRoom(u).isDark)) {
@@ -556,7 +556,7 @@ public class Level {
 			if (foundGold(c, u)) {
 				return 3;
 			}
-			
+
 			narration = "";
 			narration = play.move();
 			if (isHungry()) {
@@ -567,17 +567,17 @@ public class Level {
 		} else if (c == STAIR) {
 			onStairs = true;
 			if (numLevel < numDungeons) {
-			for (int i = 0; i < floor.length;i++) //Gets rid of @'s evil twin while going up
-			{
-				for (int j = 0; j < floor[i].length; j++) {
-					if (floor [i][j] == '@') {
-						floor [i][j] = '.';
+				for (int i = 0; i < floor.length;i++) //Gets rid of @'s evil twin while going up
+				{
+					for (int j = 0; j < floor[i].length; j++) {
+						if (floor [i][j] == '@') {
+							floor [i][j] = '.';
+						}
 					}
+
 				}
-				
 			}
-			}
-			
+
 			return 6;
 		}
 
@@ -588,9 +588,9 @@ public class Level {
 		return (narration.equalsIgnoreCase("You should probably stop by the Gizmo.")
 				|| narration.equals("You are starving!"));
 	}
-	
-	
-	
+
+
+
 	private boolean foundGold(char c, Player u) //Helper Method for moveUnit
 	{
 		if (c == '*' && getCurRoom(u).goldVal != 0) {
@@ -608,13 +608,13 @@ public class Level {
 		else {
 			return false;
 		}
-		
-		
+
+
 	}
-	
-	
-	
-	
+
+
+
+
 	private void identifyScrollHelper2(Item temp) {
 		if (play.idenitfyWeapon && (temp.getItemType().equalsIgnoreCase("Weapon"))) {
 			narration += " You identified " + temp.getItemName();
@@ -636,12 +636,12 @@ public class Level {
 			narration += " You identified " + temp.getItemName();
 		}
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	/*
 	 * Error in GamePlay: need to have a String array So that we can have two
 	 * narrations to space through
@@ -669,26 +669,26 @@ public class Level {
 			int armorLuck = 0;
 			if (play.armor >=1)
 			{
-			armorLuck = r.nextInt(play.armor);
+				armorLuck = r.nextInt(play.armor);
 			}
 			else {
-			play.armor = 1;
-			armorLuck = r.nextInt(play.armor);
-		
+				play.armor = 1;
+				armorLuck = r.nextInt(play.armor);
+
 			}
-			
+
 			int eatk = e.getDMG() - armorLuck;
 			if (eatk >= 1)
 			{
-				
+
 				play.hp -= eatk;
 				play.armor -= 1;
 			}	
 			else {
 				eatk = 0;
-			
+
 			}
-			
+
 			narration2 = "The " + e.name + " attacked you for " + eatk + " damage!";
 
 			if (play.hp <= 0) {
@@ -820,7 +820,7 @@ public class Level {
 			}
 		}
 	}
-	
+
 	public String stats(){
 		int x = this.numLevel + 1;
 		return "Level: " +  x + play.pStats();

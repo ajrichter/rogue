@@ -3,7 +3,7 @@
 import java.util.Random;
 
 public class Scrolls extends Item {
-//Items From https://strategywiki.org/wiki/Rogue/Items
+	//Items From https://strategywiki.org/wiki/Rogue/Items
 
 	public Scrolls() {
 		this.boardName = '?';
@@ -103,7 +103,7 @@ public class Scrolls extends Item {
 			return false;
 		}
 	}
-	
+
 	public int getImplementedItems()
 	{
 		int num = generateNumberScrolls();
@@ -112,10 +112,10 @@ public class Scrolls extends Item {
 		}
 		return num;
 	}
-	
-	
-	
-	
+
+
+
+
 
 
 

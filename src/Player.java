@@ -4,14 +4,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Player extends Unit {
 	protected boolean hasA, hasW, hallucination, blindness, hasteSelf, levitation, light, monsterInvisible,
-			monsterDetection, magicDetection = false;
+	monsterDetection, magicDetection = false;
 	protected boolean identifyWandRing, identifyPotion, idenitfyWeapon, identifyArmor, foodDetection,
-			identifyScroll = false;
+	identifyScroll = false;
 	protected int gold, nexp, steps;
 	protected ArrayList<Item> items;
 	protected Inventory inventory;
 	private String narrationMessage = "";
-	private DiceRoller d;
 	private String hungerLevel;
 
 	public Player(String s) {
@@ -32,7 +31,6 @@ public class Player extends Unit {
 		this.hunger = this.maxHunger = 1000;
 		inventory = new Inventory();
 		items = new ArrayList<Item>();
-		d = new DiceRoller();
 		this.hungerLevel = "";
 	}
 
@@ -43,10 +41,10 @@ public class Player extends Unit {
 		Random r = new Random();
 		if (this.strength - 1 >= 1)
 		{
-		//this.strength--;
+			//do nothing
 		}
 		else {
-		this.strength = 1;
+			this.strength = 1;
 		}
 		return r.nextInt(this.strength);
 	}
@@ -92,7 +90,7 @@ public class Player extends Unit {
 			else {
 				this.maxHP += 1;
 				this.hp = this.maxHP;
-				
+
 			}
 			break;
 		case "Potions":
@@ -172,7 +170,7 @@ public class Player extends Unit {
 	public String pStats() {
 		return " Gold: " + this.gold +  " HP: " + this.hp + " (" + this.maxHP + ") " + " Str:" + this.strength + " (" + this.maxStrength + ")" + " Armor: " + this.armor + " Exp: " + this.level + "/" + this.xp + "  " + this.hungerLevel;
 	}
-	
+
 
 	/*
 	 * Hunger goes down too fast: this needs to be fixed
@@ -193,7 +191,7 @@ public class Player extends Unit {
 				levelUp();
 			hunger--;
 		}
-		
+
 		if (hunger > 250) {
 			this.hungerLevel = "";
 		} else if (hunger == 250) {

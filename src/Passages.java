@@ -1,4 +1,4 @@
-import java.util.concurrent.ThreadLocalRandom;
+
 
 /* Stolen Rogue C code
  * static struct rdes
@@ -22,18 +22,18 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Passages {
 	protected final int MAXROOMS = 9;
-	
+
 	class Rconn {
 		boolean[] conn, isconn;
 		boolean ingraph;
-		
+
 		public Rconn() {
 			conn = new boolean[MAXROOMS];		/* possible to connect to room i? */
 			isconn = new boolean[MAXROOMS];		/* connection been made to room i? */
 			ingraph = false;	 	/* this room in graph already? */
 		}
 	}
-	
+
 	public Passages(){
 		Rconn[] rdes = new Rconn[MAXROOMS];
 		/* Initialize Rooms able to Connect*/
@@ -47,8 +47,8 @@ public class Passages {
 		rdes[7].conn[4] = rdes[7].conn[6] = rdes[7].conn[8] = true;
 		rdes[8].conn[5] = rdes[8].conn[7] = true;
 	}
-	
+
 	public void makePass(char[] floor, Room[] rooms, boolean[] roombools){
-		
+
 	}
 }

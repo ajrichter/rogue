@@ -1,4 +1,3 @@
-import java.awt.Point;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -42,7 +41,7 @@ public class GamePlay {
 	}
 
 	public boolean checkWin() {
-		if (hasAmulet==true /*&& dungeon.currLevel==-1*/) {
+		if (hasAmulet==true) {
 			return true;
 		}
 		return false;
@@ -76,8 +75,8 @@ public class GamePlay {
 
 
 
-	
-	
+
+
 
 	public int move(int[] direction) {
 		int update=0;
@@ -97,7 +96,7 @@ public class GamePlay {
 					}
 					ascend();
 				} 
-				
+
 				else {
 					if(!hasAmulet && level.numLevel < level.numDungeons) {
 						descend();
@@ -118,7 +117,6 @@ public class GamePlay {
 				narration = level.narration;
 			} else if (x == 12) {
 				update = 12;
-				//narration = level.narration;
 				gameOver = true;
 			} else if (x == 26) {
 				update = 26;
@@ -136,7 +134,7 @@ public class GamePlay {
 	public void ascend(){
 		if(level.numLevel>0) {
 			this.level = dungeon.get(level.numLevel--);
-			
+
 		}
 	}
 
@@ -163,26 +161,4 @@ public class GamePlay {
 			e.printStackTrace();
 		}
 	}
-
-
-	/*public static void main(String[] args) {
-
-		GamePlay game = new GamePlay();
-		String[] dyingnoises = new String[4];
-		game.saveGame(dyingnoises); 
-
-		//creates needed instances
-		game.play = new Player();
-		game.view= new RougeView();
-		game.level= new Level(game.play);
-
-		//makes a board
-		view.updateBoard(game.level.getSeenFloor());
-		view.updateStats(game.play.playerStats());
-		view.nextTurn();
-
-		//makes controller
-		Controller c= new Controller("cat");
-		c.sendInfo(game,view);
-	}*/
 }

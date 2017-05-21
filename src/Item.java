@@ -1,20 +1,15 @@
 
 import java.awt.Point;
 
-/**
- * 
- * @author Harry Carpenter, hhcarpenter@knox.edu
- *
- */
 
 public class Item {
 
 	//Weapon Variables:
 	protected int weaponStrength = 0;
-	
+
 	//Ring Variables:
 	protected int ringStrength = 0;
-	
+
 	//Scroll Variables:
 	protected boolean identifyWandOrRing = false;
 	protected boolean identifyPotion = false;
@@ -35,7 +30,7 @@ public class Item {
 	protected boolean hasteSelf = false;
 	protected boolean monsterDetection = false; 
 	protected int potionStrength = 0;
-	
+
 	//Wand Variables:
 	protected boolean light = false;
 	protected boolean monsterHaste = false;
@@ -140,8 +135,8 @@ public class Item {
 	public int getHPFromRing() {
 		return this.hpFromRing;
 	}
-	
-	
+
+
 	public boolean monsterDetection() {
 		return this.monsterDetection;
 	}
@@ -250,15 +245,15 @@ public class Item {
 	public int getWeaponStrength() {
 		return weaponStrength;
 	}
-	
+
 	public int getRingStrength() {
 		return ringStrength;
 	}
-	
+
 	public int getWandStrength() {
 		return wandStrength;
 	}
-	
+
 	public int getPotionStrength() {
 		return potionStrength;
 	}
