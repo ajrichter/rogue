@@ -125,7 +125,7 @@ public class Level {
 		onStairs = false;
 
 		/* What we have been waiting for! */
-		if (numLevel == 2) {
+		if (numLevel == numDungeons) {
 			amulet = findS();
 			floor[amulet.y][amulet.x] = ',';
 			System.out.print("The Amulet has spawned at x = " + amulet.x + " y = " + amulet.y);
@@ -725,7 +725,7 @@ public class Level {
 	/**
 	 * check which room the unit is in
 	 */
-	private Rm getCurRoom(Unit u) {
+	protected Rm getCurRoom(Unit u) {
 		Point a = u.p;
 		for (int i = 0; i < rs.length; i++) {
 			if (rb[i] && a.x >= rs[i].x1 && a.x <= rs[i].x2 && a.y >= rs[i].y1 && a.y <= rs[i].y2) {
@@ -813,7 +813,7 @@ public class Level {
 		}
 	}
 
-	private void seeRm(Rm r) {
+	protected void seeRm(Rm r) {
 		for (int y = r.y1; y <= r.y2; y++) {
 			for (int x = r.x1; x <= r.x2; x++) {
 				isSeen[y][x] = true;

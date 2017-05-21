@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -92,18 +93,7 @@ public class GamePlay {
 					if (level.numLevel < level.numDungeons)
 					{
 						System.out.println("Reached!");
-						for (int i = 0; i < level.floor.length; i++) {
-							for (int j = 0; j < level.floor[i].length; j++) {
-								if (level.floor[i][j] == '.') {
-									level.floor[i][j] = '@';
-								}
-									
-						
-							}
-						}
-						
-						
-						level.inside = true;
+						update = 14;
 					}
 					ascend();
 				} 
