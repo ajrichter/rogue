@@ -76,6 +76,7 @@ public class GamePlay {
 		int update = 0;
 
 		if (!gameOver) {
+			System.out.println("Player wont move");
 			int x = level.moveUnit(level.play, direction);
 			if (x == 6) {
 				if (hasAmulet) {
@@ -84,10 +85,8 @@ public class GamePlay {
 						update = 14;
 					}
 					ascend();
-				}
-
-				else {
-					if (!hasAmulet && level.numLevel < level.numDungeons) {
+				} else {
+					if (level.numLevel < level.numDungeons) {
 						descend();
 					} else {
 						narration = "You've reached the last floor! Find the Amulet!";
@@ -98,11 +97,8 @@ public class GamePlay {
 				update = 1;
 				narration = level.narration;
 				narration2 = level.narration2;
-			} else if (x == 3) {
-				update = 3;
-				narration = level.narration;
-			} else if (x == 9) {
-				update = 9;
+			} else if (x == 3 || x == 9) {
+				update = x;
 				narration = level.narration;
 			} else if (x == 12) {
 				update = 12;
@@ -112,43 +108,29 @@ public class GamePlay {
 				narration = level.narration;
 				hasAmulet = true;
 			}
+			System.out.println("Monsters arent moving");
 			level.moveEnemy(direction);
+			System.out.println("ok they are");
 		}
-
 		return update;
 	}
 
-	/*
-	 * Player needs to get spawned And enemies recreated
-	 */
+	/* No No No! */
 	public void ascend() {
 		if (level.numLevel > 0) {
-			this.level = dungeon.get(level.numLevel--);
-
+			this.level = dungeon.get(level.numLevel - 1);
+			this.level.ascend(play);
 		}
 	}
 
-	/* Can't go down any further than L25 */
+	/* Can't go down any further than 25 */
 	public void descend() {
 		if (level.numLevel < 25) {
 			System.out.println("Going down " + level.numLevel);
+			level.removeP();
 			Level l = new Level(level.numLevel + 1, play);
 			dungeon.add(l);
 			this.level = l;
-		}
-	}
-
-	public void saveGame(String[] test) {
-		lines[0] += "i am testing";
-		lines[5] += "all of this a test";
-		List<String> thingy = Arrays.asList("Testing testing", "one two three");
-		Charset utf8 = StandardCharsets.UTF_8;
-
-		try {
-			Files.write(Paths.get("saveGame.txt"), thingy, utf8);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 }

@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Level {
 	protected final int MAXROOMS = 9;
-	protected final int numDungeons = 10;
+	protected final int numDungeons = 5;
 	protected int numLevel;
 	protected int numR;
 	/* Tells you what to put down after you leave a space */
@@ -21,8 +21,8 @@ public class Level {
 	protected String itemNames;
 	protected int itemX = 0;
 	protected int itemY = 0;
-	protected Point stairs;
 	protected final char STAIR = '%';
+	protected Point stairs;
 	protected final char AMULET = ',';
 	protected Point amulet;
 	private ArrayList<Enemy> enemies;
@@ -117,6 +117,22 @@ public class Level {
 		}
 	}
 
+	public void removeP() {
+		floor[play.p.y][play.p.y] = last;
+	}
+
+	public void ascend(Player pp) {
+		play = pp;
+		spawnP();
+		last = '.';
+		hits = 0;
+
+		narration = "";
+		narration2 = "";
+
+		onStairs = false;
+	}
+
 	/*
 	 * Connects all rooms
 	 */
@@ -125,21 +141,21 @@ public class Level {
 		for (int i = 0; i < MAXROOMS - 1; i++) {
 			if (i % 3 < 2 && rb[i] && rb[i + 1]) {
 				conn(i, i + 1, 'r');
-				connect[i] = connect[i+1] = true;
+				connect[i] = connect[i + 1] = true;
 			} else if (i % 3 == 0 && rb[i] && rb[i + 2]) {
 				conn(i, i + 2, 'r');
-				connect[i] = connect[i+2] = true; 
+				connect[i] = connect[i + 2] = true;
 			}
 			if (i / 3 < 2 && rb[i] && rb[i + 3]) {
 				conn(i, i + 3, 'd');
-				connect[i] = connect[i+3] = true;
+				connect[i] = connect[i + 3] = true;
 			} else if (i / 3 == 0 && rb[i] && rb[i + 6]) {
 				conn(i, i + 6, 'd');
-				connect[i] = connect[i+6] = true;
+				connect[i] = connect[i + 6] = true;
 			}
 		}
-		for(int i = 0; i < connect.length; i++){
-			if(connect[i])
+		for (int i = 0; i < connect.length; i++) {
+			if (connect[i])
 				rb[i] = true;
 			else
 				rb[i] = false;
@@ -282,8 +298,8 @@ public class Level {
 	 * Need to store the Item Point Public not protected
 	 */
 	private void makeItem() {
-		ArrayList <String> itemStrings = new ArrayList <String>();
-		for (Item i: items) {
+		ArrayList<String> itemStrings = new ArrayList<String>();
+		for (Item i : items) {
 			itemStrings.add(i.name);
 		}
 
@@ -418,7 +434,8 @@ public class Level {
 		return 5;
 	}
 
-	public void identifyScrollHelper(Item i, int count) { //Helper Method for Move Unit
+	public void identifyScrollHelper(Item i, int count) { // Helper Method for
+															// Move Unit
 		if (play.idenitfyWeapon == true && (i.getItemType().equalsIgnoreCase("Weapon"))) {
 			narration += i.getItemName() + " ";
 		}
@@ -444,18 +461,18 @@ public class Level {
 			narration += count;
 
 		}
-		if (count != play.items.size()-1) {
+		if (count != play.items.size() - 1) {
 			narration += ", ";
 		}
 	}
 
-
-	public boolean boundsCheck(Point a, int [] dir) { //Helper Method for MoveUnit
+	public boolean boundsCheck(Point a, int[] dir) { // Helper Method for
+														// MoveUnit
 		return ((a.x + dir[0]) < 0 || (a.y + dir[1]) < 0 || (a.y + dir[1]) > 23 || (a.x + dir[0]) > 79);
 	}
 
-
-	public void inventoryAction(char c, int [] dir, Point a) //Helper methord for moveUnit
+	public void inventoryAction(char c, int[] dir, Point a) // Helper methord
+															// for moveUnit
 	{
 		if (play.inventory.addItem(itemPos.get(c)) == false) {
 			narration = "Can't add item. Inventory is full.";
@@ -521,7 +538,6 @@ public class Level {
 			a.setLocation(a.x + dir[0], a.y + dir[1]);
 			floor[a.y][a.x] = '@';
 
-
 			// shows everything if room is not dark, shows surrounding area if
 			// it is dark
 			if (isInRoom(u) && !(getCurRoom(u).isDark)) {
@@ -553,17 +569,17 @@ public class Level {
 			narration = play.move();
 			if (isHungry()) {
 				return 9;
-			}
-			else
+			} else
 				return 0;
 		} else if (c == STAIR) {
 			onStairs = true;
 			if (numLevel < numDungeons) {
-				for (int i = 0; i < floor.length;i++) //Gets rid of @'s evil twin while going up
+				for (int i = 0; i < floor.length; i++) // Gets rid of @'s evil
+														// twin while going up
 				{
 					for (int j = 0; j < floor[i].length; j++) {
-						if (floor [i][j] == '@') {
-							floor [i][j] = '.';
+						if (floor[i][j] == '@') {
+							floor[i][j] = '.';
 						}
 					}
 
@@ -576,14 +592,12 @@ public class Level {
 		return 2;
 	}
 
-	private boolean isHungry() { //Helper Method for moveUnit
+	private boolean isHungry() { // Helper Method for moveUnit
 		return (narration.equalsIgnoreCase("You should probably stop by the Gizmo.")
 				|| narration.equals("You are starving!"));
 	}
 
-
-
-	private boolean foundGold(char c, Player u) //Helper Method for moveUnit
+	private boolean foundGold(char c, Player u) // Helper Method for moveUnit
 	{
 		if (c == '*' && getCurRoom(u).goldVal != 0) {
 			u.gold += getCurRoom(u).goldVal;
@@ -596,16 +610,11 @@ public class Level {
 			}
 
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 
-
 	}
-
-
-
 
 	private void identifyScrollHelper2(Item temp) {
 		if (play.idenitfyWeapon && (temp.getItemType().equalsIgnoreCase("Weapon"))) {
@@ -623,16 +632,11 @@ public class Level {
 		if (play.identifyArmor && (temp.getItemType().equalsIgnoreCase("Armor"))) {
 			narration += " You identified " + temp.getItemName();
 		}
-		if (play.identifyWandRing && (temp.getItemType().equalsIgnoreCase("Ring")
-				|| temp.getItemType().equalsIgnoreCase("Wand"))) {
+		if (play.identifyWandRing
+				&& (temp.getItemType().equalsIgnoreCase("Ring") || temp.getItemType().equalsIgnoreCase("Wand"))) {
 			narration += " You identified " + temp.getItemName();
 		}
 	}
-
-
-
-
-
 
 	/*
 	 * Error in GamePlay: need to have a String array So that we can have two
@@ -655,24 +659,20 @@ public class Level {
 			/* fight back */
 			Random r = new Random();
 			int armorLuck = 0;
-			if (play.armor >=1)
-			{
+			if (play.armor >= 1) {
 				armorLuck = r.nextInt(play.armor);
-			}
-			else {
+			} else {
 				play.armor = 1;
 				armorLuck = r.nextInt(play.armor);
 
 			}
 
 			int eatk = e.getDMG() - armorLuck;
-			if (eatk >= 1)
-			{
+			if (eatk >= 1) {
 
 				play.hp -= eatk;
 				play.armor -= 1;
-			}	
-			else {
+			} else {
 				eatk = 0;
 
 			}
@@ -687,7 +687,6 @@ public class Level {
 		e.chase = true;
 		return n;
 	}
-
 
 	private boolean validMove(char c) {
 		return (c == '.' || c == '#' || c == '+' || c == '*' || isItem(c));
@@ -724,7 +723,7 @@ public class Level {
 	}
 
 	/**
-	 * hides the floor unless it is within vision range of the player 
+	 * hides the floor unless it is within vision range of the player
 	 */
 	private void makeDark(Rm curRoom) {
 		for (int x = (curRoom.x1 + 1); x < curRoom.x2; x++) {
@@ -743,7 +742,7 @@ public class Level {
 			if (isSeen[a.y][a.x]) {
 				boolean seePlayer = false;
 				for (int j = 0; j < 3; j++) {
-					for(int k = 0; k < 3; k++) {
+					for (int k = 0; k < 3; k++) {
 						if (floor[a.y + j - 1][a.x + k - 1] == play.val) {
 							seePlayer = true;
 
@@ -751,9 +750,9 @@ public class Level {
 					}
 				}
 				if (seePlayer) {
-					//do nothing
-				} else if (isInRoom(play) && getCurRoom(play).equals(getCurRoom(enemies.get(i)))){
-					//do nothing
+					// do nothing
+				} else if (isInRoom(play) && getCurRoom(play).equals(getCurRoom(enemies.get(i)))) {
+					// do nothing
 				} else {
 					playerFloor[a.y][a.x] = enemies.get(i).lastChar;
 				}
@@ -809,8 +808,9 @@ public class Level {
 		}
 	}
 
-	public String stats(){
+	/* Accounts for 0 indexed dungeon array */
+	public String stats() {
 		int x = this.numLevel + 1;
-		return "Level: " +  x + play.pStats();
+		return "Level: " + x + play.pStats();
 	}
 }

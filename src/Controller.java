@@ -25,8 +25,8 @@ public class Controller extends JFrame implements KeyListener {
 		frame.setVisible(true);
 
 		// initialize variables
-		this.view = new RougeView(frame);
 		this.game = new GamePlay();
+		this.view = new RougeView(frame);		
 		view.updateBoard(game.level.getFloor());
 		view.nextTurn();
 	}
@@ -56,23 +56,9 @@ public class Controller extends JFrame implements KeyListener {
 		}
 
 		if (narration == false) {
-			System.out.println("Trying to move " + e);
-			// TODO
-			if (key == KeyEvent.VK_SLASH) {
-				// Tells what the next character you type is
-			} else if (e.isShiftDown() && key == KeyEvent.VK_PERIOD) {
-				System.out.println("Time to Descend The Stairs!");
-				// This should respawn you in a new level
-				if (game.level.onStairs) {
-					game.descend();
-				}
-				updateView(12);
-			} else if (e.isShiftDown() && key == KeyEvent.VK_COMMA) {
-				System.out.println("Time to Ascend The Stairs!");
-				// This should respawn you in a new level
-				game.ascend();
-				updateView(26);
-			} else if (key == KeyEvent.VK_H || key == KeyEvent.VK_LEFT) {
+			System.out.println("Trying to move");
+			
+			if (key == KeyEvent.VK_H || key == KeyEvent.VK_LEFT) {
 				int[] left = { -1, 0 };
 				int update = game.move(left);
 				updateView(update);
