@@ -10,7 +10,7 @@ public class Controller extends JFrame implements KeyListener {
 	public boolean narration;
 	private boolean equipItem = false;
 	private boolean dropItem = false;
-	private boolean nextNarration; //if there is a second narration in the series
+	private boolean nextNarration; // if there is a second narration
 	public boolean ascend = false;
 
 	public Controller(String s) {
@@ -40,14 +40,14 @@ public class Controller extends JFrame implements KeyListener {
 
 		if (key == KeyEvent.VK_SPACE) {
 			if (nextNarration == true) {
-				if(!game.narration2.equals("")) {
+				if (!game.narration2.equals("")) {
 					view.updateNaration(game.narration2);
 					narration = false;
 				} else {
 					narration = false;
 					view.updateNaration("");
 				}
-				nextNarration = false;	
+				nextNarration = false;
 			} else {
 				narration = false;
 				view.updateNaration("");
@@ -56,6 +56,7 @@ public class Controller extends JFrame implements KeyListener {
 		}
 
 		if (narration == false) {
+			System.out.println("Trying to move " + e);
 			// TODO
 			if (key == KeyEvent.VK_SLASH) {
 				// Tells what the next character you type is
@@ -107,80 +108,19 @@ public class Controller extends JFrame implements KeyListener {
 				int[] rightdown = { 1, -1 };
 				int update = game.move(rightdown);
 				updateView(update);
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_T) {
-				// Throws an object in the next specified direction
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_F) {
-				// Fights until someone dies
-				// Given a direction, fight the enemy in that direction
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_M) {
-				// Move onto something without picking it up
-				// must be given a direction after and only moves one step
-				// without picking it up
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_Z) {
-				// uses a wand or stave, but must be pointed in a direction
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_S) {
-				// searches for traps in all adjacent spots
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_GREATER) {
-				// climb up staircase
-			}
-
-			if (key == KeyEvent.VK_PERIOD) {
-				// rest, do nothing for the turn
+			} else if (key == KeyEvent.VK_PERIOD) {
+				/* Rest */
 				view.nextTurn();
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_COMMA) {
-				// pick up whatever you're standing on if you're standing on
-				// something
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_I) {
+			} else if (key == KeyEvent.VK_I) {
 				int update = game.printInventory();
 				updateView(update);
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_L) {
-				// Tells you what a single item in your inventory is
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_Q) {
-				// quaff one of the potions you're carrying
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_R) {
-				// read one of the scrolls in your inventory
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_E) {
+			} else if (key == KeyEvent.VK_E) {
 				equipItem = true;
+			} else if (key == KeyEvent.VK_D) {
+				dropItem = true;
 			}
 
 			if (equipItem == true) {
-
 				if (key == KeyEvent.VK_0) {
 					int update = game.equipOrConsumeItem(0);
 					updateView(update);
@@ -199,18 +139,7 @@ public class Controller extends JFrame implements KeyListener {
 				}
 			}
 
-			// TODO
-			if (key == KeyEvent.VK_W) {
-				// replace weapon you are carrying with weapon in your inventory
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_D) {
-				dropItem = true;
-			}
-
 			if (dropItem == true) {
-
 				if (key == KeyEvent.VK_0) {
 					int update = game.throwItem(0);
 					updateView(update);
@@ -227,41 +156,15 @@ public class Controller extends JFrame implements KeyListener {
 					int update = game.throwItem(4);
 					updateView(update);
 				}
-
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_C) {
-				// rename an item something
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_O) {
-				// print and allow changes to options
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_V) {
-				// print program version number
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_RIGHT_PARENTHESIS) {
-				// print current weapon name
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_BRACERIGHT) {
-				// print current armor name
-			}
-
-			// TODO
-			if (key == KeyEvent.VK_EQUALS) {
-				// print current rings names
 			}
 		}
-
+		/*
+		 * This is a perfect example of the M-V-C framework It is *concise* and
+		 * the Controller moderates between the View and Model.
+		 */
 		view.updateStats(game.level.stats());
+
+		System.out.println("KeyPress Finished");
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -269,11 +172,9 @@ public class Controller extends JFrame implements KeyListener {
 
 	public void updateView(int update) {
 		if (update == 14) {
-			game.dungeon.get(game.level.numDungeons-1).spawnP();
+			game.dungeon.get(game.level.numDungeons - 1).spawnP();
 
 		}
-
-
 
 		if (update == 12) {
 			view.lose();
@@ -287,7 +188,8 @@ public class Controller extends JFrame implements KeyListener {
 			this.dropItem = false;
 			this.equipItem = false;
 
-			if (update == 1 || update == 5 || update == 6 || update == 7 || update == 9 || update == 10 || update == 26) {
+			if (update == 1 || update == 5 || update == 6 || update == 7 || update == 9 || update == 10
+					|| update == 26) {
 				narration = true;
 			}
 
@@ -299,20 +201,13 @@ public class Controller extends JFrame implements KeyListener {
 		}
 		view.updateBoard(game.level.getFloor());
 		view.nextTurn();
+		System.out.println("View updated");
 	}
-
-
-
-
 
 	public static void main(String[] args) {
 		Controller control = new Controller("Rogue");
-
-		// makes a board
 		control.view.updateBoard(control.game.level.getFloor());
 		control.view.updateStats(control.game.level.stats());
 		control.view.nextTurn();
-
-		// makes controller
 	}
 }
