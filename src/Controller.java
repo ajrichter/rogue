@@ -81,7 +81,7 @@ public class Controller extends JFrame implements KeyListener {
 				System.out.println("Time to Ascend The Stairs!");
 				// This should respawn you in a new level
 				game.ascend();
-				updateView(12);
+				updateView(26);
 			} else if (key == KeyEvent.VK_H || key == KeyEvent.VK_LEFT) {
 				int[] left = { -1, 0 };
 				int update = game.move(left);
@@ -286,11 +286,11 @@ public class Controller extends JFrame implements KeyListener {
 			view.win();
 		}
 		if (update == 9 || update == 1 || update == 3 || update == 4 || update == 5 || update == 6 || update == 7
-				|| update == 10) {
+				|| update == 10 || update == 26) {
 			view.updateNaration(game.narration);
 			this.dropItem = false;
 			this.equipItem = false;
-			if (update == 1 || update == 5 || update == 6 || update == 7 || update == 9 || update == 10) {
+			if (update == 1 || update == 5 || update == 6 || update == 7 || update == 9 || update == 10 || update == 26) {
 				narration = true;
 			}
 			if (update == 1) {

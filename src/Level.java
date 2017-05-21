@@ -33,7 +33,8 @@ public class Level {
 	protected Point amulet;
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Item> items;
-
+	
+	
 	/*
 	 * This is a bad way to do it. Could be a map from Point to integer i.e. the
 	 * points map to the index in the arraylist of items But, how can you remove
@@ -123,13 +124,16 @@ public class Level {
 		onStairs = false;
 
 		/* What we have been waiting for! */
-		if (numLevel == 25) {
+		if (numLevel == 2) {
 			amulet = findS();
-			floor[amulet.y][amulet.x] = AMULET;
-			//System.out.print("The Amulet has spawned at x = " + amulet.x + " y = " + amulet.y);
+			floor[amulet.y][amulet.x] = ',';
+			System.out.print("The Amulet has spawned at x = " + amulet.x + " y = " + amulet.y);
 		}
 	}
 
+	
+	
+	
 	/*
 	 * Connects all rooms
 	 */
@@ -243,7 +247,7 @@ public class Level {
 		}
 	}
 
-	private void spawnP() {
+	protected void spawnP() {
 		play.p = findS();
 		floor[play.p.y][play.p.x] = play.val;
 		inside = true;
@@ -494,9 +498,11 @@ public class Level {
 		}
 
 		if (c == AMULET) {
+			narration = "";
 			floor[a.y + dir[1]][a.x + dir[0]] = '@';
 			floor[a.y][a.x] = last;
 			u.p = new Point(a.x + dir[0], a.y + dir[1]);
+			narration = "You collected the Amulet!";
 			last = '.';
 			return 26;
 		} else if (Character.isLetter(c)) {

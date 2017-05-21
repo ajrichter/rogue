@@ -88,11 +88,15 @@ public class GamePlay {
 			if(x==6){
 				if(hasAmulet) {
 					ascend();
+				if (level.numLevel < 1) {	
+					level.spawnP();
+				}
 				} else {
-					if(!hasAmulet && level.numLevel < 25) {
+					if(!hasAmulet && level.numLevel < 2) {
 						descend();
 					} else {
-						System.out.println("You've reached the last floor! Find the Amulet!");
+						narration = "You've reached the last floor! Find the Amulet!";
+						update = 6;
 					}
 				}
 			} else if(x==1){
@@ -110,6 +114,8 @@ public class GamePlay {
 				//narration = level.narration;
 				gameOver = true;
 			} else if (x == 26) {
+				update = 26;
+				narration= level.narration;
 				hasAmulet = true;
 			} 
 			level.moveEnemy(direction);
@@ -123,6 +129,7 @@ public class GamePlay {
 	public void ascend(){
 		if(level.numLevel>0) {
 			this.level = dungeon.get(level.numLevel--);
+			
 		}
 	}
 
