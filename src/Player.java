@@ -186,8 +186,10 @@ public class Player extends Unit {
 				levelUp();
 			hunger--;
 		}
-
-		if (hunger == 250) {
+		
+		if (hunger > 250) {
+			this.hungerLevel = "";
+		} else if (hunger == 250) {
 			narrationMessage = "You should probably stop by the Gizmo.";
 			this.hungerLevel = "Hungry";
 		} else if (hunger == 100) {
