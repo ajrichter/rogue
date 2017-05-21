@@ -766,7 +766,7 @@ public class Level {
 	protected void moveEnemy(int[] previous) {
 		for (Enemy e : enemies) {
 			int x1, x2, y1, y2;
-			char c = '.';
+			char c = '|';
 			x1 = x2 = e.p.x;
 			y1 = y2 = e.p.y;
 			if (e.chase) {
@@ -774,9 +774,12 @@ public class Level {
 				x2 = play.p.x - previous[0];
 				y2 = play.p.y - previous[1];
 			} else if (ThreadLocalRandom.current().nextBoolean()) {
-				/* Otherwise move randomly. 50% chance. */
-				c = '|';
-				while (!validMove(c)) {
+				/*
+				 * Otherwise move randomly. 50% chance. int[] leftdown = { -1,
+				 * -1 };
+				 */
+				int tries = 0;
+				while (tries < 9 && !validMove(c)) {
 					int move = 1;
 					if (ThreadLocalRandom.current().nextBoolean())
 						move = -1;
@@ -788,10 +791,11 @@ public class Level {
 						y2 = e.p.y + move;
 					}
 					c = floor[y2][x2];
+					tries++;
 				}
 			}
 
-			if (!e.fight && e.type.contains('M')) {
+			if (validMove(c) && !e.fight && e.type.contains('M')) {
 				floor[y1][x1] = e.lastChar;
 				e.lastChar = floor[y2][x2];
 				e.p.setLocation(x2, y2);
