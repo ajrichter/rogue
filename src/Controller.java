@@ -22,7 +22,8 @@ public class Controller extends JFrame implements KeyListener {
 	private boolean equipItem = false;
 	private boolean dropItem = false;
 	private boolean nextNarration; //if there is a second narration in the series
-
+	public boolean ascend = false;
+	
 	public Controller(String s) {
 		super(s);
 
@@ -290,9 +291,11 @@ public class Controller extends JFrame implements KeyListener {
 			view.updateNaration(game.narration);
 			this.dropItem = false;
 			this.equipItem = false;
+			
 			if (update == 1 || update == 5 || update == 6 || update == 7 || update == 9 || update == 10 || update == 26) {
 				narration = true;
 			}
+		
 			if (update == 1) {
 				nextNarration = true;
 			}

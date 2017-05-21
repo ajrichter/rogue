@@ -86,7 +86,14 @@ public class Player extends Unit {
 				this.strength = this.maxStrength;
 			}
 			this.gold += item.gold;
-			this.hp += item.getHPFromRing();
+			if (this.hp + item.getHPFromRing() < this.maxHP) {
+				this.hp += item.getHPFromRing();
+			}
+			else {
+				this.maxHP += 1;
+				this.hp = this.maxHP;
+				
+			}
 			break;
 		case "Potions":
 			if (item.getExtraHealing() || item.getHealing()) {
@@ -95,13 +102,13 @@ public class Player extends Unit {
 				} else {
 					if (item.getHealing()) {
 						this.maxHP++;
+						this.hp = this.maxHP;
 					}
-					if (item.getHealing()) {
+					if (item.getExtraHealing()) {
 						DiceRoller dice = new DiceRoller();
 						this.maxHP += dice.rollDie(2);
+						this.hp = this.maxHP;
 					}
-
-					this.hp = this.maxHP;
 				}
 			}
 

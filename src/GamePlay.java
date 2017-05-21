@@ -17,7 +17,6 @@ public class GamePlay {
 	private String[] lines = new String[10];
 	String narration;
 	String narration2;
-
 	public GamePlay() {
 		String s = "John Dooley";
 		switch (ThreadLocalRandom.current().nextInt(0, 4 + 1)) {
@@ -76,6 +75,9 @@ public class GamePlay {
 
 
 
+	
+	
+
 	public int move(int[] direction) {
 		int update=0;
 
@@ -87,12 +89,27 @@ public class GamePlay {
 			int x=level.moveUnit(level.play, direction);
 			if(x==6){
 				if(hasAmulet) {
+					if (level.numLevel < level.numDungeons)
+					{
+						System.out.println("Reached!");
+						for (int i = 0; i < level.floor.length; i++) {
+							for (int j = 0; j < level.floor[i].length; j++) {
+								if (level.floor[i][j] == '.') {
+									level.floor[i][j] = '@';
+								}
+									
+						
+							}
+						}
+						
+						
+						level.inside = true;
+					}
 					ascend();
-				if (level.numLevel < 1) {	
-					level.spawnP();
-				}
-				} else {
-					if(!hasAmulet && level.numLevel < 2) {
+				} 
+				
+				else {
+					if(!hasAmulet && level.numLevel < level.numDungeons) {
 						descend();
 					} else {
 						narration = "You've reached the last floor! Find the Amulet!";

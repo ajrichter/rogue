@@ -14,6 +14,7 @@ import java.util.Random;
 
 public class Level {
 	protected final int MAXROOMS = 9;
+	protected final int numDungeons = 2;
 	protected int numLevel;
 	protected int numR;
 	/* Tells you what to put down after you leave a space */
@@ -268,7 +269,7 @@ public class Level {
 	/*
 	 * Finds a random empty square inside a room
 	 */
-	private Point findS() {
+	protected Point findS() {
 		Point rd = new Point();
 		/* Find a room that exists */
 		int roomN = ThreadLocalRandom.current().nextInt(0, 8 + 1);
@@ -447,8 +448,9 @@ public class Level {
 		}
 	
 		else {
-			narration += count + " ";
-			narration += i.typeItem;
+			narration += i.typeItem + " ";
+			narration += count;
+			
 		}
 		if (count != play.items.size()-1) {
 			narration += ", ";
@@ -465,8 +467,10 @@ public class Level {
 	{
 		if (play.inventory.addItem(itemPos.get(c)) == false) {
 			narration = "Can't add item. Inventory is full.";
-			narration += " The item vanishes because of your greed.";
-			floor[a.y + dir[1]][a.x + dir[0]] = '.';
+			floor[a.y][a.x] = last;
+			last = c;
+			a.setLocation(a.x + dir[0], a.y + dir[1]);
+			floor[a.y][a.x] = '@';
 		} else {
 			Item temp = itemPos.get(c);
 			narration = "You" + " " + itemPos.get(c).getPickUpMessage();
@@ -475,10 +479,7 @@ public class Level {
 			floor[a.y + dir[1]][a.x + dir[0]] = '.';
 		}
 	}
-	
 
-	
-	
 	/*
 	 * Return Narration String Returns: 0 = moved 1 = fighting 2 = cant move
 	 * Call new method moveAllMonsters();
@@ -565,6 +566,18 @@ public class Level {
 				return 0;
 		} else if (c == STAIR) {
 			onStairs = true;
+			if (numLevel < numDungeons) {
+			for (int i = 0; i < floor.length;i++) //Gets rid of @'s evil twin while going up
+			{
+				for (int j = 0; j < floor[i].length; j++) {
+					if (floor [i][j] == '@') {
+						floor [i][j] = '.';
+					}
+				}
+				
+			}
+			}
+			
 			return 6;
 		}
 
