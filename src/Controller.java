@@ -1,16 +1,9 @@
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-
-
 import javax.swing.JFrame;
 
-
-
 public class Controller extends JFrame implements KeyListener {
-
-
 	private GamePlay game;
 	private RougeView view;
 	public static JFrame frame;

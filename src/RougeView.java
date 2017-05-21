@@ -27,7 +27,7 @@ public class RougeView {
 		view.naration=nat;
 	}
 
-	//procceeds after all information has been gathered
+	//proceeds after all information has been gathered
 	public void nextTurn(){
 		frame.repaint();
 	}

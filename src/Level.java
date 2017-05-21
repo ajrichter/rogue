@@ -1,10 +1,3 @@
-
-/*
- * Needs to get refactored a lot!
- * Working on move still...
- * Enemy/Player are ready for fight 
- */
-
 import java.util.concurrent.ThreadLocalRandom;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -14,7 +7,7 @@ import java.util.Random;
 
 public class Level {
 	protected final int MAXROOMS = 9;
-	protected final int numDungeons = 2;
+	protected final int numDungeons = 10;
 	protected int numLevel;
 	protected int numR;
 	/* Tells you what to put down after you leave a space */
@@ -34,15 +27,7 @@ public class Level {
 	protected Point amulet;
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Item> items;
-
-
-	/*
-	 * This is a bad way to do it. Could be a map from Point to integer i.e. the
-	 * points map to the index in the arraylist of items But, how can you remove
-	 * it from the items arraylist if you have it in a separate map?
-	 */
 	private Map<Character, Item> itemPos; // Maps each item to an item Position
-
 	protected Player play;
 	protected int hits;
 	protected String narration;
@@ -72,7 +57,7 @@ public class Level {
 	}
 
 	public Level(int nL, Player pp) {
-		// starts at 0 so at 25 should find the amulet
+		// starts at 0 so amulet is on 25
 		numLevel = nL;
 		numR = ThreadLocalRandom.current().nextInt(5, 8 + 1);
 		isSeen = new boolean[24][80];
@@ -132,24 +117,32 @@ public class Level {
 		}
 	}
 
-
-
-
 	/*
 	 * Connects all rooms
 	 */
 	private void doors() {
+		boolean[] connect = new boolean[9];
 		for (int i = 0; i < MAXROOMS - 1; i++) {
 			if (i % 3 < 2 && rb[i] && rb[i + 1]) {
 				conn(i, i + 1, 'r');
+				connect[i] = connect[i+1] = true;
 			} else if (i % 3 == 0 && rb[i] && rb[i + 2]) {
 				conn(i, i + 2, 'r');
+				connect[i] = connect[i+2] = true; 
 			}
 			if (i / 3 < 2 && rb[i] && rb[i + 3]) {
 				conn(i, i + 3, 'd');
+				connect[i] = connect[i+3] = true;
 			} else if (i / 3 == 0 && rb[i] && rb[i + 6]) {
 				conn(i, i + 6, 'd');
+				connect[i] = connect[i+6] = true;
 			}
+		}
+		for(int i = 0; i < connect.length; i++){
+			if(connect[i])
+				rb[i] = true;
+			else
+				rb[i] = false;
 		}
 	}
 
@@ -231,7 +224,7 @@ public class Level {
 
 		// 50% chance of spawning
 		for (int i = 0; i < rs.length; i++) {
-			if (ThreadLocalRandom.current().nextInt(0, 1 + 1) == 0 && rb[i]) {
+			if (ThreadLocalRandom.current().nextBoolean() && rb[i]) {
 				// random gold value
 				rs[i].goldVal = ThreadLocalRandom.current().nextInt(1, 50 + 1);
 
@@ -262,7 +255,6 @@ public class Level {
 					isSeen[(play.p.y) + i - 1][(play.p.x) + j - 1] = true;
 				}
 			}
-
 		}
 	}
 
@@ -647,10 +639,6 @@ public class Level {
 	 * narrations to space through
 	 */
 	public String fight(Enemy e) {
-		/*
-		 * Player attacks Then Enemy Then update narration? Then remove enemy
-		 * from enemies or DIE! check if enemy is in Room or not
-		 */
 		play.fight = e.fight = true;
 		String n = "";
 		int patk = play.attack();
