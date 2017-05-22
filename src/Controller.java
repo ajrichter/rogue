@@ -161,6 +161,7 @@ public class Controller extends JFrame implements KeyListener {
 			view.lose();
 		}
 		if (game.level.numLevel == 0 && game.hasAmulet) {
+			view.gold(game.play.gold);
 			view.win();
 		}
 		if (update == 9 || update == 1 || update == 3 || update == 4 || update == 5 || update == 6 || update == 7

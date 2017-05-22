@@ -39,6 +39,10 @@ public class RougeView {
 	public void lose() {
 		view.lose = true;
 	}
+	
+	public void gold(int g) {
+		view.gold = g;
+	}
 
 	public void playSong() {
 		try {
@@ -85,6 +89,7 @@ public class RougeView {
 		protected boolean showInventory; // if the board is showing inventory
 		protected boolean win = false;
 		protected boolean lose = false;
+		protected int gold = 0;
 
 		// Paints the Jframe with different narration, board, and stats
 		public void paintComponent(Graphics gr) {
@@ -120,7 +125,7 @@ public class RougeView {
 			}
 			if (win) {
 				gr.setFont(new Font("TimesRoman", Font.PLAIN, 26));
-				gr.drawString("You won!!", 0, 25);
+				gr.drawString("You won! Total Gold Collected: " + gold + ".", 0, 25);
 			}
 			if (lose) {
 				gr.setFont(new Font("Courier", Font.PLAIN, 26));
