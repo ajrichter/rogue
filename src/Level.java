@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Level {
 	protected final int MAXROOMS = 9;
-	protected final int numDungeons = 5;
+	protected final int numDungeons = 3;
 	protected int numLevel;
 	protected int numR;
 	/* Tells you what to put down after you leave a space */
@@ -113,17 +113,30 @@ public class Level {
 		if (numLevel == numDungeons) {
 			amulet = findS();
 			floor[amulet.y][amulet.x] = ',';
-			System.out.print("The Amulet has spawned at x = " + amulet.x + " y = " + amulet.y);
+			System.out.println("The Amulet has spawned at x = " + amulet.x + " y = " + amulet.y);
 		}
 	}
 
 	public void removeP() {
-		floor[play.p.y][play.p.y] = last;
+		for (int y = 0; y < floor.length; y++) {
+			for (int x = 0; x < floor[y].length; x++) {
+				if (floor[y][x] == play.val)
+					floor[y][x] = '.';
+			}
+		}
 	}
 
 	public void ascend(Player pp) {
+		for (int y = 0; y < floor.length; y++) {
+			for (int x = 0; x < floor[y].length; x++) {
+				if (floor[y][x] == '@')
+					floor[y][x] = '.';
+			}
+		}
+
 		play = pp;
 		spawnP();
+		seeRm(getCurRoom(play));
 		last = '.';
 		hits = 0;
 
@@ -523,9 +536,8 @@ public class Level {
 				}
 			}
 
-			if (u.dead) {
+			if (u.dead)
 				return 12;
-			}
 			return 1;
 		} else if (validMove(c)) {
 			if (isItem(c)) {

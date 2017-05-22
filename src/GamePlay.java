@@ -1,11 +1,4 @@
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GamePlay {
@@ -14,7 +7,6 @@ public class GamePlay {
 	Player play;
 	ArrayList<Level> dungeon;
 	Level level;
-	private String[] lines = new String[10];
 	String narration;
 	String narration2;
 
@@ -115,11 +107,11 @@ public class GamePlay {
 		return update;
 	}
 
-	/* No No No! */
 	public void ascend() {
 		if (level.numLevel > 0) {
-			this.level = dungeon.get(level.numLevel - 1);
-			this.level.ascend(play);
+			Level l = dungeon.get(level.numLevel - 1); 
+			l.ascend(play);
+			this.level = l;
 		}
 	}
 
@@ -127,7 +119,6 @@ public class GamePlay {
 	public void descend() {
 		if (level.numLevel < 25) {
 			System.out.println("Going down " + level.numLevel);
-			level.removeP();
 			Level l = new Level(level.numLevel + 1, play);
 			dungeon.add(l);
 			this.level = l;
