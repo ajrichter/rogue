@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Level {
 	protected final int MAXROOMS = 9;
-	protected final int numDungeons = 3;
+	protected final int numDungeons = 4;
 	protected int numLevel;
 	protected int numR;
 	/* Tells you what to put down after you leave a space */

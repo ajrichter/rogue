@@ -72,10 +72,6 @@ public class GamePlay {
 			int x = level.moveUnit(level.play, direction);
 			if (x == 6) {
 				if (hasAmulet) {
-					if (level.numLevel < level.numDungeons) {
-						System.out.println("Reached!");
-						update = 14;
-					}
 					ascend();
 				} else {
 					if (level.numLevel < level.numDungeons) {

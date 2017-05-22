@@ -157,11 +157,6 @@ public class Controller extends JFrame implements KeyListener {
 	}
 
 	public void updateView(int update) {
-		if (update == 14) {
-			game.dungeon.get(game.level.numDungeons - 1).spawnP();
-
-		}
-
 		if (update == 12) {
 			view.lose();
 		}
