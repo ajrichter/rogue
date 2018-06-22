@@ -13,10 +13,8 @@ Sprints | Tasks
 7 | Enemy Visibility
 8 | Fight and Narration
 9 | Bug Fixing
-10 | Presentation and  
+10 | Presentation
 
 Bugs:
 - [ ] Stairs
-- [ ] 
-- [x] this is a complete item
-- [ ] this is an incomplete item
+- [x] 
