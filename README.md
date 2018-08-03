@@ -16,5 +16,4 @@ Sprints | Tasks
 10 | Presentation
 
 Bugs:
-- [ ] Stairs
-- [x] 
+- [ ] Going Up Stairs
